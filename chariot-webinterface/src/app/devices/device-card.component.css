@@ -1,0 +1,83 @@
+.device-card-base {
+  position: relative;
+  margin: 8px auto 8px auto;
+
+  background-color: #FFFFFF;
+  border: 2px solid #2972E6;
+  border-radius: 4px;
+  width: 280px;
+  height: 75px;
+}
+
+.device-card-base > .switch-small {
+  position: absolute;
+  display: inline-block;
+  right: 12px;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.device-card-oval {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  left: 12px;
+
+  background-color: #2972E6;
+  border-radius: 100%;
+  width: 34px;
+  height: 34px;
+}
+
+.device-card-indicator.invisible {
+  display: none;
+}
+
+.device-card-indicator  {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+
+  background-color: #D63649;
+  border: 2px solid #FFFFFF;
+  border-radius: 100%;
+  width: 9px;
+  height: 9px;
+}
+
+.device-card-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.device-card-name {
+  position: absolute;
+  top: 24px;
+  left: 60px;
+
+  margin: 0px 0px 0px 0px;
+
+  color: #2E384D;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+}
+
+.device-card-consumption {
+  position: absolute;
+  top: 39px;
+  left: 60px;
+
+  margin: 0px 0px 0px 0px;
+
+  color: #8798AD;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
