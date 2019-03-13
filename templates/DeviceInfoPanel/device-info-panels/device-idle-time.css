@@ -1,0 +1,35 @@
+#device-panel-idle-time {
+    flex: 29%;
+    height: 200px;
+}
+
+#device-panel-idle-time > #wrap {
+    position: absolute;
+    top: 20%;
+    left: 24px;
+    color: #2E384D;
+    font-family: Rubik;
+    letter-spacing: -0.6px;
+    text-align: left;
+    font-weight: 400;
+}
+
+#device-panel-idle-time > #wrap > #time {
+    font-size: 48px;
+}
+
+#device-panel-idle-time > #wrap > #unit {
+    font-size: 28px;
+}
+
+#device-panel-idle-time > #percentage {
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    color: #33AC2E;
+    font-family: Rubik;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+}
