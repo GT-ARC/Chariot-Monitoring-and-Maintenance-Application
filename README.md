@@ -11,7 +11,7 @@ See angular dev quick tutorial section for project structure?
 ├── Assets
 │   ├── Icons
 │   └── RubikFont
-├── chariot-webinterface
+├── chariot-webinterface <-------- everything is here, forget other dirs
 │   ├── angular.json
 │   ├── chariot-webinterface.iml
 │   ├── e2e
