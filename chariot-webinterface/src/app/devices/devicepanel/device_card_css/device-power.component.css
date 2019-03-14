@@ -4,31 +4,19 @@
     margin-right: 16px;
 }
 
-#device-panel-power > #power {
-    position: absolute;
-    top: 39%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #2E384D;
-    font-family: Rubik;
-    font-size: 48px;
-    font-weight: 300;
-    letter-spacing: -0.6px;
-    line-height: 58px;
-    text-align: center;
+
+
+ngx-gauge {
+  font-family: 'Rubik-Light', 'arial', sans-serif;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#device-panel-power > .unit {
-    position: absolute;
-    top: 76%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #8798AD;
-    font-family: Rubik;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 1.21px;
-    line-height: 16px;
-    width: 81.35px;
-    text-align: center;
+ngx-gauge-label {
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
 }

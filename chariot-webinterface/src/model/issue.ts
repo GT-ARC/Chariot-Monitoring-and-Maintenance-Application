@@ -3,7 +3,7 @@ export class Issue {
 
   description: string;
 
-  issue_date: Date;
+  issue_date: number;
 
   importance: number;
 }

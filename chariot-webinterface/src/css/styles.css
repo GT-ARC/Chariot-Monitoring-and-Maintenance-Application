@@ -6,13 +6,13 @@
   font-family: Rubik, 'arial', sans-serif;
 }
 
-html{
-
-  position:relative;
+html, body {
+  height: 100%;
 }
 
 body {
+  position:relative;
+  width: 100%;
   margin: 0;
-  height: 100vh;
   background-color: #F4F6FC;
 }

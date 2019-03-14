@@ -1,17 +1,26 @@
 <div id="device-panel-wrapper">
   <div id="device-panel-on-off-card" class="device-panel-card">
     <p class="device-panel-title">Switch On/Off</p>
-    <p>OFF</p>
+    <p id="off">OFF</p>
     <label class="switch-big">
       <input type="checkbox">
       <span class="slider round"></span>
     </label>
-    <p>ON</p>
+    <p id="on">ON</p>
   </div>
   <div id="device-panel-power" class="device-panel-card">
     <p class="device-panel-title">Power</p>
-    <p id="power">3,4</p>
-    <p class="unit">KW</p>
+    <ngx-gauge [type]="gaugeType"
+               [value]="gaugeValue"
+               [label]="gaugeLabel"
+               [size]="160"
+               [foregroundColor] = 'gaugeColor'
+               [thick]="gaugeThick"
+               [cap]="gaugeCap">
+      <ngx-gauge-label>KW</ngx-gauge-label>
+    </ngx-gauge>
+    <!--<p id="power">3,4</p>-->
+    <!--<p class="unit">KW</p>-->
   </div>
   <div id="device-panel-idle-time" class="device-panel-card">
     <p class="device-panel-title">Daily Idle Time</p>

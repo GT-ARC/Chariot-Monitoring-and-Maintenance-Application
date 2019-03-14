@@ -1,47 +1,86 @@
-<aside id="device-list">
-
-  <div id="device-list-head">
+<div id="style-wrapper">
+  <aside id="floor-list" class="list">
+    <div class="list-head">
     <span class="search">
-      <mat-icon>search</mat-icon>
+      <mat-icon class="search-field-symbol">search</mat-icon>
       <input type="text" name="device-list-search" placeholder="Search">
     </span>
-    <mat-icon>sort</mat-icon>
-  </div>
+      <mat-icon class="map-symbol">map</mat-icon>
+      <mat-icon class="sort-symbol">sort</mat-icon>
+    </div>
+    <div id="floor-list-second-head" class="second-head">
+      <label class="checkbox-label">ALL
+        <input type="checkbox" name="sel_name">
+        <span class="checkmark"></span>
+      </label>
+    </div>
 
-  <div id="device-list-qstate-change">
-    <p>ALL</p>
-    <label class="switch-small">
-      <input type="checkbox">
-      <span class="slider round"></span>
-    </label>
-  </div>
-
-  <div id="device-list-wrapper">
-    <div class="deviceCard device-card-base">
-      <div class="device-card-oval">
-        <div class="device-card-indicator"></div>
-        <i class="material-icons device-card-icon">devices</i>
+    <div id="floor-list-wrapper">
+      <div class="floor-entry" *ngFor="let floor of floors">
+        <div class="floor">
+          <label class="checkbox-label">{{floor.name}}
+            <input type="checkbox" name="sel_name">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="room"
+             *ngFor="let loc of floor.locations"
+             [ngClass]="selectedLocation.indexOf(loc.identifier) >= 0 ? 'checked' : ''">
+          <label class="checkbox-label">{{loc.name}}
+            <input type="checkbox" name="sel_name"
+                   (change)="locationSelected(loc)">
+            <span class="checkmark"></span>
+          </label>
+        </div>
       </div>
-      <p class="device-card-name">Device name</p>
-      <p class="device-card-consumption">3.4 kW</p>
+    </div>
+  </aside>
+
+  <aside id="device-list" class="list">
+
+    <div class="list-head">
+    <span class="search">
+      <mat-icon class="search-field-symbol">search</mat-icon>
+      <input type="text" name="device-list-search" placeholder="Search">
+    </span>
+      <mat-icon class="sort-symbol">sort</mat-icon>
+    </div>
+
+    <div id="device-list-second-head" class="second-head">
+      <p>ALL</p>
       <label class="switch-small">
         <input type="checkbox">
         <span class="slider round"></span>
       </label>
     </div>
 
-    <div class="deviceCard device-card-base">
-      <div class="device-card-oval">
-        <div class="device-card-indicator invisible"></div>
-        <i class="material-icons device-card-icon">devices</i>
+    <div id="device-list-wrapper">
+      <div class="deviceCard device-card-base selected">
+        <div class="device-card-oval">
+          <div class="device-card-indicator"></div>
+          <i class="material-icons device-card-icon">devices</i>
+        </div>
+        <p class="device-card-name">Device name</p>
+        <p class="device-card-consumption">3.4 kW</p>
+        <label class="switch-small">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
       </div>
-      <p class="device-card-name">Device name</p>
-      <p class="device-card-consumption">3.4 kW</p>
-      <label class="switch-small">
-        <input type="checkbox">
-        <span class="slider round"></span>
-      </label>
+
+      <div class="deviceCard device-card-base">
+        <div class="device-card-oval">
+          <div class="device-card-indicator invisible"></div>
+          <i class="material-icons device-card-icon">devices</i>
+        </div>
+        <p class="device-card-name">Device name</p>
+        <p class="device-card-consumption">3.4 kW</p>
+        <label class="switch-small">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
-  </div>
-</aside>
-<app-devicepanel></app-devicepanel>
+  </aside>
+  <app-devicepanel></app-devicepanel>
+</div>

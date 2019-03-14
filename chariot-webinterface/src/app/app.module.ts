@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { MatIconModule } from "@angular/material/icon";
 
+import { NgxGaugeModule } from 'ngx-gauge';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DevicesComponent } from './devices/devices.component';
 import { DevicepanelComponent } from './devices/devicepanel/devicepanel.component';
@@ -28,7 +30,8 @@ import { SettingsComponent } from './settings/settings.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatIconModule
+    MatIconModule,
+    NgxGaugeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

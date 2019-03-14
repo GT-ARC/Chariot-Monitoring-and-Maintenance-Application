@@ -1,10 +1,11 @@
 #device-panel-wrapper {
   position: relative;
+  float: left;
+
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-content: center;
-  background-color: #F1F3FC;
   width: 900px;
   left: 32px;
 }
@@ -15,6 +16,9 @@
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 1px;
   margin-top: 16px;
+  -webkit-box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+  -moz-box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+  box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
 }
 
 .device-panel-title {

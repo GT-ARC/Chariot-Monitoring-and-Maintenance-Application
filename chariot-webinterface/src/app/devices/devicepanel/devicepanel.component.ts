@@ -14,6 +14,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevicepanelComponent implements OnInit {
 
+  gaugeType = "arch";
+  gaugeValue = 34;
+  gaugeLabel = "kw";
+  gaugeColor = "rgba(41, 114, 230, 1)";
+  gaugeThick = 10;
+  gaugeCap = "butt";
+
   constructor() { }
 
   ngOnInit() {

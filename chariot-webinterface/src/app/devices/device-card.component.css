@@ -3,10 +3,16 @@
   margin: 8px auto 8px auto;
 
   background-color: #FFFFFF;
-  border: 2px solid #2972E6;
   border-radius: 4px;
   width: 280px;
   height: 75px;
+}
+
+.deviceCard.device-card-base.selected {
+  border: 2px solid #2972E6;
+  -webkit-box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+  box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
 }
 
 .device-card-base > .switch-small {
