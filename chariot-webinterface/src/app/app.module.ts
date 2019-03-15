@@ -31,7 +31,7 @@ import { SettingsComponent } from './settings/settings.component';
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
-    NgxGaugeModule
+    NgxGaugeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

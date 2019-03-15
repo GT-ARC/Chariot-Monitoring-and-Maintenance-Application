@@ -86,11 +86,6 @@ mat-icon {
   line-height: 18px;
   text-align: left;
 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
   top: 50%;
   transform: translate(-0%, -50%);
 }

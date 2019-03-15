@@ -25,10 +25,11 @@
         </div>
         <div class="room"
              *ngFor="let loc of floor.locations"
-             [ngClass]="selectedLocation.indexOf(loc.identifier) >= 0 ? 'checked' : ''">
+             [ngClass]="selectedLocation.indexOf(loc) >= 0 ? 'checked' : ''">
           <label class="checkbox-label">{{loc.name}}
             <input type="checkbox" name="sel_name"
-                   (change)="locationSelected(loc)">
+                   (change)="locationSelected(loc)"
+                   [checked]="selectedLocation.indexOf(loc) >= 0">
             <span class="checkmark"></span>
           </label>
         </div>
@@ -49,38 +50,34 @@
     <div id="device-list-second-head" class="second-head">
       <p>ALL</p>
       <label class="switch-small">
-        <input type="checkbox">
+        <input type="checkbox"
+        [checked]="allDevicesOn"
+        (change)="switchAllDevices($event.target.checked)">
         <span class="slider round"></span>
       </label>
     </div>
 
     <div id="device-list-wrapper">
-      <div class="deviceCard device-card-base selected">
+      <div class="deviceCard device-card-base"
+        *ngFor="let device of visableDevices"
+        (click)="selectedDevice = device"
+        [ngClass]="selectedDevice == device ? 'selected' : ''">
         <div class="device-card-oval">
           <div class="device-card-indicator"></div>
           <i class="material-icons device-card-icon">devices</i>
         </div>
-        <p class="device-card-name">Device name</p>
-        <p class="device-card-consumption">3.4 kW</p>
+        <p class="device-card-name">{{device.name}}</p>
+        <p class="device-card-consumption">{{device.power_consumption}} kW</p>
         <label class="switch-small">
-          <input type="checkbox">
-          <span class="slider round"></span>
-        </label>
-      </div>
-
-      <div class="deviceCard device-card-base">
-        <div class="device-card-oval">
-          <div class="device-card-indicator invisible"></div>
-          <i class="material-icons device-card-icon">devices</i>
-        </div>
-        <p class="device-card-name">Device name</p>
-        <p class="device-card-consumption">3.4 kW</p>
-        <label class="switch-small">
-          <input type="checkbox">
+          <input type="checkbox"
+          (change)="changeDevicePowerState(device, $event.target.checked)"
+          [checked]="device.power_state">
           <span class="slider round"></span>
         </label>
       </div>
     </div>
   </aside>
-  <app-devicepanel></app-devicepanel>
+  <app-devicepanel *ngIf="selectedDevice" 
+    [device]="selectedDevice"
+    (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
 </div>

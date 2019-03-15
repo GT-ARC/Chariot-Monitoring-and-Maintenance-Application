@@ -5,6 +5,8 @@ import {Location} from "../../model/location";
 import {Device} from "../../model/device";
 import {Floor} from "../../model/floor";
 
+import * as faker from 'faker'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,34 +26,35 @@ export class MockDataService {
         idenfitifier: i,
         name: "Device " + i,
         symbole: null,
-        power_state: Math.random() >= 0.8,
-        power_consumption: Math.random() * 100,
 
-        running: parseInt(' ' + Math.random() * 200 + 50),
-        down_time: parseInt(' ' + Math.random() * 100),
+        power_state: Math.random() >= 0.5,
+        power_consumption: Math.floor(Math.random() * 100 * 100)/100,
+
+        running: Math.floor(Math.random() * 200 + 50),
+        down_time: Math.floor(Math.random() * 50),
         description: [
           {
-            title: "Lorem ipsum",
-            desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit consectetur eum asperiores, doloribus, facilis assumenda itaque commodi obcaecati esse, blanditiis consequatur reprehenderit. Porro, possimus tempore. Architecto rerum porro aliquid a."
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
           },
           {
-            title: "Dolor",
-            desc: "Lorem ipsum dolor"
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
           },
           {
-            title: "Adipisicing",
-            desc: "amet consectetur adipisicing elit."
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
           },
           {
-            title: "Architecto",
-            desc: "Architecto rerum porro aliquid a."
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
           }
         ],
         issues: [
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: Date.now(),
+            issue_date: faker.date.past().getDate(),
             importance: Math.random() * 10
           },
           {
