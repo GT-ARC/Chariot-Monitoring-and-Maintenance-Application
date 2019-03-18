@@ -47,3 +47,7 @@ https://docs.google.com/document/d/1cDhcI6ZoARAIqHf-pVHP6rVi1Pn4ds0Y5IXXe8XbHcw/
 == Quick Tutorial & Dev Onboarding
 
 **TBD**
+
+* Install nodejs (optional: set global location non-root)
+* https://angular.io/guide/quickstart
+
