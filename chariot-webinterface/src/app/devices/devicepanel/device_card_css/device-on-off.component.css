@@ -4,7 +4,7 @@
     margin-right: 16px;
 }
 
-#device-panel-on-off-card > .switch {
+#device-panel-on-off-card > .switch-big {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -21,16 +21,18 @@
     text-align: center;
 }
 
-#device-panel-on-off-card > .device-panel-title ~ p {
+#device-panel-on-off-card > #on {
+  position: absolute;
+  top: 44%;
+  left: 69%;
+  transform: translate(-40%, -50%);
+}
+
+#device-panel-on-off-card > #off {
     position: absolute;
     top: 44%;
-    left: 32%;
+    left: 31%;
     transform: translate(-60%, -50%);
 }
 
-#device-panel-on-off-card > p:last-of-type {
-    position: absolute;
-    top: 44%;
-    left: 68%;
-    transform: translate(-40%, -50%);
-}
+

@@ -1,71 +1,83 @@
-<div id="device-panel-wrapper">
-  <div id="device-panel-on-off-card" class="device-panel-card">
-    <p class="device-panel-title">Switch On/Off</p>
-    <p>OFF</p>
-    <label class="switch">
-      <input type="checkbox">
-      <span class="slider round"></span>
-    </label>
-    <p>ON</p>
-  </div>
-  <div id="device-panel-power" class="device-panel-card">
-    <p class="device-panel-title">Power</p>
-    <p id="power">3,4</p>
-    <p class="unit">KW</p>
-  </div>
-  <div id="device-panel-idle-time" class="device-panel-card">
-    <p class="device-panel-title">Daily Idle Time</p>
-    <p id="wrap">
-      <span id="time">57</span>
-      <span class="unit">min</span>
-    </p>
-    <p id="percentage">7,6 %</p>
-  </div>
-  <div id="device-panel-info" class="device-panel-card">
-    <p class="device-panel-info-title">Lorem ipsum</p>
-    <p class="device-panel-info-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit consectetur eum asperiores, doloribus, facilis assumenda itaque commodi obcaecati esse, blanditiis consequatur reprehenderit. Porro, possimus tempore. Architecto rerum porro aliquid a.</p>
-    <p class="device-panel-info-title">Lorem ipsum</p>
-    <p class="device-panel-info-info">Lorem ipsum dolor.</p>
-    <p class="device-panel-info-title">Lorem ipsum</p>
-    <p class="device-panel-info-info">Lorem ipsum dolor.</p>
-  </div>
-  <div id="device-panel-issue-history" class="device-panel-card">
-    <p class="device-panel-title">issue history</p>
-    <div class="issue">
-      <div class="issue-oval">
-        <i class="material-icons">priority_high</i>
-      </div>
-      <p class="issue-status">Issue detected</p>
-      <p class="issue-date">04.02.2019</p>
+<div id="style-wrapper">
+  <aside id="floor-list" class="list">
+    <div class="list-head">
+    <span class="search">
+      <mat-icon class="search-field-symbol">search</mat-icon>
+      <input type="text" name="device-list-search" placeholder="Search">
+    </span>
+      <mat-icon class="map-symbol">map</mat-icon>
+      <mat-icon class="sort-symbol">sort</mat-icon>
     </div>
-    <div class="issue">
-      <div class="issue-oval solved">
-        <i class="material-icons">done</i>
-      </div>
-      <p class="issue-status">Issue detected</p>
-      <p class="issue-date">04.02.2019</p>
+    <div id="floor-list-second-head" class="second-head">
+      <label class="checkbox-label">ALL
+        <input type="checkbox" name="sel_name">
+        <span class="checkmark"></span>
+      </label>
     </div>
-    <div class="issue">
-      <div class="issue-oval solved">
-        <i class="material-icons">done</i>
+
+    <div id="floor-list-wrapper">
+      <div class="floor-entry" *ngFor="let floor of floors">
+        <div class="floor">
+          <label class="checkbox-label">{{floor.name}}
+            <input type="checkbox" name="sel_name">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="room"
+             *ngFor="let loc of floor.locations"
+             [ngClass]="selectedLocation.indexOf(loc) >= 0 ? 'checked' : ''">
+          <label class="checkbox-label">{{loc.name}}
+            <input type="checkbox" name="sel_name"
+                   (change)="locationSelected(loc)"
+                   [checked]="selectedLocation.indexOf(loc) >= 0">
+            <span class="checkmark"></span>
+          </label>
+        </div>
       </div>
-      <p class="issue-status">Issue detected</p>
-      <p class="issue-date">04.02.2019</p>
     </div>
-    <div class="issue">
-      <div class="issue-oval solved">
-        <i class="material-icons">done</i>
+  </aside>
+
+  <aside id="device-list" class="list">
+
+    <div class="list-head">
+    <span class="search">
+      <mat-icon class="search-field-symbol">search</mat-icon>
+      <input type="text" name="device-list-search" placeholder="Search">
+    </span>
+      <mat-icon class="sort-symbol">sort</mat-icon>
+    </div>
+
+    <div id="device-list-second-head" class="second-head">
+      <p>ALL</p>
+      <label class="switch-small">
+        <input type="checkbox"
+        [checked]="allDevicesOn"
+        (change)="switchAllDevices($event.target.checked)">
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <div id="device-list-wrapper">
+      <div class="deviceCard device-card-base"
+        *ngFor="let device of visableDevices"
+        (click)="selectedDevice = device"
+        [ngClass]="selectedDevice == device ? 'selected' : ''">
+        <div class="device-card-oval">
+          <div class="device-card-indicator"></div>
+          <i class="material-icons device-card-icon">devices</i>
+        </div>
+        <p class="device-card-name">{{device.name}}</p>
+        <p class="device-card-consumption">{{device.power_consumption}} kW</p>
+        <label class="switch-small">
+          <input type="checkbox"
+          (change)="changeDevicePowerState(device, $event.target.checked)"
+          [checked]="device.power_state">
+          <span class="slider round"></span>
+        </label>
       </div>
-      <p class="issue-status">Issue detected</p>
-      <p class="issue-date">04.02.2019</p>
     </div>
-    <div class="rectangle"></div>
-    <input id="issue-button" type="button" value="Go to Issues">
-  </div>
-  <div id="device-panel-monitoring" class="device-panel-card">
-    <p class="device-panel-title">Device Monitoring and prediction</p>
-  </div>
-  <div id="device-panel-map" class="device-panel-card">
-    <p class="device-panel-title">Map</p>
-  </div>
+  </aside>
+  <app-devicepanel *ngIf="selectedDevice" 
+    [device]="selectedDevice"
+    (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
 </div>

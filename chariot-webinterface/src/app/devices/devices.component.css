@@ -1,44 +1,248 @@
-#device-panel-wrapper {
-  position: relative;
+#style-wrapper {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-content: center;
-  background-color: #F1F3FC;
-  width: 900px;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
-.device-panel-card {
-  position: relative;
-  background-color: #FFFFFF;
-  border: 1px solid rgba(46, 91, 255, 0.08);
-  border-radius: 1px;
-  margin-top: 16px;
-}
-
-.device-panel-title {
+.search {
   position: absolute;
-  top: 20px;
-  left: 24px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  border: 1px solid #69707F;
+  border-radius: 5px;
+  width: 184px;
+  height: 32px;
+}
 
-  text-transform: uppercase;
+input[type="text"] {
+  position: relative;
+  left: 8px;
+  top: 45%;
+  transform: translate(0%, -50%);
+
+  border: none;
+  background: transparent;
+  width: 130px;
+  height: 18px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
 
   color: #8798AD;
-  font-family: Rubik;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 1.21px;
-  line-height: 16px;
-  width: 712.73px;
+}
+
+input[type="text"]:focus {
+  color: #9999d3;
+}
+
+.list-head {
+  position: relative;
+  height: 60px;
+}
+
+mat-icon {
+  vertical-align: middle;
+  top: 50%;
+  transform: translate(0%, -50%);
+  color: #8d9bb2;
+}
+
+.search-field-symbol {
+  position: relative;
+  left: 8px;
+}
+
+.map-symbol {
+  position: absolute;
+  right: 68px;
+}
+
+.sort-symbol {
+  position: absolute;
+  right: 16px;
+}
+
+.second-head {
+  position: relative;
+  height: 40px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+}
+
+/* Display the checkboxen */
+
+.checkbox-label {
+  display: block;
+  position: relative;
+  left: 32px;
+  padding-top: 2px;
+  padding-left: 28px;
+  cursor: pointer;
+
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
   text-align: left;
+
+  top: 50%;
+  transform: translate(-0%, -50%);
 }
 
-#device-panel-monitoring {
-  flex: 100%;
-  height: 460px;
+.checkbox-label:has(input:checked)  {
+  background-color: #2b72e6;
+  border-color: #2b72e6;
 }
 
-#device-panel-map {
-  flex: 100%;
-  height: 460px;
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+
+  background-color: transparent;
+  border: 2px solid #959aa5;
+  border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #959aa5;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #2b72e6;
+  border-color: #2b72e6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* style the checkmark */
+.checkbox-label .checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  border-radius: 1px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Floor list props */
+
+#floor-list {
+  background-color: #323b4e;
+  width: 328px;
+}
+
+#floor-list > .list-head {
+  background-color: #293142;
+}
+
+#floor-list > .list-head > .search {
+  left: 16px;
+}
+
+#floor-list-second-head {
+  border-bottom-color: #69707F;
+}
+
+#floor-list-second-head > .checkbox-label {
+  font-size: 12px;
+  color: #8798AD;
+}
+
+#floor-list-wrapper {
+  position: relative;
+}
+
+.floor {
+  position: relative;
+  margin: 4px 0;
+  background-color: #3c4558;
+  height: 36px;
+}
+
+.room {
+  position: relative;
+  margin: 4px 0;
+  height: 48px;
+}
+
+.room.checked {
+  background-color: #304278;
+
+  border: 0px #2E5BFF solid;
+  border-left-width: 4px;
+}
+
+.room.checked > .checkbox-label {
+  margin-left: -4px;
+}
+
+.room > .checkbox-label {
+  left: 56px;
+}
+
+/* Device list props */
+
+#device-list {
+  background-color: #CDD2E5;
+  width: 312px;
+}
+
+#device-list > .list-head {
+  background-color: #bcc2d5;
+}
+
+#device-list > .list-head > .search {
+  left: 16px;
+}
+
+#device-list-second-head {
+  border-bottom-color: #c6ccdc;
+}
+
+#device-list-second-head > .switch-small {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+#device-list-second-head > p {
+  display: inline-block;
+
+  position: absolute;
+  right: 50px;
+  color: #8798AD;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.13px;
+  line-height: 14px;
+  text-align: right;
 }

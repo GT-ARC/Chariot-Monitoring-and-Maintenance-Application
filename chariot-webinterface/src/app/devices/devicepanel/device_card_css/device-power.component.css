@@ -1,0 +1,22 @@
+#device-panel-power {
+    flex: 35%;
+    height: 200px;
+    margin-right: 16px;
+}
+
+
+
+ngx-gauge {
+  font-family: 'Rubik-Light', 'arial', sans-serif;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ngx-gauge-label {
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+}

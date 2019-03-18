@@ -1,0 +1,67 @@
+<div id="device-panel-wrapper">
+
+  <div id="device-panel-on-off-card" class="device-panel-card">
+    <p class="device-panel-title">Switch On/Off</p>
+    <p id="off">OFF</p>
+    <label class="switch-big">
+      <input type="checkbox"
+             (change)="emitDevicePower(device, $event.target.checked)"
+             [checked]="device.power_state">
+      <!--[attr.checked]="device.power_state ? 'checked' : null"-->
+      <span class="slider round"></span>
+    </label>
+    <p id="on">ON</p>
+  </div>
+
+  <div id="device-panel-power" class="device-panel-card">
+    <p class="device-panel-title">Power</p>
+    <ngx-gauge [type]="gaugeType"
+               [value]="device.power_consumption"
+               [label]="gaugeLabel"
+               [size]="160"
+               [foregroundColor] = 'gaugeColor'
+               [thick]="gaugeThick"
+               [cap]="gaugeCap">
+      <ngx-gauge-label>KW</ngx-gauge-label>
+    </ngx-gauge>
+  </div>
+
+  <div id="device-panel-idle-time" class="device-panel-card">
+    <p class="device-panel-title">Daily Idle Time</p>
+    <p id="wrap">
+      <span id="time">{{device.down_time}}</span>
+      <span class="unit">min</span>
+    </p>
+    <p id="percentage">{{math.floor(device.down_time / device.running * 100)}} %</p>
+  </div>
+
+  <div id="device-panel-info" class="device-panel-card">
+    <div *ngFor="let info of device.description" style="position: relative">
+        <p class="device-panel-info-title">{{info.title}}</p>
+        <p class="device-panel-info-info">{{info.desc}}</p>
+    </div>
+  </div>
+
+  <div id="device-panel-issue-history" class="device-panel-card">
+    <p class="device-panel-title">issue history</p>
+
+    <div class="issue"
+         *ngFor="let issue of getIssues()">
+      <div class="issue-oval"
+           [ngClass]="issue.state ? 'solved' : ''">
+        <i class="material-icons" *ngIf="!issue.state">priority_high</i>
+        <i class="material-icons" *ngIf="issue.state">done</i>
+      </div>
+      <p class="issue-status">Issue {{issue.state ? 'resolved' : 'detected'}}</p>
+      <p class="issue-date">{{issue_date}}</p>
+    </div>
+    <div class="rectangle"></div>
+    <input id="issue-button" type="button" value="Go to Issues">
+  </div>
+  <div id="device-panel-monitoring" class="device-panel-card">
+    <p class="device-panel-title">Device Monitoring and prediction</p>
+  </div>
+  <div id="device-panel-map" class="device-panel-card">
+    <p class="device-panel-title">Map</p>
+  </div>
+</div>

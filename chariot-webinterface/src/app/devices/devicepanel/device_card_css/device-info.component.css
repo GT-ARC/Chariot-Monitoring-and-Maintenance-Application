@@ -5,7 +5,7 @@
     overflow-y: scroll;
 }
 
-#device-panel-info > .device-panel-info-title {
+#device-panel-info .device-panel-info-title {
     margin-top: 24px;
     margin-left: 30px;
     color: #B0BAC9;
@@ -14,11 +14,11 @@
     font-weight: 500;
     letter-spacing: 1.13px;
     line-height: 14px;
-    width: 294.71px;
+    width: 280px;
     text-align: left;
 }
 
-#device-panel-info > .device-panel-info-info {
+#device-panel-info .device-panel-info-info {
     margin-top: 8px;
     margin-left: 30px;
     color: #2E384D;
@@ -26,7 +26,7 @@
     font-size: 15px;
     font-weight: 400;
     line-height: 22px;
-    width: 480px;
+    width: 450px;
     text-align: left;
 }
 
