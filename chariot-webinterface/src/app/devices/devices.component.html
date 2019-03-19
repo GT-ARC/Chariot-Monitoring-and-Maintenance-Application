@@ -3,32 +3,37 @@
     <div class="list-head">
     <span class="search">
       <mat-icon class="search-field-symbol">search</mat-icon>
-      <input type="text" name="device-list-search" placeholder="Search">
+      <input type="text" name="device-list-search" placeholder="Search"
+             (input)="filterFloors($event.target.value)">
     </span>
       <mat-icon class="map-symbol">map</mat-icon>
       <mat-icon class="sort-symbol">sort</mat-icon>
     </div>
     <div id="floor-list-second-head" class="second-head">
       <label class="checkbox-label">ALL
-        <input type="checkbox" name="sel_name">
+        <input type="checkbox" name="sel_name"
+               (change)="viewAllLocations($event.target.checked)"
+               [checked]="allLocationsSelected">
         <span class="checkmark"></span>
       </label>
     </div>
 
     <div id="floor-list-wrapper">
       <div class="floor-entry" *ngFor="let floor of floors">
-        <div class="floor">
+        <div class="floor" *ngIf="visibleLocation[floor.identifier].length != 0">
           <label class="checkbox-label">{{floor.name}}
-            <input type="checkbox" name="sel_name">
+            <input type="checkbox" name="sel_name"
+                   (change)="floorSelected(floor, $event.target.checked)"
+                   [checked]="selectedFloors.indexOf(floor) >= 0">
             <span class="checkmark"></span>
           </label>
         </div>
         <div class="room"
-             *ngFor="let loc of floor.locations"
+             *ngFor="let loc of visibleLocation[floor.identifier]"
              [ngClass]="selectedLocation.indexOf(loc) >= 0 ? 'checked' : ''">
           <label class="checkbox-label">{{loc.name}}
             <input type="checkbox" name="sel_name"
-                   (change)="locationSelected(loc)"
+                   (change)="locationSelected(loc, $event.target.checked)"
                    [checked]="selectedLocation.indexOf(loc) >= 0">
             <span class="checkmark"></span>
           </label>
@@ -42,7 +47,8 @@
     <div class="list-head">
     <span class="search">
       <mat-icon class="search-field-symbol">search</mat-icon>
-      <input type="text" name="device-list-search" placeholder="Search">
+      <input type="text" name="device-list-search" placeholder="Search"
+             (input)="filterDevices($event.target.value)">
     </span>
       <mat-icon class="sort-symbol">sort</mat-icon>
     </div>
@@ -59,7 +65,7 @@
 
     <div id="device-list-wrapper">
       <div class="deviceCard device-card-base"
-        *ngFor="let device of visableDevices"
+        *ngFor="let device of visibleDevices"
         (click)="selectedDevice = device"
         [ngClass]="selectedDevice == device ? 'selected' : ''">
         <div class="device-card-oval">
