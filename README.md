@@ -6,31 +6,22 @@
 
 See angular dev quick tutorial section for project structure?
 
-'''
-.
-├── Assets
-│   ├── Icons
-│   └── RubikFont
-├── chariot-webinterface <-------- everything is here, forget other dirs
-│   ├── angular.json
-│   ├── chariot-webinterface.iml
-│   ├── e2e
-│   ├── package.json
-│   ├── package-lock.json
-│   ├── README.md
-│   ├── src
-│   ├── tsconfig.json
-│   └── tslint.json
-├── src
-│   ├── css
-│   ├── html
-│   └── index.html
-└── templates
-    ├── DeviceCard
-    ├── DeviceInfoPanel
-    └── ttg
-
-'''
+<pre>
+.  
+├── Assets    
+│   ├── Icons  
+│   └── RubikFont  
+└── chariot-webinterface <-------- everything is here, forget other dirs  
+    ├── angular.json  
+    ├── chariot-webinterface.iml  
+    ├── e2e  
+    ├── package.json  
+    ├── package-lock.json  
+    ├── README.md  
+    ├── src  
+    ├── tsconfig.json  
+    └── tslint.json  
+</pre>
 
 == Design Mockup
 
