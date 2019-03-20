@@ -64,6 +64,6 @@ export const DEVICES: Device[] = [
       }
     ],
 
-    timeline: [],
+    data: [],
   },
 ];

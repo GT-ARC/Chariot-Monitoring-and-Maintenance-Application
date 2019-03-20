@@ -22,6 +22,15 @@ export class MockDataService {
 
   createData(): void {
     for(let i = 0; i < 100; i++){
+      let dataStartTime: number = faker.date.past();
+      let dataValue: number = Math.random() * 100;
+      let device_data: {y: number, x: number}[] = [];
+      for(let c = 0; c < 17; c++) {
+        device_data.push({y: dataStartTime, x: dataValue});
+        dataStartTime = Math.floor(Math.random() * 10**9 + 10**8 + 10**7) + Math.abs(dataStartTime);
+        dataValue += (Math.random() * 20 + 5) * (Math.random() * 2 - 1 > 0 ? 1 : -1);
+      }
+
       this.devices.push({
         idenfitifier: i,
         name: "Device " + i,
@@ -48,31 +57,51 @@ export class MockDataService {
           {
             title: faker.commerce.productName(),
             desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
           }
         ],
         issues: [
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: faker.date.past().getDate(),
+            issue_date: faker.date.past(),
             importance: Math.random() * 10
           },
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: Date.now(),
+            issue_date: faker.date.past(),
             importance: Math.random() * 10
           },
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: Date.now(),
+            issue_date: faker.date.past(),
             importance: Math.random() * 10
           },
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: Date.now(),
+            issue_date: faker.date.past(),
             importance: Math.random() * 10
           },
           {
@@ -82,7 +111,7 @@ export class MockDataService {
             importance: 0
           }
         ],
-        timeline: []
+        data: device_data
       })
     }
 

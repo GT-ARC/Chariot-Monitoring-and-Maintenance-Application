@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import '~@angular/cdk/overlay-prebuilt.css';
 
 * {
   font-family: Rubik, 'arial', sans-serif;
@@ -20,4 +21,26 @@ body {
   width: 100%;
   margin: 0;
   background-color: #F4F6FC;
+}
+
+.mat-menu-content {
+  background-color: white;
+  margin-top: 8px;
+  border-radius: 8px !important;
+}
+
+.mat-menu-item {
+  background-color: transparent;
+  line-height: 36px !important;
+  height: 36px !important;
+}
+
+.mat-menu-item .selected {
+  color: #2E5BFF;
+}
+
+
+button.mat-menu-item:hover {
+  background-color: #d4e3fa;
+  color: blue !important;
 }

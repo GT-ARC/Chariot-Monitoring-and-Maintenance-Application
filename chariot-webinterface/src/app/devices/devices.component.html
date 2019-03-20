@@ -7,7 +7,17 @@
              (input)="filterFloors($event.target.value)">
     </span>
       <mat-icon class="map-symbol">map</mat-icon>
-      <mat-icon class="sort-symbol">sort</mat-icon>
+      <button class="sort-symbol" [matMenuTriggerFor]="floor_sort_menu">
+        <mat-icon>sort</mat-icon>
+      </button>
+      <mat-menu #floor_sort_menu="matMenu">
+        <div *ngFor="let sort_point of floorSort">
+          <button mat-menu-item (click)="floorSortSelected = sort_point">
+            <span [ngClass]="sort_point == floorSortSelected ? 'selected' : ''">{{sort_point}}</span>
+          </button>
+        </div>
+      </mat-menu>
+      <!--<mat-icon class="sort-symbol">sort</mat-icon>-->
     </div>
     <div id="floor-list-second-head" class="second-head">
       <label class="checkbox-label">ALL
@@ -50,7 +60,16 @@
       <input type="text" name="device-list-search" placeholder="Search"
              (input)="filterDevices($event.target.value)">
     </span>
-      <mat-icon class="sort-symbol">sort</mat-icon>
+      <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+        <mat-icon>sort</mat-icon>
+      </button>
+      <mat-menu #device_sort_menu="matMenu">
+        <div *ngFor="let sort_point of deviceSort">
+          <button mat-menu-item (click)="deviceSortSelected = sort_point">
+            <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
+          </button>
+        </div>
+      </mat-menu>
     </div>
 
     <div id="device-list-second-head" class="second-head">

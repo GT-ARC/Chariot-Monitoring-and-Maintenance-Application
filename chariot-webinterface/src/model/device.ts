@@ -17,5 +17,5 @@ export class Device {
   description: {title:string, desc:string}[];
   issues: Issue[];
 
-  timeline: [];
+  data: {y: number, x: number}[];
 }

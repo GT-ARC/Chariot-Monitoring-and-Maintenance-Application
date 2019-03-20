@@ -35,6 +35,12 @@ export class DevicesComponent implements OnInit {
   // The device filter
   deviceFilter: String = "";
 
+  floorSort: string[] = ["Number of devices", "Number of errors", "Level", "Type of room"];
+  floorSortSelected: String = "Level";
+
+  deviceSort: string[] = ["Name", "Date", "Device type", "On/Off"];
+  deviceSortSelected: String = "On/Off";
+
   constructor(private mockDataService: MockDataService) {
   }
 
@@ -64,7 +70,23 @@ export class DevicesComponent implements OnInit {
         d.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1
       ).map(d => this.visibleDevices.push(d))
     });
-    this.visibleDevices.sort(((a, b) => a.idenfitifier - b.idenfitifier))
+    this.visibleDevices.sort(((a, b) => {
+      switch (this.deviceSortSelected) {
+        case "Name":
+          return a.idenfitifier - b.idenfitifier;
+        case "Date":
+          return a.idenfitifier - b.idenfitifier;
+        case "Device type":
+          return a.idenfitifier - b.idenfitifier;
+        case "On/Off":
+          if(a.power_state == b.power_state)
+            return a.idenfitifier - b.idenfitifier;
+          else
+            if(a.power_state == true)
+              return 0;
+          return 1;
+      }
+    }));
     this.allDevicesOn = this.visibleDevices.reduce((acc, curr) => acc && curr.power_state, true);
   }
 
@@ -76,6 +98,7 @@ export class DevicesComponent implements OnInit {
   changeDevicePowerState(device: Device, state: boolean) {
     device.power_state = state;
     this.allDevicesOn = this.visibleDevices.reduce((acc, curr) => acc && curr.power_state, true);
+    // this.showVisibleDevices();
   }
 
   /**
@@ -89,6 +112,7 @@ export class DevicesComponent implements OnInit {
     } else {
       this.visibleDevices.map(device => device.power_state = false)
     }
+    this.showVisibleDevices();
   }
 
   /**

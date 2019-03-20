@@ -1,5 +1,9 @@
+<!--<p>{{device.name}}</p>-->
+<!--<span>-->
+  <!--<i class="material-icons" *ngIf="!issue.state">priority_high</i>-->
+  <!--<i class="material-icons" *ngIf="issue.state">done</i>-->
+<!--</span>-->
 <div id="device-panel-wrapper">
-
   <div id="device-panel-on-off-card" class="device-panel-card">
     <p class="device-panel-title">Switch On/Off</p>
     <p id="off">OFF</p>
@@ -53,13 +57,26 @@
         <i class="material-icons" *ngIf="issue.state">done</i>
       </div>
       <p class="issue-status">Issue {{issue.state ? 'resolved' : 'detected'}}</p>
-      <p class="issue-date">{{issue_date}}</p>
+      <p class="issue-date">{{issue.issue_date | date:'d.M.y'}}</p>
     </div>
     <div class="rectangle"></div>
     <input id="issue-button" type="button" value="Go to Issues">
   </div>
   <div id="device-panel-monitoring" class="device-panel-card">
     <p class="device-panel-title">Device Monitoring and prediction</p>
+    <div id="device-chart-wrapper">
+      <canvas width="800" height="370"
+              id="device-chart"
+              baseChart
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+      >
+      </canvas>
+    </div>
   </div>
   <div id="device-panel-map" class="device-panel-card">
     <p class="device-panel-title">Map</p>

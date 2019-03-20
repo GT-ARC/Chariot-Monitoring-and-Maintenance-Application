@@ -59,8 +59,18 @@ mat-icon {
 }
 
 .sort-symbol {
+  display: inline-block;
+  border: none;
+  text-decoration: none;
+  background: transparent;
   position: absolute;
+  top: 50%;
   right: 16px;
+  transform: translate(0px, -50%);
+}
+
+.sort-symbol mat-icon {
+  transform: translate(0%, 0%);
 }
 
 .second-head {
