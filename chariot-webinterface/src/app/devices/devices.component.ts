@@ -1,6 +1,8 @@
 import {Component, OnInit, SimpleChange} from '@angular/core';
 
 import {MockDataService} from "../services/mock-data.service";
+import { ApiService } from  '../services/api.service';
+
 
 import {Location} from "../../model/location";
 import {Device} from "../../model/device";
@@ -19,6 +21,7 @@ export class DevicesComponent implements OnInit {
   floors: Floor[];        // Holds the fetched data of the floors
   locations: Location[];  // Holds the fetched data of the locations
   devices: Device[];      // Holds the fetched data of the devices
+  scos: {}[]; // SCOs
 
   selectedFloors: Floor[] = [];       // Floors where all locations are selected
   selectedLocation: Location[] = [];  // Locations which devices should be visible
@@ -41,8 +44,10 @@ export class DevicesComponent implements OnInit {
   deviceSort: string[] = ["Name", "Date", "Device type", "On/Off"];
   deviceSortSelected: String = "On/Off";
 
-  constructor(private mockDataService: MockDataService) {
-  }
+  constructor(
+    private mockDataService: MockDataService,
+    private  apiService:  ApiService    
+  ) {}
 
   ngOnInit() {
     this.getMockData();
@@ -57,6 +62,16 @@ export class DevicesComponent implements OnInit {
 
     let selectDevice = Math.floor(Math.random() * this.visibleDevices.length * 0.25);
     this.selectedDevice = this.visibleDevices[selectDevice];
+  }
+
+  /**
+   * Get device with id
+   */
+  public  getDeviceById(id: HTMLInputElement){
+    this.apiService.getDeviceById(id.value).subscribe((data:  Array<object>) => {
+      this.scos  =  data;
+      console.log(data);
+    });
   }
 
   /**

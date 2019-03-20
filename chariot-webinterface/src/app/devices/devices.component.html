@@ -1,11 +1,30 @@
+<div class="row">
+  <div>
+    <div>
+      <br>
+      <label>Input Device ID: 
+      <input type="text" #inputID>
+      </label>
+    </div>
+    <div>
+      <button (click)="getDeviceById(inputID)">
+        Get device by ID
+      </button>
+    </div>
+    <div>
+      {{scos | json}}
+    </div>
+  </div>
+</div>
+
 <div id="style-wrapper">
   <aside id="floor-list" class="list">
     <div class="list-head">
-    <span class="search">
-      <mat-icon class="search-field-symbol">search</mat-icon>
-      <input type="text" name="device-list-search" placeholder="Search"
-             (input)="filterFloors($event.target.value)">
-    </span>
+      <span class="search">
+        <mat-icon class="search-field-symbol">search</mat-icon>
+        <input type="text" name="device-list-search" placeholder="Search"
+                                                     (input)="filterFloors($event.target.value)">
+      </span>
       <mat-icon class="map-symbol">map</mat-icon>
       <button class="sort-symbol" [matMenuTriggerFor]="floor_sort_menu">
         <mat-icon>sort</mat-icon>
@@ -103,6 +122,6 @@
     </div>
   </aside>
   <app-devicepanel *ngIf="selectedDevice" 
-    [device]="selectedDevice"
-    (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
+               [device]="selectedDevice"
+               (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
 </div>

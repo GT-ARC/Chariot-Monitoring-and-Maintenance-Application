@@ -21,7 +21,7 @@ spec:
       containers:
       - name: chariot-mma-web
         #image: blaxzter/sd-gtarc-rest:5
-        image: gtarc/chariot-webinterface:v0.1
+        image: gtarc/chariot-webinterface:v0demo1
         imagePullPolicy: IfNotPresent
         #imagePullPolicy: Always
         ports:
