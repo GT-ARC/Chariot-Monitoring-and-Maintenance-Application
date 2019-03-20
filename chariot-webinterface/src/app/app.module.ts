@@ -8,6 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
 
 import { NgxGaugeModule } from 'ngx-gauge';
 import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from  '@angular/common/http';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DevicesComponent } from './devices/devices.component';
@@ -43,6 +44,7 @@ import {OverlayModule} from "@angular/cdk/overlay";
     MatIconModule,
     NgxGaugeModule,
     ChartsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
