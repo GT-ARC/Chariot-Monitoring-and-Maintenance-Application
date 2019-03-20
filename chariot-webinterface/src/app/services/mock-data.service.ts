@@ -22,7 +22,7 @@ export class MockDataService {
 
   createData(): void {
     for(let i = 0; i < 100; i++){
-      let dataStartTime: number = faker.date.past();
+      let dataStartTime: number = faker.date.past().valueOf();
       let dataValue: number = Math.random() * 100;
       let device_data: {y: number, x: number}[] = [];
       for(let c = 0; c < 17; c++) {
@@ -57,51 +57,31 @@ export class MockDataService {
           {
             title: faker.commerce.productName(),
             desc: faker.hacker.phrase()
-          },
-          {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
-          },
-          {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
-          },
-          {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
-          },
-          {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
-          },
-          {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
           }
         ],
         issues: [
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: faker.date.past(),
+            issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: faker.date.past(),
+            issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: faker.date.past(),
+            issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
             state: Math.random() >= 0.2,
             description: "",
-            issue_date: faker.date.past(),
+            issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
