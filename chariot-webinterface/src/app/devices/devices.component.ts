@@ -26,6 +26,11 @@ export class DevicesComponent implements OnInit {
   visibleLocation: {} = {};      // Map of floors to filtered locations
   visibleDevices: Device[] = []; // Array of displays to be displayed
 
+  overallIssueCounter: number = 0;
+  floorIssues: {} = {};
+  locationIssues: {} = {};
+  deviceIssues: {} = {};
+
   selectedDevice: Device = null; // Currently selected device
 
   // Connected to model switches
@@ -57,6 +62,26 @@ export class DevicesComponent implements OnInit {
 
     let selectDevice = Math.floor(Math.random() * this.visibleDevices.length * 0.25);
     this.selectedDevice = this.visibleDevices[selectDevice];
+
+    this.devices.map(d =>
+      this.deviceIssues[d.identifier] = {
+        state: d.issues.reduce((prev, curr) => prev && curr.state, true),
+        amount: d.issues.reduce((prev, curr) => prev + (curr.state ? 0 : 1), 0)
+      }
+    );
+
+    this.locations.forEach( l =>
+      this.locationIssues[l.identifier] = l.devices.map(d => this.deviceIssues[d.identifier].amount)
+        .reduce((c,n) => c + n, 0)
+    );
+
+    this.floors.forEach( f =>
+      this.floorIssues[f.identifier] = f.locations.map(l => this.locationIssues[l.identifier])
+        .reduce((c,n) => c + n, 0)
+    );
+
+    this.overallIssueCounter = this.floors.map(f => this.floorIssues[f.identifier]).reduce((c, n) => c + n, 1);
+
   }
 
   /**
@@ -73,14 +98,14 @@ export class DevicesComponent implements OnInit {
     this.visibleDevices.sort(((a, b) => {
       switch (this.deviceSortSelected) {
         case "Name":
-          return a.idenfitifier - b.idenfitifier;
+          return a.identifier - b.identifier;
         case "Date":
-          return a.idenfitifier - b.idenfitifier;
+          return a.identifier - b.identifier;
         case "Device type":
-          return a.idenfitifier - b.idenfitifier;
+          return a.identifier - b.identifier;
         case "On/Off":
           if(a.power_state == b.power_state)
-            return a.idenfitifier - b.idenfitifier;
+            return a.identifier - b.identifier;
           else
             if(a.power_state == true)
               return 0;
@@ -210,5 +235,23 @@ export class DevicesComponent implements OnInit {
   filterDevices(filterString: string) {
     this.deviceFilter = filterString;
     this.showVisibleDevices()
+  }
+
+  sortLocationList(sort_point: string) {
+    this.floorSortSelected = sort_point;
+    switch (sort_point) {
+      case "Number of devices":
+        this.floors.forEach(f => f.locations.sort((a, b) => b.devices.length - a.devices.length));
+        break;
+      case "Number of errors":
+        this.floors.forEach(f => f.locations.sort((a, b) => this.locationIssues[b.identifier] - this.locationIssues[a.identifier]));
+        break;
+      case "Level":
+        this.floors.forEach(f => f.locations.sort((a, b) => a.identifier - b.identifier));
+        this.floors.sort((a,b) => a.level - b.level);
+        break;
+      case "Type of room":
+        break;
+    }
   }
 }

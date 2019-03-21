@@ -31,23 +31,30 @@ import {DevicesComponent} from "../devices.component"
 export class DevicepanelComponent implements OnInit {
 
   @Input() device: Device;
+  public issueState: boolean;
+
 
   ngOnChanges(changes: SimpleChanges) {
-      this.lineChartLabels = this.device.data.map(data => {
-        console.log("Data: " + data.y);
-        return this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay();
-      });
+      this.lineChartLabels = this.device.data.map(data =>
+        this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
+      ).concat(
+        this.device.prediction.map( data =>
+          this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
+        ).slice(1, this.device.prediction.length)
+      );
+      let predictionData = new Array(this.device.data.length - 1).concat(this.device.prediction);
       this.lineChartData = [
         {
-          data: this.device.data.map(data => data.x).slice(0, this.device.data.length-4),
+          data: this.device.data.map(data => data.x),
           label: 'History'
         },
         {
-          data: [null,null,null,null,null,null,null,null,null,null,null,null].concat(
-            this.device.data.map(data => data.x).slice(this.device.data.length-5,this.device.data.length)),
+          data: predictionData.map(data => data.x),
           label: 'Prediction'
         }
       ];
+
+      this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true)
   }
 
 

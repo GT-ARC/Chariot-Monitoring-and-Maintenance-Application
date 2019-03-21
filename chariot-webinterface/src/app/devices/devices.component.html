@@ -12,7 +12,7 @@
       </button>
       <mat-menu #floor_sort_menu="matMenu">
         <div *ngFor="let sort_point of floorSort">
-          <button mat-menu-item (click)="floorSortSelected = sort_point">
+          <button mat-menu-item (click)="sortLocationList(sort_point)">
             <span [ngClass]="sort_point == floorSortSelected ? 'selected' : ''">{{sort_point}}</span>
           </button>
         </div>
@@ -25,6 +25,9 @@
                (change)="viewAllLocations($event.target.checked)"
                [checked]="allLocationsSelected">
         <span class="checkmark"></span>
+        <span class="issue-indicator-counter" *ngIf="overallIssueCounter > 0">
+              {{overallIssueCounter}}
+        </span>
       </label>
     </div>
 
@@ -36,6 +39,9 @@
                    (change)="floorSelected(floor, $event.target.checked)"
                    [checked]="selectedFloors.indexOf(floor) >= 0">
             <span class="checkmark"></span>
+            <span class="issue-indicator-counter" *ngIf="floorIssues[floor.identifier] > 0">
+              {{floorIssues[floor.identifier]}}
+            </span>
           </label>
         </div>
         <div class="room"
@@ -46,6 +52,9 @@
                    (change)="locationSelected(loc, $event.target.checked)"
                    [checked]="selectedLocation.indexOf(loc) >= 0">
             <span class="checkmark"></span>
+            <span class="issue-indicator-counter" *ngIf="locationIssues[loc.identifier]">
+              {{locationIssues[loc.identifier]}}
+            </span>
           </label>
         </div>
       </div>
@@ -88,7 +97,7 @@
         (click)="selectedDevice = device"
         [ngClass]="selectedDevice == device ? 'selected' : ''">
         <div class="device-card-oval">
-          <div class="device-card-indicator"></div>
+          <div class="device-card-indicator" *ngIf="!deviceIssues[device.identifier].state"></div>
           <i class="material-icons device-card-icon">devices</i>
         </div>
         <p class="device-card-name">{{device.name}}</p>

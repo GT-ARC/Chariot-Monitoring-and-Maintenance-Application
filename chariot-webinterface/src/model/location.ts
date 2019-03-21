@@ -1,7 +1,7 @@
 import {Device} from "./device";
 
 export class Location {
-  identifier: string;
+  identifier: number;
   type: String;
   name: String;
   position: {

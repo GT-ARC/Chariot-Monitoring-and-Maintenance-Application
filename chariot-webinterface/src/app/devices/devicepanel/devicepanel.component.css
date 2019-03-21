@@ -1,13 +1,62 @@
-#device-panel-wrapper {
+#device-panel {
   position: relative;
   float: left;
+  padding-left: 32px;
+  padding-top: 32px;
+}
+
+#device-panel-head {
+  position: relative;
+}
+
+#device-panel-head span {
+  display: inline-block;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: left;
+}
+
+#device-panel-head button {
+  margin-left: 16px;
+  padding: 2px 16px;
+
+  border: none;
+  transform: translate(0, -20%);
+  background-color: #f2dce1;
+  color: #D63649;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+#device-panel-head button mat-icon {
+  vertical-align: middle;
+  font-size: 18px;
+  /*transform: translate(0, 50%);*/
+}
+
+#device-panel-head button:hover {
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.1);
+}
+
+#device-panel-head button:active {
+  background-color: #f2bec1;
+  box-shadow: 0 2px #666;
+}
+
+#device-panel-wrapper {
+  margin-top: 25px;
 
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-content: center;
   width: 900px;
-  left: 32px;
 }
 
 .device-panel-card {
@@ -29,11 +78,9 @@
   text-transform: uppercase;
 
   color: #8798AD;
-  font-family: Rubik;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 1.21px;
-  line-height: 16px;
   width: 712.73px;
   text-align: left;
 }

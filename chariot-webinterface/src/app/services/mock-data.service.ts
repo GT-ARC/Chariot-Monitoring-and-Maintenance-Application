@@ -25,16 +25,18 @@ export class MockDataService {
       let dataStartTime: number = faker.date.past().valueOf();
       let dataValue: number = Math.random() * 100;
       let device_data: {y: number, x: number}[] = [];
-      for(let c = 0; c < 17; c++) {
+      let device_data_size = Math.round(Math.random() * 30) + 10;
+      let predictionSize = Math.round(Math.random() * 5) + 5;
+      for(let c = 0; c < device_data_size; c++) {
         device_data.push({y: dataStartTime, x: dataValue});
         dataStartTime = Math.floor(Math.random() * 10**9 + 10**8 + 10**7) + Math.abs(dataStartTime);
         dataValue += (Math.random() * 20 + 5) * (Math.random() * 2 - 1 > 0 ? 1 : -1);
       }
 
       this.devices.push({
-        idenfitifier: i,
+        identifier: i,
         name: "Device " + i,
-        symbole: null,
+        symbol: null,
 
         power_state: Math.random() >= 0.5,
         power_consumption: Math.floor(Math.random() * 100 * 100)/100,
@@ -61,25 +63,25 @@ export class MockDataService {
         ],
         issues: [
           {
-            state: Math.random() >= 0.2,
+            state: Math.random() >= 0.08,
             description: "",
             issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
-            state: Math.random() >= 0.2,
+            state: Math.random() >= 0.08,
             description: "",
             issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
-            state: Math.random() >= 0.2,
+            state: Math.random() >= 0.08,
             description: "",
             issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
           },
           {
-            state: Math.random() >= 0.2,
+            state: Math.random() >= 0.08,
             description: "",
             issue_date: faker.date.past().valueOf(),
             importance: Math.random() * 10
@@ -91,7 +93,8 @@ export class MockDataService {
             importance: 0
           }
         ],
-        data: device_data
+        data: device_data.slice(0, device_data.length - predictionSize),
+        prediction: device_data.slice(device_data.length - predictionSize - 1, device_data.length)
       })
     }
 
@@ -99,7 +102,7 @@ export class MockDataService {
     for(let i = 0; i < 20; i++){
       let randNumber = Math.floor(Math.random() * 3) + 2;
       let location = {
-        identifier: "l" + i,
+        identifier: i,
         type: null,
         name: Math.random() > 0.5 ? "Room " + i : "Space " + i,
         position: null,
@@ -115,6 +118,7 @@ export class MockDataService {
       let floor: Floor = {
         identifier: "f" + i,
         name: "Floor " + i,
+        level: i,
         locations: this.locations.slice(devFloor, devFloor + randNumber)
       };
       this.floor.push(floor);
