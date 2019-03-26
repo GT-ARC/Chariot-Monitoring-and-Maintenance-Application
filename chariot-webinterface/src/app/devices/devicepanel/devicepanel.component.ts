@@ -46,10 +46,12 @@ export class DevicepanelComponent implements OnInit {
       this.lineChartData = [
         {
           data: this.device.data.map(data => data.x),
+          lineTension: 0,
           label: 'History'
         },
         {
           data: predictionData.map(data => data.x),
+          lineTension: 0,
           label: 'Prediction'
         }
       ];

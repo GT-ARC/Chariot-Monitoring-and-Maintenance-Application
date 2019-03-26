@@ -34,6 +34,16 @@ body {
   height: 36px !important;
 }
 
+.mat-menu-item mat-icon {
+  /*top: 50% !important;*/
+  transform: translate(0, -5px) !important;
+}
+
+.mat-menu-item span {
+  transform: translate(0, -2px) !important;
+  display: inline-block;
+}
+
 .mat-menu-item .selected {
   color: #2E5BFF;
 }

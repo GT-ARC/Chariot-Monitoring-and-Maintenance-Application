@@ -46,6 +46,8 @@ export class DevicesComponent implements OnInit {
   deviceSort: string[] = ["Name", "Date", "Device type", "On/Off"];
   deviceSortSelected: String = "On/Off";
 
+  deviceCardStyle: string = "Large";
+
   constructor(private mockDataService: MockDataService) {
   }
 

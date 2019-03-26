@@ -243,6 +243,14 @@ mat-icon {
   left: 16px;
 }
 
+#device-list > .list-head .mat-menu-panel {
+  min-width: 212px !important;
+}
+
+#device-list > .list-head span {
+  min-width: 212px !important;
+}
+
 #device-list-second-head {
   border-bottom-color: #c6ccdc;
 }
@@ -265,3 +273,8 @@ mat-icon {
   letter-spacing: 1.13px;
   text-align: right;
 }
+
+/*app-device-card {*/
+  /*padding-left: 16px;*/
+  /*padding-right: 16px;*/
+/*}*/

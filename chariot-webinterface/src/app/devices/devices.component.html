@@ -64,11 +64,12 @@
   <aside id="device-list" class="list">
 
     <div class="list-head">
-    <span class="search">
-      <mat-icon class="search-field-symbol">search</mat-icon>
-      <input type="text" name="device-list-search" placeholder="Search"
-             (input)="filterDevices($event.target.value)">
-    </span>
+      <span class="search">
+        <mat-icon class="search-field-symbol">search</mat-icon>
+        <input type="text" name="device-list-search" placeholder="Search"
+               (input)="filterDevices($event.target.value)">
+      </span>
+
       <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
         <mat-icon>sort</mat-icon>
       </button>
@@ -78,6 +79,19 @@
             <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
           </button>
         </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="deviceCardStyle = 'Small'">
+            <span [ngClass]="deviceCardStyle == 'Small' ? 'selected' : ''">
+              <mat-icon>list</mat-icon>
+              <span>Small</span>
+            </span>
+        </button>
+        <button mat-menu-item (click)="deviceCardStyle = 'Large'">
+            <span [ngClass]="deviceCardStyle == 'Large' ? 'selected' : ''">
+              <mat-icon>view_list</mat-icon>
+              <span>Large</span>
+            </span>
+        </button>
       </mat-menu>
     </div>
 
@@ -92,23 +106,14 @@
     </div>
 
     <div id="device-list-wrapper">
-      <div class="deviceCard device-card-base"
-        *ngFor="let device of visibleDevices"
+      <app-device-card
         (click)="selectedDevice = device"
-        [ngClass]="selectedDevice == device ? 'selected' : ''">
-        <div class="device-card-oval">
-          <div class="device-card-indicator" *ngIf="!deviceIssues[device.identifier].state"></div>
-          <i class="material-icons device-card-icon">devices</i>
-        </div>
-        <p class="device-card-name">{{device.name}}</p>
-        <p class="device-card-consumption">{{device.power_consumption}} kW</p>
-        <label class="switch-small">
-          <input type="checkbox"
-          (change)="changeDevicePowerState(device, $event.target.checked)"
-          [checked]="device.power_state">
-          <span class="slider round"></span>
-        </label>
-      </div>
+        *ngFor="let device of visibleDevices"
+        [device]="device"
+        [deviceCardStyle]="deviceCardStyle"
+        [selectedDevice]="selectedDevice"
+        [location]="'devicepanel'"
+        (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
     </div>
   </aside>
   <app-devicepanel *ngIf="selectedDevice" 

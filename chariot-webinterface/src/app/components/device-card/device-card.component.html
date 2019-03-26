@@ -1,0 +1,24 @@
+<div class="deviceCard device-card-base"
+     [ngClass]="{
+          'selected': selectedDevice == device,
+          'small': deviceCardStyle == 'Small',
+          'large': deviceCardStyle == 'Large',
+          'border': location == 'dashboard',
+          'margin': location == 'devicepanel'
+        }" >
+  <div class="device-card-oval">
+    <div class="device-card-indicator" *ngIf="deviceIssueState"></div>
+    <i class="material-icons device-card-icon">devices</i>
+  </div>
+  <p class="device-card-name">{{device.name}}</p>
+  <p class="device-card-consumption"
+     *ngIf="deviceCardStyle == 'Large'">
+    {{device.power_consumption}} kW
+  </p>
+  <label class="switch-small">
+    <input type="checkbox"
+           (change)="emitDevicePower(device, $event.target.checked)"
+           [checked]="device.power_state">
+    <span class="slider round"></span>
+  </label>
+</div>

@@ -17,8 +17,9 @@ import { ProcessFlowComponent } from './process-flow/process-flow.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { SettingsComponent } from './settings/settings.component';
 import { MatButtonModule, MatCardModule, MatDividerModule, MatMenuModule } from "@angular/material";
-import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {OverlayModule} from "@angular/cdk/overlay";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { OverlayModule } from "@angular/cdk/overlay";
+import { DeviceCardComponent } from './components/device-card/device-card.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {OverlayModule} from "@angular/cdk/overlay";
     MaintenanceComponent,
     SettingsComponent,
     DevicesComponent,
+    DeviceCardComponent,
   ],
   imports: [
     BrowserModule,
