@@ -1,3 +1,55 @@
-<p>
-  dashboard works!
-</p>
+<div id="dashboard-wrapper">
+  <div id="device-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Devices</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+    <div class="dashboard-row-content">
+      <div class="dashboard-card">
+        <span class="title">LATEST ISSUE</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <span class="title">DEVICES LATELY CHANGED</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <div *ngFor="let device of devices.slice(0, 4)">
+            <app-device-card
+              routerLink="/devices"
+              [device]="device"
+              [deviceCardStyle]="'Large'"
+              [selectedDevice]="null"
+              [location]="'dashboard'"
+              (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <span class="title">DEVICES STATUS</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <span class="title">DEVICES MOST USE THIS WEEK</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <span class="title">DEVICES MOST DOWN THIS WEEK</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="processflow-view" class="dashboard-row">
+  </div>
+</div>
