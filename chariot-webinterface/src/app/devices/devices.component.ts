@@ -1,4 +1,6 @@
 import {Component, OnInit, SimpleChange} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location as Locl} from '@angular/common';
 
 import {MockDataService} from "../services/mock-data.service";
 
@@ -48,24 +50,49 @@ export class DevicesComponent implements OnInit {
 
   deviceCardStyle: string = "Large";
 
-  constructor(private mockDataService: MockDataService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private mockDataService: MockDataService,
+    private location: Locl
+  ) {}
 
   ngOnInit() {
+    let id = null;
+    if(this.route.snapshot.paramMap.has('id'))
+      id = +this.route.snapshot.paramMap.get('id');
     this.getMockData();
-    this.floors.map(floor => {
+
+    let selectDevice = null;
+    console.log("ID:" + id);
+    if (id != null) {
+      selectDevice = this.devices.find(value => value.identifier == id);
+      if(selectDevice == undefined)
+        id = null;
+      else
+        this.selectedDevice = selectDevice;
+    }
+
+    this.floors.forEach(floor => {
       for (let loc of floor.locations) {
-        if (Math.random() > 0.8)
+        if (loc.devices.indexOf(selectDevice) != -1)
+          this.selectedLocation.push(loc);
+        else if (Math.random() > 0.8)
           this.selectedLocation.push(loc);
       }
     });
-    this.floors.map(f => this.visibleLocation[f.identifier] = f.locations);
+    if (this.selectedLocation.length == 0)
+      this.selectedLocation.push(this.locations[0]);
+
+    this.floors.forEach(f => this.visibleLocation[f.identifier] = f.locations);
     this.updateUI();
 
-    let selectDevice = Math.floor(Math.random() * this.visibleDevices.length * 0.25);
-    this.selectedDevice = this.visibleDevices[selectDevice];
+    if (id == null){
+      selectDevice = Math.floor(Math.random() * this.visibleDevices.length * 0.25);
+      this.selectedDevice = this.visibleDevices[selectDevice];
+    }
 
-    this.devices.map(d =>
+
+    this.devices.forEach(d =>
       this.deviceIssues[d.identifier] = {
         state: d.issues.reduce((prev, curr) => prev && curr.state, true),
         amount: d.issues.reduce((prev, curr) => prev + (curr.state ? 0 : 1), 0)

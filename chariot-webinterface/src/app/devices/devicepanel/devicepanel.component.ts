@@ -77,7 +77,7 @@ export class DevicepanelComponent implements OnInit {
   }
 
   getIssues(): any {
-    return this.device.issues.slice(0, 4)
+    return this.device.issues.sort((a, b) => b.issue_date - a.issue_date).slice(0, 4)
   }
 
   emitDevicePower(device: Device, state: boolean) {

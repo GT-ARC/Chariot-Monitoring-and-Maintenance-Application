@@ -36,7 +36,7 @@ export class MockDataService {
       }
 
       let issueDates = [];
-      for (let c = 0, date = Math.floor(Date.now() / 86400000) * 86400000; c < 70; c++, date -= 86400000) {
+      for (let c = 0, date = Math.floor(Date.now() / 86400000) * 86400000; c < 30; c++, date -= 86400000) {
         issueDates.push(date);
       }
 
@@ -45,7 +45,8 @@ export class MockDataService {
         let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
         issues.push({
           identifier: issueIdentifier++,
-          state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
+          // state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
+          state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.5 : Math.random() >= 0,
           description: "",
           type: faker.commerce.productName().slice(0, 15),
           issue_date: selectedDate + Math.floor(Math.random() * 86400000),
@@ -113,6 +114,11 @@ export class MockDataService {
       this.floor.push(floor);
       devFloor = devFloor + randNumber;
     }
+
+    this.locations = this.floor.map( f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
+    this.devices = this.floor.map( f =>
+      f.locations.map(l => l.devices).reduce((prev, curr) => prev.concat(curr), [])
+    ).reduce((prev, curr) => prev.concat(curr), []);
   }
 
   getFloor(): Observable<{floors: Floor[], locations: Location[], devices: Device[]}> {
