@@ -1,0 +1,19 @@
+<div class="issueCard issue-card-base"
+     [ngClass]="{
+          'selected': selectedIssue == issue
+        }" >
+
+  <div class="issue-card-oval">
+    <i class="material-icons issue-card-icon">devices</i>
+  </div>
+
+  <p class="issue-card-device-name">{{device.name}}</p>
+  <p class="issue-card-type">{{issue.type}}</p>
+
+  <div class="issue-oval"
+       [ngClass]="issue.state ? 'solved' : ''">
+    <i class="material-icons" *ngIf="!issue.state">priority_high</i>
+    <i class="material-icons" *ngIf="issue.state">done</i>
+  </div>
+  <p class="issue-card-date">{{issue.issue_date | date:'HH:mm'}}</p>
+</div>

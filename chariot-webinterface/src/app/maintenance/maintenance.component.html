@@ -1,3 +1,91 @@
-<p>
-  maintenance works!
-</p>
+<script src="../devices/devicepanel/devicepanel.component.ts"></script>
+<div id="style-wrapper">
+  <aside id="issue-list" class="list">
+
+    <div class="list-head">
+      <p id="sort-by">SORT BY: {{issueSortSelected | uppercase}}</p>
+      <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+        <mat-icon>sort</mat-icon>
+      </button>
+      <mat-menu #device_sort_menu="matMenu">
+        <div *ngFor="let sort_point of issueSort">
+          <button mat-menu-item (click)="sort(sort_point)">
+            <span [ngClass]="sort_point == issueSortSelected  ? 'selected' : ''">{{sort_point}}</span>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div id="issue-list-wrapper">
+      <div *ngFor="let key of group">
+        <p class="issue-list-grouping">
+          <span *ngIf="issueSortSelected == 'Date'">
+            {{key == today ? "HEUTE: " : ""}}{{key == yesterday ? "GESTERN: " : ""}}{{key | date:'dd.MM.yyyy' }}
+          </span>
+          <span *ngIf="issueSortSelected == 'Type'">
+            {{key | uppercase}}
+          </span>
+          <span *ngIf="issueSortSelected == 'Importance'">
+            Wichtigkeitsstufe: {{key}}
+          </span>
+        </p>
+        <app-issue-card
+          *ngFor="let issue of groupedIssues.get(key)"
+          (click)="newSelectedIssue(issue)"
+          [device]="issueDeviceMap.get(issue)"
+          [selectedIssue]="selectedIssue"
+          [issue]="issue"></app-issue-card>
+      </div>
+    </div>
+  </aside>
+
+  <main id="issue-content-wrapper">
+    <div id="issue-content-head">{{issueDeviceMap.get(selectedIssue).name}}</div>
+    <div id="issue-card-wrapper">
+      <div id="info-bar" class="issue-panel-card">
+        <span class="info-bar-comp">
+          <span>
+            <span class="issue-oval"
+                  [ngClass]="selectedIssue.state ? 'solved' : ''">
+              <i class="material-icons" *ngIf="!selectedIssue.state">priority_high</i>
+              <i class="material-icons" *ngIf="selectedIssue.state">done</i>
+            </span>
+            <span *ngIf="!selectedIssue.state">ISSUE DETECTED</span>
+            <span *ngIf="selectedIssue.state">ISSUE RESOLVED</span>
+          </span>
+        </span>
+        <span class="info-bar-comp">Description of issue</span>
+        <span class="info-bar-comp">{{ selectedIssue.issue_date | date:'dd.MM.yyyy' }}</span>
+        <span class="info-bar-comp">{{ selectedIssue.issue_date | date:'HH:mm' }}</span>
+        <span class="info-bar-comp">Priority: {{selectedIssue.importance}}</span>
+        <button *ngIf="!issueState" id="info-bar-button" class="info-bar-comp">
+          Assign task
+        </button>
+      </div>
+      <div id="issue-panel-info" class="issue-panel-card">
+        <div *ngFor="let info of issueDeviceMap.get(selectedIssue).description" style="position: relative">
+          <p class="info-panel-info-title">{{info.title}}</p>
+          <p class="info-panel-info-info">{{info.desc}}</p>
+        </div>
+      </div>
+      <div id="issue-panel-monitoring" class="issue-panel-card">
+        <p id="issue-panel-title">VISUALIZATION OF DETECTED MEASUREMENT</p>
+        <div id="issue-chart-wrapper">
+          <canvas height="122"
+            id="issue-chart"
+            baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div>

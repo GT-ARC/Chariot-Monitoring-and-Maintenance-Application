@@ -20,6 +20,7 @@ import { MatButtonModule, MatCardModule, MatDividerModule, MatMenuModule } from 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DeviceCardComponent } from './components/device-card/device-card.component';
+import { IssueCardComponent } from './components/issue-card/issue-card.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DeviceCardComponent } from './components/device-card/device-card.compon
     SettingsComponent,
     DevicesComponent,
     DeviceCardComponent,
+    IssueCardComponent,
   ],
   imports: [
     BrowserModule,

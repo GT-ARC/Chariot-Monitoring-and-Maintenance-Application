@@ -6,6 +6,7 @@ import {Device} from "../../model/device";
 import {Floor} from "../../model/floor";
 
 import * as faker from 'faker'
+import {Issue} from "../../model/issue";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class MockDataService {
   }
 
   createData(): void {
+    let issueIdentifier: number = 0;
     for(let i = 0; i < 100; i++){
       let dataStartTime: number = faker.date.past().valueOf();
       let dataValue: number = Math.random() * 100;
@@ -31,6 +33,24 @@ export class MockDataService {
         device_data.push({y: dataStartTime, x: dataValue});
         dataStartTime = Math.floor(Math.random() * 10**9 + 10**8 + 10**7) + Math.abs(dataStartTime);
         dataValue += (Math.random() * 20 + 5) * (Math.random() * 2 - 1 > 0 ? 1 : -1);
+      }
+
+      let issueDates = [];
+      for (let c = 0, date = Math.floor(Date.now() / 86400000) * 86400000; c < 70; c++, date -= 86400000) {
+        issueDates.push(date);
+      }
+
+      let issues:Issue[] = [];
+      for(let c = 0; c < 5; c++){
+        let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
+        issues.push({
+          identifier: issueIdentifier++,
+          state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
+          description: "",
+          type: faker.commerce.productName().slice(0, 15),
+          issue_date: selectedDate + Math.floor(Math.random() * 86400000),
+          importance: Math.floor(Math.random() * 100)
+        })
       }
 
       this.devices.push({
@@ -61,38 +81,7 @@ export class MockDataService {
             desc: faker.hacker.phrase()
           }
         ],
-        issues: [
-          {
-            state: Math.random() >= 0.08,
-            description: "",
-            issue_date: faker.date.past().valueOf(),
-            importance: Math.random() * 10
-          },
-          {
-            state: Math.random() >= 0.08,
-            description: "",
-            issue_date: faker.date.past().valueOf(),
-            importance: Math.random() * 10
-          },
-          {
-            state: Math.random() >= 0.08,
-            description: "",
-            issue_date: faker.date.past().valueOf(),
-            importance: Math.random() * 10
-          },
-          {
-            state: Math.random() >= 0.08,
-            description: "",
-            issue_date: faker.date.past().valueOf(),
-            importance: Math.random() * 10
-          },
-          {
-            state: true,
-            description: "",
-            issue_date: Date.now(),
-            importance: 0
-          }
-        ],
+        issues: issues,
         data: device_data.slice(0, device_data.length - predictionSize),
         prediction: device_data.slice(device_data.length - predictionSize - 1, device_data.length)
       })

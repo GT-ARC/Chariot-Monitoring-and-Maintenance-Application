@@ -235,10 +235,6 @@ mat-icon {
   width: 312px;
 }
 
-#device-list > .list-head {
-  background-color: #bcc2d5;
-}
-
 #device-list > .list-head > .search {
   left: 16px;
 }

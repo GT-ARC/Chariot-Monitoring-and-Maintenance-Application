@@ -25,6 +25,18 @@
     background-color: #d6eed5;
 }
 
+.issue-card-oval {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  left: 12px;
+
+  background-color: #2972E6;
+  border-radius: 100%;
+  width: 34px;
+  height: 34px;
+}
+
 .issue-oval > i {
     color: #d53a4a;
     font-size: 18px;

@@ -27,8 +27,8 @@
 
 .dashboard-row-content {
   display: flex;
-  flex-wrap: wrap;
   flex-flow: row;
+  flex-wrap: wrap;
 }
 
 .dashboard-card {
