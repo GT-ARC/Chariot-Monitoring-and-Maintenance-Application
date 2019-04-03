@@ -9,7 +9,11 @@
         <span class="title">LATEST ISSUE</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
-
+          <div *ngFor="let issue of issueList.slice(0, 4)">
+            <app-issue-card
+              [device]="issueDeviceMap.get(issue)"
+              [issue]="issue"></app-issue-card>
+          </div>
         </div>
       </div>
       <div class="dashboard-card">
@@ -18,7 +22,7 @@
         <div class="dashboard-card-content">
           <div *ngFor="let device of devices.slice(0, 4)">
             <app-device-card
-              routerLink="/devices"
+              routerLink="/devices/{{device.identifier}}"
               [device]="device"
               [deviceCardStyle]="'Large'"
               [selectedDevice]="null"
@@ -31,7 +35,22 @@
         <span class="title">DEVICES STATUS</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
-
+          <div style="display: block">
+            <canvas baseChart
+                    height="80"
+                    width="80"
+                    [data]="doughnutChartData"
+                    [colors]="doughnutChartColor"
+                    [labels]="doughnutChartLabels"
+                    [options]="barChartOptions"
+                    [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+          <div id="doughnutChartLabel">
+            <div><div id="blue" class="circle"></div>  <div>Running</div></div>
+            <div><div id="yellow" class="circle"></div><div>Idle</div></div>
+            <div><div id="red" class="circle"></div>   <div>Defect</div></div>
+          </div>
         </div>
       </div>
       <div class="dashboard-card">

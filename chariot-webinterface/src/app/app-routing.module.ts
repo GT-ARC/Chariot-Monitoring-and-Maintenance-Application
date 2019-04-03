@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'warehouse',    component: WarehouseComponent },
   { path: 'process_flow', component: ProcessFlowComponent },
   { path: 'maintenance',  component: MaintenanceComponent },
+  { path: 'maintenance/:id',  component: MaintenanceComponent },
   { path: 'settings',  component: SettingsComponent }
 ];
 

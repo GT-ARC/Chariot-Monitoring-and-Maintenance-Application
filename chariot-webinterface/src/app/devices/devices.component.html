@@ -107,7 +107,7 @@
 
     <div id="device-list-wrapper">
       <app-device-card
-        (click)="selectedDevice = device"
+        (click)="newDeviceSelected(device)"
         *ngFor="let device of visibleDevices"
         [device]="device"
         [deviceCardStyle]="deviceCardStyle"

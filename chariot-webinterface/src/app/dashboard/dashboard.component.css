@@ -57,3 +57,34 @@
 .dashboard-card-content {
   margin-top: 32px;
 }
+
+#doughnutChartLabel {
+  position: relative;
+
+}
+
+#doughnutChartLabel > div {
+  position: relative;
+  padding-left: 10px;
+}
+
+#doughnutChartLabel .circle {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 100%;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: -10px;
+  width: 9px;
+  height: 9px;
+}
+
+#doughnutChartLabel #blue {
+  background-color: #2b72e6;
+}
+#doughnutChartLabel #yellow {
+  background-color: #e9ac49;
+}
+#doughnutChartLabel #red {
+  background-color: #d53a4a;
+}

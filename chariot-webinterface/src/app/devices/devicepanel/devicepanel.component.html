@@ -1,39 +1,27 @@
-<div id="device-panel">
-  <span id="device-panel-head">
+<div id="device-panel" fxLayout="row wrap" fxLayoutAlign="flex-start">
+
+  <span id="device-panel-head"
+        style="background-color: red"
+        fxFlex="0 1 calc(100%)">
     <span>{{device.name}}</span>
-    <button *ngIf="!issueState" class="issue-detected-button">
+    <button *ngIf="!issueState" class="issue-detected-button" routerLink="/maintenance/{{getIssueID()}}">
       Issue detected
       <mat-icon>launch</mat-icon>
     </button>
   </span>
-  <div id="device-panel-wrapper">
-    <div id="device-panel-on-off-card" class="device-panel-card">
-      <p class="device-panel-title">Switch On/Off</p>
-      <p id="off">OFF</p>
-      <label class="switch-big">
-        <input type="checkbox"
-               (change)="emitDevicePower(device, $event.target.checked)"
-               [checked]="device.power_state">
-        <!--[attr.checked]="device.power_state ? 'checked' : null"-->
-        <span class="slider round"></span>
-      </label>
-      <p id="on">ON</p>
-    </div>
 
-    <div id="device-panel-power" class="device-panel-card">
-      <p class="device-panel-title">Power</p>
-      <ngx-gauge [type]="gaugeType"
-                 [value]="device.power_state ? device.power_consumption : 0"
-                 [label]="gaugeLabel"
-                 [size]="160"
-                 [foregroundColor] = 'gaugeColor'
-                 [thick]="gaugeThick"
-                 [cap]="gaugeCap">
-        <ngx-gauge-label>KW</ngx-gauge-label>
-      </ngx-gauge>
-    </div>
+  <div id="device-panel-wrapper" fxFlex="0 1 calc(100%)" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="">
 
-    <div id="device-panel-idle-time" class="device-panel-card">
+    <app-onoffcard
+      fxFlex="1 1 calc(29% - 16px)"
+      [device]="device"></app-onoffcard>
+
+    <app-device-panel-power
+      fxFlex="1 1 calc(35% - 16px)"
+      [device]="device">
+    </app-device-panel-power>
+
+    <div id="device-panel-idle-time" class="device-panel-card" fxFlex="1 1 calc(29% - 16px)">
       <p class="device-panel-title">Daily Idle Time</p>
       <p id="wrap">
         <span id="time">{{device.down_time}}</span>
@@ -42,14 +30,14 @@
       <p id="percentage">{{math.floor(device.down_time / device.running * 100)}} %</p>
     </div>
 
-    <div id="device-panel-info" class="device-panel-card">
+    <div id="device-panel-info" class="device-panel-card" fxFlex="1 1 calc(57% - 16px)">
       <div *ngFor="let info of device.description" style="position: relative">
         <p class="device-panel-info-title">{{info.title}}</p>
         <p class="device-panel-info-info">{{info.desc}}</p>
       </div>
     </div>
 
-    <div id="device-panel-issue-history" class="device-panel-card">
+    <div id="device-panel-issue-history" class="device-panel-card" fxFlex="1 1 calc(39% - 16px)">
       <p class="device-panel-title">issue history</p>
 
       <div class="issue"
@@ -63,9 +51,10 @@
         <p class="issue-date">{{issue.issue_date | date:'d.M.y'}}</p>
       </div>
       <div class="rectangle"></div>
-      <input id="issue-button" type="button" value="Go to Issues" routerLink="/maintenance">
+      <input id="issue-button" type="button" value="Go to Issues" routerLink="/maintenance/{{getIssueID()}}">
     </div>
-    <div id="device-panel-monitoring" class="device-panel-card">
+
+    <div id="device-panel-monitoring" class="device-panel-card" fxFlex="1 1 calc(100% - 16px)">
       <p class="device-panel-title">Device Monitoring and prediction</p>
       <div id="device-chart-wrapper">
         <canvas width="800" height="370"
@@ -80,8 +69,10 @@
         </canvas>
       </div>
     </div>
-    <div id="device-panel-map" class="device-panel-card">
+
+    <div id="device-panel-map" class="device-panel-card" fxFlex="1 1 calc(100% - 16px)">
       <p class="device-panel-title">Map</p>
     </div>
+
   </div>
 </div>

@@ -2,19 +2,11 @@ import {Component, OnInit, Input, Output, SimpleChanges, SimpleChange} from '@an
 
 import { EventEmitter } from '@angular/core';
 
-import { MatMenuModule} from '@angular/material/menu';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {OverlayModule} from '@angular/cdk/overlay';
-
-import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 
-import {Location} from "../../../model/location";
-import {Device} from "../../../model/device";
-import {Floor} from "../../../model/floor";
-import {Issue} from "../../../model/issue";
 
-import {DevicesComponent} from "../devices.component"
+import {Device} from "../../../model/device";
+
 
 @Component({
   selector: 'app-devicepanel',
@@ -24,8 +16,6 @@ import {DevicesComponent} from "../devices.component"
     './device_card_css/device-idle-time.component.css',
     './device_card_css/device-info.component.css',
     './device_card_css/device-issue-history.component.css',
-    './device_card_css/device-on-off.component.css',
-    './device_card_css/device-power.component.css'
   ]
 })
 export class DevicepanelComponent implements OnInit {
@@ -65,10 +55,8 @@ export class DevicepanelComponent implements OnInit {
   math = Math;
 
   monthAbrNames: string [] = [
-    "Jan", "Feb", "Mar",
-    "Apr", "May", "Jun", "Jul",
-    "Aug", "Sept", "Oct",
-    "Nov", "Dec"
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+    "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
 
   constructor() { }
@@ -78,6 +66,11 @@ export class DevicepanelComponent implements OnInit {
 
   getIssues(): any {
     return this.device.issues.sort((a, b) => b.issue_date - a.issue_date).slice(0, 4)
+  }
+
+  getIssueID(): string {
+    let retID = this.device.issues.reduceRight((previousValue, currentValue) => !currentValue.state ?  "" + currentValue.identifier : "", "");
+    return retID == "" ? "" + this.device.identifier : "i" + retID;
   }
 
   emitDevicePower(device: Device, state: boolean) {
@@ -124,11 +117,4 @@ export class DevicepanelComponent implements OnInit {
       pointRadius: 3
     }
   ];
-
-  /** Gauge data **/
-  gaugeType = "arch";
-  gaugeLabel = "kw";
-  gaugeColor = "rgba(41, 114, 230, 1)";
-  gaugeThick = 10;
-  gaugeCap = "butt";
 }

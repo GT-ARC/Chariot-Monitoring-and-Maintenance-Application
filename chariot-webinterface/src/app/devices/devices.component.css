@@ -270,7 +270,7 @@ mat-icon {
   text-align: right;
 }
 
-/*app-device-card {*/
-  /*padding-left: 16px;*/
-  /*padding-right: 16px;*/
-/*}*/
+#device-list-wrapper {
+  padding-left: 16px;
+  padding-right: 16px;
+}

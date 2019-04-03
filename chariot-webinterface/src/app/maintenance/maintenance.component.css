@@ -9,6 +9,11 @@
   background-color: #CDD2E5;
 }
 
+#issue-list-wrapper {
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
 .list-head {
   position: relative;
   height: 56px;
@@ -44,8 +49,6 @@ mat-divider {
 }
 
 .issue-list-grouping {
-  margin: 16px 16px auto 16px;
-
   color: #69707F;
   font-size: 12px;
   font-weight: 500;

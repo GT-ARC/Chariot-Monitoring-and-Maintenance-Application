@@ -53,7 +53,7 @@ export class DevicesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private mockDataService: MockDataService,
-    private location: Locl
+    private locationService: Locl
   ) {}
 
   ngOnInit() {
@@ -63,7 +63,6 @@ export class DevicesComponent implements OnInit {
     this.getMockData();
 
     let selectDevice = null;
-    console.log("ID:" + id);
     if (id != null) {
       selectDevice = this.devices.find(value => value.identifier == id);
       if(selectDevice == undefined)
@@ -109,7 +108,7 @@ export class DevicesComponent implements OnInit {
         .reduce((c,n) => c + n, 0)
     );
 
-    this.overallIssueCounter = this.floors.map(f => this.floorIssues[f.identifier]).reduce((c, n) => c + n, 1);
+    this.overallIssueCounter = this.floors.map(f => this.floorIssues[f.identifier]).reduce((c, n) => c + n, 0);
 
   }
 
@@ -282,5 +281,10 @@ export class DevicesComponent implements OnInit {
       case "Type of room":
         break;
     }
+  }
+
+  newDeviceSelected(device: Device) {
+    this.selectedDevice = device;
+    this.locationService.replaceState("/devices/" + device.identifier);
   }
 }

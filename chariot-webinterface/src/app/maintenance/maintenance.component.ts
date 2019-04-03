@@ -6,6 +6,9 @@ import {MockDataService} from "../services/mock-data.service";
 import {Issue} from "../../model/issue";
 import {Color} from "ng2-charts";
 
+import {ActivatedRoute} from '@angular/router';
+import {Location as Locl} from '@angular/common';
+
 @Component({
   selector: 'app-maintenance',
   templateUrl: './maintenance.component.html',
@@ -29,11 +32,30 @@ export class MaintenanceComponent implements OnInit {
   today = Math.floor(Date.now() / 86400000) * 86400000;
   yesterday = Math.floor(Date.now() / 86400000) * 86400000 - 86400000;
 
-  constructor(private mockDataService: MockDataService) {
+  constructor(
+    private route: ActivatedRoute,
+    private mockDataService: MockDataService,
+    private locationService: Locl) {
   }
 
   ngOnInit() {
+
     this.getMockData();
+
+    let id = null;
+    if (this.route.snapshot.paramMap.has('id')) {
+      let routing = this.route.snapshot.paramMap.get('id');
+      if (routing.charAt(0) == 'i')
+        id = +routing.slice(1, routing.length);
+      else {
+        let issueDevice = this.devices.find(value => value.identifier == +routing);
+        if (issueDevice != undefined && issueDevice.issues.length != 0) {
+          id = issueDevice.issues[0].identifier;
+        }
+      }
+    }
+
+    console.log("Issue ID:", id);
 
     this.issueList = this.devices.map(d => {
       d.issues.forEach(i => {
@@ -43,12 +65,23 @@ export class MaintenanceComponent implements OnInit {
     }).reduce((previousValue, currentValue) => currentValue.concat(previousValue));
 
     this.sort(this.issueSortSelected);
-    this.selectedIssue = this.issueList[0];
+
+
+    if (id != null) {
+      let issue = this.issueList.find(value => value.identifier == id);
+      if (issue != undefined)
+        this.selectedIssue = issue;
+    }
+
+    // If no issue is selected due to routing select the first in the list
+    if (this.selectedIssue == null)
+      this.selectedIssue = this.issueList[0];
+
+
     this.doGraphStuff();
   }
 
   doGraphStuff() {
-    console.log("Hey");
     let currentDevice = this.issueDeviceMap.get(this.selectedIssue);
     this.lineChartLabels = currentDevice.data.map(data =>
       this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
@@ -75,7 +108,7 @@ export class MaintenanceComponent implements OnInit {
       // Select after what property should be grouped
       let key =
         sortBy == "Date" ? Math.floor(i.issue_date / 86400000) * 86400000 :
-        sortBy == "Type" ? i.type : i.importance;
+          sortBy == "Type" ? i.type : i.importance;
 
       if (this.group.indexOf(key) == -1)
         this.group.push(key);
@@ -102,7 +135,8 @@ export class MaintenanceComponent implements OnInit {
     // Sort the group
     this.group = this.group.sort((a, b) => {
       switch (sortBy) {
-        case "Date": case "Importance":
+        case "Date":
+        case "Importance":
           return b - a;
         case "Type":
           return a.type > b.type ? 1 : -1;
@@ -154,6 +188,8 @@ export class MaintenanceComponent implements OnInit {
 
   newSelectedIssue(issue: Issue) {
     this.selectedIssue = issue;
+
+    this.locationService.replaceState("/maintenance/i" + issue.identifier);
     this.doGraphStuff();
   }
 }

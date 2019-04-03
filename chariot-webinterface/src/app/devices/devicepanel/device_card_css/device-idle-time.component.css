@@ -1,5 +1,4 @@
 #device-panel-idle-time {
-    flex: 29%;
     height: 200px;
 }
 
@@ -8,7 +7,6 @@
     top: 20%;
     left: 24px;
     color: #2E384D;
-    font-family: Rubik;
     letter-spacing: -0.6px;
     text-align: left;
     font-weight: 400;

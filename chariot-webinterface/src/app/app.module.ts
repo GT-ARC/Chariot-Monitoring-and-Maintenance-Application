@@ -9,6 +9,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { NgxGaugeModule } from 'ngx-gauge';
 import { ChartsModule } from 'ng2-charts';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DevicesComponent } from './devices/devices.component';
 import { DevicepanelComponent } from './devices/devicepanel/devicepanel.component';
@@ -21,6 +23,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DeviceCardComponent } from './components/device-card/device-card.component';
 import { IssueCardComponent } from './components/issue-card/issue-card.component';
+import { OnoffcardComponent } from './devices/devicepanel/on-off-card/onoffcard.component';
+import { DevicePanelPowerComponent } from './devices/devicepanel/device-panel-power/device-panel-power.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { IssueCardComponent } from './components/issue-card/issue-card.component
     DevicesComponent,
     DeviceCardComponent,
     IssueCardComponent,
+    OnoffcardComponent,
+    DevicePanelPowerComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +53,7 @@ import { IssueCardComponent } from './components/issue-card/issue-card.component
     MatIconModule,
     NgxGaugeModule,
     ChartsModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -42,7 +42,9 @@
   </aside>
 
   <main id="issue-content-wrapper">
-    <div id="issue-content-head" routerLink="/devices/{{issueDeviceMap.get(selectedIssue).identifier}}">{{issueDeviceMap.get(selectedIssue).name}}</div>
+    <div id="issue-content-head" routerLink="/devices/{{issueDeviceMap.get(selectedIssue).identifier}}">
+      {{issueDeviceMap.get(selectedIssue).name}} - Issue ID: {{selectedIssue.identifier}}
+    </div>
     <div id="issue-card-wrapper">
       <div id="info-bar" class="issue-panel-card">
         <span class="info-bar-comp">
