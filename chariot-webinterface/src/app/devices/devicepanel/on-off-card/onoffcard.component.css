@@ -1,0 +1,37 @@
+#device-panel-on-off-card {
+  flex: 29%;
+  /*min-width: 264px;*/
+  height: 200px;
+}
+
+#device-panel-on-off-card > .switch-big {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#device-panel-on-off-card > p:not(.device-panel-title) {
+  color: #8798AD;
+  font-family: Rubik;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  text-align: center;
+}
+
+#device-panel-on-off-card > #on {
+  position: absolute;
+  top: 44%;
+  left: 69%;
+  transform: translate(-40%, -50%);
+}
+
+#device-panel-on-off-card > #off {
+  position: absolute;
+  top: 44%;
+  left: 31%;
+  transform: translate(-60%, -50%);
+}
+
+
