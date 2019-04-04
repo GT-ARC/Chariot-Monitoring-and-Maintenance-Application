@@ -1,0 +1,9 @@
+#device-panel-monitoring {
+  height: 460px;
+}
+
+#device-chart-wrapper {
+  display: block;
+  position: absolute;
+  margin: 65px auto auto 41px;
+}

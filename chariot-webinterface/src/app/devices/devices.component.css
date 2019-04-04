@@ -186,6 +186,7 @@ mat-icon {
 
 #floor-list-wrapper {
   position: relative;
+  min-width: 328px;
 }
 
 .floor {
@@ -232,7 +233,7 @@ mat-icon {
 
 #device-list {
   background-color: #CDD2E5;
-  width: 312px;
+  min-width: 312px;
 }
 
 #device-list > .list-head > .search {

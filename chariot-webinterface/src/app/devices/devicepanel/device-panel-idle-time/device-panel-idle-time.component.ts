@@ -14,6 +14,8 @@ export class DevicePanelIdleTimeComponent implements OnInit {
 
   @Input() device: Device;
 
+  math = Math;
+
   constructor() { }
 
   ngOnInit() {

@@ -1,7 +1,6 @@
 <div id="device-panel" fxLayout="row wrap" fxLayoutAlign="flex-start">
 
   <span id="device-panel-head"
-        style="background-color: red"
         fxFlex="0 1 calc(100%)">
     <span>{{device.name}}</span>
     <button *ngIf="!issueState" class="issue-detected-button" routerLink="/maintenance/{{getIssueID()}}">
@@ -10,32 +9,37 @@
     </button>
   </span>
 
-  <div id="device-panel-wrapper" fxFlex="1 0 calc(100%)" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="flex-start">
+  <div id="device-panel-wrapper" fxFlex="0 1 900px" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="flex-start">
 
     <app-device-panel-switch
-      fxFlex="1 0 calc(29% - 16px)"
+      fxFlex="1 0 calc(264px)"
       [device]="device"></app-device-panel-switch>
 
     <app-device-panel-power
-      fxFlex="1 0 calc(35% - 16px)"
+      fxFlex="1 0 calc(343px)"
       [device]="device">
     </app-device-panel-power>
 
-    <app-device-panel-idle-time
-      fxFlex="1 0 calc(29% - 16px)"
-      [device]="device">
-    </app-device-panel-idle-time>
+<!--    <app-device-panel-idle-time-->
+<!--      fxFlex="1 0 calc(264px)"-->
+<!--      [device]="device">-->
+<!--    </app-device-panel-idle-time>-->
+
+    <app-device-panel-slider
+      fxFlex="1 0 calc(264px)">
+
+    </app-device-panel-slider>
 
 
     <app-device-panel-info
       [device]="device"
-      fxFlex="1 0 calc(57% - 16px)">
+      fxFlex="1 0 calc(620px)">
     </app-device-panel-info>
 
 
     <app-device-panel-issue-history
       [device]="device"
-      fxFlex="1 0 calc(39% - 16px)">
+      fxFlex="1 0 calc(267px)">
     </app-device-panel-issue-history>
 
     <app-device-panel-monitoring

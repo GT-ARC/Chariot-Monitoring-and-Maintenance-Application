@@ -4,5 +4,5 @@
     <span id="time">{{device.down_time}}</span>
     <span class="unit">min</span>
   </p>
-  <p id="percentage">{{device.down_time / device.running * 100 | number }} %</p>
+  <p id="percentage">{{math.floor(device.down_time / device.running * 100)}} %</p>
 </div>

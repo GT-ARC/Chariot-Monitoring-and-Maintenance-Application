@@ -18,7 +18,7 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { ProcessFlowComponent } from './process-flow/process-flow.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { SettingsComponent } from './settings/settings.component';
-import { MatButtonModule, MatCardModule, MatDividerModule, MatMenuModule } from "@angular/material";
+import {MatButtonModule, MatCardModule, MatDividerModule, MatMenuModule, MatSliderModule} from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DeviceCardComponent } from './components/device-card/device-card.component';
@@ -30,6 +30,7 @@ import { DevicePanelInfoComponent } from './devices/devicepanel/device-panel-inf
 import { DevicePanelIssueHistoryComponent } from './devices/devicepanel/device-panel-issue-history/device-panel-issue-history.component';
 import { DevicePanelMonitoringComponent } from './devices/devicepanel/device-panel-monitoring/device-panel-monitoring.component';
 import { WarehouseMapComponent } from './components/warehouse-map/warehouse-map.component';
+import { DevicePanelSliderComponent } from './devices/devicepanel/device-panel-slider/device-panel-slider.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { WarehouseMapComponent } from './components/warehouse-map/warehouse-map.
     DevicePanelIssueHistoryComponent,
     DevicePanelMonitoringComponent,
     WarehouseMapComponent,
+    DevicePanelSliderComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,7 @@ import { WarehouseMapComponent } from './components/warehouse-map/warehouse-map.
     NgxGaugeModule,
     ChartsModule,
     FlexLayoutModule,
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

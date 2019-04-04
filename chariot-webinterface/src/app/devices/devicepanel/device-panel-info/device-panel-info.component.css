@@ -1,6 +1,7 @@
 #device-panel-info {
   height: 374px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  padding-right: 16px;
 }
 
 #device-panel-info .device-panel-info-title {
