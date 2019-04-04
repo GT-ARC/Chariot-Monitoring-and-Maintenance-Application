@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OnoffcardComponent } from './onoffcard.component';
+import { WarehouseMapComponent } from './warehouse-map.component';
 
-describe('OnoffcardComponent', () => {
-  let component: OnoffcardComponent;
-  let fixture: ComponentFixture<OnoffcardComponent>;
+describe('WarehouseMapComponent', () => {
+  let component: WarehouseMapComponent;
+  let fixture: ComponentFixture<WarehouseMapComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OnoffcardComponent ]
+      declarations: [ WarehouseMapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OnoffcardComponent);
+    fixture = TestBed.createComponent(WarehouseMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,69 +10,44 @@
     </button>
   </span>
 
-  <div id="device-panel-wrapper" fxFlex="0 1 calc(100%)" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="">
+  <div id="device-panel-wrapper" fxFlex="1 0 calc(100%)" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="flex-start">
 
-    <app-onoffcard
-      fxFlex="1 1 calc(29% - 16px)"
-      [device]="device"></app-onoffcard>
+    <app-device-panel-switch
+      fxFlex="1 0 calc(29% - 16px)"
+      [device]="device"></app-device-panel-switch>
 
     <app-device-panel-power
-      fxFlex="1 1 calc(35% - 16px)"
+      fxFlex="1 0 calc(35% - 16px)"
       [device]="device">
     </app-device-panel-power>
 
-    <div id="device-panel-idle-time" class="device-panel-card" fxFlex="1 1 calc(29% - 16px)">
-      <p class="device-panel-title">Daily Idle Time</p>
-      <p id="wrap">
-        <span id="time">{{device.down_time}}</span>
-        <span class="unit">min</span>
-      </p>
-      <p id="percentage">{{math.floor(device.down_time / device.running * 100)}} %</p>
-    </div>
+    <app-device-panel-idle-time
+      fxFlex="1 0 calc(29% - 16px)"
+      [device]="device">
+    </app-device-panel-idle-time>
 
-    <div id="device-panel-info" class="device-panel-card" fxFlex="1 1 calc(57% - 16px)">
-      <div *ngFor="let info of device.description" style="position: relative">
-        <p class="device-panel-info-title">{{info.title}}</p>
-        <p class="device-panel-info-info">{{info.desc}}</p>
-      </div>
-    </div>
 
-    <div id="device-panel-issue-history" class="device-panel-card" fxFlex="1 1 calc(39% - 16px)">
-      <p class="device-panel-title">issue history</p>
+    <app-device-panel-info
+      [device]="device"
+      fxFlex="1 0 calc(57% - 16px)">
+    </app-device-panel-info>
 
-      <div class="issue"
-           *ngFor="let issue of getIssues()">
-        <div class="issue-oval"
-             [ngClass]="issue.state ? 'solved' : ''">
-          <i class="material-icons" *ngIf="!issue.state">priority_high</i>
-          <i class="material-icons" *ngIf="issue.state">done</i>
-        </div>
-        <p class="issue-status">Issue {{issue.state ? 'resolved' : 'detected'}}</p>
-        <p class="issue-date">{{issue.issue_date | date:'d.M.y'}}</p>
-      </div>
-      <div class="rectangle"></div>
-      <input id="issue-button" type="button" value="Go to Issues" routerLink="/maintenance/{{getIssueID()}}">
-    </div>
 
-    <div id="device-panel-monitoring" class="device-panel-card" fxFlex="1 1 calc(100% - 16px)">
-      <p class="device-panel-title">Device Monitoring and prediction</p>
-      <div id="device-chart-wrapper">
-        <canvas width="800" height="370"
-                id="device-chart"
-                baseChart
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType">
-        </canvas>
-      </div>
-    </div>
+    <app-device-panel-issue-history
+      [device]="device"
+      fxFlex="1 0 calc(39% - 16px)">
+    </app-device-panel-issue-history>
 
-    <div id="device-panel-map" class="device-panel-card" fxFlex="1 1 calc(100% - 16px)">
-      <p class="device-panel-title">Map</p>
-    </div>
+    <app-device-panel-monitoring
+      [device]="device"
+      fxFlex="1 0 calc(100% - 16px)">
+
+    </app-device-panel-monitoring>
+
+    <app-warehouse-map
+      fxFlex="1 0 calc(100% - 16px)">
+
+    </app-warehouse-map>
 
   </div>
 </div>

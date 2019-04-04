@@ -12,8 +12,7 @@ import {Floor} from "../../model/floor";
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: [
-    './devices.component.css',
-    './device-card.component.css',
+    './devices.component.css'
   ]
 })
 export class DevicesComponent implements OnInit {

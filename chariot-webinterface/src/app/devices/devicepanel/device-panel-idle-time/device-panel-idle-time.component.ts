@@ -1,15 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Device} from "../../../../model/device";
 
+
 @Component({
-  selector: 'app-onoffcard',
-  templateUrl: './onoffcard.component.html',
+  selector: 'app-device-panel-idle-time',
+  templateUrl: './device-panel-idle-time.component.html',
   styleUrls: [
-    './onoffcard.component.css',
+    './device-panel-idle-time.component.css',
     '../devicepanel.component.css'
   ]
 })
-export class OnoffcardComponent implements OnInit {
+export class DevicePanelIdleTimeComponent implements OnInit {
 
   @Input() device: Device;
 
