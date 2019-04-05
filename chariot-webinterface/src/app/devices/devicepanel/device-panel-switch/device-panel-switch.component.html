@@ -1,10 +1,9 @@
 <div id="device-panel-on-off-card" class="device-panel-card">
-  <p class="device-panel-title">Switch On/Off</p>
+  <p class="device-panel-title">{{cardName}}</p>
   <p id="off">OFF</p>
   <label class="switch-big">
     <input type="checkbox"
-           (change)="emitDevicePower(device, $event.target.checked)"
-           [checked]="device.power_state">
+           [checked]="device == null ? property.value.value : device.power_state">
     <span class="slider round"></span>
   </label>
   <p id="on">ON</p>

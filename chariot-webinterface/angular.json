@@ -24,6 +24,7 @@
             ],
             "styles": [
               "src/css/styles.css",
+              "src/css/slider.css",
               "src/css/switch.css",
               "src/css/fonts.css"
             ],

@@ -1,0 +1,29 @@
+#device-panel-slider {
+  height: 200px;
+}
+
+#property_value {
+  position: absolute;
+  top: 35%;
+  margin: 0;
+
+  font-size: 48px;
+  font-weight: 100;
+  color: #2E384D;
+  width: 100%;
+  text-align: center;
+}
+
+.unit {
+  font-size: 28px;
+}
+
+mat-slider {
+  position: absolute;
+  top: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}

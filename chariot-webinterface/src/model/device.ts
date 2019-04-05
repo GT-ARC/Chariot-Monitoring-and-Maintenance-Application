@@ -11,14 +11,33 @@ export class Device {
   power_state: boolean;
   power_consumption: number;
 
+  properties: {
+    name: string;
+    value: {
+      value: any;
+      unit?: string;
+      min_value?: any;
+      max_value?: any;
+    };
+  }[];
+
   running: number;
   down_time: number;
 
-  description: { title: string, desc: string }[];
+  description: {
+    title: string,
+    desc: string }[];
   issues: Issue[];
 
-  data: { y: number, x: number }[];
-  prediction: { y: number, x: number }[];
+  // To be monitored
+  data: {
+    y: number,
+    x: number
+  }[];
+  prediction: {
+    y: number,
+    x: number
+  }[];
 
   constructor(identifier: number,
               name: string,
@@ -42,6 +61,12 @@ export class Device {
     this.issues = issues;
     this.data = data;
     this.prediction = prediction;
+  }
+
+
+  getIssueID(): string {
+    let retID = this.issues.reduceRight((previousValue, currentValue) => !currentValue.state ?  "" + currentValue.identifier : "", "");
+    return retID == "" ? "" + this.identifier : "i" + retID;
   }
 
   hasIssue(): number {

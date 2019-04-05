@@ -54,37 +54,90 @@ export class MockDataService {
         })
       }
 
-      this.devices.push(
-        new Device(
-          i,
-          "Device " + i,
-          null,
-          Math.random() >= 0.2,
-          Math.floor(Math.random() * 100 * 100) / 100,
-          Math.floor(Math.random() * 200 + 50),
-          Math.floor(Math.random() * 50),
-          [
-            {
-              title: faker.commerce.productName(),
-              desc: faker.hacker.phrase()
-            },
-            {
-              title: faker.commerce.productName(),
-              desc: faker.hacker.phrase()
-            },
-            {
-              title: faker.commerce.productName(),
-              desc: faker.hacker.phrase()
-            },
-            {
-              title: faker.commerce.productName(),
-              desc: faker.hacker.phrase()
-            }
-          ],
-          issues,
-          device_data.slice(0, device_data.length - predictionSize),
-          device_data.slice(device_data.length - predictionSize - 1, device_data.length)
-        ));
+      let newDevice = new Device(
+        i,
+        "Device " + i,
+        null,
+        Math.random() >= 0.2,
+        Math.floor(Math.random() * 100 * 100) / 100,
+        Math.floor(Math.random() * 200 + 50),
+        Math.floor(Math.random() * 50),
+        [
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          },
+          {
+            title: faker.commerce.productName(),
+            desc: faker.hacker.phrase()
+          }
+        ],
+        issues,
+        device_data.slice(0, device_data.length - predictionSize),
+        device_data.slice(device_data.length - predictionSize - 1, device_data.length)
+      );
+
+      let mockDeviceProperties: { name: string, value: { value: any, unit?: string, min_value?: any, max_value?: any} }[] = [
+        {
+          name: 'Sensitivity',
+          value: {
+            value: Math.random(),
+            unit: '%',
+            min_value: 0,
+            max_value: 1,
+          }
+        },
+        {
+          name: 'Measurement schedule',
+          value: {
+            value: Math.floor(Math.random() * 100),
+            unit: 'sec',
+            min_value: 0,
+            max_value: 100,
+          }
+        },
+        {
+          name: 'Accuracy',
+          value: {
+            value: Math.random(),
+            unit: '°',
+            min_value: 0,
+            max_value: 1,
+          }
+        },
+        {
+          name: 'Security Measurement',
+          value: {
+            value: Math.random() > 0.5
+          }
+        },
+        {
+          name: 'Log',
+          value: {
+            value: Math.random() > 0.5
+          }
+        },
+      ];
+      let deviceProperties: { name: string, value: { value: any } }[] = [];
+      let devicePropertyAmount = Math.ceil(Math.random() * 5);
+      for (let i = 0; i < devicePropertyAmount; i++) {
+        let element = Math.floor(Math.random() * mockDeviceProperties.length);
+        let deviceProperty = mockDeviceProperties.splice(element, 1).pop();
+        deviceProperty['type'] = typeof (deviceProperty.value.value);
+        deviceProperties.push(deviceProperty)
+      }
+
+      newDevice.properties = deviceProperties;
+
+      this.devices.push(newDevice);
     }
 
     var devIndex = 0;

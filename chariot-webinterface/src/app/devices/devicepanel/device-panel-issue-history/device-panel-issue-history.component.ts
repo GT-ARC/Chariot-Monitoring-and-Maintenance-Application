@@ -21,10 +21,4 @@ export class DevicePanelIssueHistoryComponent implements OnInit {
   getIssues(): any {
     return this.device.issues.sort((a, b) => b.issue_date - a.issue_date).slice(0, 4)
   }
-
-  getIssueID(): string {
-    let retID = this.device.issues.reduceRight((previousValue, currentValue) => !currentValue.state ?  "" + currentValue.identifier : "", "");
-    return retID == "" ? "" + this.device.identifier : "i" + retID;
-  }
-
 }

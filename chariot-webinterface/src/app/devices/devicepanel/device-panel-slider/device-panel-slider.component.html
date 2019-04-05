@@ -1,0 +1,17 @@
+<div id="device-panel-slider" class="device-panel-card">
+  <p class="device-panel-title">{{property.name}}</p>
+  <p id="property_value">
+    {{property.value.value| number:'1.0-2'}}
+    <span class="unit" *ngIf="property.value.unit.length > 1"> {{property.value.unit}}</span>
+    <span *ngIf="property.value.unit.length == 1">{{property.value.unit}}</span>
+  </p>
+  <mat-slider
+    min="{{property.value.min_value}}"
+    max="{{property.value.max_value}}"
+    step="{{property.value.max_value / 100}}"
+    value="{{property.value.value}}"
+    thumbLabel="true"
+    (change)="changeValue($event)"
+    tickInterval="false">
+  </mat-slider>
+</div>

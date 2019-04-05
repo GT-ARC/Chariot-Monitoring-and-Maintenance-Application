@@ -3,7 +3,7 @@
   <span id="device-panel-head"
         fxFlex="0 1 calc(100%)">
     <span>{{device.name}}</span>
-    <button *ngIf="!issueState" class="issue-detected-button" routerLink="/maintenance/{{getIssueID()}}">
+    <button *ngIf="!issueState" class="issue-detected-button" routerLink="/maintenance/{{device.getIssueID()}}">
       Issue detected
       <mat-icon>launch</mat-icon>
     </button>
@@ -20,16 +20,26 @@
       [device]="device">
     </app-device-panel-power>
 
-<!--    <app-device-panel-idle-time-->
-<!--      fxFlex="1 0 calc(264px)"-->
-<!--      [device]="device">-->
-<!--    </app-device-panel-idle-time>-->
+    <app-device-panel-idle-time
+      fxFlex="1 0 calc(264px)"
+      [device]="device">
+    </app-device-panel-idle-time>
 
-    <app-device-panel-slider
-      fxFlex="1 0 calc(264px)">
 
-    </app-device-panel-slider>
+    <!--  Create the cards for the properties of the device  -->
+    <div [ngSwitch]="property['type']" *ngFor="let property of device.properties; let i = index">
+      <app-device-panel-switch
+        *ngSwitchCase="'boolean'"
+        fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
+        [property]="property">
+      </app-device-panel-switch>
 
+      <app-device-panel-slider
+        *ngSwitchCase="'number'"
+        fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
+        [property]="property">
+      </app-device-panel-slider>
+    </div>
 
     <app-device-panel-info
       [device]="device"

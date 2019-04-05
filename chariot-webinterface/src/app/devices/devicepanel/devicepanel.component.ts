@@ -31,6 +31,18 @@ export class DevicepanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  getStyleOfCard(index: number){
+
+    if(this.device.properties.length == 4)
+      return '450px';
+
+    let currentSegment = this.device.properties.slice(Math.floor(index/3), 3);
+    if(currentSegment.length == 3)
+      return '300px';
+    else if(currentSegment.length == 2)
+      return '450px';
+    else return '900px';
+  }
 
   emitDevicePower(device: Device, state: boolean) {
     this.uploaded.emit({device, state});
