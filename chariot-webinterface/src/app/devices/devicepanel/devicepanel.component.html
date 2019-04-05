@@ -39,6 +39,12 @@
         fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
         [property]="property">
       </app-device-panel-slider>
+
+      <app-device-panel-text-field
+        *ngSwitchCase="'string'"
+        fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
+        [property]="property">
+      </app-device-panel-text-field>
     </div>
 
     <app-device-panel-info

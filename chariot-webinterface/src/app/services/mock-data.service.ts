@@ -85,7 +85,15 @@ export class MockDataService {
         device_data.slice(device_data.length - predictionSize - 1, device_data.length)
       );
 
-      let mockDeviceProperties: { name: string, value: { value: any, unit?: string, min_value?: any, max_value?: any} }[] = [
+      let mockDeviceProperties: {
+        name: string, value: {
+          value: any,
+          description?: string,
+          unit?: string,
+          min_value?: any,
+          max_value?: any
+        }
+      }[] = [
         {
           name: 'Sensitivity',
           value: {
@@ -123,6 +131,20 @@ export class MockDataService {
           name: 'Log',
           value: {
             value: Math.random() > 0.5
+          }
+        },
+        {
+          name: 'Name',
+          value: {
+            value: faker.name.firstName() + " " + faker.name.lastName(),
+            description: "First Name + Last Name"
+          }
+        },
+        {
+          name: 'Destination',
+          value: {
+            value: faker.address.streetAddress(true),
+            description: "Adress"
           }
         },
       ];

@@ -15,6 +15,7 @@ export class Device {
     name: string;
     value: {
       value: any;
+      description?: string;
       unit?: string;
       min_value?: any;
       max_value?: any;

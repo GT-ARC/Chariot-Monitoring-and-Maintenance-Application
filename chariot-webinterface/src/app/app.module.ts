@@ -18,7 +18,14 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { ProcessFlowComponent } from './process-flow/process-flow.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { SettingsComponent } from './settings/settings.component';
-import {MatButtonModule, MatCardModule, MatDividerModule, MatMenuModule, MatSliderModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatDividerModule,
+  MatFormFieldModule, MatInputModule,
+  MatMenuModule,
+  MatSliderModule
+} from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DeviceCardComponent } from './components/device-card/device-card.component';
@@ -31,6 +38,7 @@ import { DevicePanelIssueHistoryComponent } from './devices/devicepanel/device-p
 import { DevicePanelMonitoringComponent } from './devices/devicepanel/device-panel-monitoring/device-panel-monitoring.component';
 import { WarehouseMapComponent } from './components/warehouse-map/warehouse-map.component';
 import { DevicePanelSliderComponent } from './devices/devicepanel/device-panel-slider/device-panel-slider.component';
+import { DevicePanelTextFieldComponent } from './devices/devicepanel/device-panel-text-field/device-panel-text-field.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +60,7 @@ import { DevicePanelSliderComponent } from './devices/devicepanel/device-panel-s
     DevicePanelMonitoringComponent,
     WarehouseMapComponent,
     DevicePanelSliderComponent,
+    DevicePanelTextFieldComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +76,8 @@ import { DevicePanelSliderComponent } from './devices/devicepanel/device-panel-s
     ChartsModule,
     FlexLayoutModule,
     MatSliderModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

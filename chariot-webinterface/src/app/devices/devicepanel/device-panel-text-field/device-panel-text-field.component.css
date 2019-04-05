@@ -1,0 +1,36 @@
+#device-panel-text-field {
+  height: 200px;
+}
+
+#description {
+  position: absolute;
+  top: 35%;
+  margin: 0;
+
+  font-family: 'Rubik-Light', 'arial', sans-serif;
+
+  font-size: 20px;
+  font-weight: 100;
+  color: #2E384D;
+  width: 80%;
+  padding-left: 10%;
+}
+
+#text-field {
+  position: absolute;
+
+  font-size: 16px;
+
+  box-sizing: border-box;
+
+  /*border: none;*/
+  border: 2px solid #2972E6;
+  border-radius: 4px;
+
+  padding: 12px 20px;
+
+  width: 80%;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
