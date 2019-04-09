@@ -23,6 +23,31 @@ body {
   background-color: #F4F6FC;
 }
 
+app-sidenav-button {
+  position: absolute;
+  top: -80px;
+  left: 0px;
+  z-index: 6;
+  display: none;
+  height: 80px;
+}
+
+@media only screen and (max-width: 1578px) {
+  app-sidenav-button {
+    display: inline-block;
+  }
+}
+
+/*.mat-sidenav-container {*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*position: absolute !important;*/
+/*}*/
+
+/*.mat-drawer-content {*/
+  /*overflow: visible !important;*/
+/*}*/
+
 .mat-menu-content {
   background-color: white;
   margin-top: 8px;
@@ -52,4 +77,8 @@ body {
 button.mat-menu-item:hover {
   background-color: #d4e3fa;
   color: blue !important;
+}
+
+.list {
+  height: 100%;
 }

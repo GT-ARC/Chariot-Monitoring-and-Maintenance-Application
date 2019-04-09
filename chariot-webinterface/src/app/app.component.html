@@ -1,6 +1,7 @@
 <nav>
-  <a routerLink="/dashboard">
-    <img src="../assets/Icons/marker%20Oval/svg/marker%20Oval.svg" alt="logo" id="logo_img"/>MM APP
+  <a routerLink="/dashboard" id="dashboard-link">
+    <img src="../assets/Icons/marker%20Oval/svg/marker%20Oval.svg" alt="logo" id="logo_img"/>
+    <span id="project_name">MM APP</span>
   </a>
   <a routerLink="/settings">      <mat-icon>settings</mat-icon>     <span>Settings</span></a>
   <a routerLink="/maintenance">   <mat-icon>warning</mat-icon>      <span>Maintenance</span></a>
@@ -8,6 +9,7 @@
   <a routerLink="/warehouse">     <mat-icon>home</mat-icon>         <span>Warehouse</span></a>
   <a routerLink="/devices">       <mat-icon>location_on</mat-icon>  <span>Devices</span></a>
 </nav>
+
 <div style="margin-top: 80px">
   <router-outlet></router-outlet>
 </div>

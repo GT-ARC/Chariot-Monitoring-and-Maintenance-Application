@@ -40,6 +40,9 @@ import { WarehouseMapComponent } from './components/warehouse-map/warehouse-map.
 import { DevicePanelSliderComponent } from './devices/devicepanel/device-panel-slider/device-panel-slider.component';
 import { DevicePanelTextFieldComponent } from './devices/devicepanel/device-panel-text-field/device-panel-text-field.component';
 
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { SidenavButtonComponent } from './components/sidenav-button/sidenav-button.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +64,7 @@ import { DevicePanelTextFieldComponent } from './devices/devicepanel/device-pane
     WarehouseMapComponent,
     DevicePanelSliderComponent,
     DevicePanelTextFieldComponent,
+    SidenavButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +82,7 @@ import { DevicePanelTextFieldComponent } from './devices/devicepanel/device-pane
     MatSliderModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

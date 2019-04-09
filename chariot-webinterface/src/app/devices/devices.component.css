@@ -1,8 +1,4 @@
-#style-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
+
 
 .search {
   position: absolute;
@@ -234,6 +230,7 @@ mat-icon {
 #device-list {
   background-color: #CDD2E5;
   min-width: 312px;
+  margin-left: 0px;
 }
 
 #device-list > .list-head > .search {
@@ -274,4 +271,12 @@ mat-icon {
 #device-list-wrapper {
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.mat-drawer-content {
+  overflow: visible !important;
+}
+
+.sidebar2 {
+  margin-left: 328px;
 }

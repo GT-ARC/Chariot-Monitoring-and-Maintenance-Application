@@ -1,4 +1,4 @@
-import {Component, OnInit, SimpleChange} from '@angular/core';
+import {Component, OnInit, SimpleChange, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location as Locl} from '@angular/common';
 
@@ -7,6 +7,7 @@ import {MockDataService} from "../services/mock-data.service";
 import {Location} from "../../model/location";
 import {Device} from "../../model/device";
 import {Floor} from "../../model/floor";
+import {MatSidenav} from "@angular/material";
 
 @Component({
   selector: 'app-devices',
@@ -48,6 +49,19 @@ export class DevicesComponent implements OnInit {
   deviceSortSelected: String = "On/Off";
 
   deviceCardStyle: string = "Large";
+
+  window = window;
+
+  @ViewChild('snav1') sideNav: MatSidenav;
+  @ViewChild('snav2') sideNav2: MatSidenav;
+  backDropClicked() {
+    console.log("Backdrop Clicked");
+    if (this.sideNav.opened && window.innerWidth < 1578)
+      this.sideNav.close();
+
+    if (this.sideNav2.opened && window.innerWidth < 1248)
+        this.sideNav2.close();
+  }
 
   constructor(
     private route: ActivatedRoute,

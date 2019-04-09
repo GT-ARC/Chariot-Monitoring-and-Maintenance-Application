@@ -1,4 +1,4 @@
-import {Component, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, OnInit, SimpleChange, SimpleChanges, ViewChild} from '@angular/core';
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
 import {Device} from "../../model/device";
@@ -8,6 +8,7 @@ import {Color} from "ng2-charts";
 
 import {ActivatedRoute} from '@angular/router';
 import {Location as Locl} from '@angular/common';
+import {MatSidenav} from "@angular/material";
 
 @Component({
   selector: 'app-maintenance',
@@ -31,6 +32,15 @@ export class MaintenanceComponent implements OnInit {
   datesShown: number = 2;
   today = Math.floor(Date.now() / 86400000) * 86400000;
   yesterday = Math.floor(Date.now() / 86400000) * 86400000 - 86400000;
+
+  window = window;
+
+  @ViewChild('snav1') sideNav: MatSidenav;
+  backDropClicked() {
+    console.log("Backdrop Clicked");
+    if (this.sideNav.opened && window.innerWidth < 1578)
+      this.sideNav.close();
+  }
 
   constructor(
     private route: ActivatedRoute,

@@ -1,11 +1,15 @@
-<div id="style-wrapper">
-  <aside id="floor-list" class="list">
+<app-sidenav-button [sideNav]="snav1" [sideNav2]="snav2"></app-sidenav-button>
+
+<mat-sidenav-container
+  (backdropClick)="backDropClicked()">
+  <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
+    <aside id="floor-list" class="list">
     <div class="list-head">
-    <span class="search">
-      <mat-icon class="search-field-symbol">search</mat-icon>
-      <input type="text" name="device-list-search" placeholder="Search"
-             (input)="filterFloors($event.target.value)">
-    </span>
+  <span class="search">
+    <mat-icon class="search-field-symbol">search</mat-icon>
+    <input type="text" name="device-list-search" placeholder="Search"
+           (input)="filterFloors($event.target.value)">
+  </span>
       <mat-icon class="map-symbol">map</mat-icon>
       <button class="sort-symbol" [matMenuTriggerFor]="floor_sort_menu">
         <mat-icon>sort</mat-icon>
@@ -26,8 +30,8 @@
                [checked]="allLocationsSelected">
         <span class="checkmark"></span>
         <span class="issue-indicator-counter" *ngIf="overallIssueCounter > 0">
-              {{overallIssueCounter}}
-        </span>
+            {{overallIssueCounter}}
+      </span>
       </label>
     </div>
 
@@ -40,8 +44,8 @@
                    [checked]="selectedFloors.indexOf(floor) >= 0">
             <span class="checkmark"></span>
             <span class="issue-indicator-counter" *ngIf="floorIssues[floor.identifier] > 0">
-              {{floorIssues[floor.identifier]}}
-            </span>
+            {{floorIssues[floor.identifier]}}
+          </span>
           </label>
         </div>
         <div class="room"
@@ -53,70 +57,81 @@
                    [checked]="selectedLocation.indexOf(loc) >= 0">
             <span class="checkmark"></span>
             <span class="issue-indicator-counter" *ngIf="locationIssues[loc.identifier]">
-              {{locationIssues[loc.identifier]}}
-            </span>
+            {{locationIssues[loc.identifier]}}
+          </span>
           </label>
         </div>
       </div>
     </div>
   </aside>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <mat-sidenav-container (backdropClick)="backDropClicked()">
+      <mat-sidenav #snav2 [opened]="window.innerWidth > 1248"
+                   [ngClass]="window.innerWidth < 1248 ? 'sidebar2' : ''">
+        <aside id="device-list" class="list">
 
-  <aside id="device-list" class="list">
+        <div class="list-head">
+    <span class="search">
+      <mat-icon class="search-field-symbol">search</mat-icon>
+      <input type="text" name="device-list-search" placeholder="Search"
+             (input)="filterDevices($event.target.value)">
+    </span>
 
-    <div class="list-head">
-      <span class="search">
-        <mat-icon class="search-field-symbol">search</mat-icon>
-        <input type="text" name="device-list-search" placeholder="Search"
-               (input)="filterDevices($event.target.value)">
-      </span>
-
-      <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
-        <mat-icon>sort</mat-icon>
-      </button>
-      <mat-menu #device_sort_menu="matMenu">
-        <div *ngFor="let sort_point of deviceSort">
-          <button mat-menu-item (click)="deviceSortSelected = sort_point">
-            <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
+          <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+            <mat-icon>sort</mat-icon>
           </button>
+          <mat-menu #device_sort_menu="matMenu">
+            <div *ngFor="let sort_point of deviceSort">
+              <button mat-menu-item (click)="deviceSortSelected = sort_point">
+                <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
+              </button>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="deviceCardStyle = 'Small'">
+          <span [ngClass]="deviceCardStyle == 'Small' ? 'selected' : ''">
+            <mat-icon>list</mat-icon>
+            <span>Small</span>
+          </span>
+            </button>
+            <button mat-menu-item (click)="deviceCardStyle = 'Large'">
+          <span [ngClass]="deviceCardStyle == 'Large' ? 'selected' : ''">
+            <mat-icon>view_list</mat-icon>
+            <span>Large</span>
+          </span>
+            </button>
+          </mat-menu>
         </div>
-        <mat-divider></mat-divider>
-        <button mat-menu-item (click)="deviceCardStyle = 'Small'">
-            <span [ngClass]="deviceCardStyle == 'Small' ? 'selected' : ''">
-              <mat-icon>list</mat-icon>
-              <span>Small</span>
-            </span>
-        </button>
-        <button mat-menu-item (click)="deviceCardStyle = 'Large'">
-            <span [ngClass]="deviceCardStyle == 'Large' ? 'selected' : ''">
-              <mat-icon>view_list</mat-icon>
-              <span>Large</span>
-            </span>
-        </button>
-      </mat-menu>
-    </div>
 
-    <div id="device-list-second-head" class="second-head">
-      <p>ALL</p>
-      <label class="switch-small">
-        <input type="checkbox"
-        [checked]="allDevicesOn"
-        (change)="switchAllDevices($event.target.checked)">
-        <span class="slider round"></span>
-      </label>
-    </div>
+        <div id="device-list-second-head" class="second-head">
+          <p>ALL</p>
+          <label class="switch-small">
+            <input type="checkbox"
+                   [checked]="allDevicesOn"
+                   (change)="switchAllDevices($event.target.checked)">
+            <span class="slider round"></span>
+          </label>
+        </div>
 
-    <div id="device-list-wrapper">
-      <app-device-card
-        (click)="newDeviceSelected(device)"
-        *ngFor="let device of visibleDevices"
-        [device]="device"
-        [deviceCardStyle]="deviceCardStyle"
-        [selectedDevice]="selectedDevice"
-        [location]="'devicepanel'"
-        (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
-    </div>
-  </aside>
-  <app-devicepanel *ngIf="selectedDevice" 
-    [device]="selectedDevice"
-    (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
-</div>
+        <div id="device-list-wrapper">
+          <app-device-card
+            (click)="newDeviceSelected(device)"
+            *ngFor="let device of visibleDevices"
+            [device]="device"
+            [deviceCardStyle]="deviceCardStyle"
+            [selectedDevice]="selectedDevice"
+            [location]="'devicepanel'"
+            (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+        </div>
+      </aside>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-devicepanel *ngIf="selectedDevice"
+                         [device]="selectedDevice"
+                         (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
