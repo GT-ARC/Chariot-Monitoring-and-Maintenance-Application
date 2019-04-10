@@ -29,7 +29,7 @@ export class DevicePanelTextFieldComponent implements OnInit {
   ngOnInit() {
   }
 
-  emitProperty($event: KeyboardEvent) {
+  emitProperty($event: any) {
     if ($event.key == "Enter") {
       this.property.value.value = $event.target.value;
       this.uploaded.emit({property: this.property.name, state: $event.target.value})
