@@ -1,8 +1,7 @@
 .mat-icon-button {
-  position: relative;
-  top: 50%;
+  position: fixed;
+  top: 18px;
   left: 16px;
-  transform: translate(0, -50%);
   background-color: transparent;
 }
 

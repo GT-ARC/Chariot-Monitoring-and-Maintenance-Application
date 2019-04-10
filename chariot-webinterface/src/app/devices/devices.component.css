@@ -160,6 +160,10 @@ mat-icon {
 #floor-list {
   background-color: #323b4e;
   width: 328px;
+  height: 100%;
+  min-width: 312px;
+  margin-left: 0;
+  overflow: hidden;
 }
 
 #floor-list > .list-head {
@@ -228,9 +232,11 @@ mat-icon {
 /* Device list props */
 
 #device-list {
+  height: 100%;
   background-color: #CDD2E5;
   min-width: 312px;
   margin-left: 0px;
+  overflow: hidden;
 }
 
 #device-list > .list-head > .search {

@@ -3,6 +3,7 @@
   <p id="off">OFF</p>
   <label class="switch-big">
     <input type="checkbox"
+           (change)="emitDevicePower($event.target.checked)"
            [checked]="device == null ? property.value.value : device.power_state">
     <span class="slider round"></span>
   </label>

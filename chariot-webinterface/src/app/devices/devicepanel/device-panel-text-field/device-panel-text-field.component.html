@@ -4,6 +4,8 @@
     {{property.value.description}}
   </p>
   <label>
-    <input id="text-field" placeholder="{{property.name}}" value="{{property.value.value}}">
+    <input id="text-field"
+           placeholder="{{property.name}}"
+           value="{{property.value.value}}" (keypress)="emitProperty($event)">
   </label>
 </div>

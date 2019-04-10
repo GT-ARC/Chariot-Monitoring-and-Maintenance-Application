@@ -25,6 +25,26 @@ nav a {
   float: left;
 }
 
+#nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 16px;
+}
+
+#nav-button mat-icon, #nav-button button {
+  background-color: transparent;
+  font-size: 30px;
+}
+
+
+.mat-menu-item {
+  font-size: 24px;
+  height: 50px !important;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
 nav span {
   margin-left: 8px;
   font-size: 15px;
@@ -45,8 +65,8 @@ nav a:hover {
   color: #039be5;
 }
 
-nav a.active {
-  color: #2b72e6;
+.selected {
+  color: #2b72e6 !important;
 }
 
 #project_name {

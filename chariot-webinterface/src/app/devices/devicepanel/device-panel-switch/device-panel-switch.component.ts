@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Device} from "../../../../model/device";
 
 @Component({
@@ -12,7 +12,7 @@ import {Device} from "../../../../model/device";
 export class DevicePanelSwitchComponent implements OnInit {
 
   @Input() device: Device;
-
+  @Output() uploaded = new EventEmitter<{property: string, state: any}>();
   cardName: string;
 
   @Input() property: {
@@ -23,6 +23,14 @@ export class DevicePanelSwitchComponent implements OnInit {
       max_value?: any;
     }
   };
+
+  emitDevicePower(switchState: any) {
+    if (this.device == null)
+      this.uploaded.emit({property: this.property.name, state: switchState});
+    else
+      this.uploaded.emit({property: "device_power", state: switchState});
+
+  }
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import 'hammerjs';
 import {MatSliderChange} from "@angular/material";
 
@@ -22,6 +22,8 @@ export class DevicePanelSliderComponent implements OnInit {
     }
   };
 
+  @Output() uploaded = new EventEmitter<{property: string, state: any}>();
+
   constructor() { }
 
   ngOnInit() {
@@ -29,5 +31,6 @@ export class DevicePanelSliderComponent implements OnInit {
 
   changeValue($event: MatSliderChange) {
     this.property.value.value = $event.value;
+    this.uploaded.emit({property: this.property.name, state: $event.value});
   }
 }

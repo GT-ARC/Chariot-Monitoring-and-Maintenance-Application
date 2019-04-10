@@ -6,19 +6,27 @@
 * {
   font-family: Rubik, 'arial', sans-serif;
   
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  /*-webkit-user-select: none;*/
+  /*-moz-user-select: none;*/
+  /*-ms-user-select: none;*/
+  /*user-select: none;*/
 }
 
 html, body {
   height: 100%;
 }
 
+.mat-icon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 body {
   position:relative;
   width: 100%;
+  height: calc(100% - 80px);
   margin: 0;
   background-color: #F4F6FC;
 }
@@ -39,17 +47,12 @@ app-sidenav-button {
 }
 
 /*.mat-sidenav-container {*/
-  /*top: 0;*/
-  /*bottom: 0;*/
-  /*position: absolute !important;*/
-/*}*/
-
-/*.mat-drawer-content {*/
-  /*overflow: visible !important;*/
+  /*bottom: 80px !important;*/
 /*}*/
 
 .mat-menu-content {
   background-color: white;
+  border: 1px #96b0f0 solid ;
   margin-top: 8px;
   border-radius: 8px !important;
 }
@@ -79,6 +82,27 @@ button.mat-menu-item:hover {
   color: blue !important;
 }
 
+.mat-sidenav {
+  height: max-content;
+  overflow: hidden;
+}
+
 .list {
-  height: 100%;
+  height: calc(100% - 80px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
 }

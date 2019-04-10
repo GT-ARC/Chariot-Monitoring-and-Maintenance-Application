@@ -1,6 +1,8 @@
 #issue-list {
   min-width: 312px;
   background-color: #CDD2E5;
+  overflow: hidden;
+  height: 100%
 }
 
 #issue-list-wrapper {
@@ -71,6 +73,7 @@ mat-divider {
 .issue-panel-card {
   position: relative;
   display: inline-block;
+  width: 100%;
   background-color: white;
   border: 1px solid rgba(46, 91, 255, 0.08);
 }
@@ -87,13 +90,20 @@ mat-divider {
   position: relative;
   border-right: 1px solid #BFC5D2;
 
+  padding-left: 16px;
+  padding-right: 16px;
+
   flex-grow: 1;
+
   flex-basis: auto;
   height: 24px;
 
   text-align: center;
   padding-top: 6px;
+}
 
+.info-bar-comp:first-of-type {
+  min-width: 235px;
 }
 
 .issue-oval {
@@ -158,12 +168,6 @@ mat-divider {
   font-size: 15px;
   font-weight: 400;
   text-align: left;
-}
-
-#issue-panel-monitoring {
-  /*height: fit-content;*/
-  width: 100%;
-  min-width: 741px;
 }
 
 #issue-panel-title {

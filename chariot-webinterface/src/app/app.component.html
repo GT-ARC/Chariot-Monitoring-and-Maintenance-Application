@@ -3,11 +3,33 @@
     <img src="../assets/Icons/marker%20Oval/svg/marker%20Oval.svg" alt="logo" id="logo_img"/>
     <span id="project_name">MM APP</span>
   </a>
-  <a routerLink="/settings">      <mat-icon>settings</mat-icon>     <span>Settings</span></a>
-  <a routerLink="/maintenance">   <mat-icon>warning</mat-icon>      <span>Maintenance</span></a>
-  <a routerLink="/process_flow">  <mat-icon>linear_scale</mat-icon> <span>Process Flow</span></a>
-  <a routerLink="/warehouse">     <mat-icon>home</mat-icon>         <span>Warehouse</span></a>
-  <a routerLink="/devices">       <mat-icon>location_on</mat-icon>  <span>Devices</span></a>
+  <div id="nav-button">
+    <button mat-icon-button
+            [matMenuTriggerFor]="navMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #navMenu="matMenu">
+      <button mat-menu-item
+              *ngFor="let site of sites"
+              (click)="path = site.route"
+              routerLink="{{site.route}}">
+          <span [ngClass]="path == site.route ? 'selected' : ''">
+              <mat-icon>{{site.icon}}</mat-icon>
+              <span>{{site.name}}</span>
+          </span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <div id="nav-wrap">
+    <a *ngFor="let site of sites.reverse()"
+       [ngClass]="path == site.route ? 'selected' : ''"
+       (click)="path = site.route"
+       routerLink="{{site.route}}">
+      <mat-icon>{{site.icon}}</mat-icon>
+      <span>{{site.name}}</span>
+    </a>
+  </div>
 </nav>
 
 <div style="margin-top: 80px">

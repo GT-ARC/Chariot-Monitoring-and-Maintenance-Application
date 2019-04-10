@@ -3,6 +3,7 @@ import {Component, OnInit, Input, Output, SimpleChanges, SimpleChange} from '@an
 import { EventEmitter } from '@angular/core';
 
 import {Device} from "../../../model/device";
+import {log} from "util";
 
 
 @Component({
@@ -15,20 +16,25 @@ import {Device} from "../../../model/device";
 export class DevicepanelComponent implements OnInit {
 
   @Input() device: Device;
+  @Output() uploaded = new EventEmitter<{device: Device, state: any}>();
   public issueState: boolean;
-
 
   ngOnChanges(changes: SimpleChanges) {
       this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true)
   }
 
-
-  @Output() uploaded = new EventEmitter<{device: Device, state: boolean}>();
-
-
   constructor() { }
 
   ngOnInit() {
+  }
+
+  emitDeviceProperty(property: string, state: any){
+    if (property == "device_power")
+      this.uploaded.emit({device: this.device, state});
+    else {
+      log(property, state);
+      log(this.device.properties.find(value => value.name == property));
+    }
   }
 
   getStyleOfCard(index: number){
@@ -44,7 +50,4 @@ export class DevicepanelComponent implements OnInit {
     else return '900px';
   }
 
-  emitDevicePower(device: Device, state: boolean) {
-    this.uploaded.emit({device, state});
-  }
 }

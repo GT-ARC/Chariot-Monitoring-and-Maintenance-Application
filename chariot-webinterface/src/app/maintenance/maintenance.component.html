@@ -6,7 +6,7 @@
   fullscreen
   (backdropClick)="backDropClicked()">
   <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
-    <aside id="issue-list" class="list">
+    <aside id="issue-list">
 
       <div class="list-head">
         <p id="sort-by">SORT BY: {{issueSortSelected | uppercase}}</p>
@@ -24,7 +24,7 @@
 
       <mat-divider></mat-divider>
 
-      <div id="issue-list-wrapper">
+      <div id="issue-list-wrapper" class="list">
         <div *ngFor="let key of group">
           <p class="issue-list-grouping">
           <span *ngIf="issueSortSelected == 'Date'">
@@ -51,11 +51,11 @@
     <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start">
       <div id="issue-content-head"
            routerLink="/devices/{{issueDeviceMap.get(selectedIssue).identifier}}"
-           fxFlex="0 1 calc(100%)">
+           fxFlex="1 1 calc(100%)">
         {{issueDeviceMap.get(selectedIssue).name}} - Issue ID: {{selectedIssue.identifier}}
       </div>
       <div id="issue-card-wrapper"
-           fxFlex="0 1 calc(100%)"
+           fxFlex="1 1 calc(100%)"
            fxLayout="row wrap"
            fxLayoutGap="16px grid"
            fxLayoutAlign="flex-start">
@@ -83,7 +83,9 @@
           </div>
         </div>
 
-        <div fxFlex="1 1 calc(400px)">
+        <div
+          fxFlex="1 1 calc(40%)"
+          fxFlex.lt-lg="1 1 calc(100%)">
           <div id="issue-panel-info" class="issue-panel-card">
             <div *ngFor="let info of issueDeviceMap.get(selectedIssue).description" style="position: relative">
               <p class="info-panel-info-title">{{info.title}}</p>
@@ -92,7 +94,8 @@
           </div>
         </div>
 
-        <div fxFlex="1 1 calc(850px)">
+        <div fxFlex="1 1 calc(60%)"
+             fxFlex.lt-lg="1 1 calc(100%)">
           <div id="issue-panel-monitoring" class="issue-panel-card" >
             <p id="issue-panel-title">VISUALIZATION OF DETECTED MEASUREMENT</p>
             <div id="issue-chart-wrapper">

@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {log} from "util";
+import {state} from "@angular/animations";
 
 @Component({
   selector: 'app-device-panel-text-field',
@@ -20,9 +22,17 @@ export class DevicePanelTextFieldComponent implements OnInit {
     }
   };
 
+  @Output() uploaded = new EventEmitter<{property: string, state: any}>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  emitProperty($event: KeyboardEvent) {
+    if ($event.key == "Enter") {
+      this.property.value.value = $event.target.value;
+      this.uploaded.emit({property: this.property.name, state: $event.target.value})
+    }
+  }
 }

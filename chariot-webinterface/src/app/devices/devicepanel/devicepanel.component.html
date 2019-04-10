@@ -12,16 +12,17 @@
   <div id="device-panel-wrapper" fxFlex="0 1 900px" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="flex-start">
 
     <app-device-panel-switch
-      fxFlex="1 0 calc(264px)"
+      (uploaded)="emitDeviceProperty($event.property, $event.state)"
+      fxFlex="1 1 calc(264px)"
       [device]="device"></app-device-panel-switch>
 
     <app-device-panel-power
-      fxFlex="1 0 calc(343px)"
+      fxFlex="1 1 calc(343px)"
       [device]="device">
     </app-device-panel-power>
 
     <app-device-panel-idle-time
-      fxFlex="1 0 calc(264px)"
+      fxFlex="1 1 calc(264px)"
       [device]="device">
     </app-device-panel-idle-time>
 
@@ -29,43 +30,46 @@
     <!--  Create the cards for the properties of the device  -->
     <div [ngSwitch]="property['type']" *ngFor="let property of device.properties; let i = index">
       <app-device-panel-switch
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
         *ngSwitchCase="'boolean'"
-        fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
+        fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
         [property]="property">
       </app-device-panel-switch>
 
       <app-device-panel-slider
         *ngSwitchCase="'number'"
-        fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
+        fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
         [property]="property">
       </app-device-panel-slider>
 
       <app-device-panel-text-field
         *ngSwitchCase="'string'"
-        fxFlex="1 0 calc({{getStyleOfCard(i)}} - 16px)"
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
+        fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
         [property]="property">
       </app-device-panel-text-field>
     </div>
 
     <app-device-panel-info
       [device]="device"
-      fxFlex="1 0 calc(620px)">
+      fxFlex="1 1 calc(620px)">
     </app-device-panel-info>
 
 
     <app-device-panel-issue-history
       [device]="device"
-      fxFlex="1 0 calc(267px)">
+      fxFlex="1 1 calc(267px)">
     </app-device-panel-issue-history>
 
     <app-device-panel-monitoring
       [device]="device"
-      fxFlex="1 0 calc(100% - 16px)">
+      fxFlex="1 1 calc(100% - 16px)">
 
     </app-device-panel-monitoring>
 
     <app-warehouse-map
-      fxFlex="1 0 calc(100% - 16px)">
+      fxFlex="1 1 calc(100% - 16px)">
 
     </app-warehouse-map>
 
