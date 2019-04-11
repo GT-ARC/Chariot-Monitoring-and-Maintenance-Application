@@ -5,5 +5,6 @@
 #device-chart-wrapper {
   display: block;
   position: absolute;
+  width: calc(100% - 41px - 16px);
   margin: 65px auto auto 41px;
 }

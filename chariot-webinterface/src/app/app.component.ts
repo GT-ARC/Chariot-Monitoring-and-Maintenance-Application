@@ -1,7 +1,6 @@
 import {Component, HostListener, ViewChild} from '@angular/core';
 import {MockDataService} from "./services/mock-data.service";
 import {Location as Locl} from "@angular/common";
-import {log} from "util";
 
 @Component({
   selector: 'app-root',
@@ -32,8 +31,6 @@ export class AppComponent {
     AppComponent.toggleNav(window.innerWidth)
   }
 
-
-
   @HostListener('window:resize', ['$event'])
   onResize(event){
     AppComponent.toggleNav(event.target.innerWidth)
@@ -42,7 +39,6 @@ export class AppComponent {
   static toggleNav(width : number) {
     let nav1 = document.getElementById("nav-button");
     let nav2 = document.getElementById("nav-wrap");
-    log(width, nav1);
     if (width < 1061){
       nav1.style.display = null;
       nav2.style.display = 'none';

@@ -37,7 +37,6 @@ export class MaintenanceComponent implements OnInit {
 
   @ViewChild('snav1') sideNav: MatSidenav;
   backDropClicked() {
-    console.log("Backdrop Clicked");
     if (this.sideNav.opened && window.innerWidth < 1578)
       this.sideNav.close();
   }

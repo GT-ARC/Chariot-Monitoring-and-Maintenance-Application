@@ -163,7 +163,6 @@ mat-icon {
   height: 100%;
   min-width: 312px;
   margin-left: 0;
-  overflow: hidden;
 }
 
 #floor-list > .list-head {
@@ -237,6 +236,10 @@ mat-icon {
   min-width: 312px;
   margin-left: 0px;
   overflow: hidden;
+}
+
+#device-list > .list, #floor-list > .list {
+  height: calc(100% - 160px);
 }
 
 #device-list > .list-head > .search {

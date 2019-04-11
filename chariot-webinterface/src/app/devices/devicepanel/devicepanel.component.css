@@ -1,8 +1,9 @@
 #device-panel {
   position: relative;
-  float: left;
   padding-left: 32px;
   padding-top: 32px;
+  padding-right: 32px;
+  margin-bottom: 100px;
 }
 
 #device-panel-head {

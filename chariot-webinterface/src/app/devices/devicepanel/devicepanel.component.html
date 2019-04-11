@@ -28,7 +28,8 @@
 
 
     <!--  Create the cards for the properties of the device  -->
-    <div [ngSwitch]="property['type']" *ngFor="let property of device.properties; let i = index">
+    <div [ngSwitch]="property['type']" *ngFor="let property of device.properties; let i = index"
+         fxFlex="1 1 auto">
       <app-device-panel-switch
         (uploaded)="emitDeviceProperty($event.property, $event.state)"
         *ngSwitchCase="'boolean'"
@@ -53,13 +54,13 @@
 
     <app-device-panel-info
       [device]="device"
-      fxFlex="1 1 calc(620px)">
+      fxFlex="1 1 calc(60% - 16px)">
     </app-device-panel-info>
 
 
     <app-device-panel-issue-history
       [device]="device"
-      fxFlex="1 1 calc(267px)">
+      fxFlex="1 1 calc(40% - 16px)">
     </app-device-panel-issue-history>
 
     <app-device-panel-monitoring

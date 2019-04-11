@@ -44,12 +44,10 @@ export class SidenavButtonComponent implements OnInit {
 
     if (this.sideNav.opened) {
       if (width < this.viewPortSizeBig) {
-        console.log("SIDENAV 1 CLOSE");
         this.sideNav.close();
       }
     } else {
       if (width > this.viewPortSizeBig){
-        console.log("SIDENAV 1 OPEN");
         this.sideNav.open();
       }
     }
@@ -57,12 +55,10 @@ export class SidenavButtonComponent implements OnInit {
     if (this.sideNav2 != null){
       if (this.sideNav2.opened) {
         if (width < this.viewPortSizeSmall) {
-          console.log("SIDENAV 2 Close");
           this.sideNav2.close();
         }
       } else {
         if (width > this.viewPortSizeSmall){
-          console.log("SIDENAV 2 OPEN");
           this.sideNav2.open();
         }
       }
@@ -70,8 +66,7 @@ export class SidenavButtonComponent implements OnInit {
   }
 
   toggleSidebar() {
-    console.log("Toggle sidebar");
-    if (window.innerWidth > this.viewPortSizeSmall && window.innerWidth < this.viewPortSizeBig){
+    if (window.innerWidth > this.viewPortSizeSmall && window.innerWidth <= this.viewPortSizeBig){
       this.sideNav.toggle();
     } else if (window.innerWidth < this.viewPortSizeSmall){
       this.sideNav.toggle();

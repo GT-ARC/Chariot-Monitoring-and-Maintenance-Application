@@ -55,7 +55,6 @@ export class DevicesComponent implements OnInit {
   @ViewChild('snav1') sideNav: MatSidenav;
   @ViewChild('snav2') sideNav2: MatSidenav;
   backDropClicked() {
-    console.log("Backdrop Clicked");
     if (this.sideNav.opened && window.innerWidth < 1578)
       this.sideNav.close();
 

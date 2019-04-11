@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {log} from "util";
 import {state} from "@angular/animations";
 
 @Component({
