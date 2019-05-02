@@ -1,3 +1,52 @@
-<p>
-  process-flow works!
-</p>
+<!--<script src="../devices/devicepanel/devicepanel.component.ts"></script>-->
+
+<app-sidenav-button [sideNav]="snav"></app-sidenav-button>
+
+<mat-sidenav-container
+  fullscreen>
+  <mat-sidenav #snav [opened]="window.innerWidth > 1578">
+    <aside id="process-list">
+      <div class="list-head">
+
+        <span class="search">
+          <mat-icon class="search-field-symbol">search</mat-icon>
+          <input type="text" name="process-list-search" placeholder="Search"
+                 (input)="filterProcess($event.target.value)">
+        </span>
+
+        <!--    Sort symbole with the menu for sorting the process list    -->
+        <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+          <mat-icon>sort</mat-icon>
+        </button>
+        <mat-menu #device_sort_menu="matMenu">
+          <div *ngFor="let sort_point of processSort">
+            <button mat-menu-item (click)="processSortSelected = sort_point">
+              <span [ngClass]="sort_point == processSortSelected ? 'selected' : ''">{{sort_point}}</span>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+
+      <div id="process-list-wrapper"
+           class="list">
+        <app-processflow-card
+          (click)="newProcessSelected(process)"
+          *ngFor="let process of processes"
+          [process]="process"
+          [selectedProcess]="selectedProcess">
+        </app-processflow-card>
+      </div>
+    </aside>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <app-process-flow-main
+          [process]="selectedProcess">
+      </app-process-flow-main>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+

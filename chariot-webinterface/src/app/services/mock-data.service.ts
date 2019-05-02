@@ -7,6 +7,7 @@ import {Floor} from "../../model/floor";
 
 import * as faker from 'faker'
 import {Issue} from "../../model/issue";
+import {Process} from "../../model/process";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class MockDataService {
   floor: Floor[] = [];
   locations: Location[] = [];
   devices: Device[] = [];
+
+  processes: Process[] = [];
 
   constructor() {
     this.createData();
@@ -193,6 +196,122 @@ export class MockDataService {
     this.devices = this.floor.map(f =>
       f.locations.map(l => l.devices).reduce((prev, curr) => prev.concat(curr), [])
     ).reduce((prev, curr) => prev.concat(curr), []);
+
+    let processIdentifier: number = 0;
+    for (let i = 0; i < 20; i++) {
+
+      let currentProgress = Math.floor(Math.random() * 7);
+
+      let productFlow = [
+        {
+          name: "Scheduling",
+          icon: "schedule",
+          progress: currentProgress == 0 ? Math.floor(Math.random() * 100) :
+            currentProgress > 0 ? 100 : -1
+        },
+        {
+          name: "Printing Process",
+          icon: "./assets/Icons/process_flow/printer.svg",
+          progress: currentProgress == 1 ? Math.floor(Math.random() * 100) :
+            currentProgress > 1 ? 100 : -1
+        },
+        {
+          name: "Measurement",
+          icon: "./assets/Icons/process_flow/measurement.svg",
+          progress: currentProgress == 2 ? Math.floor(Math.random() * 100) :
+            currentProgress > 2 ? 100 : -1
+        },
+        {
+          name: "Deformation Checking",
+          icon: "./assets/Icons/process_flow/deformation_checking.svg",
+          progress: currentProgress == 3 ? Math.floor(Math.random() * 100) :
+            currentProgress > 3 ? 100 : -1
+        },
+        {
+          name: "Packing",
+          icon: "./assets/Icons/process_flow/packing.svg",
+          progress: currentProgress == 4 ? Math.floor(Math.random() * 100) :
+            currentProgress > 4 ? 100 : -1
+        },
+        {
+          name: "Robot Carrier",
+          icon: "./assets/Icons/process_flow/robot.svg",
+          progress: currentProgress == 5 ? Math.floor(Math.random() * 100) :
+            currentProgress > 5 ? 100 : -1
+        },
+        {
+          name: "Store in Warehouse",
+          icon: "./assets/Icons/process_flow/warehouse.svg",
+          progress: currentProgress == 6 ? Math.floor(Math.random() * 100) :
+            currentProgress > 6 ? 100 : -1
+        },
+      ];
+
+      for (let i = 0; i < Math.floor(Math.random() * 3); i++) {
+        let remove = Math.floor(Math.random() * productFlow.length);
+        if (productFlow[remove].progress > 0 && productFlow[remove].progress < 100)
+          continue;
+        productFlow.splice(remove, 1);
+      }
+
+      let productInfo =
+        [
+          {
+            name: "Material",
+            value: faker.commerce.productMaterial()
+          },
+          {
+            name: "Weight",
+            value: Math.floor(Math.random() * 100) + " g"
+          },
+          {
+            name: "Color",
+            value: faker.commerce.color(),
+          },
+          {
+            name: "Price",
+            value: faker.commerce.price(),
+          },
+          {
+            name: "Catch Phrase",
+            value: faker.company.catchPhrase()
+          },
+          {
+            name: "Date",
+            value: faker.date.future()
+          },
+          {
+            name: "Reg Number",
+            value: faker.finance.iban()
+          },
+          {
+            name: "Bitcoin Address",
+            value: faker.finance.bitcoinAddress()
+          },
+          {
+            name: "Country",
+            value: faker.address.country()
+          }
+        ]
+      for (let i = 0; i < Math.floor(Math.random() * 4 + 2); i++) {
+        productInfo.splice(Math.floor(Math.random() * productInfo.length), 1)
+      }
+
+
+      this.processes.push(
+        {
+          identifier: processIdentifier++,
+          status: "Status",
+          productName: "Product Name",
+          productAddInfo: "Additonal information",
+          statusInformation: "Status information",
+          image: Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
+          state: Math.random() > 0.5,
+          productFlow: productFlow,
+          productInfo: productInfo
+        }
+      )
+    }
   }
 
   getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[] }> {
@@ -200,6 +319,12 @@ export class MockDataService {
       floors: this.floor,
       locations: this.locations,
       devices: this.devices
+    });
+  }
+
+  getProcess(): Observable<{ process: Process[] }> {
+    return of({
+      process: this.processes,
     });
   }
 }

@@ -1,0 +1,20 @@
+<div class="processFlowCard process-flow-card-base"
+     [ngClass]="{
+          'selected': selectedProcess == process
+        }" >
+
+  <div class="process-flow-card-oval">
+    <img src="{{process.image}}" class="img-circle">
+  </div>
+
+  <p class="process-flow-card-product-name">
+    Product {{process.identifier}}
+  </p>
+  <p class="process-flow-card-status">
+    {{process.statusInformation}}
+  </p>
+
+  <div class="process-flow-indicator"
+       [ngClass]="process.state ? 'solved' : ''">
+  </div>
+</div>

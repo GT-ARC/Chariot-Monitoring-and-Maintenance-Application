@@ -1,0 +1,45 @@
+<div id="process-main">
+
+  <p id="head">
+    <span id="title">
+      Product {{process.identifier}}
+    </span>
+    <span id="status">
+      {{process.status}}
+    </span>
+  </p>
+
+  <div id="process-info" class="process-panel-card"
+       fxLayout="column wrap"
+       fxLayoutAlign="flex-start flex-start"
+       fxLayoutGap="20px">
+    <div id="process-image"  class="process-info-card" fxFlex="0 0 calc(180 - 20px)">
+      <img src="{{process.image}}"
+           alt="Product Image">
+    </div>
+    <div class="process-info-card" fxFlex="0 0 calc(180 - 20px)">
+      <div class="card-name">{{process.productName | uppercase}}</div>
+      <div class="card-content">{{process.productAddInfo}}</div>
+    </div>
+    <div class="process-info-card" fxFlex="0 0 calc(180 - 20px)" *ngFor="let processInfoCar of process.productInfo">
+      <div class="card-name">{{processInfoCar.name | uppercase}}</div>
+      <div class="card-content">{{processInfoCar.value}}</div>
+    </div>
+  </div>
+
+  <div id="process-band"
+       fxLayout="row"
+       fxLayoutAlign="flex-start"
+       fxLayoutGap="20px">
+    <div class="process-flow-arrow"
+         *ngFor="let prodProcess of process.productFlow"
+         [ngClass]="currentProcess.indexOf(prodProcess) != -1 ? 'selected' : ''"
+         fxFlex="1 1 {{100/process.productFlow.length}}%">
+      <mat-icon *ngIf="!prodProcess.icon.includes('/')">{{prodProcess.icon}}</mat-icon>
+      <div class="icon" aria-label="My icon" *ngIf="prodProcess.icon.includes('/')" [inlineSVG]="prodProcess.icon"></div>
+      <p class="prodprocess-name">{{prodProcess.name}}</p>
+      <p class="prodprocess-progress" *ngIf="prodProcess.progress > 0">{{prodProcess.progress}} %</p>
+    </div>
+  </div>
+
+</div>

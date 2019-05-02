@@ -42,6 +42,10 @@ import { DevicePanelTextFieldComponent } from './devices/devicepanel/device-pane
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { SidenavButtonComponent } from './components/sidenav-button/sidenav-button.component';
+import { ProcessflowCardComponent } from './components/processflow-card/processflow-card.component';
+import { ProcessFlowMainComponent } from './process-flow/process-flow-main/process-flow-main.component';
+import {InlineSVGModule} from "ng-inline-svg";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -65,6 +69,8 @@ import { SidenavButtonComponent } from './components/sidenav-button/sidenav-butt
     DevicePanelSliderComponent,
     DevicePanelTextFieldComponent,
     SidenavButtonComponent,
+    ProcessflowCardComponent,
+    ProcessFlowMainComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +89,8 @@ import { SidenavButtonComponent } from './components/sidenav-button/sidenav-butt
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
+    HttpClientModule,
+    InlineSVGModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
