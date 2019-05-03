@@ -23,7 +23,7 @@ import {
   MatCardModule,
   MatDividerModule,
   MatFormFieldModule, MatInputModule,
-  MatMenuModule,
+  MatMenuModule, MatProgressBarModule,
   MatSliderModule
 } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -46,6 +46,7 @@ import { ProcessflowCardComponent } from './components/processflow-card/processf
 import { ProcessFlowMainComponent } from './process-flow/process-flow-main/process-flow-main.component';
 import {InlineSVGModule} from "ng-inline-svg";
 import {HttpClientModule} from "@angular/common/http";
+import {ProgressBarModule} from "angular-progress-bar";
 
 @NgModule({
   declarations: [
@@ -91,6 +92,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatSidenavModule,
     HttpClientModule,
     InlineSVGModule.forRoot(),
+    MatProgressBarModule,
+    ProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

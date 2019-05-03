@@ -42,4 +42,52 @@
     </div>
   </div>
 
+  <div id="progress-cards"
+       fxLayout="row wrap"
+       fxLayoutAlign=""
+       fxLayoutGap="17px">
+
+    <div id="progress-bar-wrapper" *ngIf="currentProcess.length != 0"
+         fxFlex="1 1 100%"
+         fxLayout="row wrap"
+         fxLayoutAlign="space-between"
+         fxLayoutGap="50px">
+
+      <p id="current-process"
+         fxFlex="0 1 auto">{{currentProcess[0].name}}</p>
+      <progress-bar
+        id="progress-bar"
+        fxFlex="1 1 auto"
+        [progress]="currentProcess[0].progress"
+        [color]="'#2b72e6'">
+      </progress-bar>
+      <button (click)="stopProcess(currentProcess[0])"
+              fxFlex="0 1 auto"
+              id="progress-toggle-button">
+
+            <mat-icon *ngIf="!currentProcess[0].paused">play_arrow</mat-icon>
+            <mat-icon *ngIf="currentProcess[0].paused">pause</mat-icon>
+            <span>{{currentProcess[0].paused ? 'Pause' : 'Start'}} {{currentProcess[0].name}}</span>
+      </button>
+    </div>
+
+    <div id="running-window"></div>
+
+    <div id="time-info">
+      <div>
+        <p>REMAINING</p>
+        <p>{{currentProcess[0].total - currentProcess[0].running | date:'HH:mm' }}</p>
+      </div>
+      <div>
+        <p>RUNNING</p>
+        <p>{{currentProcess[0].running | date:'HH:mm' }}</p>
+      </div>
+      <div>
+        <p>TOTAL</p>
+        <p>{{currentProcess[0].total | date:'HH:mm' }}</p>
+      </div>
+    </div>
+
+  </div>
+
 </div>

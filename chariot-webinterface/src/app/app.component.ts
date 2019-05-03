@@ -16,7 +16,7 @@ export class AppComponent {
   sites: { route: string, icon: string, name: string }[] = [
     {route: "/devices", icon: "location_on", name: "Devices"},
     {route: "/warehouse", icon: "home", name: "Warehouse"},
-    {route: "/process_flow", icon: "linear_scale", name: "Process "},
+    {route: "/process_flow", icon: "linear_scale", name: "ProductProcess "},
     {route: "/maintenance", icon: "warning", name: "Maintenance"},
     {route: "/settings", icon: "settings", name: "Settings"},
   ];

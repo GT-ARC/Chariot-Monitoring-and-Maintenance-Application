@@ -7,7 +7,7 @@ import {Floor} from "../../model/floor";
 
 import * as faker from 'faker'
 import {Issue} from "../../model/issue";
-import {Process} from "../../model/process";
+import {IndividualProcess, ProductProcess} from "../../model/productProcess";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class MockDataService {
   locations: Location[] = [];
   devices: Device[] = [];
 
-  processes: Process[] = [];
+  processes: ProductProcess[] = [];
 
   constructor() {
     this.createData();
@@ -202,48 +202,181 @@ export class MockDataService {
 
       let currentProgress = Math.floor(Math.random() * 7);
 
+      let randomProperties = [
+        {
+          name: "Name",
+          unit: "",
+          value: faker.name.findName,
+          size: 1,
+          icon: "perm_identity",
+          errorThreshold: -1,
+        },
+        {
+          name: "File Name",
+          unit: "",
+          value: faker.system.fileName,
+          size: 1,
+          icon: "folder",
+          errorThreshold: -1,
+        },
+        {
+          name: "Color",
+          unit: "",
+          value: faker.internet.color,
+          size: 1,
+          icon: "color_lens",
+          errorThreshold: -1,
+        },
+        {
+          name: "Weight",
+          unit: "g",
+          value: Math.floor(Math.random() * 10000) / 100,
+          size: 1,
+          icon: "folder",
+          errorThreshold: Math.floor(Math.random() * 5000) / 100,
+        },
+        {
+          name: "Temperature",
+          unit: "°C",
+          value: Math.floor(Math.random() * 10000) / 100,
+          size: 2,
+          icon: "folder",
+          errorThreshold: Math.floor(Math.random() * 5000) / 100,
+        },
+        {
+          name: "Speed",
+          unit: "m/s",
+          value: faker.random.number,
+          size: 1,
+          icon: "navigate_next",
+          errorThreshold: -1,
+        },
+
+      ];
+
       let productFlow = [
         {
           name: "Scheduling",
           icon: "schedule",
           progress: currentProgress == 0 ? Math.floor(Math.random() * 100) :
-            currentProgress > 0 ? 100 : -1
+            currentProgress > 0 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: randomProperties
+            .sort(() => Math.random() - 0.5)
+            .slice(0, Math.random() * randomProperties.length)
         },
         {
-          name: "Printing Process",
+          name: "Printing ProductProcess",
           icon: "./assets/Icons/process_flow/printer.svg",
           progress: currentProgress == 1 ? Math.floor(Math.random() * 100) :
-            currentProgress > 1 ? 100 : -1
+            currentProgress > 1 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: [
+            {
+              name: "Travel Speed",
+              unit: "mm/s",
+              value: Math.floor(Math.random() * 200),
+              size: 1,
+              icon: "flash_on",
+              errorThreshold: -1,
+            },
+            {
+              name: "Infill Density",
+              unit: "mm/s",
+              value: Math.floor(Math.random() * 200),
+              size: 1,
+              icon: "flash_on",
+              errorThreshold: -1,
+            },
+            {
+              name: "Fillament usage",
+              unit: "mm/s",
+              value: Math.floor(Math.random() * 200),
+              size: 1,
+              icon: "flash_on",
+              errorThreshold: -1,
+            },
+            {
+              name: "Extruder Temperature",
+              unit: "mm/s",
+              value: Math.floor(Math.random() * 200),
+              size: 1,
+              icon: "flash_on",
+              errorThreshold: -1,
+            },
+            {
+              name: "Fillament Diameter",
+              unit: "mm/s",
+              value: Math.floor(Math.random() * 200),
+              size: 1,
+              icon: "flash_on",
+              errorThreshold: -1,
+            },
+          ]
         },
         {
           name: "Measurement",
           icon: "./assets/Icons/process_flow/measurement.svg",
           progress: currentProgress == 2 ? Math.floor(Math.random() * 100) :
-            currentProgress > 2 ? 100 : -1
+            currentProgress > 2 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: randomProperties
+            .sort(() => Math.random() - 0.5)
+            .slice(0, Math.random() * randomProperties.length)
         },
         {
           name: "Deformation Checking",
           icon: "./assets/Icons/process_flow/deformation_checking.svg",
           progress: currentProgress == 3 ? Math.floor(Math.random() * 100) :
-            currentProgress > 3 ? 100 : -1
+            currentProgress > 3 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: randomProperties
+            .sort(() => Math.random() - 0.5)
+            .slice(0, Math.random() * randomProperties.length)
         },
         {
           name: "Packing",
           icon: "./assets/Icons/process_flow/packing.svg",
           progress: currentProgress == 4 ? Math.floor(Math.random() * 100) :
-            currentProgress > 4 ? 100 : -1
+            currentProgress > 4 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: randomProperties
+            .sort(() => Math.random() - 0.5)
+            .slice(0, Math.random() * randomProperties.length)
         },
         {
           name: "Robot Carrier",
           icon: "./assets/Icons/process_flow/robot.svg",
           progress: currentProgress == 5 ? Math.floor(Math.random() * 100) :
-            currentProgress > 5 ? 100 : -1
+            currentProgress > 5 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: randomProperties
+            .sort(() => Math.random() - 0.5)
+            .slice(0, Math.random() * randomProperties.length)
         },
         {
           name: "Store in Warehouse",
           icon: "./assets/Icons/process_flow/warehouse.svg",
           progress: currentProgress == 6 ? Math.floor(Math.random() * 100) :
-            currentProgress > 6 ? 100 : -1
+            currentProgress > 6 ? 100 : -1,
+          paused: false,
+          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
+          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          properties: randomProperties
+            .sort(() => Math.random() - 0.5)
+            .slice(0, Math.random() * randomProperties.length)
         },
       ];
 
@@ -322,7 +455,7 @@ export class MockDataService {
     });
   }
 
-  getProcess(): Observable<{ process: Process[] }> {
+  getProcess(): Observable<{ process: ProductProcess[] }> {
     return of({
       process: this.processes,
     });

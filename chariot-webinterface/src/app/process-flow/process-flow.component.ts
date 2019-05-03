@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {MockDataService} from "../services/mock-data.service";
-import {Process} from "../../model/process";
+import {ProductProcess} from "../../model/productProcess";
 import {log} from "util";
 
 @Component({
@@ -13,11 +13,11 @@ export class ProcessFlowComponent implements OnInit {
 
   window = window;
 
-  processSort: string[] = ["Process state", "Name", "Running time"];
+  processSort: string[] = ["ProductProcess state", "Name", "Running time"];
   processSortSelected: String = "Name";
 
-  processes: Process[] = [];
-  selectedProcess: Process;
+  processes: ProductProcess[] = [];
+  selectedProcess: ProductProcess;
 
   constructor(
     private mockDataService: MockDataService,

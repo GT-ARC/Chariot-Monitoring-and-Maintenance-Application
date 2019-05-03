@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {Process} from "../../../model/process";
+import {IndividualProcess, ProductProcess} from "../../../model/productProcess";
 import {log} from "util";
 
 @Component({
@@ -9,9 +9,9 @@ import {log} from "util";
 })
 export class ProcessFlowMainComponent implements OnInit {
 
-  @Input() process: Process;
+  @Input() process: ProductProcess;
 
-  currentProcess: { icon: string; name: string; progress: number }[] = [];
+  currentProcess: IndividualProcess[] = [];
 
   constructor() { }
 
@@ -24,6 +24,7 @@ export class ProcessFlowMainComponent implements OnInit {
   }
 
   getCurrentProcessFlow() {
+    this.currentProcess = [];
     for (let currProgress of this.process.productFlow){
       if(currProgress.progress > 0 && currProgress.progress < 100) {
         this.currentProcess.push(currProgress);
@@ -31,4 +32,7 @@ export class ProcessFlowMainComponent implements OnInit {
     }
   }
 
+  stopProcess(currentProcess: IndividualProcess) {
+    currentProcess.paused = !currentProcess.paused;
+  }
 }

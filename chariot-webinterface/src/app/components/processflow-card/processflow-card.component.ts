@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Process} from "../../../model/process";
+import {ProductProcess} from "../../../model/productProcess";
 
 @Component({
   selector: 'app-processflow-card',
@@ -8,8 +8,8 @@ import {Process} from "../../../model/process";
 })
 export class ProcessflowCardComponent implements OnInit {
 
-  @Input() process: Process;
-  @Input() selectedProcess: Process;
+  @Input() process: ProductProcess;
+  @Input() selectedProcess: ProductProcess;
 
   constructor() { }
 
