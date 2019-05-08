@@ -26,15 +26,16 @@ export class IndividualProcess {
   progress: number;
   paused: boolean;
 
-  total: number;
-  running: number;
+  total: Date;
+  running: Date;
 
   properties: {
+    display: boolean;
     name: string;
-    unit: string;
+    unit?: string;
     value: any;
-    size: number;
-    icon: string;
-    errorThreshold: number;
+    size?: number;
+    icon?: string;
+    errorThreshold?: number;
   }[]
 }

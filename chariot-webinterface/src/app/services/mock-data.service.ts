@@ -201,57 +201,63 @@ export class MockDataService {
     for (let i = 0; i < 20; i++) {
 
       let currentProgress = Math.floor(Math.random() * 7);
+      // let currentProgress = 1;
 
       let randomProperties = [
         {
           name: "Name",
           unit: "",
-          value: faker.name.findName,
+          value: faker.name.findName(),
           size: 1,
           icon: "perm_identity",
           errorThreshold: -1,
+          display: true,
         },
         {
           name: "File Name",
           unit: "",
-          value: faker.system.fileName,
+          value: faker.system.fileName(),
           size: 1,
           icon: "folder",
           errorThreshold: -1,
+          display: true,
         },
         {
           name: "Color",
           unit: "",
-          value: faker.internet.color,
+          value: faker.internet.color(),
           size: 1,
           icon: "color_lens",
           errorThreshold: -1,
+          display: true,
         },
         {
           name: "Weight",
           unit: "g",
           value: Math.floor(Math.random() * 10000) / 100,
           size: 1,
-          icon: "folder",
+          icon: "fitness_center",
           errorThreshold: Math.floor(Math.random() * 5000) / 100,
+          display: true,
         },
         {
           name: "Temperature",
           unit: "°C",
           value: Math.floor(Math.random() * 10000) / 100,
           size: 2,
-          icon: "folder",
+          icon: "waves",
           errorThreshold: Math.floor(Math.random() * 5000) / 100,
+          display: true,
         },
         {
           name: "Speed",
           unit: "m/s",
-          value: faker.random.number,
+          value: Math.floor(Math.random() * 10000) / 100,
           size: 1,
           icon: "navigate_next",
-          errorThreshold: -1,
+          errorThreshold: Math.floor(Math.random() * 5000) / 100,
+          display: true,
         },
-
       ];
 
       let productFlow = [
@@ -261,11 +267,11 @@ export class MockDataService {
           progress: currentProgress == 0 ? Math.floor(Math.random() * 100) :
             currentProgress > 0 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: randomProperties
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length)
+            .slice(0, Math.random() * randomProperties.length - 3)
         },
         {
           name: "Printing ProductProcess",
@@ -273,8 +279,8 @@ export class MockDataService {
           progress: currentProgress == 1 ? Math.floor(Math.random() * 100) :
             currentProgress > 1 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: [
             {
               name: "Travel Speed",
@@ -283,6 +289,7 @@ export class MockDataService {
               size: 1,
               icon: "flash_on",
               errorThreshold: -1,
+              display: true,
             },
             {
               name: "Infill Density",
@@ -291,6 +298,7 @@ export class MockDataService {
               size: 1,
               icon: "flash_on",
               errorThreshold: -1,
+              display: true,
             },
             {
               name: "Fillament usage",
@@ -299,6 +307,7 @@ export class MockDataService {
               size: 1,
               icon: "flash_on",
               errorThreshold: -1,
+              display: true,
             },
             {
               name: "Extruder Temperature",
@@ -307,6 +316,12 @@ export class MockDataService {
               size: 1,
               icon: "flash_on",
               errorThreshold: -1,
+              display: true,
+            },
+            {
+              name: "Fillament level",
+              value: Math.floor(Math.random() * 100),
+              display: false,
             },
             {
               name: "Fillament Diameter",
@@ -315,6 +330,7 @@ export class MockDataService {
               size: 1,
               icon: "flash_on",
               errorThreshold: -1,
+              display: true,
             },
           ]
         },
@@ -324,11 +340,11 @@ export class MockDataService {
           progress: currentProgress == 2 ? Math.floor(Math.random() * 100) :
             currentProgress > 2 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: randomProperties
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length)
+            .slice(0, Math.random() * randomProperties.length - 3)
         },
         {
           name: "Deformation Checking",
@@ -336,11 +352,11 @@ export class MockDataService {
           progress: currentProgress == 3 ? Math.floor(Math.random() * 100) :
             currentProgress > 3 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: randomProperties
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length)
+            .slice(0, Math.random() * randomProperties.length - 3)
         },
         {
           name: "Packing",
@@ -348,11 +364,11 @@ export class MockDataService {
           progress: currentProgress == 4 ? Math.floor(Math.random() * 100) :
             currentProgress > 4 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: randomProperties
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length)
+            .slice(0, Math.random() * randomProperties.length - 3)
         },
         {
           name: "Robot Carrier",
@@ -360,11 +376,11 @@ export class MockDataService {
           progress: currentProgress == 5 ? Math.floor(Math.random() * 100) :
             currentProgress > 5 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: randomProperties
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length)
+            .slice(0, Math.random() * randomProperties.length - 3)
         },
         {
           name: "Store in Warehouse",
@@ -372,11 +388,11 @@ export class MockDataService {
           progress: currentProgress == 6 ? Math.floor(Math.random() * 100) :
             currentProgress > 6 ? 100 : -1,
           paused: false,
-          total: 24 * 60 * 60 / (Math.random() * 10 + 5),
-          running: 24 * 60 * 60 / (Math.random() * 20 + 10),
+          total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
+          running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
           properties: randomProperties
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length)
+            .slice(0, Math.random() * randomProperties.length - 3)
         },
       ];
 
@@ -425,7 +441,7 @@ export class MockDataService {
             name: "Country",
             value: faker.address.country()
           }
-        ]
+        ];
       for (let i = 0; i < Math.floor(Math.random() * 4 + 2); i++) {
         productInfo.splice(Math.floor(Math.random() * productInfo.length), 1)
       }

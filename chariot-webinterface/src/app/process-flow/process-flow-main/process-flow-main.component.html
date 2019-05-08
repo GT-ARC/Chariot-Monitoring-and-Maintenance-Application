@@ -11,9 +11,10 @@
 
   <div id="process-info" class="process-panel-card"
        fxLayout="column wrap"
+       fxLayout.xs="column"
        fxLayoutAlign="flex-start flex-start"
        fxLayoutGap="20px">
-    <div id="process-image"  class="process-info-card" fxFlex="0 0 calc(180 - 20px)">
+    <div id="process-image" class="process-info-card" fxFlex="0 0 calc(180 - 20px)">
       <img src="{{process.image}}"
            alt="Product Image">
     </div>
@@ -35,59 +36,115 @@
          *ngFor="let prodProcess of process.productFlow"
          [ngClass]="currentProcess.indexOf(prodProcess) != -1 ? 'selected' : ''"
          fxFlex="1 1 {{100/process.productFlow.length}}%">
-      <mat-icon *ngIf="!prodProcess.icon.includes('/')">{{prodProcess.icon}}</mat-icon>
-      <div class="icon" aria-label="My icon" *ngIf="prodProcess.icon.includes('/')" [inlineSVG]="prodProcess.icon"></div>
+      <div class="icon">
+        <div class="checkMark" *ngIf="prodProcess.progress == 100">
+          <mat-icon>done</mat-icon>
+        </div>
+        <mat-icon *ngIf="prodProcess.progress != 100 && !prodProcess.icon.includes('/')">{{prodProcess.icon}}</mat-icon>
+        <div aria-label="My icon" *ngIf="prodProcess.progress != 100 && prodProcess.icon.includes('/')"
+             [inlineSVG]="prodProcess.icon"></div>
+      </div>
       <p class="prodprocess-name">{{prodProcess.name}}</p>
       <p class="prodprocess-progress" *ngIf="prodProcess.progress > 0">{{prodProcess.progress}} %</p>
     </div>
   </div>
 
   <div id="progress-cards"
-       fxLayout="row wrap"
-       fxLayoutAlign=""
-       fxLayoutGap="17px">
+       gdAlignColumns="start start"
+       gdAreas="a0 a0 a0 a0 | a1 a2 a3 a4 | a5 a6 a7 a4"
+       gdColumns="30% 20% 20% 30%"
+       gdAuto="row"
+       gdGap="16px">
 
-    <div id="progress-bar-wrapper" *ngIf="currentProcess.length != 0"
-         fxFlex="1 1 100%"
-         fxLayout="row wrap"
-         fxLayoutAlign="space-between"
-         fxLayoutGap="50px">
+    <div gdArea="a0"
+         fxFlexOrder="1">
+      <div id="progress-bar-wrapper"
+           class="progress-cards"
+           *ngIf="currentProcess.length != 0"
 
-      <p id="current-process"
-         fxFlex="0 1 auto">{{currentProcess[0].name}}</p>
-      <progress-bar
-        id="progress-bar"
-        fxFlex="1 1 auto"
-        [progress]="currentProcess[0].progress"
-        [color]="'#2b72e6'">
-      </progress-bar>
-      <button (click)="stopProcess(currentProcess[0])"
-              fxFlex="0 1 auto"
-              id="progress-toggle-button">
 
-            <mat-icon *ngIf="!currentProcess[0].paused">play_arrow</mat-icon>
-            <mat-icon *ngIf="currentProcess[0].paused">pause</mat-icon>
-            <span>{{currentProcess[0].paused ? 'Pause' : 'Start'}} {{currentProcess[0].name}}</span>
-      </button>
-    </div>
+           fxLayout="row wrap"
+           fxLayoutAlign="space-between"
+           fxLayoutGap="50px">
 
-    <div id="running-window"></div>
 
-    <div id="time-info">
-      <div>
-        <p>REMAINING</p>
-        <p>{{currentProcess[0].total - currentProcess[0].running | date:'HH:mm' }}</p>
-      </div>
-      <div>
-        <p>RUNNING</p>
-        <p>{{currentProcess[0].running | date:'HH:mm' }}</p>
-      </div>
-      <div>
-        <p>TOTAL</p>
-        <p>{{currentProcess[0].total | date:'HH:mm' }}</p>
+        <p id="current-process" fxFlex="0 1 auto">{{currentProcess[0].name}}</p>
+        <progress-bar
+          id="progress-bar"
+          fxFlex="1 1 auto"
+          [progress]="currentProcess[0].progress"
+          [color]="'#2b72e6'">
+        </progress-bar>
+        <button (click)="stopProcess(currentProcess[0])"
+                fxFlex="0 1 auto"
+                id="progress-toggle-button">
+
+          <mat-icon *ngIf="!currentProcess[0].paused">play_arrow</mat-icon>
+          <mat-icon *ngIf="currentProcess[0].paused">pause</mat-icon>
+          <span>{{currentProcess[0].paused ? 'Pause' : 'Start'}} {{currentProcess[0].name}}</span>
+        </button>
       </div>
     </div>
 
+    <div gdArea="a1">
+      <div id="time-info"
+           class="progress-cards">
+        <div id="remaining">
+          <p>REMAINING</p>
+          <p class="value">{{currentProcess[0].total - currentProcess[0].running | date:'H:mm' }}</p>
+        </div>
+        <div id="running">
+          <p>RUNNING</p>
+          <p class="value">{{currentProcess[0].running | date:'H:mm' }}</p>
+        </div>
+        <div id="total">
+          <p>TOTAL</p>
+          <p class="value">{{currentProcess[0].total | date:'H:mm' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let processInfo of this.displayProcessInfo; let i = index">
+      <div class="progress-cards">
+        <div class="progress-card-icon"
+              [ngClass]="processInfo.errorThreshold != -1 && processInfo.value <= processInfo.errorThreshold ? 'warning' : '' ">
+          <mat-icon *ngIf="processInfo.errorThreshold == -1 || processInfo.value > processInfo.errorThreshold">
+            done
+          </mat-icon>
+          <mat-icon *ngIf="processInfo.errorThreshold != -1 && processInfo.value <= processInfo.errorThreshold">
+            {{processInfo.icon}}
+          </mat-icon>
+        </div>
+        <p class="progress-card-value">
+          {{changeStyleOfFont()}}{{processInfo.value}} {{processInfo.unit}}
+        </p>
+        <p class="progress-card-name">
+          {{processInfo.name}}
+        </p>
+      </div>
+    </div>
+
+    <div gdArea="a4"
+         *ngIf="currentProcess[0].name.includes('Printing')">
+      <div id="printProcessFilament"
+           class="progress-cards">
+        <p id="cardNameFilamentLevel">FILLAMENT LEVEL</p>
+        <p id="filamentLevelValue">{{filamentLevel}}<span id="filamentUnit">%</span><br><span id="filamentDesc">REMAIN</span></p>
+        <div style="display: block"
+             id="filamentDisplay">
+          <canvas baseChart
+                  height="190"
+                  width="190"
+                  [data]="doughnutChartData"
+                  [colors]="doughnutChartColor"
+                  [labels]="doughnutChartLabels"
+                  [options]="barChartOptions"
+                  [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+        <a id="providerService" href="#">Material Provider Service <mat-icon>launch</mat-icon></a>
+      </div>
+    </div>
   </div>
 
 </div>

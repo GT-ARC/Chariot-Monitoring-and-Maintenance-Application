@@ -1,11 +1,8 @@
 #process-main {
   position: relative;
-  padding-left: 32px;
-  padding-top: 32px;
-  padding-right: 32px;
-  margin-bottom: 100px;
+  padding: 32px 32px 100px;
   background-color: #f3f6fc;
-  
+  height: 100%;
 }
 
 #head {
@@ -135,6 +132,27 @@
   border-left: 15px solid #2972E6 !important;
 }
 
+.process-flow-arrow > .icon {
+  position: relative;
+  left: 50%;
+  top: 27px
+}
+
+.checkMark {
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+  color: white;
+  background-color: #33ab42;
+  margin-bottom: 25px;
+}
+
+.checkMark > mat-icon {
+  font-size: 14px;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
 .process-flow-arrow > mat-icon {
   color: #2b72e6;
   position: relative;
@@ -144,12 +162,6 @@
 
 .process-flow-arrow.selected > mat-icon {
   color: white;
-}
-
-.process-flow-arrow > .icon {
-  position: relative;
-  left: 50%;
-  top: 27px
 }
 
 :host .process-flow-arrow /deep/ path {
@@ -189,14 +201,22 @@
   color: white;
 }
 
-#progress-bar-wrapper {
-  position: relative;
-  background-color: #2972E6;
-  border-radius: 4px;
-  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.07);
-  height: 86px;
+#progress-cards {
+  margin-bottom: 200px;
 }
 
+.progress-cards {
+  position: relative;
+  background-color: white;
+  height: 175px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.15);
+}
+
+#progress-bar-wrapper {
+  height: 86px;
+  background-color: #2972E6;
+}
 
 #current-process {
   margin-top: auto;
@@ -237,4 +257,158 @@
 #progress-toggle-button > span {
   position: relative;
   top: -10%;
+}
+
+#time-info {
+  background-color: #2972E6;
+}
+
+#time-info > #remaining, #time-info > #running, #time-info > #total {
+  position: absolute;
+  color: #EEF3F5;
+  top: 54px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  text-align: left;
+}
+
+#time-info p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#time-info .value {
+  color: #EEF3F5;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+#time-info #remaining p {
+  font-family: 'Rubik-Bold', 'arial', sans-serif;
+}
+
+#remaining {
+  margin-left: 33px;
+}
+
+#running {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#total {
+  right: 33px;
+}
+
+.progress-card-icon {
+  position: absolute;
+  left: 24px;
+  top: 16px;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  color: #33ab42;
+  background-color: #e0f3e0;
+  margin-bottom: 25px;
+}
+
+.progress-card-icon.warning {
+  color: #ffc873;
+  background-color: #fff4e2;
+}
+
+.progress-card-icon > mat-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.progress-card-value {
+  position: absolute;
+  left: 24px;
+  bottom: 40px;
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.progress-card-name {
+  position: absolute;
+  left: 24px;
+  bottom: 17px;
+  margin: 0;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+
+
+
+#printProcessFilament {
+  height: 368px;
+}
+
+#cardNameFilamentLevel {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  width: 361.14px;
+  text-align: left;
+}
+
+#filamentLevelValue {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 15px;
+  text-align: left;
+}
+
+#filamentUnit {
+  font-size: 16px;
+}
+
+#filamentDesc {
+  font-size: 16px;
+  color: #8798AD;
+}
+
+#filamentDisplay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#providerService {
+  position: absolute;
+  left: 16px;
+  bottom: 28px;
 }
