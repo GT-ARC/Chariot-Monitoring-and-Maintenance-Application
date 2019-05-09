@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, HostListener, Input, OnInit, SimpleChanges} from '@angular/core';
 import {IndividualProcess, ProductProcess} from "../../../model/productProcess";
 import {log} from "util";
 import {ChartOptions, ChartType} from "chart.js";
@@ -31,6 +31,11 @@ export class ProcessFlowMainComponent implements OnInit {
   ngOnInit() {
     this.getCurrentProcessFlow();
     this.initDoughnutChart();
+    if(this.currentProcess.length == 0){
+      for(let process of this.process.productFlow) {
+        if(process.progress != 0) this.currentProcess.push(process);
+      }
+    }
     if(this.currentProcess[0] != null){
       this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display)
     }
@@ -57,11 +62,17 @@ export class ProcessFlowMainComponent implements OnInit {
     currentProcess.paused = !currentProcess.paused;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.changeStyleOfFont()
+  }
+
   changeStyleOfFont() {
     let progressCardValues = document.getElementsByClassName("progress-card-value");
     for (let i = 0; i < progressCardValues.length; i++) {
       let element = progressCardValues.item(i);
       if (element.clientWidth == 0) continue;
+      element.setAttribute("style", "font-size: " + 48 + "px");
       let c = 0;
       while (element.clientWidth > element.parentElement.clientWidth - 32) {
         element.setAttribute("style", "font-size: " + (48 - c++) + "px");

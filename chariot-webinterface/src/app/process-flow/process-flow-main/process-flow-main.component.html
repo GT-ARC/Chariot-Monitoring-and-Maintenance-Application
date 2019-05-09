@@ -30,42 +30,59 @@
 
   <div id="process-band"
        fxLayout="row"
-       fxLayoutAlign="flex-start"
+       fxLayout.sm="row wrap"
+       fxLayout.xs="row wrap"
+       fxLayoutAlign="center"
        fxLayoutGap="20px">
     <div class="process-flow-arrow"
          *ngFor="let prodProcess of process.productFlow"
          [ngClass]="currentProcess.indexOf(prodProcess) != -1 ? 'selected' : ''"
-         fxFlex="1 1 {{100/process.productFlow.length}}%">
-      <div class="icon">
-        <div class="checkMark" *ngIf="prodProcess.progress == 100">
-          <mat-icon>done</mat-icon>
+         fxFlex="1 1 {{100/process.productFlow.length}}%"
+         fxFlex.sm="1 1 {{100/(process.productFlow.length/2)}}%"
+         fxFlex.xs="1 1 {{100/(process.productFlow.length/3)}}%">
+      <div id="process-band-info">
+        <div class="icon">
+          <div class="checkMark" *ngIf="prodProcess.progress == 100">
+            <mat-icon>done</mat-icon>
+          </div>
+          <mat-icon *ngIf="prodProcess.progress != 100 && !prodProcess.icon.includes('/')">{{prodProcess.icon}}</mat-icon>
+          <div style="height: 24px" *ngIf="prodProcess.progress != 100 && prodProcess.icon.includes('/')"
+              [inlineSVG]="prodProcess.icon"></div>
         </div>
-        <mat-icon *ngIf="prodProcess.progress != 100 && !prodProcess.icon.includes('/')">{{prodProcess.icon}}</mat-icon>
-        <div aria-label="My icon" *ngIf="prodProcess.progress != 100 && prodProcess.icon.includes('/')"
-             [inlineSVG]="prodProcess.icon"></div>
+        <p class="prodprocess-name">{{prodProcess.name}}</p>
+        <p class="prodprocess-progress" *ngIf="prodProcess.progress > 0">{{prodProcess.progress}} %</p>
       </div>
-      <p class="prodprocess-name">{{prodProcess.name}}</p>
-      <p class="prodprocess-progress" *ngIf="prodProcess.progress > 0">{{prodProcess.progress}} %</p>
     </div>
   </div>
 
   <div id="progress-cards"
        gdAlignColumns="start start"
        gdAreas="a0 a0 a0 a0 | a1 a2 a3 a4 | a5 a6 a7 a4"
-       gdColumns="30% 20% 20% 30%"
+       gdColumns="calc(30% - 12px) calc(20% - 12px) calc(20% - 12px) calc(30% - 12px)"
+       gdAreas.md="a0 a0 | a1 a4 | a1 a4"
+       gdColumns.md="calc(50% - 12px) calc(50% - 12px)"
+       gdAreas.sm="a0 a0 | a1 a4 | a1 a4"
+       gdColumns.sm="calc(50% - 12px) calc(50% - 12px)"
+       gdAreas.xs="a0 | a1"
+       gdColumns.xs="calc(100%)"
        gdAuto="row"
        gdGap="16px">
 
     <div gdArea="a0"
          fxFlexOrder="1">
       <div id="progress-bar-wrapper"
-           class="progress-cards"
            *ngIf="currentProcess.length != 0"
 
+           fxLayout.lg="row"
+           fxLayout.md="row"
+           fxLayout.sm="column"
+           fxLayout.xs="column"
 
-           fxLayout="row wrap"
            fxLayoutAlign="space-between"
-           fxLayoutGap="50px">
+           fxLayoutGap.lg="50px"
+           fxLayoutGap.md="50px"
+           fxLayoutGap.sm="20px"
+           fxLayoutGap.xs="20px">
 
 
         <p id="current-process" fxFlex="0 1 auto">{{currentProcess[0].name}}</p>

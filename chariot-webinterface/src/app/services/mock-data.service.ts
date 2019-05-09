@@ -269,12 +269,12 @@ export class MockDataService {
           paused: false,
           total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
           running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-          properties: randomProperties
+          properties: MockDataService.jsonCopy(randomProperties)
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length - 3)
+            .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
         },
         {
-          name: "Printing ProductProcess",
+          name: "Printing Product Process",
           icon: "./assets/Icons/process_flow/printer.svg",
           progress: currentProgress == 1 ? Math.floor(Math.random() * 100) :
             currentProgress > 1 ? 100 : -1,
@@ -342,9 +342,9 @@ export class MockDataService {
           paused: false,
           total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
           running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-          properties: randomProperties
+          properties: MockDataService.jsonCopy(randomProperties)
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length - 3)
+            .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
         },
         {
           name: "Deformation Checking",
@@ -354,9 +354,9 @@ export class MockDataService {
           paused: false,
           total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
           running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-          properties: randomProperties
+          properties: MockDataService.jsonCopy(randomProperties)
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length - 3)
+            .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
         },
         {
           name: "Packing",
@@ -366,9 +366,9 @@ export class MockDataService {
           paused: false,
           total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
           running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-          properties: randomProperties
+          properties: MockDataService.jsonCopy(randomProperties)
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length - 3)
+            .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
         },
         {
           name: "Robot Carrier",
@@ -378,9 +378,9 @@ export class MockDataService {
           paused: false,
           total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
           running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-          properties: randomProperties
+          properties: MockDataService.jsonCopy(randomProperties)
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length - 3)
+            .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
         },
         {
           name: "Store in Warehouse",
@@ -390,11 +390,12 @@ export class MockDataService {
           paused: false,
           total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
           running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-          properties: randomProperties
+          properties: MockDataService.jsonCopy(randomProperties)
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() * randomProperties.length - 3)
+            .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
         },
       ];
+
 
       for (let i = 0; i < Math.floor(Math.random() * 3); i++) {
         let remove = Math.floor(Math.random() * productFlow.length);
@@ -461,6 +462,10 @@ export class MockDataService {
         }
       )
     }
+  }
+
+  static jsonCopy(src) {
+    return JSON.parse(JSON.stringify(src));
   }
 
   getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[] }> {
