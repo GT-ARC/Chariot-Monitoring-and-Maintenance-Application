@@ -1,3 +1,63 @@
-<p>
-  warehouse works!
-</p>
+<!--<script src="../devices/devicepanel/devicepanel.component.ts"></script>-->
+
+<app-sidenav-button [sideNav]="snav"></app-sidenav-button>
+
+<mat-sidenav-container
+  fullscreen>
+  <mat-sidenav #snav [opened]="window.innerWidth > 1578">
+    <aside id="container-service">
+      <div class="list-entry">
+        <div class="list-entry-icon"><mat-icon>widgets</mat-icon></div><p class="service-name">Container service</p>
+      </div>
+      <div class="list-entry" *ngFor="let service of containerServices">
+        <div class="list-entry-icon"><mat-icon>settings</mat-icon></div><p class="service-name">{{service}}</p>
+      </div>
+    </aside>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <div id="title">Warehouse</div>
+      <div id="searchCard">
+        <div id="search">
+          <mat-icon class="search-field-symbol">search</mat-icon>
+          <input type="text" name="device-list-search" placeholder="Search"
+                 (input)="searchForProduct($event.target.value)">
+        </div>
+      </div>
+      <div id="map">
+        <div id="card-name">CONTAINER MAP</div>
+        <img id="imgMap" src="./assets/Images/warehouse.png" alt="warehouse">
+      </div>
+    </main>
+    <aside id="right-aside">
+      <div class="right-entry">
+        <div class="right-entry-name">
+          PRODUCTS STORED TODAY
+        </div>
+        <div class="right-entry-value">
+          84329
+        </div>
+        <div class="right-entry-development">
+          <mat-icon>call_made</mat-icon>
+          +2.4%
+        </div>
+      </div>
+      <div class="right-entry">
+        <div class="right-entry-name">
+          SCHEDULED DELIVERIES TODAY
+        </div>
+        <div class="right-entry-value">
+          935
+        </div>
+        <div class="right-entry-development">
+          <mat-icon>call_made</mat-icon>
+          +2.4%
+        </div>
+      </div>
+    </aside>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+

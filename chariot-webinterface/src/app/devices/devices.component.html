@@ -6,11 +6,11 @@
   <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
     <aside id="floor-list">
       <div class="list-head">
-  <span class="search">
-    <mat-icon class="search-field-symbol">search</mat-icon>
-    <input type="text" name="device-list-search" placeholder="Search"
-           (input)="filterFloors($event.target.value)">
-  </span>
+        <span class="search">
+          <mat-icon class="search-field-symbol">search</mat-icon>
+          <input type="text" name="device-list-search" placeholder="Search"
+                 (input)="filterFloors($event.target.value)">
+        </span>
         <mat-icon class="map-symbol">map</mat-icon>
         <button class="sort-symbol" [matMenuTriggerFor]="floor_sort_menu">
           <mat-icon>sort</mat-icon>
