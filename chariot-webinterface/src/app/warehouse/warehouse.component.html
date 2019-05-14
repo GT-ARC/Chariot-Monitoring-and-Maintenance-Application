@@ -1,60 +1,123 @@
-<!--<script src="../devices/devicepanel/devicepanel.component.ts"></script>-->
 
-<app-sidenav-button [sideNav]="snav"></app-sidenav-button>
+<app-sidenav-button [sideNav]="snav1" [sideNav2]="snav2"></app-sidenav-button>
 
 <mat-sidenav-container
-  fullscreen>
-  <mat-sidenav #snav [opened]="window.innerWidth > 1578">
+  fullscreen
+  [hasBackdrop]="window.innerWidth > 1248 && window.innerWidth < 1578"
+  (backdropClick)="backDropClicked()">
+  <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
     <aside id="container-service">
-      <div class="list-entry">
-        <div class="list-entry-icon"><mat-icon>widgets</mat-icon></div><p class="service-name">Container service</p>
+      <div class="list-entry" (click)="openContainerService()"
+      [ngClass]="selectedService == 'Container service' ? 'selected' : ''">
+        <div class="list-entry-icon">
+          <mat-icon>widgets</mat-icon>
+        </div>
+        <p class="service-name">Container service</p>
       </div>
-      <div class="list-entry" *ngFor="let service of containerServices">
-        <div class="list-entry-icon"><mat-icon>settings</mat-icon></div><p class="service-name">{{service}}</p>
+      <div class="list-entry" *ngFor="let service of services"
+           (click)="serviceSelected(service.name)"
+           [ngClass]="selectedService == service.name ? 'selected' : ''">
+        <div class="list-entry-icon">
+          <mat-icon>{{service.icon}}</mat-icon>
+        </div>
+        <p class="service-name">{{service.name}}</p>
       </div>
     </aside>
   </mat-sidenav>
   <mat-sidenav-content>
-    <main>
-      <div id="title">Warehouse</div>
-      <div id="searchCard">
-        <div id="search">
-          <mat-icon class="search-field-symbol">search</mat-icon>
-          <input type="text" name="device-list-search" placeholder="Search"
-                 (input)="searchForProduct($event.target.value)">
-        </div>
-      </div>
-      <div id="map">
-        <div id="card-name">CONTAINER MAP</div>
-        <img id="imgMap" src="./assets/Images/warehouse.png" alt="warehouse">
-      </div>
-    </main>
-    <aside id="right-aside">
-      <div class="right-entry">
-        <div class="right-entry-name">
-          PRODUCTS STORED TODAY
-        </div>
-        <div class="right-entry-value">
-          84329
-        </div>
-        <div class="right-entry-development">
-          <mat-icon>call_made</mat-icon>
-          +2.4%
-        </div>
-      </div>
-      <div class="right-entry">
-        <div class="right-entry-name">
-          SCHEDULED DELIVERIES TODAY
-        </div>
-        <div class="right-entry-value">
-          935
-        </div>
-        <div class="right-entry-development">
-          <mat-icon>call_made</mat-icon>
-          +2.4%
-        </div>
-      </div>
-    </aside>
+    <mat-sidenav-container
+      (backdropClick)="backDropClicked()">
+      <mat-sidenav #snav2
+                   [opened]="false"
+                   [ngClass]="window.innerWidth < 1248 ? 'sidebar2' : ''">
+        <aside id="service-list">
+          <div class="list-head">
+            <span class="search">
+              <mat-icon class="search-field-symbol">search</mat-icon>
+              <input id="serviceSearch" type="text" name="device-list-search" placeholder="Search"
+                     (input)="filterDevices($event.target.value)">
+            </span>
+
+            <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+              <mat-icon>sort</mat-icon>
+            </button>
+            <mat-menu #device_sort_menu="matMenu">
+              <div *ngFor="let sort_point of deviceSort">
+                <button mat-menu-item (click)="deviceSortSelected = sort_point">
+                  <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
+                </button>
+              </div>
+            </mat-menu>
+          </div>
+
+          <div id="service-list-wrapper"
+               class="list">
+            <div class="container-container" *ngFor="let container of containers">
+              <div class="chart">
+                <canvas baseChart
+                        [data]="[(container.products.length / container.maxProductStorage) * 100,
+                                 100 - (container.products.length / container.maxProductStorage)]"
+                        [labels]="['Full', 'Empty']"
+                        [chartType]="'pie'"
+                        [colors]="[{ backgroundColor: ['rgb(0,116,224)', 'rgb(205,212,221)']}]"
+                        [legend]="false">
+                </canvas>
+              </div>
+              <div class="container-name">{{container.name}}</div>
+              <div class="container-info">
+                {{container.products.length / container.maxProductStorage * 100 | number:'1.0-0'}} %
+                <span>&#183;</span>
+                {{container.products.length}} Products</div>
+            </div>
+          </div>
+        </aside>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <main [ngClass]="selectedService == 'Container service' ? 'full': ''">
+          <div id="title"
+               [ngClass]="selectedService == 'Container service' ? 'hidden': ''">Warehouse</div>
+          <div id="searchCard"
+               [ngClass]="selectedService == 'Container service' ? 'hidden': ''">
+            <div id="search">
+              <mat-icon class="search-field-symbol">search</mat-icon>
+              <input id="productSearch" type="text" name="device-list-search" placeholder="Search"
+                     (input)="searchForProduct($event.target.value)">
+            </div>
+          </div>
+          <div id="map">
+            <div id="card-name">CONTAINER MAP</div>
+            <img id="imgMap" src="./assets/Images/warehouse.png" alt="warehouse">
+          </div>
+        </main>
+        <aside id="right-aside"
+        [ngClass]="selectedService == 'Container service' ? 'hidden': ''">
+          <div class="right-entry">
+            <div class="right-entry-name">
+              PRODUCTS STORED TODAY
+            </div>
+            <div class="right-entry-value">
+              84329
+            </div>
+            <div class="right-entry-development">
+              <mat-icon>call_made</mat-icon>
+              +2.4%
+            </div>
+          </div>
+          <div class="right-entry">
+            <div class="right-entry-name">
+              SCHEDULED DELIVERIES TODAY
+            </div>
+            <div class="right-entry-value">
+              935
+            </div>
+            <div class="right-entry-development">
+              <mat-icon>call_made</mat-icon>
+              +2.4%
+            </div>
+          </div>
+        </aside>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

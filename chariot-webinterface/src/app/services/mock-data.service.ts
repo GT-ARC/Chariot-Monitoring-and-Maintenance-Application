@@ -8,6 +8,7 @@ import {Floor} from "../../model/floor";
 import * as faker from 'faker'
 import {Issue} from "../../model/issue";
 import {IndividualProcess, ProductProcess} from "../../model/productProcess";
+import {Container} from "../../model/Container";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class MockDataService {
   devices: Device[] = [];
 
   processes: ProductProcess[] = [];
+  container: Container[] =  [];
 
   constructor() {
     this.createData();
@@ -198,7 +200,7 @@ export class MockDataService {
     ).reduce((prev, curr) => prev.concat(curr), []);
 
     let processIdentifier: number = 0;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 100; i++) {
 
       let currentProgress = Math.floor(Math.random() * 7);
       // let currentProgress = 1;
@@ -455,12 +457,38 @@ export class MockDataService {
           productName: "Product Name",
           productAddInfo: "Additonal information",
           statusInformation: "Status information",
+          energyUsed: Math.floor(Math.random() * 200),
+          deliveryDate: faker.date.future(),
           image: Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
           state: Math.random() > 0.5,
           productFlow: productFlow,
           productInfo: productInfo
         }
       )
+    }
+
+    // Create containers
+    for (let i = 0; i < 5; i++) {
+
+      let containerName = faker.commerce.productName();
+      if(containerName.length > 15)
+        containerName = containerName.slice(0, 15);
+
+      let maxProduct = Math.floor(Math.random() * this.processes.length + 10);
+
+      this.container.push({
+        identifier: i,
+        maxProductStorage: Math.floor(Math.random() * 100 + 50),
+        maxWeight: Math.floor(Math.random() * 200),
+        name: containerName,
+        containerInfo: [
+          {name: "Lorum Ipsum", value: "Dico prmpta dissentiet"},
+          {name: "Lorum Ipsum", value: "Oratio volumus"},
+        ],
+        products: MockDataService.jsonCopy(this.processes)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, Math.floor(Math.random() * (maxProduct-10) + 10))
+      })
     }
   }
 
@@ -479,6 +507,12 @@ export class MockDataService {
   getProcess(): Observable<{ process: ProductProcess[] }> {
     return of({
       process: this.processes,
+    });
+  }
+
+  getContainer(): Observable<{ container: Container[] }> {
+    return of({
+      container: this.container,
     });
   }
 }

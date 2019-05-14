@@ -1,21 +1,26 @@
-# STEP 1 build static website
-FROM node:alpine as builder
-RUN apk update && apk add --no-cache make git
-# Create app directory
-WORKDIR /app
-# Install app dependencies
-COPY package*.json package-lock.json /app/
-RUN cd /app && npm set progress=false && npm install
-# Copy project files into the docker image
-COPY .  /app
-#RUN ls -la 
-RUN cd /app && npm run build
+# base image
+FROM node:12.2.0
 
-# STEP 2 build a small nginx image with static website
-FROM nginx:alpine
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-## From 'builder' copy website to default nginx public folder
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# install chrome for protractor tests
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+RUN apt-get update && apt-get install -yq google-chrome-stable
+
+# set working directory
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /usr/src/app/package.json
+RUN npm install
+RUN npm install -g @angular/cli@1.7.1
+
+# add app
+COPY . /usr/src/app
+
+# start app
+CMD ng serve --host 0.0.0.0
