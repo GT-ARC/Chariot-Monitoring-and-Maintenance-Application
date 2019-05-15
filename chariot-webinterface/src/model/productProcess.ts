@@ -4,6 +4,7 @@ export class ProductProcess {
   productAddInfo: string;
   productName: string;
 
+  weight: number;
   energyUsed: number;
   deliveryDate: number;
 

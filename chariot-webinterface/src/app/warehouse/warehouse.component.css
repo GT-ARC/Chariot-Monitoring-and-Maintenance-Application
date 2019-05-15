@@ -2,6 +2,12 @@
   display: none;
 }
 
+main {
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 mat-sidenav-container {
   height: 100%;
 }
@@ -315,6 +321,13 @@ main.full {
 
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 4px;
+}
+
+.container-container.selected {
+  background-color: #e7eef7;
+  -webkit-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+  -moz-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
 }
 
 .chart {

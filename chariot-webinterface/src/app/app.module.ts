@@ -47,6 +47,8 @@ import { ProcessFlowMainComponent } from './process-flow/process-flow-main/proce
 import {InlineSVGModule} from "ng-inline-svg";
 import {HttpClientModule} from "@angular/common/http";
 import {ProgressBarModule} from "angular-progress-bar";
+import { ContainerComponent } from './warehouse/container/container.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import {ProgressBarModule} from "angular-progress-bar";
     SidenavButtonComponent,
     ProcessflowCardComponent,
     ProcessFlowMainComponent,
+    ContainerComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,

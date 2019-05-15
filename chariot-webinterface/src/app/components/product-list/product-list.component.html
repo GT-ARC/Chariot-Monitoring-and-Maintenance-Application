@@ -1,0 +1,24 @@
+<table id="product-table-wrapper">
+  <thead>
+    <tr id="product-list-head">
+      <th *ngFor="let currTableHead of tableHead" (click)="sortBy(currTableHead.name)">
+        {{currTableHead.name}}
+        <mat-icon class="sort-arrow">{{currTableHead.sortIcon}}</mat-icon>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="productEntry" *ngFor="let product of products">
+      <th>
+        <span class="product-image-oval">
+          <img src="{{product.image}}" class="img-circle">
+        </span>
+        {{product.productName}}</th>
+      <th>{{product.identifier}}</th>
+      <th><span id="status">{{product.status}}</span></th>
+      <th>{{product.deliveryDate | date:'dd/MM/yyyy'}}</th>
+      <th>{{currentTime - product.deliveryDate | date:'H' }}h {{currentTime - product.deliveryDate | date:'mm' }}h</th>
+      <th>{{product.energyUsed}}</th>
+    </tr>
+  </tbody>
+</table>

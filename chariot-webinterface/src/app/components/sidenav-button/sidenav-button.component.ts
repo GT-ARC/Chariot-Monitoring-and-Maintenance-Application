@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, HostListener, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {MatSidenav} from "@angular/material";
 
 @Component({
@@ -11,6 +11,8 @@ export class SidenavButtonComponent implements OnInit {
   @Input() sideNav: MatSidenav;
 
   @Input() sideNav2: MatSidenav;
+
+  @Input() toggleSideNav2: boolean = true;
 
   viewPortSizeBig : number = 1578;
   viewPortSizeSmall : number = 1248;
@@ -27,6 +29,9 @@ export class SidenavButtonComponent implements OnInit {
     this.handleSize(event.target.innerWidth)
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.handleSize(window.innerWidth)
+  }
 
   handleSize(width: number): void {
 
@@ -35,7 +40,7 @@ export class SidenavButtonComponent implements OnInit {
     } else
       this.sideNav.mode = 'side';
 
-    if (this.sideNav2 != null) {
+    if (this.sideNav2 != null && this.toggleSideNav2) {
       if (window.innerWidth < this.viewPortSizeSmall){
         this.sideNav2.mode = 'over';
       } else
@@ -52,7 +57,7 @@ export class SidenavButtonComponent implements OnInit {
       }
     }
 
-    if (this.sideNav2 != null){
+    if (this.sideNav2 != null && this.toggleSideNav2){
       if (this.sideNav2.opened) {
         if (width < this.viewPortSizeSmall) {
           this.sideNav2.close();
@@ -70,7 +75,7 @@ export class SidenavButtonComponent implements OnInit {
       this.sideNav.toggle();
     } else if (window.innerWidth < this.viewPortSizeSmall){
       this.sideNav.toggle();
-      this.sideNav2.toggle();
+      if(this.toggleSideNav2) this.sideNav2.toggle();
     }
   }
 }

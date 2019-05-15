@@ -413,10 +413,6 @@ export class MockDataService {
             value: faker.commerce.productMaterial()
           },
           {
-            name: "Weight",
-            value: Math.floor(Math.random() * 100) + " g"
-          },
-          {
             name: "Color",
             value: faker.commerce.color(),
           },
@@ -454,11 +450,12 @@ export class MockDataService {
         {
           identifier: processIdentifier++,
           status: "Status",
-          productName: "Product Name",
+          productName: faker.commerce.productName(),
           productAddInfo: "Additonal information",
           statusInformation: "Status information",
+          weight: Math.floor(Math.random() * 100),
           energyUsed: Math.floor(Math.random() * 200),
-          deliveryDate: faker.date.future(),
+          deliveryDate: new Date().getDate() - Math.floor(Math.random() * 24*60*60*100),
           image: Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
           state: Math.random() > 0.5,
           productFlow: productFlow,
@@ -476,18 +473,20 @@ export class MockDataService {
 
       let maxProduct = Math.floor(Math.random() * this.processes.length + 10);
 
+      let products = MockDataService.jsonCopy(this.processes)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, Math.floor(Math.random() * (maxProduct-10) + 10));
+
       this.container.push({
         identifier: i,
-        maxProductStorage: Math.floor(Math.random() * 100 + 50),
-        maxWeight: Math.floor(Math.random() * 200),
+        maxProductStorage: Math.floor(Math.random() * 100 + products.length),
+        maxWeight: Math.floor(Math.random() * 200 + products.reduce((prev, curr) => prev + curr.weight , 0)),
         name: containerName,
         containerInfo: [
           {name: "Lorum Ipsum", value: "Dico prmpta dissentiet"},
           {name: "Lorum Ipsum", value: "Oratio volumus"},
         ],
-        products: MockDataService.jsonCopy(this.processes)
-          .sort(() => Math.random() - 0.5)
-          .slice(0, Math.floor(Math.random() * (maxProduct-10) + 10))
+        products: products,
       })
     }
   }

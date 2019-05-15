@@ -22,6 +22,10 @@
       <div class="card-name">{{process.productName | uppercase}}</div>
       <div class="card-content">{{process.productAddInfo}}</div>
     </div>
+    <div class="process-info-card" fxFlex="0 0 calc(180 - 20px)">
+      <div class="card-name">{{'weight' | uppercase}}</div>
+      <div class="card-content">{{process.weight}}</div>
+    </div>
     <div class="process-info-card" fxFlex="0 0 calc(180 - 20px)" *ngFor="let processInfoCar of process.productInfo">
       <div class="card-name">{{processInfoCar.name | uppercase}}</div>
       <div class="card-content">{{processInfoCar.value}}</div>

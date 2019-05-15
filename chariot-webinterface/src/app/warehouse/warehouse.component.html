@@ -1,5 +1,9 @@
 
-<app-sidenav-button [sideNav]="snav1" [sideNav2]="snav2"></app-sidenav-button>
+<app-sidenav-button
+  [sideNav]="snav1"
+  [sideNav2]="snav2"
+  [toggleSideNav2]="toggleSecondSideNav">
+</app-sidenav-button>
 
 <mat-sidenav-container
   fullscreen
@@ -52,14 +56,17 @@
 
           <div id="service-list-wrapper"
                class="list">
-            <div class="container-container" *ngFor="let container of containers">
+            <div class="container-container" *ngFor="let container of containers"
+                 [ngClass]="selectedContainer == container ? 'selected' : ''"
+                 (click)="containerSelected(container)">
               <div class="chart">
                 <canvas baseChart
                         [data]="[(container.products.length / container.maxProductStorage) * 100,
                                  100 - (container.products.length / container.maxProductStorage)]"
                         [labels]="['Full', 'Empty']"
                         [chartType]="'pie'"
-                        [colors]="[{ backgroundColor: ['rgb(0,116,224)', 'rgb(205,212,221)']}]"
+                        [colors]="[{ backgroundColor: [pieChartColor(container), 'rgb(205,212,221)'],
+                                      borderWidth: 0}]"
                         [legend]="false">
                 </canvas>
               </div>
@@ -75,19 +82,26 @@
       <mat-sidenav-content>
         <main [ngClass]="selectedService == 'Container service' ? 'full': ''">
           <div id="title"
-               [ngClass]="selectedService == 'Container service' ? 'hidden': ''">Warehouse</div>
+               *ngIf="selectedService != 'Container service'">Warehouse</div>
           <div id="searchCard"
-               [ngClass]="selectedService == 'Container service' ? 'hidden': ''">
+               *ngIf="selectedService != 'Container service'">
             <div id="search">
               <mat-icon class="search-field-symbol">search</mat-icon>
               <input id="productSearch" type="text" name="device-list-search" placeholder="Search"
                      (input)="searchForProduct($event.target.value)">
             </div>
           </div>
-          <div id="map">
+          <div id="map"
+               *ngIf="selectedContainer == null">
             <div id="card-name">CONTAINER MAP</div>
             <img id="imgMap" src="./assets/Images/warehouse.png" alt="warehouse">
           </div>
+
+          <app-container
+            *ngIf="selectedContainer != null"
+            [container]="selectedContainer">
+
+          </app-container>
         </main>
         <aside id="right-aside"
         [ngClass]="selectedService == 'Container service' ? 'hidden': ''">
