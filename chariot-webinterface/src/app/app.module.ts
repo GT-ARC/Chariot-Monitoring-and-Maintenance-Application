@@ -49,6 +49,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {ProgressBarModule} from "angular-progress-bar";
 import { ContainerComponent } from './warehouse/container/container.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductsBehindPlanComponent } from './products-behind-plan/products-behind-plan.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
     ProcessFlowMainComponent,
     ContainerComponent,
     ProductListComponent,
+    ProductsBehindPlanComponent,
   ],
   imports: [
     BrowserModule,

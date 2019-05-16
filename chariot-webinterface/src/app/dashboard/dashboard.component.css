@@ -1,10 +1,10 @@
 #dashboard-wrapper {
-  background-color: #f4f6fc;
+  /*background-color: #f4f6fc; */
 }
 
 .dashboard-row {
   display: block;
-  margin: 32px 0 32px 32px;
+  margin: 32px 32px 32px 32px;
 }
 
 .dashboard-row-title-wrap {
@@ -25,19 +25,12 @@
   display: inline-block;
 }
 
-.dashboard-row-content {
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-}
-
 .dashboard-card {
-  min-width: calc(296px - 21px * 2);
-  flex: 1 1 0;
+  /*min-width: calc(296px - 21px * 2);*/
   position: relative;
-  padding: 21px 21px;
-  margin-right: 16px;
   background-color: #ffffff;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 1px;
 }
 
 .dashboard-card > .title {
@@ -56,6 +49,70 @@
 
 .dashboard-card-content {
   margin-top: 32px;
+}
+
+.big {
+  margin-bottom: 16px;
+  height: calc(439px - 21px);
+  min-width: 280px;
+  max-width: 320px;
+  padding-left: 21px;
+  padding-right: 21px;
+  padding-top: 21px;
+}
+
+.small {
+  height: calc(210px);
+  max-width: 180px;
+  min-width: 140px;
+}
+
+.dashboard-card-icon {
+  position: relative;
+  left: 16px;
+  top: 16px;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 25px;
+}
+
+.dashboard-card-icon > mat-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dashboard-card-icon.good {
+  color: #34ab42;
+  background-color: #e0f3e0;
+}
+.dashboard-card-icon.bad {
+  color: #df4f64;
+  background-color: #fae1e3;
+}
+
+.dashboard-card-value {
+  position: relative;
+  left: 16px;
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.dashboard-card-description {
+  position: relative;
+  left: 16px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
 }
 
 #doughnutChartLabel {
@@ -87,4 +144,8 @@
 }
 #doughnutChartLabel #red {
   background-color: #d53a4a;
+}
+
+#productsBehindPlan {
+
 }

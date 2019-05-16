@@ -11,6 +11,7 @@ import {Container} from "../../model/Container";
 export class WarehouseComponent implements OnInit {
 
   containers: Container[];
+  visibleContainer: Container[];
 
   constructor(
     private mockDataService: MockDataService,
@@ -39,6 +40,7 @@ export class WarehouseComponent implements OnInit {
     this.mockDataService.getContainer()
       .subscribe(data => {
         this.containers = data.container;
+        this.visibleContainer = data.container;
       });
     // this.openContainerService();
     // this.containerSelected(this.containers[0]);
@@ -56,6 +58,7 @@ export class WarehouseComponent implements OnInit {
 
   serviceSelected(service: string){
     this.selectedService = service;
+    this.selectedContainer = null;
     this.sideNav2.close();
     this.toggleSecondSideNav = false;
   }
@@ -65,9 +68,6 @@ export class WarehouseComponent implements OnInit {
     this.sideNav2.open();
     this.toggleSecondSideNav = true;
   }
-
-  deviceSort: string[] = ["Name", "Date", "Device type", "On/Off"];
-  deviceSortSelected: String = "On/Off";
 
   @ViewChild('snav1') sideNav: MatSidenav;
   @ViewChild('snav2') sideNav2: MatSidenav;
@@ -79,14 +79,42 @@ export class WarehouseComponent implements OnInit {
       this.sideNav2.close();
   }
 
-  deviceFilter: String = "";
+  containerFilter: string = "";
+  containerSort: string[] = ["Name", "Remaining Storage Space", "Product Amount", "Weight"];
+  containerSortSelected: string = "Storage Space";
 
   /**
-   * Sets the device filter string
+   * Sets the container filter string
    * @param filterString
    */
-  filterDevices(filterString: string) {
-    this.deviceFilter = filterString;
+  filterContainer(filterString: string) {
+    this.containerFilter = filterString;
+    this.createVisibleContainers();
+  }
+
+  createVisibleContainers(sortBy?: string) {
+    this.visibleContainer = this.containers;
+    if(this.containerFilter.length != 0){
+      this.visibleContainer = this.containers.filter(c => c.name.includes(this.containerFilter));
+    }
+    if(sortBy != undefined && sortBy != this.containerSortSelected){
+      this.visibleContainer.sort((a, b) => {
+        switch (sortBy) {
+          case 'Name':
+            return a.name < b.name ? -1 : 1;
+          case 'Remaining Storage Space':
+            let aRss = a.products.length / a.maxProductStorage * 100;
+            let bRss = b.products.length / b.maxProductStorage * 100;
+            return aRss - bRss;
+          case 'Product Amount':
+            return a.products.length - b.products.length;
+          case 'Weight':
+            let aWeight = a.products.reduce((prev, curr) => prev + curr.weight , 0);
+            let bWeight = b.products.reduce((prev, curr) => prev + curr.weight , 0);
+            return aWeight - bWeight;
+        }
+      })
+    }
   }
 
   data = [300, 500, 100];

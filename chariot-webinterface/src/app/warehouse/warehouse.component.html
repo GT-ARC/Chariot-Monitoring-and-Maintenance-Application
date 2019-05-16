@@ -39,16 +39,16 @@
             <span class="search">
               <mat-icon class="search-field-symbol">search</mat-icon>
               <input id="serviceSearch" type="text" name="device-list-search" placeholder="Search"
-                     (input)="filterDevices($event.target.value)">
+                     (input)="filterContainer($event.target.value)">
             </span>
 
             <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
               <mat-icon>sort</mat-icon>
             </button>
             <mat-menu #device_sort_menu="matMenu">
-              <div *ngFor="let sort_point of deviceSort">
-                <button mat-menu-item (click)="deviceSortSelected = sort_point">
-                  <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
+              <div *ngFor="let sort_point of containerSort">
+                <button mat-menu-item (click)="createVisibleContainers(sort_point)">
+                  <span [ngClass]="sort_point == containerSortSelected ? 'selected' : ''">{{sort_point}}</span>
                 </button>
               </div>
             </mat-menu>
@@ -56,7 +56,7 @@
 
           <div id="service-list-wrapper"
                class="list">
-            <div class="container-container" *ngFor="let container of containers"
+            <div class="container-container" *ngFor="let container of visibleContainer"
                  [ngClass]="selectedContainer == container ? 'selected' : ''"
                  (click)="containerSelected(container)">
               <div class="chart">
@@ -100,7 +100,6 @@
           <app-container
             *ngIf="selectedContainer != null"
             [container]="selectedContainer">
-
           </app-container>
         </main>
         <aside id="right-aside"

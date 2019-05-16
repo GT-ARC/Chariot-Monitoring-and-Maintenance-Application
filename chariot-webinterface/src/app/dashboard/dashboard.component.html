@@ -4,8 +4,12 @@
       <p>Devices</p>
       <mat-icon>settings</mat-icon>
     </div>
-    <div class="dashboard-row-content">
-      <div class="dashboard-card">
+    <div class="dashboard-row-content"
+         fxLayout="row wrap"
+         fxLayoutAlign="start"
+         fxLayoutGap="16px">
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
         <span class="title">LATEST ISSUE</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
@@ -16,7 +20,8 @@
           </div>
         </div>
       </div>
-      <div class="dashboard-card">
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
         <span class="title">DEVICES LATELY CHANGED</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
@@ -31,11 +36,30 @@
           </div>
         </div>
       </div>
-      <div class="dashboard-card">
+      <div class="dashboard-card small"
+           fxFlex="1 0 140px">
+        <div class="dashboard-card-icon good">
+          <mat-icon>
+            done
+          </mat-icon>
+        </div>
+      </div>
+      <div class="dashboard-card small"
+           fxFlex="1 0 140px">
+        <div class="dashboard-card-icon bad">
+          <mat-icon>
+            done
+          </mat-icon>
+        </div>
+        <p class="dashboard-card-value">1.452</p>
+        <p class="dashboard-card-description">Current issues</p>
+      </div>
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
         <span class="title">DEVICES STATUS</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
-          <div style="display: block">
+          <div style="display: block; max-width: 280px;">
             <canvas baseChart
                     height="80"
                     width="80"
@@ -47,28 +71,59 @@
             </canvas>
           </div>
           <div id="doughnutChartLabel">
-            <div><div id="blue" class="circle"></div>  <div>Running</div></div>
-            <div><div id="yellow" class="circle"></div><div>Idle</div></div>
-            <div><div id="red" class="circle"></div>   <div>Defect</div></div>
+            <div>
+              <div id="blue" class="circle"></div>
+              <div>Running</div>
+            </div>
+            <div>
+              <div id="yellow" class="circle"></div>
+              <div>Idle</div>
+            </div>
+            <div>
+              <div id="red" class="circle"></div>
+              <div>Defect</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="dashboard-card">
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
         <span class="title">DEVICES MOST USE THIS WEEK</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
 
         </div>
       </div>
-      <div class="dashboard-card">
-        <span class="title">DEVICES MOST DOWN THIS WEEK</span>
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
+          <span class="title">DEVICES MOST DOWN THIS WEEK</span>
+          <mat-icon>more_vert</mat-icon>
+          <div class="dashboard-card-content">
+
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="processflow-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Process Flow</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+
+    <div class="dashboard-row-content">
+      <div class="dashboard-card big"
+           routerLink="/products-behind-plan">
+        <span class="title">PRODUCTS BEHIND PLAN</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
-
+          <div *ngFor="let product of products.slice(0, 5)">
+            <app-processflow-card
+              [process]="product">
+            </app-processflow-card>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="processflow-view" class="dashboard-row">
   </div>
 </div>

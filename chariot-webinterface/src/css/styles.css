@@ -28,7 +28,8 @@ body {
   width: 100%;
   height: calc(100% - 80px);
   margin: 0;
-  background-color: #F4F6FC;
+  /*background-color: #F4F6FC;*/
+  background-color: #8d8f95;
 }
 
 app-sidenav-button {

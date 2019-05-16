@@ -17,7 +17,7 @@
       <th>{{product.identifier}}</th>
       <th><span id="status">{{product.status}}</span></th>
       <th>{{product.deliveryDate | date:'dd/MM/yyyy'}}</th>
-      <th>{{currentTime - product.deliveryDate | date:'H' }}h {{currentTime - product.deliveryDate | date:'mm' }}h</th>
+      <th>{{currentTime - product.deliveryDate | date:'H' }}h {{currentTime - product.deliveryDate | date:'mm' }}mm</th>
       <th>{{product.energyUsed}}</th>
     </tr>
   </tbody>

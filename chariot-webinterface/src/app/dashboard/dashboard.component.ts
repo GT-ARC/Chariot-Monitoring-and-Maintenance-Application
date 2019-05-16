@@ -6,6 +6,8 @@ import {Device} from "../../model/device";
 import {Issue} from "../../model/issue";
 import {ChartOptions, ChartType} from "chart.js";
 import {Color, Label, MultiDataSet, SingleDataSet} from "ng2-charts";
+import {ProductProcess} from "../../model/productProcess";
+import {Container} from "../../model/Container";
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,10 @@ export class DashboardComponent implements OnInit {
 
   issueList: Issue[];
   issueDeviceMap: Map<Issue, Device> = new Map();
+
+  products: ProductProcess[];
+
+  containers: Container[];
 
   constructor(private mockDataService: MockDataService) {
   }
@@ -56,6 +62,14 @@ export class DashboardComponent implements OnInit {
         this.floors = data.floors;
         this.locations = data.locations;
         this.devices = data.devices;
+      });
+    this.mockDataService.getProcess()
+      .subscribe( data => {
+        this.products = data.process;
+      });
+    this.mockDataService.getContainer()
+      .subscribe(data => {
+        this.containers = data.container;
       });
   }
 

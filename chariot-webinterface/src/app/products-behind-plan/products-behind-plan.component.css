@@ -1,0 +1,85 @@
+#container-main {
+  position: relative;
+  padding: 32px 32px 100px;
+  background-color: #f3f6fc;
+  height: 100%;
+}
+
+#head {
+  position: relative;
+  margin-bottom: 37px;
+}
+
+#title {
+  margin-top: 0;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: left;
+  line-height: 20px;
+}
+
+#container-cards-container {
+  margin-bottom: 52px;
+}
+
+.container-cards {
+  position: relative;
+  background-color: white;
+  height: 160px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.15);
+}
+
+.product-stat-icon {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  color: #197fe2;
+  background-color: #deeafb;
+}
+
+.product-stat-icon > mat-icon {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container-stat-value {
+  position: absolute;
+  left: 90px;
+  top: 32px;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.container-stat-desc {
+  position: absolute;
+  left: 90px;
+  top: 87px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+
+#map {
+  height: 308px;
+}
+
+#imgMap {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 246px;
+}

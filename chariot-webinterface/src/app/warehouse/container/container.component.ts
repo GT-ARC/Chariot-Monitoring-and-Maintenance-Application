@@ -58,7 +58,7 @@ export class ContainerComponent implements OnInit {
     cutoutPercentage: 80,
   };
 
-  public doughnutChartLabels: Label[] = ['Depleted', 'Fillament Level'];
+  public doughnutChartLabels: Label[] = ['Filled Space', 'Remaining Space'];
   public doughnutChartData: SingleDataSet = [
     100 - 25, 25
   ];

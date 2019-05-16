@@ -1,6 +1,6 @@
 #logo_img {
-  width: 24px;
-  height: 24px;
+  height: calc(424px / 7);
+  width: calc(712px / 7);
   vertical-align: middle;
 }
 
@@ -23,6 +23,10 @@ nav a {
 
 #dashboard-link {
   float: left;
+  padding: 0;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
 }
 
 #nav-button {
