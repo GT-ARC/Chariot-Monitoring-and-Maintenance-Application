@@ -1,15 +1,11 @@
 <div id="device-panel-monitoring" class="device-panel-card">
   <p class="device-panel-title">Device Monitoring and prediction</p>
   <div id="device-chart-wrapper">
-    <canvas width="800" height="370"
-            id="device-chart"
-            baseChart
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType">
-    </canvas>
+    <app-prediction-graph
+      id="prediction-graph"
+      [data]="device.data"
+      [prediction]="device.prediction"
+      [height]="380">
+    </app-prediction-graph>
   </div>
 </div>

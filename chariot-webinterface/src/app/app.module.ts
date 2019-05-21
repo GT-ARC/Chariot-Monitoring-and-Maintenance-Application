@@ -50,6 +50,7 @@ import {ProgressBarModule} from "angular-progress-bar";
 import { ContainerComponent } from './warehouse/container/container.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductsBehindPlanComponent } from './products-behind-plan/products-behind-plan.component';
+import { PredictionGraphComponent } from './components/prediction-graph/prediction-graph.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ProductsBehindPlanComponent } from './products-behind-plan/products-beh
     ContainerComponent,
     ProductListComponent,
     ProductsBehindPlanComponent,
+    PredictionGraphComponent,
   ],
   imports: [
     BrowserModule,

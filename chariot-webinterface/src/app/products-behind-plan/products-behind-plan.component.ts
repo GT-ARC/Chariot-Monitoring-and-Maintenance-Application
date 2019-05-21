@@ -1,6 +1,7 @@
 import {Component, OnInit, } from '@angular/core';
 import {ProductProcess} from "../../model/productProcess";
 import {MockDataService} from "../services/mock-data.service";
+import {Metadata} from "../../model/Metadata";
 
 @Component({
   selector: 'app-products-behind-plan',
@@ -11,6 +12,8 @@ export class ProductsBehindPlanComponent implements OnInit {
 
   allProducts: ProductProcess[];
   productsBehindPlan: ProductProcess[];
+
+  metadata : Metadata;
 
   currentDate: number = new Date().getDate();
 
@@ -27,6 +30,9 @@ export class ProductsBehindPlanComponent implements OnInit {
       .subscribe( data => {
         this.allProducts = data.process;
       });
+    this.mockDataService.getMetaData().subscribe(data => {
+      this.metadata = data.metaData;
+    })
   }
 
   ngOnInit() {

@@ -2,9 +2,14 @@
   height: 460px;
 }
 
-#device-chart-wrapper {
+#prediction-graph {
+  position: absolute;
+  bottom: 16px;
+  width: 100%;
+}
+
+#chart-wrapper {
   display: block;
   position: absolute;
-  width: calc(100% - 41px - 16px);
   margin: 65px auto auto 41px;
 }

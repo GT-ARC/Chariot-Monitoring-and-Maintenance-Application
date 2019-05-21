@@ -6,7 +6,7 @@
     </span>
   </p>
 
-  <div id="container-cards-container"
+  <div id="container-card-container"
        gdAlignColumns="start start"
        gdAreas="a0 a1 a2 | a3 a4 a2"
        gdColumns="calc(20% - 16px) calc(20% - 16px) calc(60% - 16px)"
@@ -72,16 +72,14 @@
     </div>
 
     <div gdArea="a2">
-      <div class="product-stat container-cards">
-        <div class="product-stat-icon">
-          <mat-icon>done</mat-icon>
-        </div>
-        <div class="container-stat-value">
-          {{maxPBP | date:'H' }}h {{maxPBP | date:'mm' }}mm
-        </div>
-        <div class="container-stat-desc">
-          longest behind
-        </div>
+      <div id="prediction-graph-wrapper" class="container-cards">
+        <p class="card-title">History and Prediction of Products behind plan</p>
+        <app-prediction-graph
+          id="prediction-graph"
+          [data]="metadata.prodBehindPlanData"
+          [prediction]="metadata.prodBehindPlanPrediction"
+          [height]="260">
+        </app-prediction-graph>
       </div>
     </div>
 

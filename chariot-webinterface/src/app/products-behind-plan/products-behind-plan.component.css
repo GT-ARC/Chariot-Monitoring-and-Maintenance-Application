@@ -73,6 +73,29 @@
   text-align: left;
 }
 
+.card-title {
+  position: relative;
+  top: 32px;
+  left: 24px;
+  margin: 0;
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  text-align: left;
+}
+
+#prediction-graph {
+  position: absolute;
+  bottom: 16px;
+  width: 100%;
+}
+
+#prediction-graph-wrapper {
+  height: 338px;
+}
+
 #map {
   height: 308px;
 }

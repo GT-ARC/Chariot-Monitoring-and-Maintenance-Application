@@ -9,6 +9,7 @@ import * as faker from 'faker'
 import {Issue} from "../../model/issue";
 import {IndividualProcess, ProductProcess} from "../../model/productProcess";
 import {Container} from "../../model/Container";
+import {Metadata} from "../../model/Metadata";
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,29 @@ export class MockDataService {
   processes: ProductProcess[] = [];
   container: Container[] =  [];
 
+  metadata: Metadata = null;
+
   constructor() {
     this.createData();
   }
 
   createData(): void {
+    let dataStartTime: number = faker.date.past().valueOf();
+    let dataValue: number = Math.random() * 100;
+    let productsBehindPlan: { y: number, x: number }[] = [];
+    let productsBehindPlanDataAmount = Math.round(Math.random() * 30) + 10;
+    let predictionSize = Math.round(Math.random() * 5) + 5;
+    for (let c = 0; c < productsBehindPlanDataAmount; c++) {
+      productsBehindPlan.push({y: dataStartTime, x: dataValue});
+      dataStartTime = Math.floor(Math.random() * 10 ** 9 + 10 ** 8 + 10 ** 7) + Math.abs(dataStartTime);
+      dataValue += (Math.random() * 20 + 5) * (Math.random() * 2 - 1 > 0 ? 1 : -1);
+    }
+
+    this.metadata = {
+      prodBehindPlanData: productsBehindPlan.slice(0, productsBehindPlan.length - predictionSize),
+      prodBehindPlanPrediction: productsBehindPlan.slice(productsBehindPlan.length - predictionSize - 1, productsBehindPlan.length)
+    };
+
     let issueIdentifier: number = 0;
     for (let i = 0; i < 100; i++) {
       let dataStartTime: number = faker.date.past().valueOf();
@@ -512,6 +531,12 @@ export class MockDataService {
   getContainer(): Observable<{ container: Container[] }> {
     return of({
       container: this.container,
+    });
+  }
+
+  getMetaData(): Observable<{ metaData: Metadata }> {
+    return of({
+      metaData: this.metadata,
     });
   }
 }
