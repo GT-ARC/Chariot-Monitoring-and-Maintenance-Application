@@ -465,22 +465,20 @@ export class MockDataService {
       }
 
 
-      this.processes.push(
-        {
-          identifier: processIdentifier++,
-          status: "Status",
-          productName: faker.commerce.productName(),
-          productAddInfo: "Additonal information",
-          statusInformation: "Status information",
-          weight: Math.floor(Math.random() * 100),
-          energyUsed: Math.floor(Math.random() * 200),
-          deliveryDate: new Date().getDate() - Math.floor(Math.random() * 24*60*60*100),
-          image: Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
-          state: Math.random() > 0.5,
-          productFlow: productFlow,
-          productInfo: productInfo
-        }
-      )
+      this.processes.push(new ProductProcess(
+          processIdentifier++,
+          "Additonal information",
+          faker.commerce.productName(),
+          Math.floor(Math.random() * 100),
+          Math.floor(Math.random() * 200),
+          new Date().getDate() - Math.floor(Math.random() * 24*60*60*100),
+          "Status information",
+          "Status",
+          Math.random() > 0.5,
+          Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
+          productFlow,
+          productInfo
+      ));
     }
 
     // Create containers

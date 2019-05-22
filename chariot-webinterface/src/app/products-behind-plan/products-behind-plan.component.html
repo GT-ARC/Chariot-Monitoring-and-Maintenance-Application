@@ -1,4 +1,4 @@
-<div id="container-main">
+<div id="products-behind-plan-main">
 
   <p id="head">
     <span id="title">
@@ -6,7 +6,7 @@
     </span>
   </p>
 
-  <div id="container-card-container"
+  <div id="product-behind-plan-cards-container"
        gdAlignColumns="start start"
        gdAreas="a0 a1 a2 | a3 a4 a2"
        gdColumns="calc(20% - 16px) calc(20% - 16px) calc(60% - 16px)"
@@ -19,7 +19,7 @@
 
 
     <div gdArea="a0">
-      <div class="product-stat container-cards">
+      <div class="product-stat product-cards">
         <div class="product-stat-icon">
           <mat-icon>done</mat-icon>
         </div>
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div gdArea="a1">
-      <div class="product-stat container-cards">
+      <div class="product-stat product-cards">
         <div class="product-stat-icon">
           <mat-icon>done</mat-icon>
         </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div gdArea="a3">
-      <div class="product-stat container-cards">
+      <div class="product-stat product-cards">
         <div class="product-stat-icon">
           <mat-icon>done</mat-icon>
         </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <div gdArea="a4">
-      <div class="product-stat container-cards">
+      <div class="product-stat product-cards">
         <div class="product-stat-icon">
           <mat-icon>done</mat-icon>
         </div>
@@ -72,7 +72,7 @@
     </div>
 
     <div gdArea="a2">
-      <div id="prediction-graph-wrapper" class="container-cards">
+      <div id="prediction-graph-wrapper" class="product-cards">
         <p class="card-title">History and Prediction of Products behind plan</p>
         <app-prediction-graph
           id="prediction-graph"
@@ -82,14 +82,15 @@
         </app-prediction-graph>
       </div>
     </div>
-
-<!--    <app-device-panel-monitoring>-->
-<!--      -->
-<!--    </app-device-panel-monitoring>-->
   </div>
 
-  <app-product-list
-    [products]="productsBehindPlan">
-  </app-product-list>
+  <div id="productListWrapper">
+    <app-product-list
+      [products]="productsBehindPlan">
+    </app-product-list>
+  </div>
+  <div id="productFilter">
+
+  </div>
 
 </div>

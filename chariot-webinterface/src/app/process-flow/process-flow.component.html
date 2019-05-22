@@ -18,7 +18,7 @@
         </button>
         <mat-menu #device_sort_menu="matMenu">
           <div *ngFor="let sort_point of processSort">
-            <button mat-menu-item (click)="processSortSelected = sort_point">
+            <button mat-menu-item (click)="sortProcess(sort_point)">
               <span [ngClass]="sort_point == processSortSelected ? 'selected' : ''">{{sort_point}}</span>
             </button>
           </div>
@@ -29,7 +29,7 @@
            class="list">
         <app-processflow-card
           (click)="newProcessSelected(process)"
-          *ngFor="let process of processes"
+          *ngFor="let process of viableProcesses"
           [process]="process"
           [selectedProcess]="selectedProcess">
         </app-processflow-card>

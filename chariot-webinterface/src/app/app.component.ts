@@ -39,7 +39,7 @@ export class AppComponent {
   static toggleNav(width : number) {
     let nav1 = document.getElementById("nav-button");
     let nav2 = document.getElementById("nav-wrap");
-    if (width < 1061){
+    if (width < 1144){
       nav1.style.display = null;
       nav2.style.display = 'none';
     } else {

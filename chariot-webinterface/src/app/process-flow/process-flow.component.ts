@@ -13,10 +13,17 @@ export class ProcessFlowComponent implements OnInit {
 
   window = window;
 
-  processSort: string[] = ["ProductProcess state", "Name", "Running time"];
+  processSort: string[] = [
+    "Product Process State",
+    "Name",
+    "Running Time",
+    "Total Running Time",
+    "ID"
+  ];
   processSortSelected: String = "Name";
 
   processes: ProductProcess[] = [];
+  viableProcesses: ProductProcess[] = [];
   selectedProcess: ProductProcess;
 
   constructor(
@@ -25,6 +32,7 @@ export class ProcessFlowComponent implements OnInit {
 
   ngOnInit() {
     this.getMockData();
+    this.viableProcesses = this.processes;
     this.selectedProcess = this.processes[0];
   }
 
@@ -37,10 +45,30 @@ export class ProcessFlowComponent implements OnInit {
       .subscribe(data => {
         this.processes = data.process;
       });
-    // log(this.processes)
   }
 
   filterProcess(filterString: any) {
+    this.viableProcesses = this.processes;
+    this.viableProcesses.filter(value => value.productName.includes(filterString)
+      || value.identifier == filterString);
+  }
 
+  sortProcess(sort_point: string) {
+    this.processSortSelected = sort_point;
+    this.viableProcesses.sort((a, b) => {
+      switch (sort_point) {
+        case "Product Process State":
+          return a.state == b.state ? -1 : 1;
+        case "Name":
+          return a.productName < b.productName ? -1 : 1;
+        case "Running Time":
+          return a.getCurrentRunningProcess().running.valueOf() -
+            b.getCurrentRunningProcess().running.valueOf();
+        case "Total Running Time":
+          return a.getTotalRunningTime() - b.getTotalRunningTime();
+        case "ID":
+          return a.identifier - b.identifier;
+      }
+    })
   }
 }
