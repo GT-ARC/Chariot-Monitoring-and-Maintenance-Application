@@ -2,6 +2,7 @@ import {Component, OnInit, } from '@angular/core';
 import {ProductProcess} from "../../model/productProcess";
 import {MockDataService} from "../services/mock-data.service";
 import {Metadata} from "../../model/Metadata";
+import {MatSliderChange} from "@angular/material";
 
 @Component({
   selector: 'app-products-behind-plan',
@@ -50,5 +51,23 @@ export class ProductsBehindPlanComponent implements OnInit {
     this.amountPBPToday = this.productsBehindPlan.filter(prod => isToday(new Date(prod.deliveryDate))).length;
     this.averagePBP = this.productsBehindPlan.reduce((prev, curr) => prev + (this.currentDate - curr.deliveryDate), 0) / this.amountPBP;
     this.maxPBP = this.productsBehindPlan.reduce((prev, curr) => curr.deliveryDate > prev ? curr.deliveryDate : prev, 0);
+
+    this.doMatComponentStyling();
+  }
+
+  doMatComponentStyling() {
+    let slider = document.getElementsByClassName("mat-slider-track-wrapper").item(0);
+    slider.setAttribute("style", "height: 5px");
+
+    let sliderThumb = document.getElementsByClassName("mat-slider-thumb").item(0);
+    sliderThumb.setAttribute("style", "height: 25px; width: 25px; bottom: -14px; right: -14px;")
+  }
+
+  filterProducts(value: any) {
+    
+  }
+
+  behindPlanFilter($event: MatSliderChange) {
+    
   }
 }

@@ -1,7 +1,6 @@
 #products-behind-plan-main {
   position: relative;
   padding: 32px 61px 100px 32px;
-  background-color: #f3f6fc;
   height: 100%;
 }
 
@@ -87,14 +86,16 @@
   text-align: left;
 }
 
+#prediction-graph-wrapper {
+  height: 330px;
+}
+
 #prediction-graph {
   position: absolute;
   bottom: 16px;
-  width: 100%;
-}
-
-#prediction-graph-wrapper {
-  height: 338px;
+  margin-left: 16px;
+  margin-right: auto;
+  width: calc(100% - 32px);
 }
 
 #productListWrapper {
@@ -109,4 +110,169 @@
   width: 268px;
   height: 584px;
   background-color: white;
+}
+
+.filter-component {
+  position: relative;
+  padding: 24px;
+}
+
+.filter-component:not(:first-of-type) {
+  /*margin-top: calc(50px - 16px * 2);*/
+}
+
+.component-title {
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  width: 196px;
+  text-align: left;
+}
+
+#product-search {
+  border: 1px solid #E0E7FF;
+  border-radius: 5px;
+  height: 40px;
+  background-color: white;
+  color: #8798AD;
+  padding-left: 16px;
+  margin-left: 6px;
+  margin-top: 11px;
+}
+
+.filter-title {
+  padding-top: 25px;
+  color: #2E384D;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  padding-left: 6px;
+  margin-bottom: 7px;
+}
+
+#slider-indicator {
+  position: absolute;
+  margin-top: -29px;
+  right: 30px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  width: 64.43px;
+  text-align: right;
+}
+
+.mat-slider {
+  width: 100%;
+  top: -9px;
+  margin-bottom: -27px;
+}
+
+#category-filter {
+  border: 1px solid #E0E7FF;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 16px;
+  margin-left: 6px;
+  background-color: white;
+  color: #2972E6;
+  width: calc(100% - 12px)
+}
+
+#filter-date {
+  color: #2972E6;
+  margin-left: 6px;
+  width: calc(100% - 28px);
+  font-size: 13px;
+  border: 1px solid #E0E7FF;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 16px;
+}
+
+#filter-data-icon {
+  position: absolute;
+  color: #2b72e6;
+  right: 47px;
+  margin-top: 9px;
+}
+
+.checkbox-label {
+  display: block;
+  position: relative;
+  padding-top: 2px;
+  padding-left: 28px;
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+
+  margin-left: 6px;
+  margin-bottom: 8px;
+}
+
+.checkbox-label:has(input:checked)  {
+  background-color: #2b72e6;
+  border-color: #2b72e6;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+
+  background-color: transparent;
+  border: 2px solid #959aa5;
+  border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #959aa5;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #2b72e6;
+  border-color: #2b72e6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* style the checkmark */
+.checkbox-label .checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  border-radius: 1px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

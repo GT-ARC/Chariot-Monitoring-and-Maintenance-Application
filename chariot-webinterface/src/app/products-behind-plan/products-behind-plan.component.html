@@ -89,8 +89,54 @@
       [products]="productsBehindPlan">
     </app-product-list>
   </div>
-  <div id="productFilter">
 
+  <div id="productFilter">
+    <div class="filter-component">
+      <div class="component-title">SEARCH</div>
+      <input id="product-search" type="text" name="product-list-search" placeholder="Name or ID"
+             (input)="filterProducts($event.target.value)">
+    </div>
+    <div class="filter-component">
+      <div class="component-title">FILTER</div>
+      <div class="filter-title">Behind plan</div>
+      <div id="slider-indicator">14 days</div>
+      <mat-slider
+        min="{{0}}"
+        max="{{100}}"
+        step="{{1}}"
+        value="{{50}}"
+        thumbLabel="false"
+        (change)="behindPlanFilter($event)"
+        tickInterval="false">
+      </mat-slider>
+      <div class="filter-title">Product Category</div>
+      <select id="category-filter" name="category-filter">
+        <option value="all">All</option>
+        <option value="1">Category I</option>
+        <option value="2">Category II</option>
+        <option value="3">Category III</option>
+        <option value="4">Category IV</option>
+      </select>
+      <div class="filter-title">Delivery</div>
+      <label>
+        <input id="filter-date" type="date" name="filter-date" dataformatas="dd.mm.yyyy">
+        <mat-icon id="filter-data-icon">date_range</mat-icon>
+      </label>
+
+      <div class="filter-title">Status</div>
+      <label class="checkbox-label">Status A
+        <input type="checkbox" name="status-a">
+        <span class="checkmark"></span>
+      </label>
+      <label class="checkbox-label">Status B
+        <input type="checkbox" name="status-b">
+        <span class="checkmark"></span>
+      </label>
+      <label class="checkbox-label">Status C
+        <input type="checkbox" name="status-c">
+        <span class="checkmark"></span>
+      </label>
+    </div>
   </div>
 
 </div>

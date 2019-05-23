@@ -29,7 +29,7 @@
   height: 30px;
   width: 30px;
   background-color: white;
-  border: solid 2px gray;
+  border: solid 5px #2972E6 !important;
   bottom: -20px;
   right: -20px;
 }
