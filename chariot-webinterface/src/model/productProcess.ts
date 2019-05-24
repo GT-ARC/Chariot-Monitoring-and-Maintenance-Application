@@ -11,6 +11,8 @@ export class ProductProcess {
   statusInformation: String;
   status: String;
 
+  category: String;
+
   state: boolean;
 
   image: string;
@@ -20,10 +22,10 @@ export class ProductProcess {
   productInfo: {
     name: string;
     value: string;
-  }[]
+  }[];
 
 
-  constructor(identifier: number, productAddInfo: string, productName: string, weight: number, energyUsed: number, deliveryDate: number, statusInformation: String, status: String, state: boolean, image: string, productFlow: IndividualProcess[], productInfo: { name: string; value: string }[]) {
+  constructor(identifier: number, productAddInfo: string, productName: string, weight: number, energyUsed: number, deliveryDate: number, statusInformation: String, status: String, state: boolean, image: string, productFlow: IndividualProcess[], productInfo: { name: string; value: string }[], category: string) {
     this.identifier = identifier;
     this.productAddInfo = productAddInfo;
     this.productName = productName;
@@ -36,6 +38,7 @@ export class ProductProcess {
     this.image = image;
     this.productFlow = productFlow;
     this.productInfo = productInfo;
+    this.category = category;
   }
 
   getTotalRunningTime() : number {

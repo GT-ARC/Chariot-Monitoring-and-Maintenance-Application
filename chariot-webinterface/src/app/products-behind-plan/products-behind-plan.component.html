@@ -1,10 +1,13 @@
 <div id="products-behind-plan-main">
 
-  <p id="head">
+  <div id="head">
+    <span class="back-icon" routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+    </span>
     <span id="title">
       Products behind plan
     </span>
-  </p>
+  </div>
 
   <div id="product-behind-plan-cards-container"
        gdAlignColumns="start start"
@@ -15,13 +18,13 @@
        gdAreas.xs="a0 | a1 | a3 | a4 | a2"
        gdColumns.xs="calc(100%)"
        gdAuto="row"
-       gdGap="8px 16px">
+       gdGap="8px 8px">
 
 
     <div gdArea="a0">
       <div class="product-stat product-cards">
         <div class="product-stat-icon">
-          <mat-icon>done</mat-icon>
+          <mat-icon>show_chart</mat-icon>
         </div>
         <div class="container-stat-value">
           {{amountPBP}}
@@ -34,7 +37,7 @@
     <div gdArea="a1">
       <div class="product-stat product-cards">
         <div class="product-stat-icon">
-          <mat-icon>done</mat-icon>
+          <mat-icon>show_chart</mat-icon>
         </div>
         <div class="container-stat-value">
           {{amountPBPToday}}
@@ -47,10 +50,10 @@
     <div gdArea="a3">
       <div class="product-stat product-cards">
         <div class="product-stat-icon">
-          <mat-icon>done</mat-icon>
+          <mat-icon>calendar_today</mat-icon>
         </div>
-        <div class="container-stat-value">
-          {{averagePBP | date:'H' }}h {{averagePBP | date:'mm' }}mm
+        <div class="container-stat-value" [ngStyle]="{'font-size': getFontSize(averagePBP)}">
+          {{getDateString(averagePBP)}}
         </div>
         <div class="container-stat-desc">
           Average behind
@@ -60,10 +63,10 @@
     <div gdArea="a4">
       <div class="product-stat product-cards">
         <div class="product-stat-icon">
-          <mat-icon>done</mat-icon>
+          <mat-icon>calendar_today</mat-icon>
         </div>
-        <div class="container-stat-value">
-          {{maxPBP | date:'H' }}h {{maxPBP | date:'mm' }}mm
+        <div class="container-stat-value" [ngStyle]="{'font-size': getFontSize(currentDate - maxPBP)}">
+          {{getDateString(currentDate - maxPBP)}}
         </div>
         <div class="container-stat-desc">
           longest behind
@@ -84,12 +87,6 @@
     </div>
   </div>
 
-  <div id="productListWrapper">
-    <app-product-list
-      [products]="productsBehindPlan">
-    </app-product-list>
-  </div>
-
   <div id="productFilter">
     <div class="filter-component">
       <div class="component-title">SEARCH</div>
@@ -99,23 +96,23 @@
     <div class="filter-component">
       <div class="component-title">FILTER</div>
       <div class="filter-title">Behind plan</div>
-      <div id="slider-indicator">14 days</div>
+      <div id="slider-indicator">{{productBehindPlanDayFilter}} days</div>
       <mat-slider
         min="{{0}}"
-        max="{{100}}"
+        max="{{20}}"
         step="{{1}}"
-        value="{{50}}"
-        thumbLabel="false"
-        (change)="behindPlanFilter($event)"
+        value="{{productBehindPlanDayFilter}}"
+        thumbLabel="true"
+        (valueChange)="filterPBPUpdate($event)"
         tickInterval="false">
       </mat-slider>
       <div class="filter-title">Product Category</div>
-      <select id="category-filter" name="category-filter">
+      <select id="category-filter" name="category-filter" (change)="categoryFilter($event.target.value)">
         <option value="all">All</option>
-        <option value="1">Category I</option>
-        <option value="2">Category II</option>
-        <option value="3">Category III</option>
-        <option value="4">Category IV</option>
+        <option value="Category I">Category I</option>
+        <option value="Category II">Category II</option>
+        <option value="Category III">Category III</option>
+        <option value="Category IV">Category IV</option>
       </select>
       <div class="filter-title">Delivery</div>
       <label>
@@ -137,6 +134,12 @@
         <span class="checkmark"></span>
       </label>
     </div>
+  </div>
+
+  <div id="productListWrapper">
+    <app-product-list
+      [products]="visibleProducts">
+    </app-product-list>
   </div>
 
 </div>

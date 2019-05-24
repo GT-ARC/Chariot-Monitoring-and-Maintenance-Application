@@ -124,6 +124,18 @@ export class ProcessFlowMainComponent implements OnInit {
     }
   }
 
+  getProductStatusColor(status: string) {
+    if(status == "Status A")
+      return '#33ab42';
+    if(status == "Status B")
+      return '#2b72e6';
+    if (status == "Status C")
+      return '#e9ac49';
+    else
+      return '#d53a4a';
+  }
+
+
   filamentLevel: number = 0;
 
   public barChartOptions: ChartOptions = {

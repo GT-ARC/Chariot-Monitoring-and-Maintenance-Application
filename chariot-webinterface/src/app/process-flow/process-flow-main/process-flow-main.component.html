@@ -4,7 +4,7 @@
     <span id="title">
       Product {{process.identifier}}
     </span>
-    <span id="status">
+    <span id="status" [ngStyle]="{'background-color': getProductStatusColor(process.status)}">
       {{process.status}}
     </span>
   </p>

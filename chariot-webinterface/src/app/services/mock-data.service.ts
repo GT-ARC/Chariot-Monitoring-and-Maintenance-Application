@@ -26,8 +26,11 @@ export class MockDataService {
   metadata: Metadata = null;
 
   constructor() {
-    this.createData();
+
+      this.createData();
+
   }
+
 
   createData(): void {
     let dataStartTime: number = faker.date.past().valueOf();
@@ -464,6 +467,8 @@ export class MockDataService {
         productInfo.splice(Math.floor(Math.random() * productInfo.length), 1)
       }
 
+      let categorys = ['Category I', 'Category II', 'Category III' ,'Category IV'];
+      let productStatus = ['Status A', 'Status B', 'Status C']
 
       this.processes.push(new ProductProcess(
           processIdentifier++,
@@ -471,13 +476,14 @@ export class MockDataService {
           faker.commerce.productName(),
           Math.floor(Math.random() * 100),
           Math.floor(Math.random() * 200),
-          new Date().getDate() - Math.floor(Math.random() * 24*60*60*100),
+          new Date().valueOf() - Math.floor(Math.random() * 24*60*60*1000 * 20),
           "Status information",
-          "Status",
+        productStatus[Math.floor(Math.random() * productStatus.length)],
           Math.random() > 0.5,
           Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
           productFlow,
-          productInfo
+          productInfo,
+          categorys[Math.floor(Math.random() * categorys.length)]
       ));
     }
 
@@ -506,6 +512,17 @@ export class MockDataService {
         products: products,
       })
     }
+
+    // console.log(
+    //   JSON.stringify({
+    //     devices: this.devices,
+    //     locations: this.locations,
+    //     floor: this.floor,
+    //     processes: this.processes,
+    //     container: this.container,
+    //     metadata: this.metadata,
+    //   }
+    // ));
   }
 
   static jsonCopy(src) {

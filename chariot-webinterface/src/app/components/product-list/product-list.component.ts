@@ -10,7 +10,9 @@ export class ProductListComponent implements OnInit {
 
   @Input() products: ProductProcess[];
 
-  currentTime: number = new Date().getDate();
+  currentTime: number = new Date().valueOf();
+
+  math = Math;
 
   tableHead : {name: string, sortIcon: string}[] = [
     {name: 'PRODUCT NAME', sortIcon: 'keyboard_arrow_down'},
@@ -59,6 +61,17 @@ export class ProductListComponent implements OnInit {
             return b.energyUsed - a.energyUsed;
       }
     })
+  }
+
+  getProductStatusColor(status: string) {
+    if(status == "Status A")
+      return '#33ab42';
+    if(status == "Status B")
+      return '#2b72e6';
+    if (status == "Status C")
+      return '#e9ac49';
+    else
+      return '#d53a4a';
   }
 
   constructor() { }
