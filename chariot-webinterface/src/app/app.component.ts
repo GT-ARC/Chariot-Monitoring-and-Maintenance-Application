@@ -28,6 +28,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.path = this.locationService.path();
+    console.log(this.path);
     AppComponent.toggleNav(window.innerWidth)
   }
 

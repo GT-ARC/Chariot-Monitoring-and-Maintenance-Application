@@ -1,6 +1,7 @@
 <app-sidenav-button [sideNav]="snav1" [sideNav2]="snav2"></app-sidenav-button>
 
 <mat-sidenav-container
+  fullscreen
   [hasBackdrop]="window.innerWidth > 1248 && window.innerWidth < 1578"
   (backdropClick)="backDropClicked()">
   <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">

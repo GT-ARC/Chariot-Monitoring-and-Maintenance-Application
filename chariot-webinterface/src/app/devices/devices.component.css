@@ -163,6 +163,7 @@ mat-icon {
   height: 100%;
   min-width: 312px;
   margin-left: 0;
+  overflow: hidden;
 }
 
 #floor-list > .list-head {
@@ -186,6 +187,7 @@ mat-icon {
 #floor-list-wrapper {
   position: relative;
   min-width: 328px;
+  height: calc(-180px + 100vh);
 }
 
 .floor {
@@ -231,15 +233,9 @@ mat-icon {
 /* Device list props */
 
 #device-list {
-  height: 100%;
   background-color: #CDD2E5;
   min-width: 312px;
   margin-left: 0px;
-  overflow: hidden;
-}
-
-#device-list > .list, #floor-list > .list {
-  height: calc(100% - 160px);
 }
 
 #device-list > .list-head > .search {
@@ -278,6 +274,7 @@ mat-icon {
 }
 
 #device-list-wrapper {
+  height: calc(-180px + 100vh);
   padding-left: 16px;
   padding-right: 16px;
 }

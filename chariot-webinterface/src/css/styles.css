@@ -77,6 +77,10 @@ app-sidenav-button {
   color: #2E5BFF;
 }
 
+.mat-drawer.mat-drawer-side {
+  height: 100%;
+}
+
 
 button.mat-menu-item:hover {
   background-color: #d4e3fa;
@@ -89,15 +93,16 @@ button.mat-menu-item:hover {
 }
 
 .list {
-  height: calc(100% - 80px);
-  overflow-y: auto;
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+  overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
 html {
-  overflow: scroll;
-  overflow-x: hidden;
+  /*overflow: scroll;*/
+  /*overflow-x: hidden;*/
 }
 ::-webkit-scrollbar {
   width: 0px;  /* Remove scrollbar space */

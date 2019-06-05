@@ -53,7 +53,7 @@
 
 .big {
   margin-bottom: 16px;
-  height: calc(439px - 21px);
+  height: calc(484px - 21px);
   min-width: 280px;
   max-width: 320px;
   padding-left: 21px;
@@ -117,19 +117,46 @@
 
 #doughnutChartLabel {
   position: relative;
+}
 
+#doughnutValue {
+  position: absolute;
+  top: 47%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 15px;
+  text-align: left;
+}
+
+#doughnutUnit {
+  font-size: 16px;
+}
+
+#doughnutDesc {
+  font-size: 16px;
+  color: #8798AD;
 }
 
 #doughnutChartLabel > div {
   position: relative;
   padding-left: 10px;
+  padding-top: 10px;
+  color: #2E384D;
+  text-align: left;
 }
 
 #doughnutChartLabel .circle {
   position: absolute;
   border: 2px solid transparent;
   border-radius: 100%;
-  top: 50%;
+  top: 64%;
   transform: translate(0, -50%);
   left: -10px;
   width: 9px;

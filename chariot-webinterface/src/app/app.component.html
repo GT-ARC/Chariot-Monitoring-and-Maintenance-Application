@@ -1,7 +1,10 @@
 <nav>
-  <a routerLink="/dashboard" id="dashboard-link">
+  <a routerLink="/dashboard" id="dashboard-link"
+     [ngClass]="path == '/dashboard' ? 'selected' : ''"
+     (click)="path = '/dashboard'">
     <img src="../assets/Images/CHARIOT_Logo.png" alt="logo" id="logo_img"/>
-    <span id="project_name">MM APP</span>
+    <span id="project_name">
+      MM APP</span>
   </a>
   <div id="nav-button">
     <button mat-icon-button

@@ -51,6 +51,7 @@ import { ContainerComponent } from './warehouse/container/container.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductsBehindPlanComponent } from './products-behind-plan/products-behind-plan.component';
 import { PredictionGraphComponent } from './components/prediction-graph/prediction-graph.component';
+import { DeviceUsageCardComponent } from './components/device-usage-card/device-usage-card.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { PredictionGraphComponent } from './components/prediction-graph/predicti
     ProductListComponent,
     ProductsBehindPlanComponent,
     PredictionGraphComponent,
+    DeviceUsageCardComponent,
   ],
   imports: [
     BrowserModule,

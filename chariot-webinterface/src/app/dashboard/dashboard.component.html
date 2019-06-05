@@ -43,15 +43,17 @@
             done
           </mat-icon>
         </div>
+        <p class="dashboard-card-value">{{classReference.onDevices + classReference.idleDevices}}</p>
+        <p class="dashboard-card-description">Devices working</p>
       </div>
       <div class="dashboard-card small"
            fxFlex="1 0 140px">
         <div class="dashboard-card-icon bad">
           <mat-icon>
-            done
+            priority_high
           </mat-icon>
         </div>
-        <p class="dashboard-card-value">1.452</p>
+        <p class="dashboard-card-value">{{classReference.brokenDevices}}</p>
         <p class="dashboard-card-description">Current issues</p>
       </div>
       <div class="dashboard-card big"
@@ -60,13 +62,18 @@
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
           <div style="display: block; max-width: 280px;">
+            <p id="doughnutValue">
+              {{classReference.clickedDoughnutPiece.value}}
+              <span id="doughnutUnit">%</span>
+              <br>
+              <span id="doughnutDesc">{{classReference.clickedDoughnutPiece.name}}</span></p>
             <canvas baseChart
                     height="80"
                     width="80"
                     [data]="doughnutChartData"
                     [colors]="doughnutChartColor"
                     [labels]="doughnutChartLabels"
-                    [options]="barChartOptions"
+                    [options]="doughnutChartOptions"
                     [chartType]="doughnutChartType">
             </canvas>
           </div>
@@ -91,7 +98,9 @@
         <span class="title">DEVICES MOST USE THIS WEEK</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
+          <app-device-usage-card>
 
+          </app-device-usage-card>
         </div>
       </div>
       <div class="dashboard-card big"

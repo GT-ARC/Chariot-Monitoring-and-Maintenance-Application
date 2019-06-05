@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard',    component: DashboardComponent },
   { path: 'devices',      component: DevicesComponent },
-  { path: 'devices/:id',      component: DevicesComponent },
+  { path: 'devices/:id',  component: DevicesComponent },
   { path: 'warehouse',    component: WarehouseComponent },
   { path: 'process_flow', component: ProcessFlowComponent },
   { path: 'maintenance',  component: MaintenanceComponent },

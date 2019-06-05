@@ -27,6 +27,15 @@ export class DashboardComponent implements OnInit {
 
   containers: Container[];
 
+  public static clickedDoughnutPiece: {value: number, name: string};
+
+  public classReference = DashboardComponent;
+
+  public static onDevices: number;
+  public static idleDevices: number;
+  public static brokenDevices: number;
+  public static fullDeviceAmount: number;
+
   constructor(private mockDataService: MockDataService) {
   }
 
@@ -42,18 +51,17 @@ export class DashboardComponent implements OnInit {
       .reduce((previousValue, currentValue) => currentValue.concat(previousValue))
       .sort((a, b) => b.issue_date - a.issue_date);
 
+    this.classReference.onDevices = this.devices.reduce((prev, curr) => curr.power_state ? prev + 1 : prev, 0);
+    this.classReference.idleDevices = this.devices.reduce((prev, curr) => !curr.power_state && curr.hasIssue() == 0 ? prev + 1 : prev, 0);
+    this.classReference.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
 
-    let onDevices = this.devices.reduce((prev, curr) => curr.power_state ? prev + 1 : prev, 0);
-    let idleDevices = this.devices.reduce((prev, curr) => !curr.power_state && curr.hasIssue() == 0 ? prev + 1 : prev, 0);
-    let brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
-
+    this.classReference.fullDeviceAmount = this.classReference.onDevices + this.classReference.idleDevices + this.classReference.brokenDevices;
+    console.log(this.classReference.fullDeviceAmount);
     // Count all devices
     this.doughnutChartData = [
-      onDevices, idleDevices, brokenDevices
+      this.classReference.onDevices, this.classReference.idleDevices, this.classReference.brokenDevices
     ];
-
-    console.log(this.devices);
-    console.log(onDevices, idleDevices, brokenDevices);
+    this.classReference.clickedDoughnutPiece = {value: Math.round(this.classReference.onDevices / this.classReference.fullDeviceAmount * 1000)/10, name: "Running"};
   }
 
   getMockData(): void {
@@ -77,9 +85,38 @@ export class DashboardComponent implements OnInit {
     device.power_state = state
   }
 
-  public barChartOptions: ChartOptions = {
+  public doughnutChartOptions: ChartOptions = {
     responsive: true,
+    onClick (event?: MouseEvent, activeElements?: Array<{}>) {
 
+      console.log(this.clickedDoughnutPiece);
+      switch (activeElements[0]["_index"]) {
+        case 0:
+          console.log("Running");
+          DashboardComponent.clickedDoughnutPiece =
+            {
+              value: Math.round(DashboardComponent.onDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
+              name: "Running"
+            };
+          break;
+        case 1:
+          console.log("Idle");
+          DashboardComponent.clickedDoughnutPiece =
+            {
+              value: Math.round(DashboardComponent.idleDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
+              name: "Idle"
+            };
+          break;
+        case 2:
+          console.log("Defect");
+          DashboardComponent.clickedDoughnutPiece =
+            {
+              value: Math.round(DashboardComponent.brokenDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
+              name: "Defect"
+            };
+          break;
+      }
+    },
     legend: {
       display: false,
       position: "bottom",
