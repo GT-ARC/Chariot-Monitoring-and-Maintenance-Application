@@ -12,6 +12,7 @@ import {Device} from "../../../../model/device";
 export class DevicePanelPowerComponent implements OnInit {
 
   @Input() device: Device;
+  @Input() value: number;
 
   /** Gauge data **/
   gaugeType = "arch";

@@ -66,16 +66,19 @@
               {{classReference.clickedDoughnutPiece.value}}
               <span id="doughnutUnit">%</span>
               <br>
-              <span id="doughnutDesc">{{classReference.clickedDoughnutPiece.name}}</span></p>
+              <span id="doughnutDesc">{{classReference.clickedDoughnutPiece.name}}</span>
+            </p>
+
             <canvas baseChart
-                    height="80"
-                    width="80"
+                    height="80%"
+                    width="80%"
                     [data]="doughnutChartData"
                     [colors]="doughnutChartColor"
                     [labels]="doughnutChartLabels"
                     [options]="doughnutChartOptions"
                     [chartType]="doughnutChartType">
             </canvas>
+
           </div>
           <div id="doughnutChartLabel">
             <div>
@@ -98,19 +101,25 @@
         <span class="title">DEVICES MOST USE THIS WEEK</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
-          <app-device-usage-card>
-
+          <app-device-usage-card
+            *ngFor="let i of [20, 54, 75, 6]"
+          [color]="'#2b72e6'"
+          [value]="i">
           </app-device-usage-card>
         </div>
       </div>
       <div class="dashboard-card big"
            fxFlex="1 0 280px">
-          <span class="title">DEVICES MOST DOWN THIS WEEK</span>
-          <mat-icon>more_vert</mat-icon>
-          <div class="dashboard-card-content">
-
-          </div>
+        <span class="title">DEVICES MOST DOWN THIS WEEK</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <app-device-usage-card
+            *ngFor="let i of [57, 20, 88, 60]"
+            [color]="'#d63649'"
+            [value]="i">
+          </app-device-usage-card>
         </div>
+      </div>
     </div>
   </div>
 
@@ -135,4 +144,58 @@
       </div>
     </div>
   </div>
+
+  <div id="warehouse-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Warehouse</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+
+    <div class="dashboard-row-content">
+      <div class="warehouse-stat">
+        <div class="warehouse-stat-name">
+          PRODUCTS STORED TODAY
+        </div>
+        <div class="warehouse-stat-value">
+          84329
+        </div>
+        <div class="warehouse-stat-development">
+          <mat-icon>call_made</mat-icon>
+          +2.4%
+        </div>
+      </div>
+
+      <div class="warehouse-stat">
+        <div class="warehouse-stat-name">
+          SCHEDULED DELIVERIES TODAY
+        </div>
+        <div class="warehouse-stat-value">
+          935
+        </div>
+        <div class="warehouse-stat-development">
+          <mat-icon>call_made</mat-icon>
+          +2.4%
+        </div>
+      </div>
+      <div id="dashboard-warehouse-map">
+        <app-warehouse-map></app-warehouse-map>
+      </div>
+    </div>
+  </div>
+
+  <div id="energy-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Energy</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+
+    <div class="dashboard-row-content">
+      <div id="full-power-wrapper">
+        <app-device-panel-power
+          [value]="2483">
+        </app-device-panel-power>
+      </div>
+    </div>
+  </div>
+
 </div>

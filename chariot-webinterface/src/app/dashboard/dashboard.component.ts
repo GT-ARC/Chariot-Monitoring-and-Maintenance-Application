@@ -92,7 +92,6 @@ export class DashboardComponent implements OnInit {
       console.log(this.clickedDoughnutPiece);
       switch (activeElements[0]["_index"]) {
         case 0:
-          console.log("Running");
           DashboardComponent.clickedDoughnutPiece =
             {
               value: Math.round(DashboardComponent.onDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
@@ -100,7 +99,6 @@ export class DashboardComponent implements OnInit {
             };
           break;
         case 1:
-          console.log("Idle");
           DashboardComponent.clickedDoughnutPiece =
             {
               value: Math.round(DashboardComponent.idleDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
@@ -108,7 +106,6 @@ export class DashboardComponent implements OnInit {
             };
           break;
         case 2:
-          console.log("Defect");
           DashboardComponent.clickedDoughnutPiece =
             {
               value: Math.round(DashboardComponent.brokenDevices / DashboardComponent.fullDeviceAmount * 1000)/10,

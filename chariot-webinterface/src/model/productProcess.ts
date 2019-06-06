@@ -25,7 +25,19 @@ export class ProductProcess {
   }[];
 
 
-  constructor(identifier: number, productAddInfo: string, productName: string, weight: number, energyUsed: number, deliveryDate: number, statusInformation: String, status: String, state: boolean, image: string, productFlow: IndividualProcess[], productInfo: { name: string; value: string }[], category: string) {
+  constructor(identifier: number,
+              productAddInfo: string,
+              productName: string,
+              weight: number,
+              energyUsed: number,
+              deliveryDate: number,
+              statusInformation: String,
+              status: String,
+              state: boolean,
+              image: string,
+              productFlow: IndividualProcess[],
+              productInfo: { name: string; value: string }[],
+              category: string) {
     this.identifier = identifier;
     this.productAddInfo = productAddInfo;
     this.productName = productName;
@@ -41,12 +53,12 @@ export class ProductProcess {
     this.category = category;
   }
 
-  getTotalRunningTime() : number {
+  getTotalRunningTime(): number {
     let sum = 0;
-    for(let process of this.productFlow){
-      if(process.progress == 100)
+    for (let process of this.productFlow) {
+      if (process.progress == 100)
         sum += process.total.valueOf();
-      if(process.progress < 100 && process.progress > 0){
+      if (process.progress < 100 && process.progress > 0) {
         sum += process.running.valueOf();
         break;
       }
@@ -54,9 +66,9 @@ export class ProductProcess {
     return sum;
   }
 
-  getCurrentRunningProcess() : IndividualProcess {
-    for(let process of this.productFlow){
-      if(process.progress < 100 && process.progress > 0)
+  getCurrentRunningProcess(): IndividualProcess {
+    for (let process of this.productFlow) {
+      if (process.progress < 100 && process.progress > 0)
         return process;
     }
     return null;

@@ -468,7 +468,7 @@ export class MockDataService {
       }
 
       let categorys = ['Category I', 'Category II', 'Category III' ,'Category IV'];
-      let productStatus = ['Status A', 'Status B', 'Status C']
+      let productStatus = ['Status A', 'Status B', 'Status C'];
 
       this.processes.push(new ProductProcess(
           processIdentifier++,

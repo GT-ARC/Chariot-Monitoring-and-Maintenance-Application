@@ -1,7 +1,7 @@
 <div id="device-panel-power" class="device-panel-card">
   <p class="device-panel-title">Power</p>
   <ngx-gauge [type]="gaugeType"
-             [value]="device.power_state ? device.power_consumption : 0"
+             [value]="device != null ? (device.power_state ? device.power_consumption : 0) : value"
              [label]="gaugeLabel"
              [size]="160"
              [foregroundColor] = 'gaugeColor'
