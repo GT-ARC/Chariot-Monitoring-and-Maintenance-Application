@@ -428,7 +428,7 @@ export class MockDataService {
         productFlow.splice(remove, 1);
       }
 
-      let productInfo =
+      let productInfo: { name: string; value: string }[] =
         [
           {
             name: "Material",
@@ -448,7 +448,7 @@ export class MockDataService {
           },
           {
             name: "Date",
-            value: faker.date.future()
+            value: faker.date.future().toDateString()
           },
           {
             name: "Reg Number",
@@ -478,7 +478,7 @@ export class MockDataService {
           Math.floor(Math.random() * 200),
           new Date().valueOf() - Math.floor(Math.random() * 24*60*60*1000 * 20),
           "Status information",
-        productStatus[Math.floor(Math.random() * productStatus.length)],
+          productStatus[Math.floor(Math.random() * productStatus.length)],
           Math.random() > 0.5,
           Math.random() > 0.5 ? "./assets/Images/product1.png" : "./assets/Images/product2.png",
           productFlow,
