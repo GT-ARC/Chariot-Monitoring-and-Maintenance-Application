@@ -88,7 +88,8 @@ export class DashboardComponent implements OnInit {
   public doughnutChartOptions: ChartOptions = {
     responsive: true,
     onClick (event?: MouseEvent, activeElements?: Array<{}>) {
-
+      if(activeElements[0] == null)
+        return;
       console.log(this.clickedDoughnutPiece);
       switch (activeElements[0]["_index"]) {
         case 0:

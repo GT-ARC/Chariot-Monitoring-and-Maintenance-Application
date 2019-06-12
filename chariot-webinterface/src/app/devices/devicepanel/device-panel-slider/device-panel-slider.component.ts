@@ -1,6 +1,6 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import 'hammerjs';
-import {MatSliderChange} from '@angular/material';
+import {MatSliderChange} from "@angular/material";
 
 @Component({
   selector: 'app-device-panel-slider',
@@ -61,8 +61,6 @@ export class DevicePanelSliderComponent implements OnInit {
 
   submitValue($event: Event) {
     this.editMode = false;
-    // @ts-ignore
-    this.property.value.value = $event.target.value;
   }
 
   focusEvent($event: FocusEvent) {

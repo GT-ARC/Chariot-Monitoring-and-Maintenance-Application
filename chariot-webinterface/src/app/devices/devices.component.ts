@@ -52,8 +52,8 @@ export class DevicesComponent implements OnInit {
 
   window = window;
 
-  @ViewChild('snav1') sideNav: MatSidenav;
-  @ViewChild('snav2') sideNav2: MatSidenav;
+  @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
+  @ViewChild('snav2', {static: false}) sideNav2: MatSidenav;
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578)
       this.sideNav.close();

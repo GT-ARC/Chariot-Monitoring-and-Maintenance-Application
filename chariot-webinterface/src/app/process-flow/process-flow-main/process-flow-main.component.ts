@@ -1,8 +1,7 @@
 import {Component, HostListener, Input, OnInit, SimpleChanges} from '@angular/core';
 import {IndividualProcess, ProductProcess} from '../../../model/productProcess';
-import {log} from 'util';
-import {ChartOptions, ChartType} from 'chart.js';
-import {Color, Label, SingleDataSet} from 'ng2-charts';
+import {ChartOptions, ChartType} from "chart.js";
+import {Color, Label, SingleDataSet} from "ng2-charts";
 
 @Component({
   selector: 'app-process-flow-main',

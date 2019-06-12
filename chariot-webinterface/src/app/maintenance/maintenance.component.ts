@@ -35,7 +35,7 @@ export class MaintenanceComponent implements OnInit {
 
   window = window;
 
-  @ViewChild('snav1') sideNav: MatSidenav;
+  @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578)
       this.sideNav.close();
