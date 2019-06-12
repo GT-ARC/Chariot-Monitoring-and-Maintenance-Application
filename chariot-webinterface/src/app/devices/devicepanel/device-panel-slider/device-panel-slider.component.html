@@ -12,7 +12,7 @@
            name="value"
            type="text"
            [ngStyle]="{'width': tfWidth + 'px'}"
-           (submit)="submitValue($event)"
+           (keypress)="submitValue($event)"
            (focusout)="focusEvent($event)"
            [value]="getVisibleString(property.value.value)">
     <span class="unit" *ngIf="property.value.unit.length > 1"> {{property.value.unit}}</span>

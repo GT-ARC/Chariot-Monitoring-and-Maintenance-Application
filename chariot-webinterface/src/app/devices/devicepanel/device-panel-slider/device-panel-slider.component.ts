@@ -59,8 +59,13 @@ export class DevicePanelSliderComponent implements OnInit {
     this.tfWidth = this.getVisibleString(this.property.value.value).length * 26;
   }
 
-  submitValue($event: Event) {
-    this.editMode = false;
+  submitValue($event: KeyboardEvent) {
+    if($event.key == 'Enter' ) {
+      console.log($event);
+      this.editMode = false;
+      // @ts-ignore
+      this.property.value.value = $event.target.value;
+    }
   }
 
   focusEvent($event: FocusEvent) {
@@ -69,6 +74,7 @@ export class DevicePanelSliderComponent implements OnInit {
 
   textClicked() {
     this.editMode = true;
+    this.tfWidth = this.getVisibleString(this.property.value.value).length * 26;
     setTimeout(()=>{ // this will make the execution after the above boolean has changed
       document.getElementById('input-field').focus();
     },0);
