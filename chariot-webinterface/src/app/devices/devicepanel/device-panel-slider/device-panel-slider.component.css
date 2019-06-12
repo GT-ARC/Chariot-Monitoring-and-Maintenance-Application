@@ -2,6 +2,17 @@
   height: 200px;
 }
 
+#accuracy-arrows {
+  position: absolute;
+  right: 16px;
+  top: 25px;
+  color: #2b72e6;
+}
+
+#accuracy-arrows > mat-icon {
+  transform: translate(0,6px);
+}
+
 #property_value {
   position: absolute;
   top: 35%;
@@ -12,6 +23,19 @@
   color: #2E384D;
   width: 100%;
   text-align: center;
+}
+
+#property_value > input {
+  position: relative;
+
+  font-size: 48px;
+  font-weight: 100;
+  color: #2E384D;
+  text-align: right;
+
+  margin-left: -10px;
+  margin-top: -1px;
+  margin-right: 2px;
 }
 
 .unit {

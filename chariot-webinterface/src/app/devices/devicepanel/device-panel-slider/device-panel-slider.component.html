@@ -1,14 +1,27 @@
 <div id="device-panel-slider" class="device-panel-card">
   <p class="device-panel-title">{{property.name}}</p>
+  <div id="accuracy-arrows" *ngIf="property.value.max_value <= 1">
+    <mat-icon id="up" (click)="this.accuracy = this.accuracy + 1; tfWidthChange()">keyboard_arrow_up</mat-icon>
+    {{accuracy}}
+    <mat-icon id="down" (click)="this.accuracy > 0 ? this.accuracy = this.accuracy - 1 : null; tfWidthChange()">keyboard_arrow_down</mat-icon>
+  </div>
   <p id="property_value">
-    {{property.value.value| number:'1.0-2'}}
+    <span *ngIf="!editMode" (click)="textClicked()"> {{getVisibleString(property.value.value)}} </span>
+    <input *ngIf="editMode"
+           id="input-field"
+           name="value"
+           type="text"
+           [ngStyle]="{'width': tfWidth + 'px'}"
+           (submit)="submitValue($event)"
+           (focusout)="focusEvent($event)"
+           [value]="getVisibleString(property.value.value)">
     <span class="unit" *ngIf="property.value.unit.length > 1"> {{property.value.unit}}</span>
     <span *ngIf="property.value.unit.length == 1">{{property.value.unit}}</span>
   </p>
   <mat-slider
     min="{{property.value.min_value}}"
     max="{{property.value.max_value}}"
-    step="{{property.value.max_value / 100}}"
+    step="{{property.value.max_value <= 1 ? property.value.max_value / math.pow(10, accuracy) : 1}}"
     value="{{property.value.value}}"
     thumbLabel="true"
     (change)="changeValue($event)"

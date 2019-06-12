@@ -1,8 +1,8 @@
 import {Component, HostListener, Input, OnInit, SimpleChanges} from '@angular/core';
-import {IndividualProcess, ProductProcess} from "../../../model/productProcess";
-import {log} from "util";
-import {ChartOptions, ChartType} from "chart.js";
-import {Color, Label, SingleDataSet} from "ng2-charts";
+import {IndividualProcess, ProductProcess} from '../../../model/productProcess';
+import {log} from 'util';
+import {ChartOptions, ChartType} from 'chart.js';
+import {Color, Label, SingleDataSet} from 'ng2-charts';
 
 @Component({
   selector: 'app-process-flow-main',
@@ -10,6 +10,9 @@ import {Color, Label, SingleDataSet} from "ng2-charts";
   styleUrls: ['./process-flow-main.component.css']
 })
 export class ProcessFlowMainComponent implements OnInit {
+
+  constructor() {
+  }
 
   @Input() process: ProductProcess;
 
@@ -25,33 +28,52 @@ export class ProcessFlowMainComponent implements OnInit {
     errorThreshold?: number;
   }[] = [];
 
-  constructor() {
-  }
+
+  filamentLevel = 0;
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {display: false},
+    cutoutPercentage: 80,
+  };
+
+  public doughnutChartLabels: Label[] = ['Depleted', 'Fillament Level'];
+  public doughnutChartData: SingleDataSet = [
+    100 - 25, 25
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
+  doughnutChartColor: Color[] = [{
+    backgroundColor: [
+      '#bdc4d0',
+      '#d53a4a',
+    ],
+  },
+  ];
 
   ngOnInit() {
     this.getCurrentProcessFlow();
     this.initDoughnutChart();
-    if(this.currentProcess.length == 0){
-      for(let process of this.process.productFlow) {
-        if(process.progress != 0) this.currentProcess.push(process);
+    if (this.currentProcess.length == 0) {
+      for (const process of this.process.productFlow) {
+        if (process.progress != 0) { this.currentProcess.push(process); }
       }
     }
-    if(this.currentProcess[0] != null){
-      this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display)
+    if (this.currentProcess[0] != null) {
+      this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display);
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.getCurrentProcessFlow();
     this.initDoughnutChart();
-    if(this.currentProcess[0] != null){
-      this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display)
+    if (this.currentProcess[0] != null) {
+      this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display);
     }
   }
 
   getCurrentProcessFlow() {
     this.currentProcess = [];
-    for (let currProgress of this.process.productFlow) {
+    for (const currProgress of this.process.productFlow) {
       if (currProgress.progress > 0 && currProgress.progress < 100) {
         this.currentProcess.push(currProgress);
       }
@@ -64,28 +86,29 @@ export class ProcessFlowMainComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.changeStyleOfFont()
+    this.changeStyleOfFont();
   }
 
   changeStyleOfFont() {
-    let progressCardValues = document.getElementsByClassName("progress-card-value");
+    const progressCardValues = document.getElementsByClassName('progress-card-value');
     for (let i = 0; i < progressCardValues.length; i++) {
-      let element = progressCardValues.item(i);
-      if (element.clientWidth == 0) continue;
-      element.setAttribute("style", "font-size: " + 48 + "px");
+      const element = progressCardValues.item(i);
+      if (element.clientWidth == 0) { continue; }
+      element.setAttribute('style', 'font-size: ' + 48 + 'px');
       let c = 0;
       while (element.clientWidth > element.parentElement.clientWidth - 32) {
-        element.setAttribute("style", "font-size: " + (48 - c++) + "px");
-        if (c == 48)
+        element.setAttribute('style', 'font-size: ' + (48 - c++) + 'px');
+        if (c == 48) {
           break;
+        }
       }
     }
   }
 
   initDoughnutChart() {
-    if (this.currentProcess[0] == null || !this.currentProcess[0].name.includes('Printing')) return;
+    if (this.currentProcess[0] == null || !this.currentProcess[0].name.includes('Printing')) { return; }
 
-    this.filamentLevel = this.currentProcess[0].properties.find(value => value.name == "Fillament level").value;
+    this.filamentLevel = this.currentProcess[0].properties.find(value => value.name == 'Fillament level').value;
     this.doughnutChartData = [
       100 - this.filamentLevel, this.filamentLevel
     ];
@@ -125,36 +148,17 @@ export class ProcessFlowMainComponent implements OnInit {
   }
 
   getProductStatusColor(status: string) {
-    if(status == "Status A")
+    if (status == 'Status A') {
       return '#33ab42';
-    if(status == "Status B")
+    }
+    if (status == 'Status B') {
       return '#2b72e6';
-    if (status == "Status C")
+    }
+    if (status == 'Status C') {
       return '#e9ac49';
-    else
+    } else {
       return '#d53a4a';
+    }
   }
-
-
-  filamentLevel: number = 0;
-
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    legend: {display: false},
-    cutoutPercentage: 80,
-  };
-
-  public doughnutChartLabels: Label[] = ['Depleted', 'Fillament Level'];
-  public doughnutChartData: SingleDataSet = [
-    100 - 25, 25
-  ];
-  public doughnutChartType: ChartType = 'doughnut';
-  doughnutChartColor: Color[] = [{
-    backgroundColor: [
-      '#bdc4d0',
-      '#d53a4a',
-    ],
-  },
-  ];
 
 }
