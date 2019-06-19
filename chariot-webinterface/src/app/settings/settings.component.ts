@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RestService} from '../services/rest.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  receivedJson: string = 'The received json will appear here';
+
+  constructor(private restService: RestService) {
+  }
 
   ngOnInit() {
+    // this.getInitialJson();
+  }
+
+  getInitialJson() {
+    this.restService.getDeviceData()
+      .subscribe((data: any) => this.receivedJson = JSON.stringify(data));
   }
 
 }

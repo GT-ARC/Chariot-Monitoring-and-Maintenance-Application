@@ -18,6 +18,8 @@
     <span class="unit" *ngIf="property.value.unit.length > 1"> {{property.value.unit}}</span>
     <span *ngIf="property.value.unit.length == 1">{{property.value.unit}}</span>
   </p>
+  <p id="slider-min">{{property.value.min_value}}</p>
+  <p id="slider-max">{{property.value.max_value}}</p>
   <mat-slider
     min="{{property.value.min_value}}"
     max="{{property.value.max_value}}"

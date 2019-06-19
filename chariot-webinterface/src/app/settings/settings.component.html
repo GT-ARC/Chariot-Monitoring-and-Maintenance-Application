@@ -1,3 +1,13 @@
-<p>
-  settings works!
-</p>
+
+<div style="position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+  <p>
+    {{receivedJson}}
+  </p>
+
+  <app-clickable-text
+    [color]="'red'"
+    [size]="48"
+    [text]="receivedJson"
+    (eventEmitter)="receivedJson = $event.value">
+  </app-clickable-text>
+</div>

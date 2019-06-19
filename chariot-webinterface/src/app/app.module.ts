@@ -52,6 +52,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductsBehindPlanComponent } from './products-behind-plan/products-behind-plan.component';
 import { PredictionGraphComponent } from './components/prediction-graph/prediction-graph.component';
 import { DeviceUsageCardComponent } from './components/device-usage-card/device-usage-card.component';
+import { ClickableTextComponent } from './components/clickable-text/clickable-text.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { DeviceUsageCardComponent } from './components/device-usage-card/device-
     ProductsBehindPlanComponent,
     PredictionGraphComponent,
     DeviceUsageCardComponent,
+    ClickableTextComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +107,7 @@ import { DeviceUsageCardComponent } from './components/device-usage-card/device-
     InlineSVGModule.forRoot(),
     MatProgressBarModule,
     ProgressBarModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

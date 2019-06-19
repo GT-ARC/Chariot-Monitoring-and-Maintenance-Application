@@ -42,6 +42,27 @@
   font-size: 28px;
 }
 
+#slider-max, #slider-min {
+  position: absolute;
+  bottom: calc(34%);
+
+  margin: 0;
+
+  color: #8798AD;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+}
+
+#slider-min {
+  left: 11%;
+}
+
+#slider-max {
+  right: 11%;
+}
+
+
 mat-slider {
   position: absolute;
   top: 60%;
