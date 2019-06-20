@@ -6,7 +6,7 @@
          type="text"
          [ngStyle]="{
             'font-size': size + 'px',
-            'color': visibleText * 1 >= min && visibleText * 1 <= max ? color : 'red',
+            'color': min == null || visibleText * 1 >= min && max == null || visibleText * 1 <= max ? color : 'red',
             'width': textFieldWith,
             'border': active ? '2px #2972e6 solid' : 'none',
             'margin': active ? '-2px 0 0 -2px' : '0'
