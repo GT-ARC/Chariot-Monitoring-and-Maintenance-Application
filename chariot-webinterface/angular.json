@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/css/MyMaterialTheme.scss",
               "src/css/styles.css",
               "src/css/slider.css",
               "src/css/checkbox.css",

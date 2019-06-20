@@ -1,0 +1,29 @@
+<div id="clickable-text-wrapper"
+     matTooltip="{{text}}"
+     matTooltipPosition="above">
+  <input id="input-field"
+         (click)="active = true"
+         type="text"
+         [ngStyle]="{
+            'font-size': size + 'px',
+            'color': visibleText * 1 >= min && visibleText * 1 <= max ? color : 'red',
+            'width': textFieldWith,
+            'border': active ? '2px #2972e6 solid' : 'none',
+            'margin': active ? '-2px 0 0 -2px' : '0'
+          }"
+         [(ngModel)]="visibleText"
+         [name]="'invisibleText'"
+         ngDefaultControl
+         (keydown)="submitValue($event)"
+         (focusout)="focusEvent($event)"
+         [value]="visibleText">
+</div>
+
+<div #invisibleText
+     [(ngModel)]="visibleText"
+     [name]="'invisibleText'"
+     ngDefaultControl
+     [ngStyle]="{ 'font-size': size + 'px'}"
+     id="text-width-test">
+  {{visibleText}}
+</div>

@@ -1,0 +1,22 @@
+#clickable-text-wrapper {
+  position: relative;
+  width: min-content;
+}
+
+#input-field {
+  position: relative;
+
+  border-radius: 4px;
+
+  font-weight: 100;
+  text-align: right;
+}
+
+#text-width-test {
+  position: fixed;
+  visibility: hidden;
+  height: auto;
+  width: auto;
+  white-space: nowrap;
+  border: 1px red solid;
+}

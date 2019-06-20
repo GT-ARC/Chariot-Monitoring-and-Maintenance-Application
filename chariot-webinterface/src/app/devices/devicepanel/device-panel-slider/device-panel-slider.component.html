@@ -1,29 +1,50 @@
 <div id="device-panel-slider" class="device-panel-card">
   <p class="device-panel-title">{{property.name}}</p>
-  <div id="accuracy-arrows" *ngIf="property.value.max_value <= 1">
-    <mat-icon id="up" (click)="this.accuracy = this.accuracy + 1; tfWidthChange()">keyboard_arrow_up</mat-icon>
+  <div id="accuracy-arrows">
+    <mat-icon id="up" (click)="this.accuracy = this.accuracy + 1">keyboard_arrow_up</mat-icon>
     {{accuracy}}
-    <mat-icon id="down" (click)="this.accuracy > 0 ? this.accuracy = this.accuracy - 1 : null; tfWidthChange()">keyboard_arrow_down</mat-icon>
+    <mat-icon id="down" (click)="this.accuracy > 0 ? this.accuracy = this.accuracy - 1 : null">keyboard_arrow_down</mat-icon>
   </div>
   <p id="property_value">
-    <span *ngIf="!editMode" (click)="textClicked()"> {{getVisibleString(property.value.value)}} </span>
-    <input *ngIf="editMode"
-           id="input-field"
-           name="value"
-           type="text"
-           [ngStyle]="{'width': tfWidth + 'px'}"
-           (keypress)="submitValue($event)"
-           (focusout)="focusEvent($event)"
-           [value]="getVisibleString(property.value.value)">
+    <app-clickable-text
+      [color]="'#2E384D'"
+      [size]="48"
+      [accuracy]="accuracy"
+      [text]="property.value.value"
+      [min]="property.value.min_value"
+      [max]="property.value.max_value"
+      (eventEmitter)="applyValueChange($event.value)">
+    </app-clickable-text>
     <span class="unit" *ngIf="property.value.unit.length > 1"> {{property.value.unit}}</span>
     <span *ngIf="property.value.unit.length == 1">{{property.value.unit}}</span>
   </p>
-  <p id="slider-min">{{property.value.min_value}}</p>
-  <p id="slider-max">{{property.value.max_value}}</p>
+
+  <app-clickable-text
+    id="slider-min"
+    [color]="'#8798AD'"
+    [size]="14"
+    [(ngModel)]="property.value.min_value"
+    name="property.value.min_value"
+    ngDefaultControl
+    [text]="property.value.min_value"
+    (eventEmitter)="property.value.min_value = $event.value;">
+  </app-clickable-text>
+
+  <app-clickable-text
+    id="slider-max"
+    [color]="'#8798AD'"
+    [size]="14"
+    name="property.value.max_value"
+    ngDefaultControl
+    [(ngModel)]="property.value.max_value"
+    [text]="property.value.max_value"
+    (eventEmitter)="property.value.max_value = $event.value;">
+  </app-clickable-text>
+
   <mat-slider
     min="{{property.value.min_value}}"
     max="{{property.value.max_value}}"
-    step="{{property.value.max_value <= 1 ? property.value.max_value / math.pow(10, accuracy) : 1}}"
+    step="{{accuracy == 0 ? 1 : 1 / math.pow(10,accuracy)}}"
     value="{{property.value.value}}"
     thumbLabel="true"
     (change)="changeValue($event)"

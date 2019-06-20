@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import 'hammerjs';
-import {MatSliderChange} from "@angular/material";
+import {MatSliderChange} from '@angular/material';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-device-panel-slider',
@@ -23,15 +24,12 @@ export class DevicePanelSliderComponent implements OnInit {
   };
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
-  public editMode: boolean;
-  public tfWidth;
   public accuracy = 2;
   math = Math;
 
   constructor() { }
 
   ngOnInit() {
-    this.tfWidth = this.getVisibleString(this.property.value.value).length * 26;
     if (this.property.value.value.toString().indexOf('.') === -1) {
       this.accuracy = 0;
     }
@@ -42,41 +40,17 @@ export class DevicePanelSliderComponent implements OnInit {
     this.uploaded.emit({property: this.property.name, state: $event.value});
   }
 
-  emitValue(value: number) {
-    this.uploaded.emit({property: this.property.name, state: value});
+  emitValue(value: any) {
+    if(value != this.property.value.value)
+      this.uploaded.emit({property: this.property.name, state: value});
   }
 
-  getVisibleString(value: number): string {
-    const retValue =  Math.round(value * Math.pow(10, this.accuracy)) / Math.pow(10, this.accuracy);
-    const retString = retValue.toString();
-    if (retString.length - retString.indexOf('.') < this.accuracy) {
-      retString.padEnd(retString.length - retString.indexOf('.') + this.accuracy, '0');
+  applyValueChange(value: any) {
+    if(!isNaN(Number(value))){
+      if(Number(value) <= this.property.value.max_value && Number(value) >= this.property.value.min_value){
+        this.emitValue(Number(value));
+        this.property.value.value = value;
+      }
     }
-    return retString;
-  }
-
-  tfWidthChange() {
-    this.tfWidth = this.getVisibleString(this.property.value.value).length * 26;
-  }
-
-  submitValue($event: KeyboardEvent) {
-    if($event.key == 'Enter' ) {
-      console.log($event);
-      this.editMode = false;
-      // @ts-ignore
-      this.property.value.value = $event.target.value;
-    }
-  }
-
-  focusEvent($event: FocusEvent) {
-    this.editMode = false;
-  }
-
-  textClicked() {
-    this.editMode = true;
-    this.tfWidth = this.getVisibleString(this.property.value.value).length * 26;
-    setTimeout(()=>{ // this will make the execution after the above boolean has changed
-      document.getElementById('input-field').focus();
-    },0);
   }
 }

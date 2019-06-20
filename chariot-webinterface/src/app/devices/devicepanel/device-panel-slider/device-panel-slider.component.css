@@ -13,29 +13,22 @@
   transform: translate(0,6px);
 }
 
+app-clickable-text {
+  display: inline-block;
+}
+
 #property_value {
   position: absolute;
   top: 35%;
   margin: 0;
 
-  font-size: 48px;
-  font-weight: 100;
-  color: #2E384D;
-  width: 100%;
-  text-align: center;
-}
-
-#property_value > input {
-  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
 
   font-size: 48px;
   font-weight: 100;
   color: #2E384D;
-  text-align: right;
-
-  margin-left: -10px;
-  margin-top: -1px;
-  margin-right: 2px;
+  white-space: nowrap;
 }
 
 .unit {
@@ -44,14 +37,7 @@
 
 #slider-max, #slider-min {
   position: absolute;
-  bottom: calc(34%);
-
-  margin: 0;
-
-  color: #8798AD;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: left;
+  bottom: calc(40%);
 }
 
 #slider-min {

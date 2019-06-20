@@ -25,7 +25,10 @@ import {
   MatFormFieldModule, MatInputModule,
   MatMenuModule, MatProgressBarModule,
   MatSliderModule
-} from "@angular/material";
+} from '@angular/material';
+
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DeviceCardComponent } from './components/device-card/device-card.component';
@@ -108,6 +111,7 @@ import {FormsModule} from '@angular/forms';
     MatProgressBarModule,
     ProgressBarModule,
     FormsModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
