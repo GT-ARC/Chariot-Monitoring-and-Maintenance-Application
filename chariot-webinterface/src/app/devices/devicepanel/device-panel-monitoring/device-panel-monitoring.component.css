@@ -13,3 +13,18 @@
   position: absolute;
   margin: 65px auto auto 41px;
 }
+
+#accuracy-arrows {
+  position: absolute;
+  right: 16px;
+  top: 25px;
+  color: #2b72e6;
+}
+
+#accuracy-arrows > mat-icon {
+  transform: translate(0,6px);
+}
+
+app-clickable-text {
+  display: inline-block;
+}

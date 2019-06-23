@@ -57,6 +57,7 @@ import { PredictionGraphComponent } from './components/prediction-graph/predicti
 import { DeviceUsageCardComponent } from './components/device-usage-card/device-usage-card.component';
 import { ClickableTextComponent } from './components/clickable-text/clickable-text.component';
 import {FormsModule} from '@angular/forms';
+import { DataGraphComponent } from './components/data-graph/data-graph.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import {FormsModule} from '@angular/forms';
     PredictionGraphComponent,
     DeviceUsageCardComponent,
     ClickableTextComponent,
+    DataGraphComponent,
   ],
   imports: [
     BrowserModule,

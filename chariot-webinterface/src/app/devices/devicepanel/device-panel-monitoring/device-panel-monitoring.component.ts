@@ -14,9 +14,18 @@ import {Device} from "../../../../model/device";
 export class DevicePanelMonitoringComponent implements OnInit {
 
   @Input() device: Device;
+  dataAmount: number = 100;
 
   constructor() { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.dataAmount = this.device.data.length;
+  }
+
   ngOnInit() {
+  }
+
+  applyData(value: string) {
+    this.dataAmount = Number(value);
   }
 }

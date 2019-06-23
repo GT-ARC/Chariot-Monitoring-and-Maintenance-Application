@@ -1,11 +1,24 @@
 <div id="device-panel-monitoring" class="device-panel-card">
   <p class="device-panel-title">Device Monitoring and prediction</p>
   <div id="device-chart-wrapper">
-    <app-prediction-graph
+    <div id="accuracy-arrows">
+      <mat-icon id="up" (click)="dataAmount < device.data.length ? dataAmount = dataAmount + 1: null">keyboard_arrow_up</mat-icon>
+      <app-clickable-text
+        [accuracy]="0"
+        [text]="dataAmount + ''"
+        [color]="'#2b72e6'"
+        [size]="15"
+        [min]="0"
+        [max]="device.data.length"
+        (eventEmitter)="applyData($event.value)">
+      </app-clickable-text>
+      <mat-icon id="down" (click)="dataAmount > 0 ? dataAmount = dataAmount - 1 : null">keyboard_arrow_down</mat-icon>
+    </div>
+    <app-data-graph
       id="prediction-graph"
       [data]="device.data"
-      [prediction]="device.prediction"
+      [dataAmount]="dataAmount"
       [height]="380">
-    </app-prediction-graph>
+    </app-data-graph>
   </div>
 </div>

@@ -78,7 +78,7 @@ export class PredictionGraphComponent implements OnInit {
       pointBorderWidth: 2,
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      pointBackgroundColor: "#fff",
+      pointBackgroundColor: '#fff',
       pointRadius: 3
     },
     {
@@ -88,14 +88,14 @@ export class PredictionGraphComponent implements OnInit {
       pointBorderWidth: 2,
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(138, 86, 255,0.8)',
-      pointBackgroundColor: "#fff",
+      pointBackgroundColor: '#fff',
       pointRadius: 3
     }
   ];
 
   monthAbrNames: string [] = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-    "Aug", "Sept", "Oct", "Nov", "Dec"
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+    'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
   ];
 
 }
