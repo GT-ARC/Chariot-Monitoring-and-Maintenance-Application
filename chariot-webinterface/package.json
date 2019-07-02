@@ -1,9 +1,9 @@
 {
   "name": "chariot-webinterface",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,6 +31,7 @@
     "ng-inline-svg": "^8.4.1",
     "ng2-charts": "^2.0.3",
     "ngx-gauge": "^1.0.0-beta.7",
+    "ngx-socket-io": "^2.1.1",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

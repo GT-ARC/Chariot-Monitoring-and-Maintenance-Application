@@ -8,19 +8,34 @@ See angular dev quick tutorial section for project structure?
 
 <pre>
 .  
-├── Assets    
-│   ├── Icons  
-│   └── RubikFont  
-└── chariot-webinterface <-------- everything is here, forget other dirs  
-    ├── angular.json  
-    ├── chariot-webinterface.iml  
-    ├── e2e  
-    ├── package.json  
-    ├── package-lock.json  
-    ├── README.md  
-    ├── src  
-    ├── tsconfig.json  
-    └── tslint.json  
+├── Assets
+│   ├── Icons
+│   └── RubikFont
+├── chariot-webinterface               <--- Angular Frontend
+│   ├── angular.json
+│   ├── chariot-webinterface.iml
+│   ├── Dockerfile
+│   ├── e2e
+│   ├── node_modules
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   ├── src
+│   ├── tsconfig.json
+│   └── tslint.json
+├── dockerfiles                       
+│   └── Dockerfile
+├── k8s-resource-manifests           <--- Kubernetes deploy files
+│   ├── chariot-mma-web-ingress.yaml
+│   ├── chariot-web-ui-deployment.yaml
+│   └── chariot-web-ui-service-lb.yaml
+├── nodejs-backend                   <--- Backend used to communicate to kafka and frontend
+│   ├── node_modules
+│   ├── package.json
+│   ├── package-lock.json
+│   └── src
+└── README.md
+
 </pre>
 
 == Design Mockup

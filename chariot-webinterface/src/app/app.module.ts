@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { MatIconModule } from "@angular/material/icon";
 
 import { NgxGaugeModule } from 'ngx-gauge';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+
 import { ChartsModule } from 'ng2-charts';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -114,6 +117,7 @@ import { DataGraphComponent } from './components/data-graph/data-graph.component
     ProgressBarModule,
     FormsModule,
     MatTooltipModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent]
