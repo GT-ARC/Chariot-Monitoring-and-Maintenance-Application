@@ -9,19 +9,21 @@ import {DeviceUpdateService} from '../services/device-update.service';
 })
 export class SettingsComponent implements OnInit {
 
-  receivedJson: string = 'The received json will appear here';
+  text: string = 'Example Text';
+  message: string;
 
   constructor(private restService: RestService,
               private deviceUpdateService: DeviceUpdateService) {
   }
 
   ngOnInit() {
-    // this.getInitialJson();
   }
 
-  // getInitialJson() {
-  //   this.restService.getDeviceData()
-  //     .subscribe((data: any) => this.receivedJson = JSON.stringify(data));
-  // }
-
+  subscribeToTopic(text: string) {
+    this.deviceUpdateService.subscribeToTopic(text);
+    this.deviceUpdateService.dataStream.subscribe(value => {
+      console.log(value);
+      this.message = value['value']
+    });
+  }
 }

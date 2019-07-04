@@ -1,13 +1,13 @@
 
 <div style="position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
-  <p>
-    {{receivedJson}}
-  </p>
-
-  <app-clickable-text
-    [color]="'red'"
-    [size]="20"
-    [text]="receivedJson"
-    (eventEmitter)="receivedJson = $event.value">
-  </app-clickable-text>
+  <label>
+    <input type="text" [(ngModel)]="text">
+  </label>
+  <br>
+  <button
+    (click)="subscribeToTopic(text)">
+    Subscribe
+  </button>
+  <br>
+  <p>{{message}}</p>
 </div>

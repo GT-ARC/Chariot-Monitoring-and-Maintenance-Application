@@ -7,14 +7,11 @@ import {__metadata} from 'tslib';
 })
 export class DeviceUpdateService {
 
+  dataStream = this.socket.fromEvent<string>('data');
+
   constructor(private socket: Socket) { }
 
-  sendMessage(msg: string){
-    this.socket.emit("message", msg);
-  }
-  getMessage() {
-    return this.socket
-      .fromEvent("message")
-      .subscribe(value => console.log("Message received: " + value));
+  subscribeToTopic(msg: string){
+    this.socket.emit("subscribe", msg);
   }
 }
