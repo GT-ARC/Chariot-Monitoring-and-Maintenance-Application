@@ -25,8 +25,8 @@ io.on('connection', function(socket){
             console.log("Kafka Client connected");
             // Get the offset of the topic and get only the latest info
             var offset = new kafka.Offset(kafkaClient);
-            var topicOffset = offset.fetch([{ topic: 'numtest', partition: 0, time: -1 }], function (err, data) {
-                topicOffset = data['numtest']['0'][0];
+            var topicOffset = offset.fetch([{ topic: kafka_topic, partition: 0, time: -1 }], function (err, data) {
+                topicOffset = data[kafka_topic]['0'][0];
             });
 
             var consumer = new Consumer(kafkaClient, 
@@ -40,12 +40,12 @@ io.on('connection', function(socket){
             socketToKafkaMap[socket] = consumer;
 
             consumer.on('message', function (message) {
-                console.log("Message received", message)
+                console.log("Message received", message);
                 socket.emit("data", message);
             });
 
             consumer.on(("error"), (err) => {
-                console.log("Kafka consumer error: " + err)
+                console.log("Kafka consumer error: " + err);
                 consumer.close(() => {});
                 kafkaClient.close(() => {})
             });
@@ -53,12 +53,12 @@ io.on('connection', function(socket){
 
         // When there is an error in the socket emit a socket error
         kafkaClient.on("error", (err) => {
-            console.log("Kafka Client Error " + err)
+            console.log("Kafka Client Error " + err);
             socket.emit("error", "Kafka Client Error");
         });
     });
 
-    // When the frontend disconects
+    // When the frontend disconnects
     socket.on('disconnect', function() {
         console.log('user disconnected');
         if(socket in socketToKafkaMap)        

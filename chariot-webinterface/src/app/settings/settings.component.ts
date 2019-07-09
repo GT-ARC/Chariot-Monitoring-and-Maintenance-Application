@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
     this.deviceUpdateService.subscribeToTopic(text);
     this.deviceUpdateService.dataStream.subscribe(value => {
       console.log(value);
-      this.message = value['value']
+      this.message = value['value'];
     });
   }
 }

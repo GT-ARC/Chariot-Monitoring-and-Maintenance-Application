@@ -11,7 +11,7 @@ export class DeviceUpdateService {
 
   constructor(private socket: Socket) { }
 
-  subscribeToTopic(msg: string){
+  subscribeToTopic(msg: string) {
     this.socket.emit("subscribe", msg);
   }
 }
