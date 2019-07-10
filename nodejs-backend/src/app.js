@@ -23,14 +23,22 @@ io.on('connection', function(socket){
         kafkaClient.on("ready", () => {   
             
             console.log("Kafka Client connected");
+
+            //var consumerGroup = new ConsumerGroup({/}, kafka_topic);
+
+            kafkaClient.loadMetadataForTopics([kafka_topic], (err, result) => {
+                console.log(result);
+            })
+
             // Get the offset of the topic and get only the latest info
             var offset = new kafka.Offset(kafkaClient);
             var topicOffset = offset.fetch([{ topic: kafka_topic, partition: 0, time: -1 }], function (err, data) {
                 topicOffset = data[kafka_topic]['0'][0];
+                console.log(topicOffset);
             });
 
             var consumer = new Consumer(kafkaClient, 
-            [{ topic: kafka_topic, offset: topicOffset, partition: 0 }],{
+            [{ topic: kafka_topic, offset: topicOffset - 1, partition: 0 }],{
                 autoCommit: false,
                 fromOffset: true,
                 encoding: 'utf8',
@@ -39,9 +47,12 @@ io.on('connection', function(socket){
 
             socketToKafkaMap[socket] = consumer;
 
+
+            count = 0
             consumer.on('message', function (message) {
-                console.log("Message received", message);
-                socket.emit("data", message);
+                if(count > topicOffset)
+                    socket.emit("data", message);
+                count++;
             });
 
             consumer.on(("error"), (err) => {

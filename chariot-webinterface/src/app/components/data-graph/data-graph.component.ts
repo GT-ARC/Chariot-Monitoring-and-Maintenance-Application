@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Color} from "ng2-charts";
 import {ChartOptions} from "chart.js";
+import {DeviceUpdateService} from '../../services/device-update.service';
 
 @Component({
   selector: 'app-data-graph',
@@ -15,39 +16,37 @@ export class DataGraphComponent implements OnInit {
   }[];
 
   @Input() dataAmount: number;
+  @Input() topic: string;
 
   @Input() height: number = 20;
 
-  constructor() { }
-
-  oriLabels;
+  constructor(private deviceUpdateService: DeviceUpdateService) { }
 
   ngOnInit() {
     document.getElementById("chart").setAttribute("height", this.height + "");
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ('dataAmount' in changes && !('data' in changes)){
-      if (changes['dataAmount'].currentValue == changes['dataAmount'].previousValue - 1){
-        this.lineChartLabels.shift();
-        this.lineChartData[0].data.shift();
-      } else if (changes['dataAmount'].currentValue == changes['dataAmount'].previousValue + 1){
-        let dataPoint = this.data[this.data.length - this.dataAmount];
-        this.lineChartLabels.splice(0, 0, this.monthAbrNames[new Date(dataPoint.y).getMonth()] + " " + new Date(dataPoint.y).getDay());
-        this.lineChartData[0].data.splice(0, 0, dataPoint.x);
-      } else {
-        this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data =>
-          this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
-        );
-        this.lineChartData = [
-          {
-            data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.x),
-            label: 'History'
-          }
-        ];
-      }
-    }
+    // if ('dataAmount' in changes && !('data' in changes)){
+    //   if (changes['dataAmount'].currentValue == changes['dataAmount'].previousValue - 1){
+    //     this.lineChartLabels.shift();
+    //     this.lineChartData[0].data.shift();
+    //   } else if (changes['dataAmount'].currentValue == changes['dataAmount'].previousValue + 1){
+    //     let dataPoint = this.data[this.data.length - this.dataAmount];
+    //     this.lineChartLabels.splice(0, 0, this.monthAbrNames[new Date(dataPoint.y).getMonth()] + " " + new Date(dataPoint.y).getDay());
+    //     this.lineChartData[0].data.splice(0, 0, dataPoint.x);
+    //   } else {
+    //     this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data =>
+    //       this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
+    //     );
+    //     this.lineChartData = [
+    //       {
+    //         data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.x),
+    //         label: 'History'
+    //       }
+    //     ];
+    //   }
+    // }
     if ('data' in changes) {
       this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data =>
         this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
@@ -59,7 +58,20 @@ export class DataGraphComponent implements OnInit {
         }
       ];
     }
+    if('topic' in changes){
+      this.deviceUpdateService.unSubscribeOfTopic(changes['topic'].previousValue);
+      this.getData()
+    }
+  }
 
+  private getData(){
+    if(this.topic != '') {
+      this.deviceUpdateService.subscribeToTopic(this.topic).subscribe(message => {
+        let dataPoint = JSON.parse(message['value']);
+        this.lineChartLabels.push(this.monthAbrNames[new Date(dataPoint.y).getMonth()] + " " + new Date(dataPoint.y).getDay());
+        this.lineChartData[0].data.push( dataPoint.x);
+      });
+    }
   }
 
 

@@ -2,22 +2,32 @@
   <p class="device-panel-title">Device Monitoring and prediction</p>
   <div id="device-chart-wrapper">
     <div id="accuracy-arrows">
-      <mat-icon id="up" (click)="dataAmount < device.data.length ? dataAmount = dataAmount + 1: null">keyboard_arrow_up</mat-icon>
-      <app-clickable-text
-        [accuracy]="0"
-        [text]="dataAmount + ''"
-        [color]="'#2b72e6'"
-        [size]="15"
-        [min]="0"
-        [max]="device.data.length"
-        (eventEmitter)="applyData($event.value)">
-      </app-clickable-text>
-      <mat-icon id="down" (click)="dataAmount > 0 ? dataAmount = dataAmount - 1 : null">keyboard_arrow_down</mat-icon>
+      <mat-icon id="up" (click)="showMoreData()">keyboard_arrow_up</mat-icon>
+      <span>
+        {{selectedVisibility}}:
+      </span>
+      <span>
+        {{visibleData.length}}
+      </span>
+<!--      <app-clickable-text-->
+<!--        [accuracy]="0"-->
+<!--        [text]="dataAmount + ''"-->
+<!--        [color]="'#2b72e6'"-->
+<!--        [size]="15"-->
+<!--        [min]="0"-->
+<!--        [max]="device.data.length"-->
+<!--        (eventEmitter)="applyData($event.value)">-->
+<!--      </app-clickable-text>-->
+      <mat-icon id="down" (click)="showLessData()">keyboard_arrow_down</mat-icon>
+
+      <mat-icon *ngIf="!getCurrentData" id="play" (click)="getRealtimeData()">play_arrow</mat-icon>
+      <mat-icon *ngIf="getCurrentData" id="pause" (click)="stopDataFlow()">pause</mat-icon>
     </div>
     <app-data-graph
       id="prediction-graph"
-      [data]="device.data"
-      [dataAmount]="dataAmount"
+      [topic]="'exampleData'"
+      [data]="visibleData"
+      [dataAmount]="visibleData.length"
       [height]="380">
     </app-data-graph>
   </div>

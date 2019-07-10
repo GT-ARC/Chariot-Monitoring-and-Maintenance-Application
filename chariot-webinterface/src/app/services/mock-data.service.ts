@@ -10,6 +10,7 @@ import {Issue} from "../../model/issue";
 import {IndividualProcess, ProductProcess} from "../../model/productProcess";
 import {Container} from "../../model/Container";
 import {Metadata} from "../../model/Metadata";
+import {log} from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class MockDataService {
 
   constructor() {
 
+      console.log("Create new mock Data");
       this.createData();
 
   }
@@ -51,19 +53,21 @@ export class MockDataService {
 
     let issueIdentifier: number = 0;
     for (let i = 0; i < 100; i++) {
-      let dataStartTime: number = faker.date.past().valueOf();
+
+      let dataStartTime: number = Date.now().valueOf();
       let dataValue: number = Math.random() * 100;
       let device_data: { y: number, x: number }[] = [];
-      let device_data_size = Math.round(Math.random() * 30) + 10;
+      let device_data_size = Math.round(Math.random() * 500) + 10;
       let predictionSize = Math.round(Math.random() * 5) + 5;
+      // Create mock device data
       for (let c = 0; c < device_data_size; c++) {
         device_data.push({y: dataStartTime, x: dataValue});
-        dataStartTime = Math.floor(Math.random() * 10 ** 9 + 10 ** 8 + 10 ** 7) + Math.abs(dataStartTime);
+        dataStartTime -= Math.floor(Math.random() * 86400000/10);
         dataValue += (Math.random() * 20 + 5) * (Math.random() * 2 - 1 > 0 ? 1 : -1);
       }
 
       let issueDates = [];
-      for (let c = 0, date = Math.floor(Date.now() / 86400000) * 86400000; c < 30; c++, date -= 86400000) {
+      for (let c = 0, date = Math.floor(Date.now().valueOf() / 86400000) * 86400000; c < 30; c++, date -= 86400000) {
         issueDates.push(date);
       }
 
@@ -73,7 +77,7 @@ export class MockDataService {
         issues.push({
           identifier: issueIdentifier++,
           // state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
-          state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.5 : Math.random() >= 0,
+          state: selectedDate == Math.floor(Date.now().valueOf() / 86400000) * 86400000 ? Math.random() >= 0.5 : Math.random() >= 0,
           description: "",
           type: faker.commerce.productName().slice(0, 15),
           issue_date: selectedDate + Math.floor(Math.random() * 86400000),

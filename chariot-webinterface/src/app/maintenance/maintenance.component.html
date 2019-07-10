@@ -98,18 +98,25 @@
              fxFlex.lt-lg="1 1 calc(100%)">
           <div id="issue-panel-monitoring" class="issue-panel-card" >
             <p id="issue-panel-title">VISUALIZATION OF DETECTED MEASUREMENT</p>
+
             <div id="issue-chart-wrapper">
-              <canvas height="122"
-                      id="issue-chart"
-                      baseChart
-                      [datasets]="lineChartData"
-                      [labels]="lineChartLabels"
-                      [options]="lineChartOptions"
-                      [colors]="lineChartColors"
-                      [legend]="lineChartLegend"
-                      [chartType]="lineChartType">
-              </canvas>
+              <app-data-graph
+                id="prediction-graph"
+                [data]="issueDeviceMap.get(selectedIssue).data"
+                [dataAmount]="20"
+                [height]="315">
+              </app-data-graph>
             </div>
+            <!--              <canvas height="122"-->
+            <!--                      id="issue-chart"-->
+            <!--                      baseChart-->
+            <!--                      [datasets]="lineChartData"-->
+            <!--                      [labels]="lineChartLabels"-->
+            <!--                      [options]="lineChartOptions"-->
+            <!--                      [colors]="lineChartColors"-->
+            <!--                      [legend]="lineChartLegend"-->
+            <!--                      [chartType]="lineChartType">-->
+            <!--              </canvas>-->
           </div>
         </div>
       </div>

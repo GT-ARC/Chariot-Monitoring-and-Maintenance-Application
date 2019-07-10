@@ -18,10 +18,12 @@ kafka_brokers = ['192.168.180.103:9092', '192.168.180.103:9092', '192.168.180.10
 KAFKA_VERSION = (0, 12)
 producer = KafkaProducer( bootstrap_servers=kafka_brokers, api_version=KAFKA_VERSION);
 
-data_value = randrange(500)
+
+x_value = randrange(500)
 
 while True:
-	print(data_value)
-	producer.send(topic, value=b"%d" % data_value);
-	data_value += randrange(20) - 10;
+	message = "{\"x\":%d, \"y\":%d}" % (x_value, int(time.time()))
+	print(message)
+	producer.send(topic, value=b"%s" % message.encode());
+	x_value += randrange(20) - 10;
 	time.sleep(speed);
