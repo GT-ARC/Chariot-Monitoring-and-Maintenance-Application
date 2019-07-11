@@ -16,5 +16,6 @@ export class DeviceUpdateService {
 
   unSubscribeOfTopic(topic: string) {
     this.socket.emit("unsubscribe", topic);
+    this.socket.removeAllListeners();
   }
 }

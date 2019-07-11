@@ -7,7 +7,7 @@
         {{selectedVisibility}}:
       </span>
       <span>
-        {{visibleData.length}}
+        {{dataAmount}}
       </span>
 <!--      <app-clickable-text-->
 <!--        [accuracy]="0"-->
@@ -25,9 +25,10 @@
     </div>
     <app-data-graph
       id="prediction-graph"
-      [topic]="'exampleData'"
+      [topic]="testTopic"
       [data]="visibleData"
       [dataAmount]="visibleData.length"
+      (dataLength)="dataAmount = $event"
       [height]="380">
     </app-data-graph>
   </div>

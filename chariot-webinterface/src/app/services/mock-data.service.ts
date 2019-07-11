@@ -61,7 +61,7 @@ export class MockDataService {
       let predictionSize = Math.round(Math.random() * 5) + 5;
       // Create mock device data
       for (let c = 0; c < device_data_size; c++) {
-        device_data.push({y: dataStartTime, x: dataValue});
+        device_data.push({x: dataStartTime, y: dataValue});
         dataStartTime -= Math.floor(Math.random() * 86400000/10);
         dataValue += (Math.random() * 20 + 5) * (Math.random() * 2 - 1 > 0 ? 1 : -1);
       }

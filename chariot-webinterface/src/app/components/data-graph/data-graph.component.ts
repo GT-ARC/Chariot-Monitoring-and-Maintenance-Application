@@ -1,7 +1,8 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Color} from "ng2-charts";
 import {ChartOptions} from "chart.js";
 import {DeviceUpdateService} from '../../services/device-update.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-data-graph',
@@ -17,13 +18,14 @@ export class DataGraphComponent implements OnInit {
 
   @Input() dataAmount: number;
   @Input() topic: string;
-
   @Input() height: number = 20;
+  @Output() dataLength = new EventEmitter<number>();
 
   constructor(private deviceUpdateService: DeviceUpdateService) { }
 
   ngOnInit() {
     document.getElementById("chart").setAttribute("height", this.height + "");
+    this.dataLength.emit(this.data.length);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -49,27 +51,37 @@ export class DataGraphComponent implements OnInit {
     // }
     if ('data' in changes) {
       this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data =>
-        this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
+        this.monthAbrNames[new Date(data.x).getMonth()] + " " + new Date(data.x).getDay()
       );
       this.lineChartData = [
         {
-          data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.x),
+          data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.y),
           label: 'History'
         }
       ];
+      this.dataLength.emit(this.data.length);
     }
     if('topic' in changes){
       this.deviceUpdateService.unSubscribeOfTopic(changes['topic'].previousValue);
+      this.currentDataReceiver = null;
       this.getData()
+      console.log("Data Changed")
     }
   }
 
-  private getData(){
+  private currentDataReceiver: Observable<string>;
+
+  private getData() {
     if(this.topic != '') {
-      this.deviceUpdateService.subscribeToTopic(this.topic).subscribe(message => {
-        let dataPoint = JSON.parse(message['value']);
-        this.lineChartLabels.push(this.monthAbrNames[new Date(dataPoint.y).getMonth()] + " " + new Date(dataPoint.y).getDay());
-        this.lineChartData[0].data.push( dataPoint.x);
+      this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
+
+      this.currentDataReceiver.subscribe(message => {
+        //console.log(message);
+        let dataPoint = JSON.parse(message);
+        this.data.push({y: dataPoint.y, x: dataPoint.x});
+        this.lineChartLabels.push(this.monthAbrNames[new Date(dataPoint.x).getMonth()] + " " + new Date(dataPoint.x).getDay());
+        this.lineChartData[0].data.push(dataPoint.y);
+        this.dataLength.emit(this.data.length);
       });
     }
   }

@@ -51,10 +51,10 @@ export class DevicePanelMonitoringComponent implements OnInit {
     for(let element of this.visibleDataPossibilities) {
       this.visibleDataPossibilitiesNumbers.push(this.getSelectedVisibility(element))
     }
-    for( let element of this.visibleDataPossibilities) {
-      let index = this.visibleDataPossibilities.indexOf(element);
-      console.log(index, element, this.visibleDataPossibilitiesNumbers[index])
-    }
+    // for( let element of this.visibleDataPossibilities) {
+    //   let index = this.visibleDataPossibilities.indexOf(element);
+    //   console.log(index, element, this.visibleDataPossibilitiesNumbers[index])
+    // }
     this.filterData();
     console.log(this.visibleData.length);
     console.log(this.device.data)
@@ -95,7 +95,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
       return;
     const index = this.visibleDataPossibilities.indexOf(this.selectedVisibility);
     const value = this.visibleDataPossibilitiesNumbers[index];
-    this.visibleData = this.device.data.filter(dataPoint => dataPoint.y > value )
+    this.visibleData = this.device.data.filter(dataPoint => dataPoint.x > value )
   }
 
   private showMoreData() {
@@ -116,6 +116,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
   getCurrentData : boolean = true;
   testTopic = 'exampleData';
+  dataAmount: number = 0;
 
   getRealtimeData() {
     this.getCurrentData = true;

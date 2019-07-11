@@ -18,12 +18,4 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  subscribeToTopic(text: string) {
-    this.deviceUpdateService.subscribeToTopic(text);
-    this.deviceUpdateService.dataStream.subscribe(value => {
-      console.log(value);
-      this.message = value['value'];
-    });
-  }
 }
