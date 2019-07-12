@@ -16,7 +16,7 @@ io.on('connection', function(socket){
         let ID = Math.random().toString(36).substring(7);
         const kafka = new Kafka({
             clientId: ID,
-            brokers: ['chariot-km.dai-lab.de:9093']
+            brokers: ['chariot-km.dai-lab.de:9092']
           })
         const consumer = kafka.consumer({ groupId: ID })
         consumer.connect()

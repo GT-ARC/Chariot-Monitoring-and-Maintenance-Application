@@ -15,7 +15,7 @@ speed = float(sys.argv[2]);
 print("Produce data into topic " + topic + " in intervall " + str(speed))
 
 #kafka_brokers = ['192.168.180.103:9092', '192.168.180.103:9092', '192.168.180.103:9092'];
-kafka_brokers = ['chariot-km.dai-lab.de:9093']
+kafka_brokers = ['chariot-km.dai-lab.de:9092']
 KAFKA_VERSION = (0, 12)
 producer = KafkaProducer( bootstrap_servers=kafka_brokers, api_version=KAFKA_VERSION);
 

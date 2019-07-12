@@ -117,7 +117,9 @@ export class MockDataService {
       );
 
       let mockDeviceProperties: {
-        name: string, value: {
+        name: string,
+        topic: string,
+        value: {
           value: any,
           description?: string,
           unit?: string,
@@ -127,6 +129,7 @@ export class MockDataService {
       }[] = [
         {
           name: 'Sensitivity',
+          topic: 'exampleData1',
           value: {
             value: Math.random(),
             unit: '%',
@@ -136,6 +139,7 @@ export class MockDataService {
         },
         {
           name: 'Measurement schedule',
+          topic: 'exampleData1',
           value: {
             value: Math.floor(Math.random() * 100),
             unit: 'sec',
@@ -145,6 +149,7 @@ export class MockDataService {
         },
         {
           name: 'Accuracy',
+          topic: 'exampleData1',
           value: {
             value: Math.random(),
             unit: '°',
@@ -154,18 +159,21 @@ export class MockDataService {
         },
         {
           name: 'Security Measurement',
+          topic: '',
           value: {
             value: Math.random() > 0.5
           }
         },
         {
           name: 'Log',
+          topic: '',
           value: {
             value: Math.random() > 0.5
           }
         },
         {
           name: 'Name',
+          topic: '',
           value: {
             value: faker.name.firstName() + " " + faker.name.lastName(),
             description: "First Name + Last Name"
@@ -173,13 +181,14 @@ export class MockDataService {
         },
         {
           name: 'Destination',
+          topic: '',
           value: {
             value: faker.address.streetAddress(true),
             description: "Adress"
           }
         },
       ];
-      let deviceProperties: { name: string, value: { value: any } }[] = [];
+      let deviceProperties: { name: string, topic: string, value: { value: any } }[] = [];
       let devicePropertyAmount = Math.ceil(Math.random() * 5);
       for (let i = 0; i < devicePropertyAmount; i++) {
         let element = Math.floor(Math.random() * mockDeviceProperties.length);

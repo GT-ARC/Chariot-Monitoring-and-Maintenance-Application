@@ -13,6 +13,7 @@ export class Device {
 
   properties: {
     name: string;
+    topic: string;
     value: {
       value: any;
       description?: string;

@@ -15,6 +15,9 @@ import {DeviceUpdateService} from '../../../services/device-update.service';
 export class DevicePanelMonitoringComponent implements OnInit {
 
   @Input() device: Device;
+  currentTopic = 'exampleData' + [1, 2 ,3][Math.round(Math.random() * 3)];
+  dataAmount: number = 0;
+
 
   visibleDataPossibilitiesNumbers: number[] = [];
   visibleDataPossibilities: string[] =
@@ -44,7 +47,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     // console.log(this.visibleDataPossibilitiesNumbers);
     // console.log(this.device.data);
     this.filterData();
-    console.log(this.visibleData.length);
+    this.currentTopic = 'exampleData' + [1, 2 ,3][Math.round(Math.random() * 3)];
   }
 
   ngOnInit() {
@@ -56,8 +59,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
     //   console.log(index, element, this.visibleDataPossibilitiesNumbers[index])
     // }
     this.filterData();
-    console.log(this.visibleData.length);
-    console.log(this.device.data)
   }
 
   private getSelectedVisibility(visibility: string): number {
@@ -115,16 +116,14 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   getCurrentData : boolean = true;
-  testTopic = 'exampleData';
-  dataAmount: number = 0;
 
   getRealtimeData() {
     this.getCurrentData = true;
-    this.testTopic = 'exampleData';
+    this.currentTopic = 'exampleData' + [1, 2 ,3][Math.round(Math.random() * 3)];
   }
 
   stopDataFlow() {
     this.getCurrentData = false;
-    this.testTopic = '';
+    this.currentTopic = '';
   }
 }
