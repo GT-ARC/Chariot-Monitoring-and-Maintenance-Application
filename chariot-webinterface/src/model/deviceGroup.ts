@@ -2,11 +2,14 @@ import {Device} from './device';
 
 export class DeviceGroup {
 
-  private _identifier : number;
-  private _devices : Device[];
+  private readonly _identifier : number;
+  private readonly _devices : Device[];
+  private readonly _name: string;
+  private _visible: boolean = Math.random() > 0.5;
 
-  constructor(identifier: number) {
+  constructor(identifier: number, name: string) {
     this._identifier = identifier;
+    this._name = name;
     this._devices = [];
   }
 
@@ -14,6 +17,17 @@ export class DeviceGroup {
     this._devices.push(device);
   }
 
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  set visible(value: boolean) {
+    this._visible = value;
+  }
+
+  get name(): string {
+    return this._name;
+  }
 
   get identifier(): number {
     return this._identifier;

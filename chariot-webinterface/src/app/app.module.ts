@@ -61,6 +61,7 @@ import { DeviceUsageCardComponent } from './components/device-usage-card/device-
 import { ClickableTextComponent } from './components/clickable-text/clickable-text.component';
 import {FormsModule} from '@angular/forms';
 import { DataGraphComponent } from './components/data-graph/data-graph.component';
+import { DeviceGroupCardComponent } from './components/device-group-card/device-group-card.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { DataGraphComponent } from './components/data-graph/data-graph.component
     DeviceUsageCardComponent,
     ClickableTextComponent,
     DataGraphComponent,
+    DeviceGroupCardComponent,
   ],
   imports: [
     BrowserModule,

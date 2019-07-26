@@ -121,15 +121,22 @@
             <!--  List the device groups in here   -->
             <div class="device-group"
                  *ngFor="let device_group of visibleDeviceGroups">
-              <div *ngFor="let device of device_group.devices">
-                <app-device-card
-                  *ngIf="visibleDevice.indexOf(device)"
-                  (click)="newDeviceSelected(device)"
-                  [device]="device"
-                  [deviceCardStyle]="deviceCardStyle"
-                  [selectedDevice]="selectedDevice"
-                  [location]="'devicepanel'"
-                  (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+              <app-device-group-card
+                (device_group_selected)="newDeviceGroupSelected($event.device_group)"
+                [device_group]="device_group">
+              </app-device-group-card>
+              <div class="device-group-devices"
+                   *ngIf="device_group.visible">
+                <div *ngFor="let device of device_group.devices">
+                  <app-device-card
+                    *ngIf="visibleDevice.indexOf(device) != -1"
+                    (click)="newDeviceSelected(device)"
+                    [device]="device"
+                    [deviceCardStyle]="deviceCardStyle"
+                    [selectedDevice]="selectedDevice"
+                    [location]="'devicepanel'"
+                    (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+                </div>
               </div>
             </div>
           </div>

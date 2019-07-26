@@ -161,8 +161,9 @@ export class DevicesComponent implements OnInit {
     // Go through each visible device group and check which devices should be visible
     this.visibleDeviceGroups.forEach( dg =>
         dg.devices.forEach( d => {
-          if(d.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1)
+          if(d.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1){
             this.visibleDevice.push(d);
+          }
         })
     );
 
@@ -339,8 +340,43 @@ export class DevicesComponent implements OnInit {
   newDeviceGroupSelected(deviceGroup: DeviceGroup) {
 
     // TODO create a mock device with all the properties of the devices of the device group
+    console.log("DEVICE GROUP SELECTED")
 
-    this.selectedDevice = null;
+    let power_state = deviceGroup.devices.reduce((acc, prev) => acc && prev.power_state, true);
+    let power_consumption = deviceGroup.devices.reduce((acc, prev) => acc + prev.power_consumption, 0);
+    let power_upTime = deviceGroup.devices.reduce((acc, prev) => acc + prev.running, 0) / deviceGroup.devices.length;
+    let power_downTime = deviceGroup.devices.reduce((acc, prev) => acc + prev.down_time, 0) / deviceGroup.devices.length;
+    // Combine the lists
+    let combined_desc = deviceGroup.devices.reduce((acc, prev) => acc.concat(prev.description), []);
+    let combined_issues = deviceGroup.devices.reduce((acc, prev) => acc.concat(prev.issues), []);
+
+    let combined_properties = [];
+    for(let device of deviceGroup.devices) {
+      // Create a copy from the properties array
+      let currentProperties = JSON.parse(JSON.stringify(device.properties));
+      for(let property of currentProperties) {
+        property.name = device.name + " - " + property.name;
+        combined_properties.push(property);
+      }
+    }
+    // deviceGroup.devices.reduce((acc, prev) => acc.concat(prev.properties), []);
+
+
+    let tempDevice = new Device(
+      -1,
+      deviceGroup.name,
+      null, power_state,
+      power_consumption,
+      power_upTime,
+      power_downTime,
+      combined_desc,
+      combined_issues,
+      deviceGroup.devices[0].data,
+      deviceGroup.devices[0].prediction);
+
+    tempDevice.properties = combined_properties;
+
+    this.selectedDevice = tempDevice;
     this.locationService.replaceState("/devices/g" + deviceGroup.identifier);
   }
 }

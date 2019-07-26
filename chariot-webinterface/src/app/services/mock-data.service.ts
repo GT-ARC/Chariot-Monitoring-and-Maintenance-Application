@@ -270,15 +270,18 @@ export class MockDataService {
    * Create Devices
    */
   createDevices(): void {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
 
-      let newDeviceGroup: DeviceGroup = new DeviceGroup(MockDataService.deviceCroupIdentifier++);
-      let randomDeviceAmountPerGroup = MockDataService.getRandValue(0, 5);
+      let dgi = MockDataService.deviceCroupIdentifier;
+
+      let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi, "Device Group: " + dgi);
+      let randomDeviceAmountPerGroup = MockDataService.getRandValue(1, 5);
 
       for(let c = 0; c < randomDeviceAmountPerGroup; c++) {
         newDeviceGroup.addDevice(MockDataService.createDevice());
       }
 
+      MockDataService.deviceCroupIdentifier++;
       this.deviceGroup.push(newDeviceGroup);
     }
   }
@@ -287,21 +290,25 @@ export class MockDataService {
    * Create the locations of the devices
    */
   createLocations(): void {
-    var devIndex = 0;
+    let devIndex = 0;
     for (let i = 0; i < 20; i++) {
-      let randNumber = Math.floor(Math.random() * 3) + 2;
-      let location = new Location (
+      let randNumber = MockDataService.getRandValue(2, 3);
+      let currLocation = new Location (
         i,
         null,
         Math.random() > 0.5 ? 'Room ' + i : 'Space ' + i,
         null
       );
 
-      // Add a random amount
-      for(let deviceGroup of this.deviceGroup.slice(devIndex, devIndex + randNumber))
-        location.addDeviceGroup(deviceGroup);
+      if(randNumber + devIndex > this.deviceGroup.length)
+        return;
 
-      this.locations.push(location);
+      // Add a random amount
+      let currDeviceGroups = this.deviceGroup.slice(devIndex, devIndex + randNumber);
+      for(let currDeviceGroup of currDeviceGroups)
+        currLocation.addDeviceGroup(currDeviceGroup);
+
+      this.locations.push(currLocation);
       devIndex = devIndex + randNumber;
     }
   }

@@ -279,6 +279,18 @@ mat-icon {
   padding-right: 16px;
 }
 
+.device-group {
+
+}
+
+.device-group-devices {
+  padding-top: 16px;
+  margin-top: -24px;
+  padding-left: 16px;
+  border-left: 5px solid #69707F;
+  border-radius: 18px;
+}
+
 .mat-drawer-content {
   overflow: visible !important;
 }
