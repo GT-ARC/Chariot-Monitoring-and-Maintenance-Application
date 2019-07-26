@@ -84,13 +84,15 @@ export class IndividualProcess {
   total: Date;
   running: Date;
 
-  properties: {
-    display: boolean;
-    name: string;
-    unit?: string;
-    value: any;
-    size?: number;
-    icon?: string;
-    errorThreshold?: number;
-  }[]
+  properties: ProcessProperty[]
+}
+
+export class ProcessProperty {
+  display: boolean;
+  name: string;
+  unit?: string;
+  value: any;
+  size?: number;
+  icon?: string;
+  errorThreshold?: number;
 }

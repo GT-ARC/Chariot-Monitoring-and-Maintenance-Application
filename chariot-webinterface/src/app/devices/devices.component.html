@@ -118,14 +118,20 @@
 
           <div id="device-list-wrapper"
                class="list">
-            <app-device-card
-              (click)="newDeviceSelected(device)"
-              *ngFor="let device of visibleDevices"
-              [device]="device"
-              [deviceCardStyle]="deviceCardStyle"
-              [selectedDevice]="selectedDevice"
-              [location]="'devicepanel'"
-              (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+            <!--  List the device groups in here   -->
+            <div class="device-group"
+                 *ngFor="let device_group of visibleDeviceGroups">
+              <div *ngFor="let device of device_group.devices">
+                <app-device-card
+                  *ngIf="visibleDevice.indexOf(device)"
+                  (click)="newDeviceSelected(device)"
+                  [device]="device"
+                  [deviceCardStyle]="deviceCardStyle"
+                  [selectedDevice]="selectedDevice"
+                  [location]="'devicepanel'"
+                  (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+              </div>
+            </div>
           </div>
         </aside>
       </mat-sidenav>

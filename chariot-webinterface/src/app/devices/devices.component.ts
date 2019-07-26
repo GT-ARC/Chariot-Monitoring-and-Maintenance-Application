@@ -8,6 +8,7 @@ import {Location} from "../../model/location";
 import {Device} from "../../model/device";
 import {Floor} from "../../model/floor";
 import {MatSidenav} from "@angular/material";
+import {DeviceGroup} from '../../model/deviceGroup';
 
 @Component({
   selector: 'app-devices',
@@ -21,19 +22,23 @@ export class DevicesComponent implements OnInit {
   floors: Floor[];        // Holds the fetched data of the floors
   locations: Location[];  // Holds the fetched data of the locations
   devices: Device[];      // Holds the fetched data of the devices
+  deviceGroups: DeviceGroup[];      // Holds the fetched data of the devices
 
   selectedFloors: Floor[] = [];       // Floors where all locations are selected
   selectedLocation: Location[] = [];  // Locations which devices should be visible
 
   visibleLocation: {} = {};      // Map of floors to filtered locations
-  visibleDevices: Device[] = []; // Array of displays to be displayed
+  visibleDeviceGroups: DeviceGroup[] = []; // Array of displays to be displayed
+  visibleDevice: Device[] = []; // Array of displays to be displayed
 
   overallIssueCounter: number = 0;
   floorIssues: {} = {};
-  locationIssues: {} = {};
+  locationIssues: {} = {};   // Map for counting the issues per location
   deviceIssues: {} = {};
+  deviceGroupIssues: {} = {};
 
   selectedDevice: Device = null; // Currently selected device
+  selectedDeviceGroup: DeviceGroup = null; // Currently selected device
 
   // Connected to model switches
   allLocationsSelected: boolean = false;
@@ -69,9 +74,12 @@ export class DevicesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // If a specific id is in the url route to the id
     let id = null;
     if(this.route.snapshot.paramMap.has('id'))
       id = +this.route.snapshot.paramMap.get('id');
+
+    // Get the mock data from the mock data service
     this.getMockData();
 
     let selectDevice = null;
@@ -98,11 +106,17 @@ export class DevicesComponent implements OnInit {
     this.updateUI();
 
     if (id == null){
-      selectDevice = Math.floor(Math.random() * this.visibleDevices.length * 0.25);
-      this.selectedDevice = this.visibleDevices[selectDevice];
+      selectDevice = Math.floor(Math.random() * this.visibleDeviceGroups.length * 0.25);
+      this.selectedDevice = this.visibleDevice[selectDevice];
     }
 
+    this.countTheIssues();
+  }
 
+  /**
+   * Count the issues for each group
+   */
+  countTheIssues() {
     this.devices.forEach(d =>
       this.deviceIssues[d.identifier] = {
         state: d.issues.reduce((prev, curr) => prev && curr.state, true),
@@ -110,8 +124,15 @@ export class DevicesComponent implements OnInit {
       }
     );
 
+    // Count the device issues per device group
+    this.deviceGroups.forEach(dg =>
+      this.deviceGroupIssues[dg.identifier] = dg.devices.map(d => this.deviceIssues[d.identifier].amount)
+        .reduce((c,n) => c + n, 0)
+    );
+
+    // count the device issues per location
     this.locations.forEach( l =>
-      this.locationIssues[l.identifier] = l.devices.map(d => this.deviceIssues[d.identifier].amount)
+      this.locationIssues[l.identifier] = l.devices.map(d => this.deviceGroupIssues[d.identifier])
         .reduce((c,n) => c + n, 0)
     );
 
@@ -121,7 +142,6 @@ export class DevicesComponent implements OnInit {
     );
 
     this.overallIssueCounter = this.floors.map(f => this.floorIssues[f.identifier]).reduce((c, n) => c + n, 0);
-
   }
 
   /**
@@ -129,30 +149,44 @@ export class DevicesComponent implements OnInit {
    * view visible devices
    */
   showVisibleDevices(): void {
-    this.visibleDevices = [];
+    this.visibleDeviceGroups = [];
+
+    // Go through each selected location and check if there is a
     this.selectedLocation.map(loc => {
-      loc.devices.filter(d =>
-        d.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1
-      ).map(d => this.visibleDevices.push(d))
+      loc.devices.filter(dg =>
+        dg.devices.reduce((prev, curr) => prev && curr.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1, true)
+      ).map(dg => this.visibleDeviceGroups.push(dg))
     });
-    this.visibleDevices.sort(((a, b) => {
-      switch (this.deviceSortSelected) {
-        case "Name":
-          return a.identifier - b.identifier;
-        case "Date":
-          return a.identifier - b.identifier;
-        case "Device type":
-          return a.identifier - b.identifier;
-        case "On/Off":
-          if(a.power_state == b.power_state)
-            return a.identifier - b.identifier;
-          else
-            if(a.power_state == true)
-              return 0;
-          return 1;
-      }
-    }));
-    this.allDevicesOn = this.visibleDevices.reduce((acc, curr) => acc && curr.power_state, true);
+
+    // Go through each visible device group and check which devices should be visible
+    this.visibleDeviceGroups.forEach( dg =>
+        dg.devices.forEach( d => {
+          if(d.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1)
+            this.visibleDevice.push(d);
+        })
+    );
+
+    // TODO clear how to do the sorting
+
+    // this.visibleDeviceGroups.sort(((a, b) => {
+    //   switch (this.deviceSortSelected) {
+    //     case "Name":
+    //       return a.identifier - b.identifier;
+    //     case "Date":
+    //       return a.identifier - b.identifier;
+    //     case "Device type":
+    //       return a.identifier - b.identifier;
+    //     case "On/Off":
+    //       if(a.power_state == b.power_state)
+    //         return a.identifier - b.identifier;
+    //       else
+    //         if(a.power_state == true)
+    //           return 0;
+    //       return 1;
+    //   }
+    // }));
+    this.allDevicesOn = this.visibleDeviceGroups.reduce((acc, curr) =>
+      acc && curr.devices.reduce((acc, curr) => acc && curr.power_state, true), true);
   }
 
   /**
@@ -162,7 +196,7 @@ export class DevicesComponent implements OnInit {
    */
   changeDevicePowerState(device: Device, state: boolean) {
     device.power_state = state;
-    this.allDevicesOn = this.visibleDevices.reduce((acc, curr) => acc && curr.power_state, true);
+    this.allDevicesOn = this.visibleDevice.reduce((acc, curr) => acc && curr.power_state, true);
     // this.showVisibleDevices();
   }
 
@@ -173,9 +207,9 @@ export class DevicesComponent implements OnInit {
   switchAllDevices(state: boolean) {
     this.allDevicesOn = state;
     if (state) {
-      this.visibleDevices.map(device => device.power_state = true)
+      this.visibleDevice.forEach(device => device.power_state = true)
     } else {
-      this.visibleDevices.map(device => device.power_state = false)
+      this.visibleDevice.forEach(device => device.power_state = false)
     }
     this.showVisibleDevices();
   }
@@ -189,6 +223,7 @@ export class DevicesComponent implements OnInit {
         this.floors = data.floors;
         this.locations = data.locations;
         this.devices = data.devices;
+        this.deviceGroups = data.deviceGroup;
       });
   }
 
@@ -230,7 +265,8 @@ export class DevicesComponent implements OnInit {
     } else {
       this.selectedLocation = [];
       this.selectedFloors = [];
-      this.visibleDevices = [];
+      this.visibleDeviceGroups = [];
+      this.visibleDevice = [];
       this.updateUI();
     }
   }
@@ -298,5 +334,13 @@ export class DevicesComponent implements OnInit {
   newDeviceSelected(device: Device) {
     this.selectedDevice = device;
     this.locationService.replaceState("/devices/" + device.identifier);
+  }
+
+  newDeviceGroupSelected(deviceGroup: DeviceGroup) {
+
+    // TODO create a mock device with all the properties of the devices of the device group
+
+    this.selectedDevice = null;
+    this.locationService.replaceState("/devices/g" + deviceGroup.identifier);
   }
 }
