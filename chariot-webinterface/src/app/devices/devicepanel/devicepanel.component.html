@@ -28,28 +28,39 @@
 
 
     <!--  Create the cards for the properties of the device  -->
-    <div [ngSwitch]="property['type']" *ngFor="let property of device.properties; let i = index"
-         fxFlex="1 1 auto">
-      <app-device-panel-switch
-        *ngSwitchCase="'boolean'"
-        (uploaded)="emitDeviceProperty($event.property, $event.state)"
-        fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
-        [property]="property">
-      </app-device-panel-switch>
+    <div
+      fxFlex="1 1 calc(900px)"
+      gdAlignColumns="start start"
 
-      <app-device-panel-slider
-        *ngSwitchCase="'number'"
-        (uploaded)="emitDeviceProperty($event.property, $event.state)"
-        fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
-        [property]="property">
-      </app-device-panel-slider>
+      gdAreas="{{area}}"
+      gdColumns="calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px)"
 
-      <app-device-panel-text-field
-        *ngSwitchCase="'string'"
-        (uploaded)="emitDeviceProperty($event.property, $event.state)"
-        fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
-        [property]="property">
-      </app-device-panel-text-field>
+      gdAuto="row"
+      gdGap="16px">
+
+      <div [ngSwitch]="property['type']"
+           *ngFor="let property of device.properties; let i = index"
+           gdArea="a{{i}}">
+
+        <app-device-panel-switch
+          *ngSwitchCase="'boolean'"
+          (uploaded)="emitDeviceProperty($event.property, $event.state)"
+          [property]="property">
+        </app-device-panel-switch>
+
+        <app-device-panel-slider
+          *ngSwitchCase="'number'"
+          (uploaded)="emitDeviceProperty($event.property, $event.state)"
+          [property]="property">
+        </app-device-panel-slider>
+
+        <app-device-panel-text-field
+          *ngSwitchCase="'string'"
+          (uploaded)="emitDeviceProperty($event.property, $event.state)"
+          [property]="property">
+        </app-device-panel-text-field>
+
+      </div>
     </div>
 
     <app-device-panel-info

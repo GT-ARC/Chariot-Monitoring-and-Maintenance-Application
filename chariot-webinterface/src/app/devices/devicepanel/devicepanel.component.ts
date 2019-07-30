@@ -17,10 +17,12 @@ export class DevicepanelComponent implements OnInit {
 
   @Input() device: Device;
   @Output() uploaded = new EventEmitter<{ device: Device, state: any }>();
+  area : String;
   public issueState: boolean;
 
   ngOnChanges(changes: SimpleChanges) {
     this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
+    this.area = this.getMdArea();
   }
 
   constructor() {
@@ -37,6 +39,65 @@ export class DevicepanelComponent implements OnInit {
       console.log(property, state);
       console.log(this.device.properties.find(value => value.name == property));
     }
+  }
+
+  getMdArea() : string {
+    let propAmount = this.device.properties.length;
+
+    let get1er = function(i : number) {
+      return " a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " ";
+    };
+
+    let get2er = function(i : number) {
+      return " a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + (i+1) + " " + "a" + (i+1) + " " + "a" + (i+1) + " ";
+    };
+
+    let get3er = function(i : number) {
+      return " a" + i + " " + "a" + i + " " + "a" + (i+1) + " " + "a" + (i+1) + " " + "a" + (i+2) + " " + "a" + (i+2) + " ";
+    };
+
+    let index = 0;
+    let retString = "";
+    while (index < propAmount) {
+      let leftProperties = propAmount - index;
+      if(retString != "") retString += "|";
+
+      let selectedAmount = leftProperties;
+      let breakIt = true;
+      if (selectedAmount > 3) {
+        selectedAmount = Math.floor((Math.random() * ((3 - 1) + 1)) + 1);
+        breakIt = false;
+      }
+
+      if(selectedAmount == 1) {
+        retString += get1er(index);
+        index += 1;
+        if(breakIt) break;
+      }
+      else if(selectedAmount == 2) {
+        retString += get2er(index);
+        index += 2;
+        if(breakIt) break
+      }
+      else if(selectedAmount == 3) {
+        retString += get3er(index);
+        index += 3;
+        if(breakIt) break
+      }
+    }
+    return retString;
+
+    // // Handle the smaller cases hard coded
+    // if(propAmount == 1) return "a0 a0 a0 a0 a0 a0";
+    // else if(propAmount == 2) return "a0 a0 a0 a1 a1 a1";
+    // else if(propAmount == 3) return "a0 a0 a0 a1 a1 a1 | a2 a2 a2 a2 a2 a2";
+    // else if(propAmount == 4) return "a0 a0 a0 a1 a1 a1 | a2 a2 a2 a3 a3 a3";
+    // else if(propAmount == 5) return "a0 a0 a1 a1 a2 a2 | a3 a3 a3 a4 a4 a4";
+    // else if(propAmount == 6) return "a0 a0 a1 a1 a2 a2 | a3 a3 a3 a4 a4 a4 | a5 a5 a5 a5 a5 a5";
+
+
+
+
   }
 
   getStyleOfCard(index: number) {
