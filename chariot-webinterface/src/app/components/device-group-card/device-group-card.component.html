@@ -1,4 +1,7 @@
-<div class="device-group-card">
+<div class="device-group-card"
+     [ngClass]="{
+          'selected': selected_device_group == device_group
+        }" >
   <div class="device-card-oval">
     <div class="device-card-indicator" *ngIf="deviceIssueState == true"></div>
     <mat-icon class="device-card-icon">{{symbol}}</mat-icon>

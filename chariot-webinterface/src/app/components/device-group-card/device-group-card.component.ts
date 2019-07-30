@@ -10,6 +10,7 @@ import {Device} from '../../../model/device';
 export class DeviceGroupCardComponent implements OnInit {
 
   @Input() device_group: DeviceGroup;
+  @Input() selected_device_group: DeviceGroup;
 
   @Output() device_group_selected = new EventEmitter<{device_group : DeviceGroup}>();
 

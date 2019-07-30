@@ -123,7 +123,8 @@
                  *ngFor="let device_group of visibleDeviceGroups">
               <app-device-group-card
                 (device_group_selected)="newDeviceGroupSelected($event.device_group)"
-                [device_group]="device_group">
+                [device_group]="device_group"
+                [selected_device_group]="selectedDeviceGroup">
               </app-device-group-card>
               <div class="device-group-devices"
                    *ngIf="device_group.visible">

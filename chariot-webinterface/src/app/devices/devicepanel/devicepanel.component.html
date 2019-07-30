@@ -31,8 +31,8 @@
     <div [ngSwitch]="property['type']" *ngFor="let property of device.properties; let i = index"
          fxFlex="1 1 auto">
       <app-device-panel-switch
-        (uploaded)="emitDeviceProperty($event.property, $event.state)"
         *ngSwitchCase="'boolean'"
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
         fxFlex="1 1 calc({{getStyleOfCard(i)}} - 16px)"
         [property]="property">
       </app-device-panel-switch>
