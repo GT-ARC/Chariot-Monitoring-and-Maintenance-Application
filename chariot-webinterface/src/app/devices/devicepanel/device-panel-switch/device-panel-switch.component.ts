@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Device} from "../../../../model/device";
+import {Device, Property} from '../../../../model/device';
 
 @Component({
   selector: 'app-device-panel-switch',
@@ -15,18 +15,11 @@ export class DevicePanelSwitchComponent implements OnInit {
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
   cardName: string;
 
-  @Input() property: {
-    name: string
-    value: {
-      value: any;
-      min_value?: any;
-      max_value?: any;
-    }
-  };
+  @Input() property: Property;
 
   emitDevicePower(switchState: any) {
     if (this.device == null)
-      this.uploaded.emit({property: this.property.name, state: switchState});
+      this.uploaded.emit({property: this.property.key, state: switchState});
     else
       this.uploaded.emit({property: "device_power", state: switchState});
 
@@ -35,7 +28,7 @@ export class DevicePanelSwitchComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.cardName = this.device == null ? this.property.name : 'switch on/off';
+    this.cardName = this.device == null ? (this.property.name == undefined ? this.property.key : this.property.name) : 'switch on/off';
   }
 
 }

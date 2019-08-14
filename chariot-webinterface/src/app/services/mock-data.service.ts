@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 
 import {Location} from '../../model/location';
-import {Device} from '../../model/device';
+import {Device, Property} from '../../model/device';
 import {Floor} from '../../model/floor';
 
 import * as faker from 'faker';
@@ -118,96 +118,158 @@ export class MockDataService {
   /**
    * Create the array of device properties with random values set
    */
-  static createDeviceProperties(): {
-    name: string,
-    topic: string,
-    value: {
-      value: any,
-      description?: string,
-      unit?: string,
-      min_value?: any,
-      max_value?: any
-    }
-  }[] {
+  static createDeviceProperties(): Property [] {
     return [
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'number',
         name: 'Sensitivity',
-        topic: 'exampleData1',
-        value: {
-          value: Math.random(),
-          unit: '%',
-          min_value: 0,
-          max_value: 1,
-        }
+        key: 'sensitivity',
+        value: this.getRandValue(1, 100),
+        unit: '%',
+        min_value: 0,
+        max_value: 100,
+        writable: true
       },
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'number',
         name: 'Measurement schedule',
-        topic: 'exampleData1',
-        value: {
-          value: Math.floor(Math.random() * 100),
-          unit: 'sec',
-          min_value: 0,
-          max_value: 100,
-        }
+        key: 'measurementSchedule',
+        value: this.getRandValue(1, 100),
+        unit: 'sec',
+        min_value: 0,
+        max_value: 100,
+        writable: true
       },
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'number',
         name: 'Accuracy',
-        topic: 'exampleData1',
-        value: {
-          value: Math.random(),
-          unit: '°',
-          min_value: 0,
-          max_value: 1,
-        }
+        key: 'accuracy',
+        value: this.getRandValue(1, 360),
+        unit: '°',
+        min_value: 0,
+        max_value: 360,
+        writable: true
       },
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'boolean',
         name: 'Security Measurement',
-        topic: '',
-        value: {
-          value: Math.random() > 0.5
-        }
+        key: 'securityMeasurement',
+        writable: true,
+        value: Math.random() > 0.5
       },
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'boolean',
         name: 'Log',
-        topic: '',
-        value: {
-          value: Math.random() > 0.5
-        }
+        key: 'log',
+        writable: true,
+        value: Math.random() > 0.5
       },
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'string',
         name: 'Name',
-        topic: '',
-        value: {
-          value: faker.name.firstName() + ' ' + faker.name.lastName(),
-          description: 'First Name + Last Name'
-        }
+        key: 'name',
+        writable: true,
+        value: faker.name.firstName() + ' ' + faker.name.lastName()
       },
       {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'string',
         name: 'Destination',
-        topic: '',
-        value: {
-          value: faker.address.streetAddress(true),
-          description: 'Adress'
-        }
+        key: 'destination',
+        writable: true,
+        value: faker.address.streetAddress(true)
       },
+      {
+        timestamp: new Date().valueOf(),
+        topic: 'exampleData' + this.getRandValue(1, 3),
+        type: 'array',
+        name: 'Continuous Speed Request',
+        key: 'contSpeedReq',
+        unit: '°',
+        writable: true,
+        value: [
+          {
+            timestamp:  new Date().valueOf(),
+            name: "starting_speed",
+            key: "starting_speed",
+            type: "number",
+            value: 5.0,
+            unit: "",
+            writable: true
+          },
+          {
+            timestamp:  new Date().valueOf(),
+            name: "ending_speed",
+            key: "ending_speed",
+            type: "number",
+            value: 35.0,
+            unit: "",
+            min_value: 1,
+            max_value: 100,
+            writable: true
+          },
+          {
+            timestamp:  new Date().valueOf(),
+            name: "numberofsteps",
+            key: "numberofsteps",
+            type: "number",
+            value: 30.0,
+            unit: "",
+            min_value: 1,
+            max_value: 100,
+            writable: true
+          },
+          {
+            timestamp:  new Date().valueOf(),
+            name: "step_time",
+            key: "step_time",
+            type: "number",
+            value: 2.0,
+            unit: "",
+            min_value: 0.5,
+            max_value: 5,
+            writable: true
+          }
+        ]
+      }
     ];
   }
 
   /**
    * Creates mock device properties
    */
-  static createMockDeviceProperties():  { name: string, topic: string, value: { value: any } }[] {
+  static createMockDeviceProperties():  Property[] {
     // Get mock device properties
     let mockDeviceProperties = MockDataService.createDeviceProperties();
 
-    let retDeviceProperties: { name: string, topic: string, value: { value: any } }[] = [];
-    let devicePropertyAmount = Math.ceil(Math.random() * 5);
+    // if(this['log1'] == undefined) {
+    //   console.log(mockDeviceProperties);
+    //   this['log1'] = true;
+    // }
+
+    let retDeviceProperties: Property[] = [];
+    let devicePropertyAmount = this.getRandValue(1, 4);
     for (let i = 0; i < devicePropertyAmount; i++) {
-      let element = Math.floor(Math.random() * mockDeviceProperties.length);
+      let element = this.getRandValue(0, mockDeviceProperties.length - 1);
       let deviceProperty = mockDeviceProperties.splice(element, 1).pop();
-      deviceProperty['type'] = typeof (deviceProperty.value.value);
       retDeviceProperties.push(deviceProperty);
     }
+
+    // console.log(retDeviceProperties);
+
     return retDeviceProperties;
   }
 

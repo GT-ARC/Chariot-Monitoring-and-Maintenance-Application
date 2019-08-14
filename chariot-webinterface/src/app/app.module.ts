@@ -62,6 +62,7 @@ import { ClickableTextComponent } from './components/clickable-text/clickable-te
 import {FormsModule} from '@angular/forms';
 import { DataGraphComponent } from './components/data-graph/data-graph.component';
 import { DeviceGroupCardComponent } from './components/device-group-card/device-group-card.component';
+import { PropertyBundleComponent } from './components/property-bundle/property-bundle.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { DeviceGroupCardComponent } from './components/device-group-card/device-
     ClickableTextComponent,
     DataGraphComponent,
     DeviceGroupCardComponent,
+    PropertyBundleComponent,
   ],
   imports: [
     BrowserModule,

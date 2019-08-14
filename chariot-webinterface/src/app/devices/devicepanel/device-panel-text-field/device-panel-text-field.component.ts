@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {state} from "@angular/animations";
+import {Property} from '../../../../model/device';
 
 @Component({
   selector: 'app-device-panel-text-field',
@@ -11,15 +12,7 @@ import {state} from "@angular/animations";
 })
 export class DevicePanelTextFieldComponent implements OnInit {
 
-  @Input() property: {
-    name: string
-    value: {
-      value: any;
-      unit?: string;
-      min_value?: any;
-      max_value?: any;
-    }
-  };
+  @Input() property: Property;
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
 
@@ -30,7 +23,7 @@ export class DevicePanelTextFieldComponent implements OnInit {
 
   emitProperty($event: any) {
     if ($event.key == "Enter") {
-      this.property.value.value = $event.target.value;
+      this.property.value = $event.target.value;
       this.uploaded.emit({property: this.property.name, state: $event.target.value})
     }
   }

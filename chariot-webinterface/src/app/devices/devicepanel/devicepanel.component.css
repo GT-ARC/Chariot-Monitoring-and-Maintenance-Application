@@ -56,6 +56,7 @@
 }
 
 #device-panel-wrapper {
+  max-width: 900px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -84,4 +85,21 @@
   font-weight: 400;
   letter-spacing: 1.21px;
   text-align: left;
+}
+
+
+#property-bundle-icon {
+  margin-right: 16px;
+  font-size: 42px;
+  vertical-align: middle;
+  transform: translateY(-60%);
+}
+
+#property-bundle-name {
+  display: inline-block;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-weight: 300;
+  text-align: left;
+  font-size: 28px;
 }

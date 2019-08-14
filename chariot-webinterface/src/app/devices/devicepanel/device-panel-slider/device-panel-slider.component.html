@@ -1,5 +1,5 @@
 <div id="device-panel-slider" class="device-panel-card">
-  <p class="device-panel-title">{{property.name}}</p>
+  <p class="device-panel-title">{{property.name == undefined ? property.key : property.name}}</p>
   <div id="accuracy-arrows">
     <mat-icon id="up" (click)="this.accuracy = this.accuracy + 1">keyboard_arrow_up</mat-icon>
     {{accuracy}}
@@ -10,24 +10,24 @@
       [color]="'#2E384D'"
       [size]="48"
       [accuracy]="accuracy"
-      [text]="property.value.value"
-      [min]="property.value.min_value"
-      [max]="property.value.max_value"
+      [text]="property.value"
+      [min]="property.min_value"
+      [max]="property.max_value"
       (eventEmitter)="applyValueChange($event.value)">
     </app-clickable-text>
-    <span class="unit" *ngIf="property.value.unit.length > 1"> {{property.value.unit}}</span>
-    <span *ngIf="property.value.unit.length == 1">{{property.value.unit}}</span>
+    <span class="unit" *ngIf="property.unit.length > 1"> {{property.unit}}</span>
+    <span *ngIf="property.unit.length == 1">{{property.unit}}</span>
   </p>
 
   <app-clickable-text
     id="slider-min"
     [color]="'#8798AD'"
     [size]="14"
-    [(ngModel)]="property.value.min_value"
+    [(ngModel)]="property.min_value"
     name="property.value.min_value"
     ngDefaultControl
-    [text]="property.value.min_value"
-    (eventEmitter)="property.value.min_value = $event.value;">
+    [text]="property.min_value"
+    (eventEmitter)="property.min_value = $event.value;">
   </app-clickable-text>
 
   <app-clickable-text
@@ -36,16 +36,16 @@
     [size]="14"
     name="property.value.max_value"
     ngDefaultControl
-    [(ngModel)]="property.value.max_value"
-    [text]="property.value.max_value"
-    (eventEmitter)="property.value.max_value = $event.value;">
+    [(ngModel)]="property.max_value"
+    [text]="property.max_value"
+    (eventEmitter)="property.max_value = $event.value;">
   </app-clickable-text>
 
   <mat-slider
-    min="{{property.value.min_value}}"
-    max="{{property.value.max_value}}"
+    min="{{property.min_value}}"
+    max="{{property.max_value}}"
     step="{{accuracy == 0 ? 1 : 1 / math.pow(10,accuracy)}}"
-    value="{{property.value.value}}"
+    value="{{property.value}}"
     thumbLabel="true"
     (change)="changeValue($event)"
     tickInterval="false">

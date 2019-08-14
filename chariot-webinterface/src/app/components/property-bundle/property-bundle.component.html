@@ -1,0 +1,44 @@
+<div id="property-bundle-head">
+  <mat-icon
+    (click)="open = !open"
+    class="sort-arrow">{{open ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
+  <div id="property-bundle-name">
+    {{ property.name == undefined ? property.key : property.name }}
+  </div>
+  <button
+    id="property-bundle-button"
+    mat-raised-button
+    color="primary"
+    (click)="send()">Send Data</button>
+</div>
+
+<div
+  *ngIf="open"
+  gdAlignColumns="start start"
+
+  gdAreas="{{currentArea}}"
+  gdColumns="calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px)"
+
+  gdAuto="row"
+  gdGap="16px">
+
+  <div [ngSwitch]="property['type']"
+       *ngFor="let property of propertyBundle; let i = index"
+       gdArea="a{{i}}">
+
+    <app-device-panel-switch
+      *ngSwitchCase="'boolean'"
+      [property]="property">
+    </app-device-panel-switch>
+
+    <app-device-panel-slider
+      *ngSwitchCase="'number'"
+      [property]="property">
+    </app-device-panel-slider>
+
+    <app-device-panel-text-field
+      *ngSwitchCase="'string'"
+      [property]="property">
+    </app-device-panel-text-field>
+  </div>
+</div>

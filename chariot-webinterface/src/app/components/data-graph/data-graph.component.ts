@@ -64,8 +64,7 @@ export class DataGraphComponent implements OnInit {
     if('topic' in changes){
       this.deviceUpdateService.unSubscribeOfTopic(changes['topic'].previousValue);
       this.currentDataReceiver = null;
-      this.getData()
-      console.log("Data Changed")
+      this.getData();
     }
   }
 

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import 'hammerjs';
 import {MatSliderChange} from '@angular/material';
 import {isNumber} from 'util';
+import {Property} from '../../../../model/device';
 
 @Component({
   selector: 'app-device-panel-slider',
@@ -13,15 +14,7 @@ import {isNumber} from 'util';
 })
 export class DevicePanelSliderComponent implements OnInit {
 
-  @Input() property: {
-    name: string
-    value: {
-      value: any;
-      unit?: string;
-      min_value?: any;
-      max_value?: any;
-    }
-  };
+  @Input() property: Property;
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
   public accuracy = 2;
@@ -30,26 +23,26 @@ export class DevicePanelSliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (this.property.value.value.toString().indexOf('.') === -1) {
+    if (this.property.value.toString().indexOf('.') === -1) {
       this.accuracy = 0;
     }
   }
 
   changeValue($event: MatSliderChange) {
-    this.property.value.value = $event.value;
-    this.uploaded.emit({property: this.property.name, state: $event.value});
+    this.property.value = $event.value;
+    this.uploaded.emit({property: this.property.key, state: $event.value});
   }
 
   emitValue(value: any) {
-    if(value != this.property.value.value)
+    if(value != this.property.value)
       this.uploaded.emit({property: this.property.name, state: value});
   }
 
   applyValueChange(value: any) {
     if(!isNaN(Number(value))){
-      if(Number(value) <= this.property.value.max_value && Number(value) >= this.property.value.min_value){
+      if(Number(value) <= this.property.max_value && Number(value) >= this.property.min_value){
         this.emitValue(Number(value));
-        this.property.value.value = value;
+        this.property.value = value;
       }
     }
   }

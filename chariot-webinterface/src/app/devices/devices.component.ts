@@ -404,7 +404,7 @@ export class DevicesComponent implements OnInit {
     // deviceGroup.devices.reduce((acc, prev) => acc.concat(prev.properties), []);
 
 
-    let tempDevice = new Device(
+    let tempDevice = new Device (
       -1,
       deviceGroup.name,
       null, power_state,
@@ -417,6 +417,7 @@ export class DevicesComponent implements OnInit {
       deviceGroup.devices[0].prediction);
 
     tempDevice.properties = combined_properties;
+    tempDevice.deviceGroup = true;
 
     this.selectedDeviceGroup = deviceGroup;
     this.selectedDevice = tempDevice;

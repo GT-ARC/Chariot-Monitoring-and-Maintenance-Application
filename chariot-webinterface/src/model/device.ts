@@ -1,9 +1,9 @@
-import {Location} from "./location";
 import {Issue} from "./issue";
-import {run} from "tslint/lib/runner";
 
 export class Device {
   identifier: number;
+
+  deviceGroup: boolean = false;
 
   name: string;
   symbol: symbol;
@@ -11,17 +11,7 @@ export class Device {
   power_state: boolean;
   power_consumption: number;
 
-  properties: {
-    name: string;
-    topic: string;
-    value: {
-      value: any;
-      description?: string;
-      unit?: string;
-      min_value?: any;
-      max_value?: any;
-    };
-  }[];
+  properties: Property [];
 
   running: number;
   down_time: number;
@@ -74,4 +64,19 @@ export class Device {
   hasIssue(): number {
     return this.issues.reduce((prev, curr) => curr.state == false ? prev + 1 : prev, 0)
   }
+}
+
+export class Property {
+
+  timestamp: number;
+  topic?: string;
+  type: string;
+  name?: string;
+  key: string;
+  value: number | string | boolean | Property[];
+  min_value?: any;
+  max_value?: any;
+  unit?: string;
+  writable: boolean;
+
 }

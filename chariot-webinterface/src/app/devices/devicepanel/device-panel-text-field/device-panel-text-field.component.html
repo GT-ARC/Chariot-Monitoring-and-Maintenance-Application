@@ -1,12 +1,9 @@
 <div id="device-panel-text-field" class="device-panel-card">
-  <p class="device-panel-title">{{property.name}}</p>
-  <p id="description">
-    {{property.value.description}}
-  </p>
+  <p class="device-panel-title">{{property.name == undefined ? property.key : property.name}}</p>
   <label>
     <input id="text-field"
-           placeholder="{{property.name}}"
-           value="{{property.value.value}}"
+           placeholder="{{property.name == undefined ? property.key : property.name}}"
+           value="{{property.value}}"
            (keypress)="emitProperty($event)">
   </label>
 </div>
