@@ -99,33 +99,14 @@ export class DevicepanelComponent implements OnInit {
   getArea(event) {
     if(window.innerWidth < 500){
       this.propertyArea =  this.areaXS;
-      this.currentArea = "a0 | a1 | a2 | a3 | a4";
-      for(let i = 0; i < this.arrayProperties.length + 3; i++){
-        this.currentArea += "| a" + (i + 5);
-      }
-      this.currentColumns = "calc(100% - 16px)";
     }
     else if(window.innerWidth < 900){
       this.propertyArea =  this.areaSD;
-      this.currentArea = "a0 a2 | a1 | a3 a4";
-      for(let i = 0; i < this.arrayProperties.length + 3; i++){
-        this.currentArea += "| a" + (i + 5);
-      }
-      this.currentColumns = "calc(35% - 16px) calc(67% - 16px) | calc(100% - 16px) | calc(35% - 16px) calc(67% - 16px)"
-        + " | calc(100% - 16px)".repeat(this.arrayProperties.length + 20);
     }
     else {
       this.propertyArea = this.areaMD;
-      this.currentArea = "a0 a1 a2 | a3  a4";
-      for(let i = 0; i < this.arrayProperties.length + 3; i++){
-        this.currentArea += "| a" + (i + 5);
-      }
-      this.currentColumns = "calc(29% - 16px) calc(42% - 16px) calc(29% - 16px) | calc(29% - 16px) calc(42% - 16px)"
-        + " | calc(100% - 16px)".repeat(this.arrayProperties.length + 20);
     }
 
-    console.log(this.currentArea);
-    console.log(this.currentColumns);
     // console.log("Current Area", this.propertyArea)
   }
 

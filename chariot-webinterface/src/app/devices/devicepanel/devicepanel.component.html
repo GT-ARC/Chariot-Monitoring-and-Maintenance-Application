@@ -1,67 +1,40 @@
-<div id="device-panel">
+<div id="device-panel" fxLayout="row wrap" fxLayoutAlign="flex-start">
 
-  <div id="device-panel-head"
+  <span id="device-panel-head"
         fxFlex="0 1 calc(100%)">
     <span>{{device.name}}</span>
     <button *ngIf="!issueState" class="issue-detected-button" routerLink="/maintenance/{{device.getIssueID()}}">
       Issue detected
       <mat-icon>launch</mat-icon>
     </button>
-  </div>
+  </span>
 
-  <div id="device-panel-wrapper"
+  <div id="device-panel-wrapper" fxFlex="0 1 900px" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="flex-start">
 
-       gdAlignColumns="start start"
+    <app-device-panel-switch
+      (uploaded)="emitDeviceProperty($event.property, $event.state)"
+      fxFlex="1 1 calc(264px)"
+      [device]="device"></app-device-panel-switch>
 
-       gdAreas="{{currentArea}}"
-       gdColumns="{{currentColumns}}"
+    <app-device-panel-power
+      fxFlex="1 1 calc(343px)"
+      [device]="device">
+    </app-device-panel-power>
 
-       gdAuto="row"
-       gdGap="16px">
+    <app-device-panel-idle-time
+      fxFlex="1 1 calc(264px)"
+      [device]="device">
+    </app-device-panel-idle-time>
 
-    <div gdArea="a0">
-      <app-device-panel-switch
-        *ngIf="!device.deviceGroup"
-        (uploaded)="emitDeviceProperty($event.property, $event.state)"
-        [device]="device"></app-device-panel-switch>
-    </div>
-
-    <div gdArea="a1">
-      <app-device-panel-power
-        *ngIf="!device.deviceGroup"
-        [device]="device">
-      </app-device-panel-power>
-    </div>
-
-    <div gdArea="a2">
-      <app-device-panel-idle-time
-        *ngIf="!device.deviceGroup"
-        [device]="device">
-      </app-device-panel-idle-time>
-    </div>
-
-    <div gdArea="a3">
-      <app-device-panel-info
-        [device]="device"
-        gdArea="a3">
-      </app-device-panel-info>
-    </div>
-
-    <div gdArea="a4">
-      <app-device-panel-issue-history
-        [device]="device">
-      </app-device-panel-issue-history>
-    </div>
-
-    <div *ngFor="let property of arrayProperties; let c = index"
-         gdArea="a{{c}}">
+    <div *ngFor="let property of arrayProperties"
+         fxFlex="1 1 calc(100% - 16px)">
       <app-property-bundle
         (uploaded)="emitDeviceProperty($event.property, $event.state)"
-        [property]="property">
+        [property]="property">s
       </app-property-bundle>
     </div>
 
-    <div gdArea="a{{arrayProperties.length + 5}}">
+    <div fxFlex="1 1 calc(100% - 16px)">
       <mat-icon id="property-bundle-icon"
         (click)="property_open = !property_open"
         class="sort-arrow">{{property_open ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
@@ -72,7 +45,7 @@
 
     <!--  Create the cards for the properties of the device  -->
     <div
-      gdArea="a{{arrayProperties.length + 6}}"
+      fxFlex="1 1 calc(100% - 16px)"
       *ngIf="property_open"
       gdAlignColumns="start start"
 
@@ -107,14 +80,23 @@
       </div>
     </div>
 
+    <app-device-panel-info
+      [device]="device"
+      fxFlex="1 1 calc(60% - 16px)">
+    </app-device-panel-info>
+
+    <app-device-panel-issue-history
+      [device]="device"
+      fxFlex="1 1 calc(40% - 16px)">
+    </app-device-panel-issue-history>
+
     <app-device-panel-monitoring
-      gdArea="a{{arrayProperties.length + 7}}"
-      [device]="device">
+      [device]="device"
+      fxFlex="1 1 calc(100% - 16px)">
     </app-device-panel-monitoring>
 
     <app-warehouse-map
-      gdArea="a{{arrayProperties.length + 8}}">
-
+      fxFlex="1 1 calc(100% - 16px)">
     </app-warehouse-map>
 
   </div>
