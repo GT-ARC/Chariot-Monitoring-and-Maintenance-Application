@@ -130,7 +130,7 @@ export class MockDataService {
         unit: '%',
         min_value: 0,
         max_value: 100,
-        writable: true
+        writable: Math.random() > 0.5
       },
       {
         timestamp: new Date().valueOf(),
@@ -142,7 +142,7 @@ export class MockDataService {
         unit: 'sec',
         min_value: 0,
         max_value: 100,
-        writable: true
+        writable: Math.random() > 0.5
       },
       {
         timestamp: new Date().valueOf(),
@@ -154,7 +154,7 @@ export class MockDataService {
         unit: '°',
         min_value: 0,
         max_value: 360,
-        writable: true
+        writable: Math.random() > 0.5
       },
       {
         timestamp: new Date().valueOf(),
@@ -162,7 +162,7 @@ export class MockDataService {
         type: 'boolean',
         name: 'Security Measurement',
         key: 'securityMeasurement',
-        writable: true,
+        writable: Math.random() > 0.5,
         value: Math.random() > 0.5
       },
       {
@@ -171,7 +171,7 @@ export class MockDataService {
         type: 'boolean',
         name: 'Log',
         key: 'log',
-        writable: true,
+        writable: Math.random() > 0.5,
         value: Math.random() > 0.5
       },
       {
@@ -180,7 +180,7 @@ export class MockDataService {
         type: 'string',
         name: 'Name',
         key: 'name',
-        writable: true,
+        writable: Math.random() > 0.5,
         value: faker.name.firstName() + ' ' + faker.name.lastName()
       },
       {
@@ -189,7 +189,7 @@ export class MockDataService {
         type: 'string',
         name: 'Destination',
         key: 'destination',
-        writable: true,
+        writable: Math.random() > 0.5,
         value: faker.address.streetAddress(true)
       },
       {
@@ -199,7 +199,7 @@ export class MockDataService {
         name: 'Continuous Speed Request',
         key: 'contSpeedReq',
         unit: '°',
-        writable: true,
+        writable: Math.random() > 0.5,
         value: [
           {
             timestamp:  new Date().valueOf(),
@@ -208,7 +208,7 @@ export class MockDataService {
             type: "number",
             value: 5.0,
             unit: "",
-            writable: true
+            writable: Math.random() > 0.5
           },
           {
             timestamp:  new Date().valueOf(),
@@ -219,7 +219,7 @@ export class MockDataService {
             unit: "",
             min_value: 1,
             max_value: 100,
-            writable: true
+            writable: Math.random() > 0.5
           },
           {
             timestamp:  new Date().valueOf(),
@@ -230,7 +230,7 @@ export class MockDataService {
             unit: "",
             min_value: 1,
             max_value: 100,
-            writable: true
+            writable: Math.random() > 0.5
           },
           {
             timestamp:  new Date().valueOf(),
@@ -241,7 +241,7 @@ export class MockDataService {
             unit: "",
             min_value: 0.5,
             max_value: 5,
-            writable: true
+            writable: Math.random() > 0.5
           }
         ]
       }

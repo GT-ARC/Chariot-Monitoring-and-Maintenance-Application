@@ -18,6 +18,7 @@ export class ClickableTextComponent implements OnInit {
   @Input() text: string;
   @Input() size: number;
   @Input() color: string;
+  @Input() enabled: boolean;
 
 
   @Input() min?: number;

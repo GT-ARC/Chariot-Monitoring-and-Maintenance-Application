@@ -7,16 +7,19 @@
   </div>
   <p id="property_value">
     <app-clickable-text
-      [color]="'#2E384D'"
+      [color]="property.writable ? '#2E384D' : '#8798AD'"
       [size]="48"
       [accuracy]="accuracy"
       [text]="property.value"
       [min]="property.min_value"
       [max]="property.max_value"
+      [enabled]="property.writable"
       (eventEmitter)="applyValueChange($event.value)">
     </app-clickable-text>
-    <span class="unit" *ngIf="property.unit.length > 1"> {{property.unit}}</span>
-    <span *ngIf="property.unit.length == 1">{{property.unit}}</span>
+    <span class="unit" *ngIf="property.unit.length > 1"
+          [ngStyle]="{color : property.writable ? '#2E384D' : '#8798AD'}"> {{property.unit}}</span>
+    <span *ngIf="property.unit.length == 1"
+          [ngStyle]="{color : property.writable ? '#2E384D' : '#8798AD'}">{{property.unit}}</span>
   </p>
 
   <app-clickable-text
@@ -27,6 +30,7 @@
     name="property.value.min_value"
     ngDefaultControl
     [text]="property.min_value"
+    [enabled]="property.writable"
     (eventEmitter)="property.min_value = $event.value;">
   </app-clickable-text>
 
@@ -38,6 +42,7 @@
     ngDefaultControl
     [(ngModel)]="property.max_value"
     [text]="property.max_value"
+    [enabled]="property.writable"
     (eventEmitter)="property.max_value = $event.value;">
   </app-clickable-text>
 
@@ -48,6 +53,7 @@
     value="{{property.value}}"
     thumbLabel="true"
     (change)="changeValue($event)"
-    tickInterval="false">
+    tickInterval="false"
+    [disabled]="!property.writable">
   </mat-slider>
 </div>

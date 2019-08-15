@@ -20,3 +20,7 @@
   white-space: nowrap;
   border: 1px red solid;
 }
+
+input[type="text"]:disabled {
+  background: transparent;
+}

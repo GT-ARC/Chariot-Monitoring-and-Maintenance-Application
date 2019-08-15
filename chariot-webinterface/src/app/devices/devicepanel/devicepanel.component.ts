@@ -92,8 +92,6 @@ export class DevicepanelComponent implements OnInit {
   }
 
   propertyArea = null;
-  currentArea = null;
-  currentColumns = null;
 
   @HostListener('window:resize', ['$event'])
   getArea(event) {

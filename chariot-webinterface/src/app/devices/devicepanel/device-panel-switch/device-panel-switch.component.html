@@ -4,8 +4,10 @@
   <label class="switch-big">
     <input type="checkbox"
            (change)="emitDevicePower($event.target.checked)"
-           [checked]="device == null ? property.value : device.power_state">
-    <span class="slider round"></span>
+           [attr.checked]="device == null ? property.value : device.power_state"
+           [attr.disabled]="device == null ? (!property.writable ? '' : null) : null">
+    <span class="slider round"
+          [ngStyle]="{backgroundColor: device == null && !property.writable ? 'grey' : null }"></span>
   </label>
   <p id="on">ON</p>
 </div>

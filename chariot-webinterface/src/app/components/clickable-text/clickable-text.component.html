@@ -2,7 +2,7 @@
      matTooltip="{{text}}"
      matTooltipPosition="above">
   <input id="input-field"
-         (click)="active = true"
+         (click)="enabled ? active = true : null"
          type="text"
          [ngStyle]="{
             'font-size': size + 'px',
@@ -16,7 +16,8 @@
          ngDefaultControl
          (keydown)="submitValue($event)"
          (focusout)="focusEvent($event)"
-         [value]="visibleText">
+         [value]="visibleText"
+         [attr.disabled]="!enabled ? '' : null">
 </div>
 
 <div #invisibleText
