@@ -116,3 +116,4 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+test-devices/target/
