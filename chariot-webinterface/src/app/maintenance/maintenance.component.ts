@@ -57,7 +57,7 @@ export class MaintenanceComponent implements OnInit {
       if (routing.charAt(0) == 'i')
         id = +routing.slice(1, routing.length);
       else {
-        let issueDevice = this.devices.find(value => value.identifier == +routing);
+        let issueDevice = this.devices.find(value => value.identifier == routing);
         if (issueDevice != undefined && issueDevice.issues.length != 0) {
           id = issueDevice.issues[0].identifier;
         }

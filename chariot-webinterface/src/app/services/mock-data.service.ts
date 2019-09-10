@@ -22,6 +22,8 @@ export class MockDataService {
   devices: Device[] = [];
   deviceGroup: DeviceGroup[] = [];
 
+  mockDevices: Device[] = [];
+
   processes: ProductProcess[] = [];
   container: Container[] = [];
 
@@ -268,6 +270,16 @@ export class MockDataService {
       retDeviceProperties.push(deviceProperty);
     }
 
+    // Each device has the status property displaying the power state of the device if its turned on or off
+    retDeviceProperties.push({
+      timestamp:  new Date().valueOf(),
+      name: "Power Consumption",
+      key: "status",
+      type: "boolean",
+      value: Math.random() > 0.5,
+      writable: Math.random() > 0.5
+    });
+
     // console.log(retDeviceProperties);
 
     return retDeviceProperties;
@@ -282,7 +294,7 @@ export class MockDataService {
     let device_data_size = Math.round(Math.random() * 500) + 10;
     let dataEndTime: number = Date.now().valueOf();
     let dataValue: number = Math.random() * 100;
-    let timeInterval = Math.floor(Math.random() * 86400000 / 10);
+    let timeInterval = Math.floor(Math.random() * 86400000);
     let valueInterval = Math.random() * 20 + 5;
     let device_data: { y: number, x: number }[] = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
 
@@ -291,10 +303,9 @@ export class MockDataService {
     MockDataService.deviceIdentifier++;
     let predictionSize = Math.round(Math.random() * 5) + 5;
     let retDevice = new Device (
-      MockDataService.deviceIdentifier,                         // Identifier
+      MockDataService.deviceIdentifier + "",                         // Identifier
       'Device ' + MockDataService.deviceIdentifier,      // Name
       null,                                             // Symbol
-      Math.random() >= 0.2,                         // Power state
       Math.floor(Math.random() * 10000) / 100,
       Math.floor(Math.random() * 200 + 50),
       Math.floor(Math.random() * 50),
@@ -326,25 +337,34 @@ export class MockDataService {
     return retDevice;
   }
 
-  static deviceCroupIdentifier: number = 0;
+  static deviceGroupIdentifier: number = 0;
 
   /**
    * Create Devices
    */
   createDevices(): void {
+    // Create device groups
     for (let i = 0; i < 50; i++) {
 
-      let dgi = MockDataService.deviceCroupIdentifier;
+      let dgi = MockDataService.deviceGroupIdentifier;
 
       let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi, "Device Group: " + dgi);
       let randomDeviceAmountPerGroup = MockDataService.getRandValue(1, 5);
 
       for(let c = 0; c < randomDeviceAmountPerGroup; c++) {
-        newDeviceGroup.addDevice(MockDataService.createDevice());
+        let newDevice = MockDataService.createDevice();
+        newDevice.deviceGroupObj = newDeviceGroup;
+        newDeviceGroup.addDevice(newDevice);
       }
 
-      MockDataService.deviceCroupIdentifier++;
+
+      MockDataService.deviceGroupIdentifier++;
       this.deviceGroup.push(newDeviceGroup);
+    }
+
+    // Create some individual devices
+    for(let i = 0; i < 50; i++) {
+      this.mockDevices.push(MockDataService.createDevice());
     }
   }
 
@@ -352,26 +372,39 @@ export class MockDataService {
    * Create the locations of the devices
    */
   createLocations(): void {
+    let devGroupIndex = 0;
     let devIndex = 0;
     for (let i = 0; i < 20; i++) {
-      let randNumber = MockDataService.getRandValue(2, 3);
+
       let currLocation = new Location (
-        i,
+        i + "",
         null,
         Math.random() > 0.5 ? 'Room ' + i : 'Space ' + i,
         null
       );
 
-      if(randNumber + devIndex > this.deviceGroup.length)
-        return;
+      let randNumber = MockDataService.getRandValue(2, 3);
+      for(let c = 0; c < randNumber; c++) {
+        // Put individual devices and device groups into the location devices
+        if(Math.random() > 0.5) {
 
-      // Add a random amount
-      let currDeviceGroups = this.deviceGroup.slice(devIndex, devIndex + randNumber);
-      for(let currDeviceGroup of currDeviceGroups)
-        currLocation.addDeviceGroup(currDeviceGroup);
+          if(devIndex + 1 > this.mockDevices.length)
+            return;
 
+          currLocation.addDeviceGroup(this.mockDevices.pop());
+
+          devIndex += 1;
+        } else {
+
+          if(devIndex + 1 > this.deviceGroup.length)
+            return;
+
+          currLocation.addDeviceGroup(this.deviceGroup.pop());
+
+          devGroupIndex += 1;
+        }
+      }
       this.locations.push(currLocation);
-      devIndex = devIndex + randNumber;
     }
   }
 
@@ -743,11 +776,16 @@ export class MockDataService {
 
     // Do to the fact that not all devices and locations are used reduce the locations and device parameter to the actual used
     this.locations = this.floor.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
-    this.deviceGroup = this.floor.map(f =>
+
+    this.deviceGroup = <DeviceGroup[]> this.floor.map(f =>
       f.locations.map(l => l.devices).reduce((prev, curr) => prev.concat(curr), [])
-    ).reduce((prev, curr) => prev.concat(curr), []);
+    ).reduce((prev, curr) => prev.concat(curr), []).filter( elem => elem instanceof DeviceGroup);
+
+    // Ganz schöner quatsch hier. Guck dir das blos nicht an
     this.devices = this.floor.map(f =>
-        f.locations.map(l => l.devices.map(value => value.devices).reduce((prev, curr) => prev.concat(curr), [])
+      f.locations.map(l => (<DeviceGroup[]> l.devices.filter(elem => elem instanceof DeviceGroup)).map(value => value.devices)
+        .concat(f.locations.map(l => (<Device[]> l.devices.filter(elem => elem instanceof Device))))
+          .reduce((prev, curr) => prev.concat(curr), [])
       ).reduce((prev, curr) => prev.concat(curr), [])
     ).reduce((prev, curr) => prev.concat(curr), []);
 

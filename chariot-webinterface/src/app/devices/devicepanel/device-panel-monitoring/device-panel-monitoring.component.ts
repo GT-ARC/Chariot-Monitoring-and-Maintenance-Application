@@ -96,7 +96,9 @@ export class DevicePanelMonitoringComponent implements OnInit {
       return;
     const index = this.visibleDataPossibilities.indexOf(this.selectedVisibility);
     const value = this.visibleDataPossibilitiesNumbers[index];
-    this.visibleData = this.device.data.filter(dataPoint => dataPoint.x > value )
+    if(this.device.data)
+      this.visibleData = this.device.data.filter(dataPoint => dataPoint.x > value )
+    else this.visibleData = [];
   }
 
   private showMoreData() {

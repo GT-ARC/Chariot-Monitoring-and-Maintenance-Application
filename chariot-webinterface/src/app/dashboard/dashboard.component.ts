@@ -51,8 +51,8 @@ export class DashboardComponent implements OnInit {
       .reduce((previousValue, currentValue) => currentValue.concat(previousValue))
       .sort((a, b) => b.issue_date - a.issue_date);
 
-    this.classReference.onDevices = this.devices.reduce((prev, curr) => curr.power_state ? prev + 1 : prev, 0);
-    this.classReference.idleDevices = this.devices.reduce((prev, curr) => !curr.power_state && curr.hasIssue() == 0 ? prev + 1 : prev, 0);
+    this.classReference.onDevices = this.devices.reduce((prev, curr) => curr.properties.find(s => s.key == "status").value ? prev + 1 : prev, 0);
+    this.classReference.idleDevices = this.devices.reduce((prev, curr) => !curr.properties.find(s => s.key == "status").value && curr.hasIssue() == 0 ? prev + 1 : prev, 0);
     this.classReference.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
 
     this.classReference.fullDeviceAmount = this.classReference.onDevices + this.classReference.idleDevices + this.classReference.brokenDevices;
@@ -82,7 +82,8 @@ export class DashboardComponent implements OnInit {
   }
 
   changeDevicePowerState(device: Device, state: boolean) {
-    device.power_state = state
+    let property = device.properties.find(s => s.key === "status");
+    property.value = state;
   }
 
   public doughnutChartOptions: ChartOptions = {

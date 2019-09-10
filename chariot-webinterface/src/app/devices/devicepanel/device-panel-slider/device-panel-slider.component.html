@@ -5,9 +5,10 @@
     {{accuracy}}
     <mat-icon id="down" (click)="this.accuracy > 0 ? this.accuracy = this.accuracy - 1 : null">keyboard_arrow_down</mat-icon>
   </div>
-  <p id="property_value">
+  <p id="property_value"
+     [ngStyle]="{'padding-top': property.writable ? '12px' : '0px'}">
     <app-clickable-text
-      [color]="property.writable ? '#2E384D' : '#8798AD'"
+      [color]="!property.writable ? '#2E384D' : '#8798AD'"
       [size]="48"
       [accuracy]="accuracy"
       [text]="property.value"
@@ -16,10 +17,10 @@
       [enabled]="property.writable"
       (eventEmitter)="applyValueChange($event.value)">
     </app-clickable-text>
-    <span class="unit" *ngIf="property.unit.length > 1"
-          [ngStyle]="{color : property.writable ? '#2E384D' : '#8798AD'}"> {{property.unit}}</span>
-    <span *ngIf="property.unit.length == 1"
-          [ngStyle]="{color : property.writable ? '#2E384D' : '#8798AD'}">{{property.unit}}</span>
+    <span class="unit" *ngIf="property.unit && property.unit.length > 1"
+          [ngStyle]="{color : !property.writable ? '#2E384D' : '#8798AD'}"> {{property.unit}}</span>
+    <span *ngIf="property.unit && property.unit.length == 1"
+          [ngStyle]="{color : !property.writable ? '#2E384D' : '#8798AD'}">{{property.unit}}</span>
   </p>
 
   <app-clickable-text
@@ -47,13 +48,13 @@
   </app-clickable-text>
 
   <mat-slider
+    *ngIf="!property.writable"
     min="{{property.min_value}}"
     max="{{property.max_value}}"
     step="{{accuracy == 0 ? 1 : 1 / math.pow(10,accuracy)}}"
     value="{{property.value}}"
     thumbLabel="true"
     (change)="changeValue($event)"
-    tickInterval="false"
-    [disabled]="!property.writable">
+    tickInterval="false">
   </mat-slider>
 </div>

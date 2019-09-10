@@ -1,17 +1,18 @@
 import {DeviceGroup} from './deviceGroup';
+import {Device} from './device';
 
 export class Location {
 
-  public identifier: number;
+  public identifier: string;
   public type: String;
   public name: String;
   public position: {
     lat: number;
     lng: number;
   };
-  public devices: DeviceGroup[];
+  public devices: (Device | DeviceGroup) [];
 
-  constructor(identifier: number, type: String, name: String, position: { lat: number; lng: number }) {
+  constructor(identifier: string, type: String, name: String, position: { lat: number; lng: number }) {
     this.identifier = identifier;
     this.type = type;
     this.name = name;
@@ -19,7 +20,7 @@ export class Location {
     this.devices = [];
   }
 
-  public addDeviceGroup(deviceGroup: DeviceGroup): void {
+  public addDeviceGroup(deviceGroup: (Device | DeviceGroup)): void {
     this.devices.push(deviceGroup);
   }
 }

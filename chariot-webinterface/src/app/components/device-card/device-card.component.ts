@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Device} from "../../../model/device";
+import {Device, Property} from '../../../model/device';
 
 @Component({
   selector: 'app-device-card',
@@ -18,18 +18,30 @@ export class DeviceCardComponent implements OnInit {
 
   @Output() uploaded = new EventEmitter<{device: Device, state: boolean}>();
 
+  writable: boolean;
+  statusProperty : Property;
+
   ngOnChanges(changes: SimpleChanges) {
-    this.deviceIssueState = this.device.issues.reduce((prev, curr) => prev && curr.state, true);
+    this.statusProperty = this.device.properties.find( s => s.key == 'status');
+    this.writable = this.statusProperty.writable;
+    this.getIssueState();
   }
 
   emitDevicePower(device: Device, state: boolean) {
     this.uploaded.emit({device, state});
   }
 
+  getIssueState() {
+    if(this.device.issues)
+      this.deviceIssueState = this.device.issues.reduce((prev, curr) => prev && curr.state, true);
+    else
+      this.deviceIssueState = true;
+  }
+
   constructor() { }
 
   ngOnInit() {
-    this.deviceIssueState = this.device.issues.reduce((prev, curr) => prev && curr.state, true);
+    this.getIssueState();
   }
 
 }

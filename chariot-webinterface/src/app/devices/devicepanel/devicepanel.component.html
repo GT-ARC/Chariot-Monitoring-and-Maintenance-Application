@@ -14,7 +14,8 @@
     <app-device-panel-switch
       (uploaded)="emitDeviceProperty($event.property, $event.state)"
       fxFlex="1 1 calc(264px)"
-      [device]="device"></app-device-panel-switch>
+      [property]="deviceStatus">
+    </app-device-panel-switch>
 
     <app-device-panel-power
       fxFlex="1 1 calc(343px)"
@@ -55,7 +56,7 @@
       gdAuto="row"
       gdGap="16px">
 
-      <div [ngSwitch]="property.type"
+      <div [ngSwitch]="property.type.toLocaleLowerCase()"
            *ngFor="let property of normalProperties; let i = index"
            gdArea="a{{i}}">
 

@@ -9,6 +9,7 @@ import {Device} from '../../model/device';
 import {Floor} from '../../model/floor';
 import {MatSidenav} from '@angular/material';
 import {DeviceGroup} from '../../model/deviceGroup';
+import {RestService} from '../services/rest.service';
 
 @Component({
   selector: 'app-devices',
@@ -19,15 +20,16 @@ import {DeviceGroup} from '../../model/deviceGroup';
 })
 export class DevicesComponent implements OnInit {
 
-  floors: Floor[];        // Holds the fetched data of the floors
-  locations: Location[];  // Holds the fetched data of the locations
-  devices: Device[];      // Holds the fetched data of the devices
-  deviceGroups: DeviceGroup[];      // Holds the fetched data of the devices
+  floors: Floor[] = [];        // Holds the fetched data of the floors
+  locations: Location[] = [];  // Holds the fetched data of the locations
+  devices: Device[] = [];      // Holds the fetched data of the devices
+  deviceGroups: DeviceGroup[] = [];      // Holds the fetched data of the devices
 
   selectedFloors: Floor[] = [];       // Floors where all locations are selected
   selectedLocation: Location[] = [];  // Locations which devices should be visible
 
   visibleLocation: {} = {};      // Map of floors to filtered locations
+  visibleElements: (DeviceGroup | Device)[] = [];
   visibleDeviceGroups: DeviceGroup[] = []; // Array of displays to be displayed
   visibleDevice: Device[] = []; // Array of displays to be displayed
 
@@ -73,22 +75,42 @@ export class DevicesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private mockDataService: MockDataService,
-    private locationService: Locl
+    private locationService: Locl,
+    private restService: RestService
   ) {
   }
 
   ngOnInit() {
 
+    this.restService.getDeviceData().subscribe(data => {
+        let parsedData = this.restService.parseDeviceData(data as Array<any>);
+
+        let newFloor : Floor = {
+          identifier: Math.random().toString(36).substring(7),
+          name: 'Floor 11',
+          level: 11,
+          locations: parsedData.location,
+        };
+        this.floors.push(newFloor);
+        this.locations.concat(parsedData.location);
+        this.visibleLocation[newFloor.identifier] = newFloor.locations;
+
+        console.log(parsedData);
+      }
+    );
+
 
     // Get the mock data from the mock data service
     this.getMockData();
 
-    let selectDeviceGroup = this.getRoutedDevice();
+    let routedElement = this.getRoutedDevice();
+
+    console.log(this.floors);
 
     // Make the selected floor with the device group visible and push some random locations to be selected
     this.floors.forEach(floor => {
       for (let loc of floor.locations) {
-        if (loc.devices.indexOf(selectDeviceGroup) != -1) {
+        if (loc.devices.indexOf(routedElement) != -1) {
           this.selectedLocation.push(loc);
         } else if (Math.random() > 0.8) {
           this.selectedLocation.push(loc);
@@ -97,6 +119,7 @@ export class DevicesComponent implements OnInit {
     });
     // If by chance no location is selected, select the first
     if (this.selectedLocation.length == 0) {
+      console.log("TEST", this.locations);
       this.selectedLocation.push(this.locations[0]);
     }
 
@@ -113,7 +136,7 @@ export class DevicesComponent implements OnInit {
     this.countTheIssues();
   }
 
-  getRoutedDevice(): DeviceGroup {
+  getRoutedDevice(): DeviceGroup | Device {
     // If a specific id is in the url route to the id
     let id: string = null;
     if (this.route.snapshot.paramMap.has('id')) {
@@ -132,12 +155,15 @@ export class DevicesComponent implements OnInit {
           return selectDeviceGroup;
         }
       } else {
-        let selectDevice = this.devices.find(value => value.identifier == +id);
+        let selectDevice = this.devices.find(value => value.identifier == id);
+        if(selectDevice == undefined)
+          return undefined;
         this.selectedDevice = selectDevice;
-        let deviceGroup = this.deviceGroups.find(value => value.devices.indexOf(selectDevice) != -1);
-        if (deviceGroup != undefined) {
-          deviceGroup.visible = true;
-          return deviceGroup;
+        if(selectDevice.deviceGroupObj == null)
+          return selectDevice;
+        else {
+          selectDevice.deviceGroupObj.visible = true;
+          return selectDevice.deviceGroupObj;
         }
       }
     }
@@ -181,16 +207,29 @@ export class DevicesComponent implements OnInit {
    * view visible devices
    */
   showVisibleDevices(): void {
+    this.visibleElements = [];
     this.visibleDeviceGroups = [];
+    this.visibleDevice = [];
+
+
+    console.log(this.selectedLocation);
 
     // Go through each selected location and check if there is a device in the device group matching the filter string
     this.selectedLocation.map(loc => {
-      for (let device_group of loc.devices) {
+      for (let device_group of <DeviceGroup[]> loc.devices.filter(s => s instanceof DeviceGroup)) {
         for (let device of device_group.devices) {
           if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
+            this.visibleElements.push(device_group);
             this.visibleDeviceGroups.push(device_group);
             break;
           }
+        }
+      }
+      for (let device of <Device[]> loc.devices.filter(s => s instanceof Device)) {
+        if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
+          this.visibleElements.push(device);
+          this.visibleDevice.push(device);
+          break;
         }
       }
     });
@@ -204,7 +243,7 @@ export class DevicesComponent implements OnInit {
       })
     );
 
-    // TODO clear how to do the sorting
+    // TODO decide how to do the sorting
 
     // this.visibleDeviceGroups.sort(((a, b) => {
     //   switch (this.deviceSortSelected) {
@@ -223,8 +262,15 @@ export class DevicesComponent implements OnInit {
     //       return 1;
     //   }
     // }));
-    this.allDevicesOn = this.visibleDeviceGroups.reduce((acc, curr) =>
-      acc && curr.devices.reduce((acc, curr) => acc && curr.power_state, true), true);
+    this.allDevicesOn = true;
+    for(let element of this.visibleDevice) {
+      if(element.properties.find( s => s.key == 'status').value == false){
+        this.allDevicesOn = false;
+        break;
+      }
+    }
+
+    console.log(this.visibleElements)
   }
 
   /**
@@ -233,8 +279,15 @@ export class DevicesComponent implements OnInit {
    * @param state
    */
   changeDevicePowerState(device: Device, state: boolean) {
-    device.power_state = state;
-    this.allDevicesOn = this.visibleDevice.reduce((acc, curr) => acc && curr.power_state, true);
+    console.log("Change power state of the device");
+    let property = device.properties.find(s => s.key === "status");
+    property.value = state;
+    this.allDevicesOn = <boolean> this.visibleDeviceGroups.reduce((acc, curr) =>
+      acc && curr.devices.reduce((acc, curr) => {
+        let statusProperty = curr.properties.find(s => s.key === "status" && s.writable == true);
+        if(statusProperty == undefined) return acc && true;
+        else return acc && statusProperty.value;
+      }, true), true);
     // this.showVisibleDevices();
   }
 
@@ -245,11 +298,17 @@ export class DevicesComponent implements OnInit {
   switchAllDevices(state: boolean) {
     this.allDevicesOn = state;
     if (state) {
-      this.visibleDevice.forEach(device => device.power_state = true);
+      this.visibleDevice.forEach(device =>
+      {
+        let prop = device.properties.find(s => s.key == 'status');
+        if(prop.writable) prop.value = true;
+      });
     } else {
-      this.visibleDevice.forEach(device => device.power_state = false);
+      this.visibleDevice.forEach(device => {
+        let prop = device.properties.find(s => s.key == 'status');
+        if(prop.writable) prop.value = false;
+      });
     }
-    this.showVisibleDevices();
   }
 
   /**
@@ -258,10 +317,10 @@ export class DevicesComponent implements OnInit {
   getMockData(): void {
     this.mockDataService.getFloor()
       .subscribe(data => {
-        this.floors = data.floors;
-        this.locations = data.locations;
-        this.devices = data.devices;
-        this.deviceGroups = data.deviceGroup;
+        this.floors = this.floors.concat(data.floors);
+        this.locations = this.locations.concat(data.locations);
+        this.devices = this.devices.concat(data.devices);
+        this.deviceGroups = this.deviceGroups.concat(data.deviceGroup);
       });
   }
 
@@ -305,6 +364,7 @@ export class DevicesComponent implements OnInit {
     } else {
       this.selectedLocation = [];
       this.selectedFloors = [];
+      this.visibleElements = [];
       this.visibleDeviceGroups = [];
       this.visibleDevice = [];
       this.updateUI();
@@ -365,7 +425,7 @@ export class DevicesComponent implements OnInit {
         this.floors.forEach(f => f.locations.sort((a, b) => this.locationIssues[b.identifier] - this.locationIssues[a.identifier]));
         break;
       case 'Level':
-        this.floors.forEach(f => f.locations.sort((a, b) => a.identifier - b.identifier));
+        this.floors.forEach(f => f.locations.sort((a, b) => a.identifier > b.identifier ? -1 : 1));
         this.floors.sort((a, b) => a.level - b.level);
         break;
       case 'Type of room':
@@ -384,7 +444,6 @@ export class DevicesComponent implements OnInit {
     // TODO create a mock device with all the properties of the devices of the device group
     console.log('DEVICE GROUP SELECTED');
 
-    let power_state = deviceGroup.devices.reduce((acc, prev) => acc && prev.power_state, true);
     let power_consumption = deviceGroup.devices.reduce((acc, prev) => acc + prev.power_consumption, 0);
     let power_upTime = deviceGroup.devices.reduce((acc, prev) => acc + prev.running, 0) / deviceGroup.devices.length;
     let power_downTime = deviceGroup.devices.reduce((acc, prev) => acc + prev.down_time, 0) / deviceGroup.devices.length;
@@ -405,9 +464,9 @@ export class DevicesComponent implements OnInit {
 
 
     let tempDevice = new Device (
-      -1,
+      -1 + "",
       deviceGroup.name,
-      null, power_state,
+      null,
       power_consumption,
       power_upTime,
       power_downTime,
@@ -422,5 +481,9 @@ export class DevicesComponent implements OnInit {
     this.selectedDeviceGroup = deviceGroup;
     this.selectedDevice = tempDevice;
     this.locationService.replaceState("/devices/g" + deviceGroup.identifier);
+  }
+
+  checkType(value) {
+    return value.constructor.name;
   }
 }

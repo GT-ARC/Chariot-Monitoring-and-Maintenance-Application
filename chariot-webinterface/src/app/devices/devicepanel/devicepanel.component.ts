@@ -18,6 +18,8 @@ export class DevicepanelComponent implements OnInit {
   @Input() device: Device;
   @Output() uploaded = new EventEmitter<{ device: Device, state: any }>();
 
+  deviceStatus: Property = null;
+
   areaMD : String;
   areaSD : String;
   areaXS : String;
@@ -29,9 +31,15 @@ export class DevicepanelComponent implements OnInit {
   property_open: boolean = true;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
+    if(this.device.issues)
+      this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
+    else
+      this.issueState = false;
+
     this.arrayProperties = this.getArrayProperties();
     this.normalProperties = this.getNormalProperties();
+    this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
+    console.log("Device Status: ", this.deviceStatus);
 
     this.areaMD = DevicepanelComponent.getMdArea(this.normalProperties.length, 1280);
     this.areaSD = DevicepanelComponent.getMdArea(this.normalProperties.length, 899);
@@ -46,12 +54,11 @@ export class DevicepanelComponent implements OnInit {
   }
 
   emitDeviceProperty(property: string, state: any) {
-    if (property == 'device_power') {
-      this.uploaded.emit({device: this.device, state});
-    } else {
+      this.device.properties.find(s => s.key == property).value = state;
+      if(property == "status") this.uploaded.emit({device: this.device, state: state});
       // TODO use the agent service to send the update too the respective device
       console.log(property, state);
-    }
+
   }
 
   static getMdArea(propAmount : number, width: number) : string {
@@ -113,7 +120,7 @@ export class DevicepanelComponent implements OnInit {
   }
 
   getNormalProperties() {
-    return this.device.properties.filter(value => value.type !== 'array')
+    return this.device.properties.filter(value => value.type !== 'array' && value.key != 'status');
   }
 
 }

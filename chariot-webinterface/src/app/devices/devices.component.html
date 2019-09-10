@@ -120,25 +120,40 @@
                class="list">
             <!--  List the device groups in here   -->
             <div class="device-group"
-                 *ngFor="let device_group of visibleDeviceGroups">
-              <app-device-group-card
-                (device_group_selected)="newDeviceGroupSelected($event.device_group)"
-                [device_group]="device_group"
-                [selected_device_group]="selectedDeviceGroup">
-              </app-device-group-card>
-              <div class="device-group-devices"
-                   *ngIf="device_group.visible">
-                <div *ngFor="let device of device_group.devices">
-                  <app-device-card
-                    *ngIf="visibleDevice.indexOf(device) != -1"
-                    (click)="newDeviceSelected(device)"
-                    [device]="device"
-                    [deviceCardStyle]="deviceCardStyle"
-                    [selectedDevice]="selectedDevice"
-                    [location]="'devicepanel'"
-                    (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+                 *ngFor="let element of visibleElements"
+                  [ngSwitch]="checkType(element)">
+              <div *ngSwitchCase="'DeviceGroup'">
+                <app-device-group-card
+                  (device_group_selected)="newDeviceGroupSelected($event.device_group)"
+                  [device_group]="element"
+                  [selected_device_group]="selectedDeviceGroup">
+                </app-device-group-card>
+                <div class="device-group-devices"
+                     *ngIf="element.visible">
+                  <div *ngFor="let device of element.devices">
+                    <app-device-card
+                      *ngIf="visibleDevice.indexOf(device) != -1"
+                      (click)="newDeviceSelected(device)"
+                      [device]="device"
+                      [deviceCardStyle]="deviceCardStyle"
+                      [selectedDevice]="selectedDevice"
+                      [location]="'devicepanel'"
+                      (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+                  </div>
                 </div>
               </div>
+              <div *ngSwitchCase="'Device'">
+                <app-device-card
+                  *ngIf="visibleDevice.indexOf(element) != -1"
+                  (click)="newDeviceSelected(element)"
+                  [device]="element"
+                  [deviceCardStyle]="deviceCardStyle"
+                  [selectedDevice]="selectedDevice"
+                  [location]="'devicepanel'"
+                  (uploaded)="changeDevicePowerState($event.device, $event.state)">
+                </app-device-card>
+              </div>
+
             </div>
           </div>
         </aside>

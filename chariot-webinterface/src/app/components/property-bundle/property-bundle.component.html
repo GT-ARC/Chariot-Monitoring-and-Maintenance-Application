@@ -22,7 +22,7 @@
   gdAuto="row"
   gdGap="16px">
 
-  <div [ngSwitch]="property['type']"
+  <div [ngSwitch]="property['type'].toLocaleLowerCase()"
        *ngFor="let property of propertyBundle; let i = index"
        gdArea="a{{i}}">
 

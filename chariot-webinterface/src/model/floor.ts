@@ -4,5 +4,5 @@ export class Floor {
   identifier: string;
   name: string;
   level: number;
-  locations: Location[];
+  locations: Location[] = [];
 }

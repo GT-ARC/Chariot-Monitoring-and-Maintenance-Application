@@ -1,14 +1,15 @@
 import {Issue} from "./issue";
+import {DeviceGroup} from './deviceGroup';
 
 export class Device {
-  identifier: number;
+  identifier: string;
 
   deviceGroup: boolean = false;
+  deviceGroupObj: DeviceGroup = null;
 
   name: string;
   symbol: symbol;
 
-  power_state: boolean;
   power_consumption: number;
 
   properties: Property [];
@@ -31,21 +32,19 @@ export class Device {
     x: number
   }[];
 
-  constructor(identifier: number,
+  constructor(identifier: string,
               name: string,
               symbol: symbol,
-              power_state: boolean,
               power_consumption: number,
               running: number,
               down_time: number,
               description: { title: string, desc: string }[],
-              issues: Issue[],
-              data: { y: number, x: number }[],
-              prediction: { y: number, x: number }[]) {
+              issues?: Issue[],
+              data?: { y: number, x: number }[],
+              prediction?: { y: number, x: number }[]) {
     this.identifier = identifier;
     this.name = name;
     this.symbol = symbol;
-    this.power_state = power_state;
     this.power_consumption = power_consumption;
     this.running = running;
     this.down_time = down_time;
@@ -57,8 +56,11 @@ export class Device {
 
 
   getIssueID(): string {
-    let retID = this.issues.reduceRight((previousValue, currentValue) => !currentValue.state ?  "" + currentValue.identifier : "", "");
-    return retID == "" ? "" + this.identifier : "i" + retID;
+    if(this.issues){
+      let retID = this.issues.reduceRight((previousValue, currentValue) => !currentValue.state ?  "" + currentValue.identifier : "", "");
+      return retID == "" ? "" + this.identifier : "i" + retID;
+    }
+    return "";
   }
 
   hasIssue(): number {
@@ -67,7 +69,6 @@ export class Device {
 }
 
 export class Property {
-
   timestamp: number;
   topic?: string;
   type: string;
@@ -79,4 +80,12 @@ export class Property {
   unit?: string;
   writable: boolean;
 
+
+  constructor(timestamp: number, type: string, key: string, value: number | string | boolean | Property[], writable: boolean) {
+    this.timestamp = timestamp;
+    this.type = type;
+    this.key = key;
+    this.value = value;
+    this.writable = writable;
+  }
 }

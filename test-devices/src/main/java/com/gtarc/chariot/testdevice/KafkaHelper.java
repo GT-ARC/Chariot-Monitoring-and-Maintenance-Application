@@ -21,10 +21,10 @@ public class KafkaHelper {
         this.producer = createProducer();
     }
 
-    private static Producer<Long, String> createProducer() {
+    private Producer<Long, String> createProducer() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer" + this.topic);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return new KafkaProducer<>(props);
@@ -37,7 +37,7 @@ public class KafkaHelper {
         jsonObject.put("x", time);
         jsonObject.put("y", message);
 
-        ProducerRecord<Long, String> record = new ProducerRecord<>(this.topic, this.messageIndex++, message);
+        ProducerRecord<Long, String> record = new ProducerRecord<>(this.topic, this.messageIndex++, jsonObject.toJSONString());
         producer.send(record);
     }
 

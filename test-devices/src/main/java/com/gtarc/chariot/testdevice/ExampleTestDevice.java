@@ -52,7 +52,7 @@ public class ExampleTestDevice extends AbstractAgentBean {
     }
 
     @Override
-    public void execute() {
+    public synchronized void execute() {
         for(Map.Entry<KafkaHelper, Double> entry : kafkaProducerValueMap.entrySet()) {
             try {
                 entry.getKey().sendMessage(entry.getValue() + "");

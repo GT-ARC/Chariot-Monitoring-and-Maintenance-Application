@@ -20,10 +20,18 @@ export class DevicePanelPowerComponent implements OnInit {
   gaugeColor = "rgba(41, 114, 230, 1)";
   gaugeThick = 10;
   gaugeCap = "butt";
+  power_state: boolean = true;
 
   constructor() { }
 
+  ngOnChange() {
+    if(this.device != null) {
+      this.power_state = <boolean> this.device.properties.find(s => s.key == "status").value;
+    }
+  }
+
   ngOnInit() {
+
   }
 
 }

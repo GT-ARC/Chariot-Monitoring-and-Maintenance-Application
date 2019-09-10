@@ -18,7 +18,9 @@
   <label class="switch-small">
     <input type="checkbox"
            (change)="emitDevicePower(device, $event.target.checked)"
-           [checked]="device.power_state">
-    <span class="slider round"></span>
+           [checked]="statusProperty.value"
+           [attr.disabled]="!writable ? '' : null">
+    <span class="slider round"
+          [ngStyle]="{backgroundColor: !writable ? 'grey' : null }"></span>
   </label>
 </div>
