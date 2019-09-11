@@ -1,4 +1,5 @@
-<div id="device-panel-on-off-card" class="device-panel-card">
+<div id="device-panel-on-off-card" class="device-panel-card"
+     [ngClass]="selectedProperty == property ? 'device-panel-card-selected' : ''">
   <p class="device-panel-title">{{cardName}}</p>
   <p id="off">OFF</p>
   <label class="switch-big">

@@ -26,6 +26,7 @@ export class DevicepanelComponent implements OnInit {
 
   arrayProperties: Property[];
   normalProperties: Property[];
+  selectedProperty: Property = null;
 
   public issueState: boolean;
   property_open: boolean = true;
@@ -38,6 +39,8 @@ export class DevicepanelComponent implements OnInit {
 
     this.arrayProperties = this.getArrayProperties();
     this.normalProperties = this.getNormalProperties();
+    if(this.normalProperties.length > 0)
+      this.selectedProperty = this.normalProperties[0];
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
     console.log("Device Status: ", this.deviceStatus);
 

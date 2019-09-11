@@ -31,7 +31,7 @@
          fxFlex="1 1 calc(100% - 16px)">
       <app-property-bundle
         (uploaded)="emitDeviceProperty($event.property, $event.state)"
-        [property]="property">s
+        [property]="property">
       </app-property-bundle>
     </div>
 
@@ -61,15 +61,19 @@
            gdArea="a{{i}}">
 
         <app-device-panel-switch
+          (click)="selectedProperty = property"
           *ngSwitchCase="'boolean'"
           (uploaded)="emitDeviceProperty($event.property, $event.state)"
-          [property]="property">
+          [property]="property"
+          [selectedProperty]="selectedProperty">
         </app-device-panel-switch>
 
         <app-device-panel-slider
+          (click)="selectedProperty = property"
           *ngSwitchCase="'number'"
           (uploaded)="emitDeviceProperty($event.property, $event.state)"
-          [property]="property">
+          [property]="property"
+          [selectedProperty]="selectedProperty">
         </app-device-panel-slider>
 
         <app-device-panel-text-field
@@ -92,7 +96,7 @@
     </app-device-panel-issue-history>
 
     <app-device-panel-monitoring
-      [device]="device"
+      [property]="selectedProperty"
       fxFlex="1 1 calc(100% - 16px)">
     </app-device-panel-monitoring>
 

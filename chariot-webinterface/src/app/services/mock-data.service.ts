@@ -86,6 +86,140 @@ export class MockDataService {
     };
   }
 
+  /**
+   * Create the array of device properties with random values set
+   */
+  static createDeviceProperties(): Property [] {
+    return [
+      new Property(
+        new Date().valueOf(),
+        'number',
+        'sensitivity',
+        this.getRandValue(1, 100),
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Sensitivity',
+        '%',
+        0,
+        100
+      ),
+      new Property(
+        new Date().valueOf(),
+        'number',
+        'measurementSchedule',
+        this.getRandValue(1, 100),
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Measurement schedule',
+        'sec',
+        0,
+        100
+      ),
+      new Property(
+          new Date().valueOf(),
+        'number',
+        'accuracy',
+        this.getRandValue(1, 360),
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Accuracy',
+        '°',
+        0,
+        360
+      ),
+      new Property(
+        new Date().valueOf(),
+        'boolean',
+        'securityMeasurement',
+        Math.random() > 0.5,
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Security Measurement'
+      ),
+      new Property(
+        new Date().valueOf(),
+        'boolean',
+        'log',
+        Math.random() > 0.5,
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Log'
+      ),
+      new Property(
+        new Date().valueOf(),
+        'string',
+        'name',
+        faker.name.firstName() + ' ' + faker.name.lastName(),
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Name'
+      ),
+      new Property(
+        new Date().valueOf(),
+        'string',
+        'destination',
+        faker.address.streetAddress(true),
+        Math.random() > 0.5,
+        'exampleData' + this.getRandValue(1, 3),
+        'Destination'
+      ),
+      new Property(
+        new Date().valueOf(),
+      'array',
+      'contSpeedReq',
+      [
+        new Property(
+          new Date().valueOf(),
+          "number",
+          "starting_speed",
+          5.0,
+          Math.random() > 0.5,
+          'exampleData' + this.getRandValue(1, 3),
+          "starting_speed",
+          ""
+          ), new Property(
+          new Date().valueOf(),
+          "number",
+          "ending_speed",
+          35.0,
+          Math.random() > 0.5,
+          'exampleData' + this.getRandValue(1, 3),
+          "ending_speed",
+          "",
+          1,
+          100
+        ), new Property(
+          new Date().valueOf(),
+          "number",
+          "numberofsteps",
+          30.0,
+          Math.random() > 0.5,
+          'exampleData' + this.getRandValue(1, 3),
+          "numberofsteps",
+          "",
+          1,
+          100
+        ), new Property(
+          new Date().valueOf(),
+          "number",
+          "step_time",
+          2.0,
+          Math.random() > 0.5,
+          'exampleData' + this.getRandValue(1, 3),
+          "step_time",
+          "",
+          0.5,
+          5
+        )
+      ],
+      Math.random() > 0.5,
+      'exampleData' + this.getRandValue(1, 3),
+      'Continuous Speed Request',
+      '°'
+      )
+  ];
+  }
+
   static issueIdentifier: number = 0;
 
   /**
@@ -118,139 +252,6 @@ export class MockDataService {
   }
 
   /**
-   * Create the array of device properties with random values set
-   */
-  static createDeviceProperties(): Property [] {
-    return [
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'number',
-        name: 'Sensitivity',
-        key: 'sensitivity',
-        value: this.getRandValue(1, 100),
-        unit: '%',
-        min_value: 0,
-        max_value: 100,
-        writable: Math.random() > 0.5
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'number',
-        name: 'Measurement schedule',
-        key: 'measurementSchedule',
-        value: this.getRandValue(1, 100),
-        unit: 'sec',
-        min_value: 0,
-        max_value: 100,
-        writable: Math.random() > 0.5
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'number',
-        name: 'Accuracy',
-        key: 'accuracy',
-        value: this.getRandValue(1, 360),
-        unit: '°',
-        min_value: 0,
-        max_value: 360,
-        writable: Math.random() > 0.5
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'boolean',
-        name: 'Security Measurement',
-        key: 'securityMeasurement',
-        writable: Math.random() > 0.5,
-        value: Math.random() > 0.5
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'boolean',
-        name: 'Log',
-        key: 'log',
-        writable: Math.random() > 0.5,
-        value: Math.random() > 0.5
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'string',
-        name: 'Name',
-        key: 'name',
-        writable: Math.random() > 0.5,
-        value: faker.name.firstName() + ' ' + faker.name.lastName()
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'string',
-        name: 'Destination',
-        key: 'destination',
-        writable: Math.random() > 0.5,
-        value: faker.address.streetAddress(true)
-      },
-      {
-        timestamp: new Date().valueOf(),
-        topic: 'exampleData' + this.getRandValue(1, 3),
-        type: 'array',
-        name: 'Continuous Speed Request',
-        key: 'contSpeedReq',
-        unit: '°',
-        writable: Math.random() > 0.5,
-        value: [
-          {
-            timestamp:  new Date().valueOf(),
-            name: "starting_speed",
-            key: "starting_speed",
-            type: "number",
-            value: 5.0,
-            unit: "",
-            writable: Math.random() > 0.5
-          },
-          {
-            timestamp:  new Date().valueOf(),
-            name: "ending_speed",
-            key: "ending_speed",
-            type: "number",
-            value: 35.0,
-            unit: "",
-            min_value: 1,
-            max_value: 100,
-            writable: Math.random() > 0.5
-          },
-          {
-            timestamp:  new Date().valueOf(),
-            name: "numberofsteps",
-            key: "numberofsteps",
-            type: "number",
-            value: 30.0,
-            unit: "",
-            min_value: 1,
-            max_value: 100,
-            writable: Math.random() > 0.5
-          },
-          {
-            timestamp:  new Date().valueOf(),
-            name: "step_time",
-            key: "step_time",
-            type: "number",
-            value: 2.0,
-            unit: "",
-            min_value: 0.5,
-            max_value: 5,
-            writable: Math.random() > 0.5
-          }
-        ]
-      }
-    ];
-  }
-
-  /**
    * Creates mock device properties
    */
   static createMockDeviceProperties():  Property[] {
@@ -271,14 +272,40 @@ export class MockDataService {
     }
 
     // Each device has the status property displaying the power state of the device if its turned on or off
-    retDeviceProperties.push({
-      timestamp:  new Date().valueOf(),
-      name: "Power Consumption",
-      key: "status",
-      type: "boolean",
-      value: Math.random() > 0.5,
-      writable: Math.random() > 0.5
-    });
+    retDeviceProperties.push(
+      new Property(
+         new Date().valueOf(),
+        "boolean",
+        "status",
+        Math.random() > 0.5,
+        Math.random() > 0.5,
+        "",
+        "Power Consumption"
+      )
+    );
+
+    // Create mock history data for each property
+    for(let prop of retDeviceProperties) {
+      let device_data_size = Math.round(Math.random() * 500) + 10;
+      let dataEndTime: number = Date.now().valueOf();
+      let timeInterval = Math.floor(Math.random() * 86400000);
+      let valueInterval = Math.random() * 20 + 5;
+      let dataValue: number = 0;
+      let data: { y: number, x: number }[];
+      switch (prop.type) {
+        case 'number':
+          dataValue = Math.random() * 100;
+          data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
+          prop.createMockData(data, null);
+          break;
+        case 'boolean':
+          dataValue= Math.random();
+          data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
+          data.forEach(ele => ele.y = Math.round(ele.y));
+          prop.createMockData(data, null);
+          break;
+      }
+    }
 
     // console.log(retDeviceProperties);
 
@@ -291,12 +318,6 @@ export class MockDataService {
    * Creates a random device
    */
   static createDevice(): Device {
-    let device_data_size = Math.round(Math.random() * 500) + 10;
-    let dataEndTime: number = Date.now().valueOf();
-    let dataValue: number = Math.random() * 100;
-    let timeInterval = Math.floor(Math.random() * 86400000);
-    let valueInterval = Math.random() * 20 + 5;
-    let device_data: { y: number, x: number }[] = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
 
     let issues: Issue[] = MockDataService.createIssues();
 
@@ -328,8 +349,6 @@ export class MockDataService {
         }
       ],
       issues,
-      device_data.slice(0, device_data.length - predictionSize),
-      device_data.slice(device_data.length - predictionSize - 1, device_data.length)
     );
 
     retDevice.properties = MockDataService.createMockDeviceProperties();

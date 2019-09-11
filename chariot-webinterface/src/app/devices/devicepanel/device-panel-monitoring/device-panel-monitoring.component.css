@@ -14,6 +14,12 @@
   margin: 65px auto auto 41px;
 }
 
+#monitoring-data-select {
+  width: 91px;
+  display: inline-block;
+  text-align: center;
+}
+
 #accuracy-arrows {
   position: absolute;
   right: 16px;

@@ -16,6 +16,7 @@ export class DevicePanelSwitchComponent implements OnInit {
   cardName: string;
 
   @Input() property: Property;
+  @Input() selectedProperty: Property;
 
   constructor() { }
 

@@ -22,16 +22,6 @@ export class Device {
     desc: string }[];
   issues: Issue[];
 
-  // To be monitored
-  data: {
-    y: number,
-    x: number
-  }[];
-  prediction: {
-    y: number,
-    x: number
-  }[];
-
   constructor(identifier: string,
               name: string,
               symbol: symbol,
@@ -39,9 +29,7 @@ export class Device {
               running: number,
               down_time: number,
               description: { title: string, desc: string }[],
-              issues?: Issue[],
-              data?: { y: number, x: number }[],
-              prediction?: { y: number, x: number }[]) {
+              issues?: Issue[]) {
     this.identifier = identifier;
     this.name = name;
     this.symbol = symbol;
@@ -50,8 +38,6 @@ export class Device {
     this.down_time = down_time;
     this.description = description;
     this.issues = issues;
-    this.data = data;
-    this.prediction = prediction;
   }
 
 
@@ -69,6 +55,7 @@ export class Device {
 }
 
 export class Property {
+  url: number;
   timestamp: number;
   topic?: string;
   type: string;
@@ -80,12 +67,39 @@ export class Property {
   unit?: string;
   writable: boolean;
 
+  data: {
+    y: number,
+    x: number
+  }[];
+  prediction: {
+    y: number,
+    x: number
+  }[];
 
-  constructor(timestamp: number, type: string, key: string, value: number | string | boolean | Property[], writable: boolean) {
+
+  constructor(
+    timestamp: number,
+    type: string,
+    key: string,
+    value: number | string | boolean | Property[],
+    writable: boolean,
+    topic?: string,
+    name?: string,
+    unit?: string,
+    min_value?: number,
+    max_value?: number,
+  ) {
     this.timestamp = timestamp;
     this.type = type;
     this.key = key;
     this.value = value;
     this.writable = writable;
   }
+
+  createMockData( data: { y: number, x: number }[],
+                  prediction: { y: number, x: number }[]) {
+    this.data = data;
+    this.prediction = prediction;
+  }
+
 }

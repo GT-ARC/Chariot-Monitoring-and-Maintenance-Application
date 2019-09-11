@@ -57,9 +57,10 @@ export class RestService {
         ],
       );
 
-      let newLocation = this.createLocFromLocModel(element.location);
-      newLocation.addDeviceGroup(newDevice);
-      this.locations.push(newLocation);
+      let location = this.createLocFromLocModel(element.location);
+      location.addDeviceGroup(newDevice);
+      if(this.locations.find(s => s.identifier == element.location.identifier) == undefined)
+        this.locations.push(location);
 
       let properties = [];
       for(let prop of element.properties) {
@@ -89,8 +90,9 @@ export class RestService {
   createPropFromPropModel(prop: PropertyModel) : Property {
     let nestedProperty : Property[] = [];
 
-    if(prop.value instanceof Array){
-      for(let nestedProp of prop.value){
+    if(prop.value instanceof Array) {
+      for(let nestedProp of prop.value) {
+        // @ts-ignore
         let newProp = new Property(nestedProp.timestamp, nestedProp.type, nestedProp.key, nestedProp.value, nestedProp.writable);
         nestedProperty.push(newProp);
       }

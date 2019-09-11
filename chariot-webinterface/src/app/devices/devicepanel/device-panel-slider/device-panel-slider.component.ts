@@ -15,6 +15,7 @@ import {Property} from '../../../../model/device';
 export class DevicePanelSliderComponent implements OnInit {
 
   @Input() property: Property;
+  @Input() selectedProperty: Property;
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
   public accuracy = 2;

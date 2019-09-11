@@ -95,6 +95,11 @@ export class DevicesComponent implements OnInit {
         this.locations.concat(parsedData.location);
         this.visibleLocation[newFloor.identifier] = newFloor.locations;
 
+        for(let loc of parsedData.location)
+          this.locationSelected(loc, true, false);
+
+        this.updateUI();
+
         console.log(parsedData);
       }
     );
@@ -112,7 +117,7 @@ export class DevicesComponent implements OnInit {
       for (let loc of floor.locations) {
         if (loc.devices.indexOf(routedElement) != -1) {
           this.selectedLocation.push(loc);
-        } else if (Math.random() > 0.8) {
+        } else if (Math.random() > 0.9) {
           this.selectedLocation.push(loc);
         }
       }
@@ -211,12 +216,9 @@ export class DevicesComponent implements OnInit {
     this.visibleDeviceGroups = [];
     this.visibleDevice = [];
 
-
-    console.log(this.selectedLocation);
-
     // Go through each selected location and check if there is a device in the device group matching the filter string
     this.selectedLocation.map(loc => {
-      for (let device_group of <DeviceGroup[]> loc.devices.filter(s => s instanceof DeviceGroup)) {
+      for (let device_group of <DeviceGroup[]> loc.devices.filter(s => s.constructor.name == "DeviceGroup")) {
         for (let device of device_group.devices) {
           if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
             this.visibleElements.push(device_group);
@@ -225,11 +227,10 @@ export class DevicesComponent implements OnInit {
           }
         }
       }
-      for (let device of <Device[]> loc.devices.filter(s => s instanceof Device)) {
+      for (let device of <Device[]> loc.devices.filter(s => s.constructor.name == "Device")) {
         if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
           this.visibleElements.push(device);
           this.visibleDevice.push(device);
-          break;
         }
       }
     });
@@ -269,8 +270,6 @@ export class DevicesComponent implements OnInit {
         break;
       }
     }
-
-    console.log(this.visibleElements)
   }
 
   /**
@@ -328,8 +327,11 @@ export class DevicesComponent implements OnInit {
    * Function that handles if a location is selected
    * @param location The location that has been selected
    * @param checked the sate it supposed to be
+   * @param updateUi if the ui should update after location selected
    */
-  locationSelected(location: Location, checked: boolean) {
+  locationSelected(location: Location, checked: boolean, updateUi?: boolean) {
+    if(updateUi == undefined)
+      updateUi = true;
     let entry = this.selectedLocation.indexOf(location);
     if (checked) {
       if (entry < 0) {
@@ -338,6 +340,7 @@ export class DevicesComponent implements OnInit {
     } else {
       this.selectedLocation.splice(entry, 1);
     }
+    if(updateUi)
     this.updateUI();
   }
 
@@ -348,8 +351,9 @@ export class DevicesComponent implements OnInit {
    */
   floorSelected(floor: Floor, checked: boolean) {
     floor.locations.map(l => {
-      this.locationSelected(l, checked);
+      this.locationSelected(l, checked, false);
     });
+    this.updateUI();
   }
 
   /**
@@ -471,9 +475,7 @@ export class DevicesComponent implements OnInit {
       power_upTime,
       power_downTime,
       combined_desc,
-      combined_issues,
-      deviceGroup.devices[0].data,
-      deviceGroup.devices[0].prediction);
+      combined_issues);
 
     tempDevice.properties = combined_properties;
     tempDevice.deviceGroup = true;

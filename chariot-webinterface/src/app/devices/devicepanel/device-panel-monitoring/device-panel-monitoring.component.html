@@ -3,21 +3,12 @@
   <div id="device-chart-wrapper">
     <div id="accuracy-arrows">
       <mat-icon id="up" (click)="showMoreData()">keyboard_arrow_up</mat-icon>
-      <span>
+      <span id="monitoring-data-select">
         {{selectedVisibility}}:
       </span>
       <span>
         {{dataAmount}}
       </span>
-<!--      <app-clickable-text-->
-<!--        [accuracy]="0"-->
-<!--        [text]="dataAmount + ''"-->
-<!--        [color]="'#2b72e6'"-->
-<!--        [size]="15"-->
-<!--        [min]="0"-->
-<!--        [max]="device.data.length"-->
-<!--        (eventEmitter)="applyData($event.value)">-->
-<!--      </app-clickable-text>-->
       <mat-icon id="down" (click)="showLessData()">keyboard_arrow_down</mat-icon>
 
       <mat-icon *ngIf="!getCurrentData" id="play" (click)="getRealtimeData()">play_arrow</mat-icon>
@@ -25,8 +16,8 @@
     </div>
     <app-data-graph
       id="prediction-graph"
-      [topic]="currentTopic"
-      [data]="visibleData"
+      [topic]="property.topic"
+      [data]="property.data"
       [dataAmount]="visibleData.length"
       (dataLength)="dataAmount = $event"
       [height]="380">

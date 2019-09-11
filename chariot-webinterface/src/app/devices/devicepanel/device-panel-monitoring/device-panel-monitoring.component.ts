@@ -1,8 +1,6 @@
 import {Component, OnInit, Input, Output, SimpleChanges, SimpleChange} from '@angular/core';
 
-import { Color, BaseChartDirective, Label } from 'ng2-charts';
-import {Device} from "../../../../model/device";
-import {DeviceUpdateService} from '../../../services/device-update.service';
+import {Device, Property} from '../../../../model/device';
 
 @Component({
   selector: 'app-device-panel-monitoring',
@@ -14,8 +12,7 @@ import {DeviceUpdateService} from '../../../services/device-update.service';
 })
 export class DevicePanelMonitoringComponent implements OnInit {
 
-  @Input() device: Device;
-  currentTopic = 'exampleData' + [1, 2 ,3][Math.round(Math.random() * 3)];
+  @Input() property: Property;
   dataAmount: number = 0;
 
 
@@ -47,7 +44,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
     // console.log(this.visibleDataPossibilitiesNumbers);
     // console.log(this.device.data);
     this.filterData();
-    this.currentTopic = 'exampleData' + [1, 2 ,3][Math.round(Math.random() * 3)];
   }
 
   ngOnInit() {
@@ -96,8 +92,8 @@ export class DevicePanelMonitoringComponent implements OnInit {
       return;
     const index = this.visibleDataPossibilities.indexOf(this.selectedVisibility);
     const value = this.visibleDataPossibilitiesNumbers[index];
-    if(this.device.data)
-      this.visibleData = this.device.data.filter(dataPoint => dataPoint.x > value )
+    if(this.property.data)
+      this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
     else this.visibleData = [];
   }
 
@@ -121,11 +117,9 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
   getRealtimeData() {
     this.getCurrentData = true;
-    this.currentTopic = 'exampleData' + [1, 2 ,3][Math.round(Math.random() * 3)];
   }
 
   stopDataFlow() {
     this.getCurrentData = false;
-    this.currentTopic = '';
   }
 }
