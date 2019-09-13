@@ -102,7 +102,7 @@
             <div id="issue-chart-wrapper">
               <app-data-graph
                 id="prediction-graph"
-                [data]="issueDeviceMap.get(selectedIssue).data"
+                [data]="issueDeviceMap.get(selectedIssue).properties[0].data"
                 [dataAmount]="20"
                 [height]="315">
               </app-data-graph>

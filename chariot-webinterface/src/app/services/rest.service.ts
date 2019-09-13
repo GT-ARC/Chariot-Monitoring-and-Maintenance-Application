@@ -21,6 +21,14 @@ export class RestService {
   constructor(private http: HttpClient) {
   }
 
+  getHistoryData(url: string) : Observable<Object> {
+    if(url.indexOf('?format=json')) {
+      url = url.replace('?format=json', 'history/?format=json');
+    }
+    console.log("Receive data: " + url);
+    return this.http.get(url);
+  }
+
   getDeviceData(): Observable<Object> {
     let header: HttpHeaders = new HttpHeaders();
     header.append("Access-Control-Allow-Origin", "*");
@@ -100,6 +108,8 @@ export class RestService {
 
     let newProperty = new Property(prop.timestamp, prop.type, prop.key, prop.value instanceof Array ? nestedProperty : prop.value, prop.writable);
     newProperty.unit = prop.unit;
+    newProperty.url = prop.url;
+    newProperty.topic = prop.kafka_topic;
 
     return newProperty;
   }

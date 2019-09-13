@@ -64,7 +64,7 @@
 }
 
 .device-panel-card-selected {
-  border: 2px solid rgb(55, 111, 255);
+  border: 2px solid rgb(55, 111, 255) !important;
 }
 
 .device-panel-card {

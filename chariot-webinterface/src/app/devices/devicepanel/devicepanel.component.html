@@ -31,6 +31,7 @@
          fxFlex="1 1 calc(100% - 16px)">
       <app-property-bundle
         (uploaded)="emitDeviceProperty($event.property, $event.state)"
+        (selectedPropertyEvent)="selectedProperty = $event.selectedProperty"
         [property]="property">
       </app-property-bundle>
     </div>

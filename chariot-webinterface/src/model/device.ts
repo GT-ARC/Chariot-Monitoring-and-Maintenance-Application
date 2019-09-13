@@ -55,7 +55,7 @@ export class Device {
 }
 
 export class Property {
-  url: number;
+  url: string;
   timestamp: number;
   topic?: string;
   type: string;
@@ -94,6 +94,11 @@ export class Property {
     this.key = key;
     this.value = value;
     this.writable = writable;
+    this.topic = topic;
+    this.name = name;
+    this.unit = unit;
+    this.min_value = min_value;
+    this.max_value = max_value;
   }
 
   createMockData( data: { y: number, x: number }[],

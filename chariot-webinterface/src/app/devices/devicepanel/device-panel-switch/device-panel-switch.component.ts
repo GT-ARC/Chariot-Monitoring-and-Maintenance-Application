@@ -22,7 +22,7 @@ export class DevicePanelSwitchComponent implements OnInit {
 
   ngOnInit() {
     this.cardName = this.property.name == undefined ? this.property.key : this.property.name;
-    console.log("Switch ", this.property);
+    // console.log("Switch ", this.property);
   }
 
   // ngAfterViewInit() {
@@ -31,7 +31,7 @@ export class DevicePanelSwitchComponent implements OnInit {
   // }
 
   emitDevicePower(switchState: any) {
-    console.log(this.property);
+    // console.log(this.property);
     this.uploaded.emit({property: this.property.key, state: switchState});
   }
 

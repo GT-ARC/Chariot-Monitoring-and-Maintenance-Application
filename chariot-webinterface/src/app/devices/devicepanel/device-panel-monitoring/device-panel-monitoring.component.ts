@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, Output, SimpleChanges, SimpleChange} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 
-import {Device, Property} from '../../../../model/device';
+import {Property} from '../../../../model/device';
+import {RestService} from '../../../services/rest.service';
 
 @Component({
   selector: 'app-device-panel-monitoring',
@@ -16,8 +17,8 @@ export class DevicePanelMonitoringComponent implements OnInit {
   dataAmount: number = 0;
 
 
-  visibleDataPossibilitiesNumbers: number[] = [];
-  visibleDataPossibilities: string[] =
+  dataRangeValues: number[] = [];
+  dataRangeOptions: string[] =
     [
       'Only New',
       '1 Minute', '5 Minutes', '10 Minutes', '15 Minutes', '30 Minutes',
@@ -38,21 +39,30 @@ export class DevicePanelMonitoringComponent implements OnInit {
   private oneMonth: number =      2_419_200_000;
   private oneYear: number =       29_030_400_000;
 
-  constructor() { }
+  constructor(private restService : RestService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(this.visibleDataPossibilitiesNumbers);
-    // console.log(this.device.data);
+    // console.log(this.dataRangeValues);
+    console.log(this.property);
+    if(this.property.url != undefined){
+      this.restService.getHistoryData(this.property.url).subscribe(regData => {
+          if(regData.hasOwnProperty("value")) {
+            this.property.data = regData['value'];
+          }
+        this.filterData();
+      });
+    }
+
     this.filterData();
   }
 
   ngOnInit() {
-    for(let element of this.visibleDataPossibilities) {
-      this.visibleDataPossibilitiesNumbers.push(this.getSelectedVisibility(element))
+    for(let element of this.dataRangeOptions) {
+      this.dataRangeValues.push(this.getSelectedVisibility(element))
     }
-    // for( let element of this.visibleDataPossibilities) {
-    //   let index = this.visibleDataPossibilities.indexOf(element);
-    //   console.log(index, element, this.visibleDataPossibilitiesNumbers[index])
+    // for( let element of this.dataRangeOptions) {
+    //   let index = this.dataRangeOptions.indexOf(element);
+    //   console.log(index, element, this.dataRangeValues[index])
     // }
     this.filterData();
   }
@@ -88,27 +98,40 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   private filterData() {
-    if(this.visibleDataPossibilitiesNumbers.length == 0)
+    if(this.property.data == undefined || this.property.data.length == 0) {
+      this.visibleData = [];
+      return
+    }
+
+    // If the data received doesnt use unix time stamp dont filter for selected date
+    if(this.property.data[0].x < 1500000000000) {
+      this.visibleData = this.property.data;
       return;
-    const index = this.visibleDataPossibilities.indexOf(this.selectedVisibility);
-    const value = this.visibleDataPossibilitiesNumbers[index];
-    if(this.property.data)
+    }
+
+    // If the data received uses unix timestamps filter for the selected visible data range
+    if(this.dataRangeValues.length == 0) return;
+    const index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+    const value = this.dataRangeValues[index];
+    if(this.property.data != undefined )
       this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
     else this.visibleData = [];
+
+    console.log(this.visibleData);
   }
 
   private showMoreData() {
-    let index = this.visibleDataPossibilities.indexOf(this.selectedVisibility);
+    let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
     if (index > 0){
-      this.selectedVisibility = this.visibleDataPossibilities[index - 1];
+      this.selectedVisibility = this.dataRangeOptions[index - 1];
       this.filterData()
     }
   }
 
   private showLessData() {
-    let index = this.visibleDataPossibilities.indexOf(this.selectedVisibility);
-    if (index < this.visibleDataPossibilities.length - 1) {
-      this.selectedVisibility = this.visibleDataPossibilities[index + 1];
+    let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+    if (index < this.dataRangeOptions.length - 1) {
+      this.selectedVisibility = this.dataRangeOptions[index + 1];
       this.filterData()
     }
   }

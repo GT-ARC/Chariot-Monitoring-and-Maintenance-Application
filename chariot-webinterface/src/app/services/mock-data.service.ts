@@ -286,30 +286,39 @@ export class MockDataService {
 
     // Create mock history data for each property
     for(let prop of retDeviceProperties) {
-      let device_data_size = Math.round(Math.random() * 500) + 10;
-      let dataEndTime: number = Date.now().valueOf();
-      let timeInterval = Math.floor(Math.random() * 86400000);
-      let valueInterval = Math.random() * 20 + 5;
-      let dataValue: number = 0;
-      let data: { y: number, x: number }[];
-      switch (prop.type) {
-        case 'number':
-          dataValue = Math.random() * 100;
-          data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
-          prop.createMockData(data, null);
-          break;
-        case 'boolean':
-          dataValue= Math.random();
-          data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
-          data.forEach(ele => ele.y = Math.round(ele.y));
-          prop.createMockData(data, null);
-          break;
-      }
+      this.insertPropWithData(prop);
     }
 
     // console.log(retDeviceProperties);
 
     return retDeviceProperties;
+  }
+
+  static insertPropWithData(prop: Property) {
+    let device_data_size = Math.round(Math.random() * 500) + 10;
+    let dataEndTime: number = Date.now().valueOf();
+    let timeInterval = Math.floor(Math.random() * 86400000);
+    let valueInterval = Math.random() * 20 + 5;
+    let dataValue: number = 0;
+    let data: { y: number, x: number }[];
+    switch (prop.type) {
+      case 'number':
+        dataValue = Math.random() * 100;
+        data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
+        prop.createMockData(data, null);
+        break;
+      case 'boolean':
+        dataValue= Math.random();
+        data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
+        data.forEach(ele => ele.y = Math.round(ele.y));
+        prop.createMockData(data, null);
+        break;
+      case 'array':
+        for(let nestedProp of <Property[]> prop.value) {
+          this.insertPropWithData(nestedProp);
+        }
+        break;
+    }
   }
 
   static deviceIdentifier: number = 0;

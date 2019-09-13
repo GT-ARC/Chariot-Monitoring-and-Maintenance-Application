@@ -10,11 +10,13 @@ import {DevicepanelComponent} from '../../devices/devicepanel/devicepanel.compon
 export class PropertyBundleComponent implements OnInit {
 
   @Input() property: Property;
+  @Input() selectedProperty: Property;
   propertyBundle: Property[];
 
   open: boolean = true;
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
+  @Output() selectedPropertyEvent = new EventEmitter<{selectedProperty: Property}>();
 
   area: string;
 

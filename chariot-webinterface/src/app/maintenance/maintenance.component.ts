@@ -92,12 +92,12 @@ export class MaintenanceComponent implements OnInit {
 
   doGraphStuff() {
     let currentDevice = this.issueDeviceMap.get(this.selectedIssue);
-    this.lineChartLabels = currentDevice.data.map(data =>
+    this.lineChartLabels = currentDevice.properties[0].data.map(data =>
       this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
     );
     this.lineChartData = [
       {
-        data: currentDevice.data.map(data => data.x),
+        data: currentDevice.properties[0].data.map(data => data.x),
         label: 'History'
       }
     ];

@@ -17,7 +17,7 @@
     <app-data-graph
       id="prediction-graph"
       [topic]="property.topic"
-      [data]="property.data"
+      [data]="visibleData"
       [dataAmount]="visibleData.length"
       (dataLength)="dataAmount = $event"
       [height]="380">

@@ -50,28 +50,35 @@ export class DataGraphComponent implements OnInit {
     //   }
     // }
     if ('data' in changes) {
-      this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data =>
-        this.monthAbrNames[new Date(data.x).getMonth()] + " " + new Date(data.x).getDay()
-      );
-      this.lineChartData = [
-        {
-          data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.y),
-          label: 'History'
-        }
-      ];
-      this.dataLength.emit(this.data.length);
+      if(this.data != undefined) {
+        // TODO change label logic
+        this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {
+          if(data.x > 1500000000000)
+            return this.monthAbrNames[new Date(data.x).getMonth()] + " " + new Date(data.x).getDay();
+          else
+            return data.x;
+        });
+        this.lineChartData = [
+          {
+            data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.y),
+            label: 'History'
+          }
+        ];
+        this.dataLength.emit(this.data.length);
+      }
     }
     if('topic' in changes){
       this.deviceUpdateService.unSubscribeOfTopic(changes['topic'].previousValue);
       this.currentDataReceiver = null;
-      this.getData();
+      this.receiveDataStream();
     }
   }
 
   private currentDataReceiver: Observable<string>;
 
-  private getData() {
+  private receiveDataStream() {
     if(this.topic != '') {
+      console.log("Receive data stream: kafka topic: " + this.topic);
       this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
 
       this.currentDataReceiver.subscribe(message => {
