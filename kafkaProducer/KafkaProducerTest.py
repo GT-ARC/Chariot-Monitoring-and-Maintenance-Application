@@ -23,7 +23,7 @@ producer = KafkaProducer( bootstrap_servers=kafka_brokers, api_version=KAFKA_VER
 y_value = randrange(500)
 
 while True:
-	message = "{\"y\":%d, \"x\":%d}" % (y_value, int(time.time()))
+	message = "{\"value\":%d, \"timestamp\":%d}" % (y_value, int(time.time()))
 	print(message)
 	producer.send(topic, value=b"%s" % message.encode());
 	y_value += randrange(100) - 50;

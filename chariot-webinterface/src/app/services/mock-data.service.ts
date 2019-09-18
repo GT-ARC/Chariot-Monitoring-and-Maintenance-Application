@@ -97,7 +97,7 @@ export class MockDataService {
         'sensitivity',
         this.getRandValue(1, 100),
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Sensitivity',
         '%',
         0,
@@ -109,7 +109,7 @@ export class MockDataService {
         'measurementSchedule',
         this.getRandValue(1, 100),
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Measurement schedule',
         'sec',
         0,
@@ -121,7 +121,7 @@ export class MockDataService {
         'accuracy',
         this.getRandValue(1, 360),
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Accuracy',
         '°',
         0,
@@ -133,7 +133,7 @@ export class MockDataService {
         'securityMeasurement',
         Math.random() > 0.5,
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Security Measurement'
       ),
       new Property(
@@ -142,7 +142,7 @@ export class MockDataService {
         'log',
         Math.random() > 0.5,
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Log'
       ),
       new Property(
@@ -151,7 +151,7 @@ export class MockDataService {
         'name',
         faker.name.firstName() + ' ' + faker.name.lastName(),
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Name'
       ),
       new Property(
@@ -160,7 +160,7 @@ export class MockDataService {
         'destination',
         faker.address.streetAddress(true),
         Math.random() > 0.5,
-        'exampleData' + this.getRandValue(1, 3),
+        MockDataService.makeid(10),
         'Destination'
       ),
       new Property(
@@ -174,7 +174,7 @@ export class MockDataService {
           "starting_speed",
           5.0,
           Math.random() > 0.5,
-          'exampleData' + this.getRandValue(1, 3),
+          MockDataService.makeid(10),
           "starting_speed",
           ""
           ), new Property(
@@ -183,7 +183,7 @@ export class MockDataService {
           "ending_speed",
           35.0,
           Math.random() > 0.5,
-          'exampleData' + this.getRandValue(1, 3),
+          MockDataService.makeid(10),
           "ending_speed",
           "",
           1,
@@ -194,7 +194,7 @@ export class MockDataService {
           "numberofsteps",
           30.0,
           Math.random() > 0.5,
-          'exampleData' + this.getRandValue(1, 3),
+          MockDataService.makeid(10),
           "numberofsteps",
           "",
           1,
@@ -205,7 +205,7 @@ export class MockDataService {
           "step_time",
           2.0,
           Math.random() > 0.5,
-          'exampleData' + this.getRandValue(1, 3),
+          MockDataService.makeid(10),
           "step_time",
           "",
           0.5,
@@ -213,7 +213,7 @@ export class MockDataService {
         )
       ],
       Math.random() > 0.5,
-      'exampleData' + this.getRandValue(1, 3),
+      MockDataService.makeid(10),
       'Continuous Speed Request',
       '°'
       )
@@ -235,7 +235,7 @@ export class MockDataService {
 
     // Create the random issues
     let retIssues: Issue[] = [];
-    for (let c = 0; c < 5; c++) {
+    for (let c = 0; c < 3; c++) {
       let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
       retIssues.push({
         identifier: MockDataService.issueIdentifier++,
@@ -372,12 +372,12 @@ export class MockDataService {
    */
   createDevices(): void {
     // Create device groups
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
 
       let dgi = MockDataService.deviceGroupIdentifier;
 
       let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi, "Device Group: " + dgi);
-      let randomDeviceAmountPerGroup = MockDataService.getRandValue(1, 5);
+      let randomDeviceAmountPerGroup = MockDataService.getRandValue(1, 3);
 
       for(let c = 0; c < randomDeviceAmountPerGroup; c++) {
         let newDevice = MockDataService.createDevice();
@@ -385,13 +385,12 @@ export class MockDataService {
         newDeviceGroup.addDevice(newDevice);
       }
 
-
       MockDataService.deviceGroupIdentifier++;
       this.deviceGroup.push(newDeviceGroup);
     }
 
     // Create some individual devices
-    for(let i = 0; i < 50; i++) {
+    for(let i = 0; i < 20; i++) {
       this.mockDevices.push(MockDataService.createDevice());
     }
   }
@@ -864,4 +863,16 @@ export class MockDataService {
       metaData: this.metadata,
     });
   }
+
+  static makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+
 }

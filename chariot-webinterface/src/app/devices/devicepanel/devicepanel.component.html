@@ -32,7 +32,8 @@
       <app-property-bundle
         (uploaded)="emitDeviceProperty($event.property, $event.state)"
         (selectedPropertyEvent)="selectedProperty = $event.selectedProperty"
-        [property]="property">
+        [property]="property"
+        [selectedProperty]="selectedProperty">
       </app-property-bundle>
     </div>
 

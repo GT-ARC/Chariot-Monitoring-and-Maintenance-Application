@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
     this.classReference.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
 
     this.classReference.fullDeviceAmount = this.classReference.onDevices + this.classReference.idleDevices + this.classReference.brokenDevices;
-    console.log(this.classReference.fullDeviceAmount);
     // Count all devices
     this.doughnutChartData = [
       this.classReference.onDevices, this.classReference.idleDevices, this.classReference.brokenDevices

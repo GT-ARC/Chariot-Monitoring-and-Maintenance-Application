@@ -16,7 +16,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
   @Input() property: Property;
   dataAmount: number = 0;
 
-
   dataRangeValues: number[] = [];
   dataRangeOptions: string[] =
     [
@@ -28,23 +27,23 @@ export class DevicePanelMonitoringComponent implements OnInit {
       '1 Month', '2 Months', '1 Year',
       'All Time'
     ];
-  selectedVisibility: string = 'Today';
+  selectedVisibility: string = '1 Minute';
 
   visibleData: { y: number, x: number }[] = [];
 
+  private oneSecond: number =     1_000;
   private oneMinute: number =     60_000;
   private oneHour: number =       3_600_000;
   private oneDay: number =        86_400_000;
   private oneWeek: number =       604_800_000;
   private oneMonth: number =      2_419_200_000;
   private oneYear: number =       29_030_400_000;
+  private dataFilterThreshold: number;
 
   constructor(private restService : RestService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(this.dataRangeValues);
-    console.log(this.property);
-    if(this.property.url != undefined){
+    if(this.property != null && this.property.url != undefined){
       this.restService.getHistoryData(this.property.url).subscribe(regData => {
           if(regData.hasOwnProperty("value")) {
             this.property.data = regData['value'];
@@ -60,6 +59,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     for(let element of this.dataRangeOptions) {
       this.dataRangeValues.push(this.getSelectedVisibility(element))
     }
+
     // for( let element of this.dataRangeOptions) {
     //   let index = this.dataRangeOptions.indexOf(element);
     //   console.log(index, element, this.dataRangeValues[index])
@@ -104,7 +104,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     }
 
     // If the data received doesnt use unix time stamp dont filter for selected date
-    if(this.property.data[0].x < 1500000000000) {
+    if(this.property.data[this.property.data.length - 1].x < 1500000000000) {
       this.visibleData = this.property.data;
       return;
     }
@@ -113,11 +113,10 @@ export class DevicePanelMonitoringComponent implements OnInit {
     if(this.dataRangeValues.length == 0) return;
     const index = this.dataRangeOptions.indexOf(this.selectedVisibility);
     const value = this.dataRangeValues[index];
+    this.dataFilterThreshold = value;
     if(this.property.data != undefined )
       this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
     else this.visibleData = [];
-
-    console.log(this.visibleData);
   }
 
   private showMoreData() {

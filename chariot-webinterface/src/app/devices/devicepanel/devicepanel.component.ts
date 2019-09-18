@@ -4,6 +4,7 @@ import {EventEmitter} from '@angular/core';
 
 import {Device, Property} from '../../../model/device';
 import {log} from 'util';
+import {DeviceUpdateService} from '../../services/device-update.service';
 
 
 @Component({
@@ -32,6 +33,8 @@ export class DevicepanelComponent implements OnInit {
   property_open: boolean = true;
 
   ngOnChanges(changes: SimpleChanges) {
+    this.deviceUpdateService.unSubscribeDevice();
+
     if(this.device.issues)
       this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
     else
@@ -42,7 +45,6 @@ export class DevicepanelComponent implements OnInit {
     if(this.normalProperties.length > 0)
       this.selectedProperty = this.normalProperties[0];
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
-    console.log("Device Status: ", this.deviceStatus);
 
     this.areaMD = DevicepanelComponent.getMdArea(this.normalProperties.length, 1280);
     this.areaSD = DevicepanelComponent.getMdArea(this.normalProperties.length, 899);
@@ -50,8 +52,7 @@ export class DevicepanelComponent implements OnInit {
     this.getArea(null);
   }
 
-  constructor() {
-  }
+  constructor(private deviceUpdateService: DeviceUpdateService) { }
 
   ngOnInit() {
   }

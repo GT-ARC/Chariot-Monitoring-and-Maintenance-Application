@@ -66,7 +66,8 @@ export class RestService {
       );
 
       let location = this.createLocFromLocModel(element.location);
-      location.addDeviceGroup(newDevice);
+      if(location.devices.find( s => s.constructor == newDevice.constructor && s.identifier == newDevice.identifier) == undefined)
+        location.addDeviceGroup(newDevice);
       if(this.locations.find(s => s.identifier == element.location.identifier) == undefined)
         this.locations.push(location);
 
@@ -110,6 +111,10 @@ export class RestService {
     newProperty.unit = prop.unit;
     newProperty.url = prop.url;
     newProperty.topic = prop.kafka_topic;
+
+    // If min or max value isn't set put default values in place
+    newProperty.min_value = prop['minValue'] == undefined ? 0 : prop['minValue'];
+    newProperty.max_value = prop['maxValue'] == undefined ? 100 : prop['maxValue'];
 
     return newProperty;
   }

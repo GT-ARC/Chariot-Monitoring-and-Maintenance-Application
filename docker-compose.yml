@@ -1,0 +1,17 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  chariot-mm-app: 
+    build: chariot-webinterface 
+    restart: always
+    depends_on:
+      - kafkapipe
+    ports:
+      - "4200:4200" 
+
+  kafkapipe: 
+    build: nodejs-backend 
+    restart: always
+    ports:
+      - "4444:4444"

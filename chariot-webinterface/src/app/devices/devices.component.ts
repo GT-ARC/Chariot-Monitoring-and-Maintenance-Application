@@ -110,8 +110,6 @@ export class DevicesComponent implements OnInit {
 
     let routedElement = this.getRoutedDevice();
 
-    console.log(this.floors);
-
     // Make the selected floor with the device group visible and push some random locations to be selected
     this.floors.forEach(floor => {
       for (let loc of floor.locations) {
@@ -124,7 +122,6 @@ export class DevicesComponent implements OnInit {
     });
     // If by chance no location is selected, select the first
     if (this.selectedLocation.length == 0) {
-      console.log("TEST", this.locations);
       this.selectedLocation.push(this.locations[0]);
     }
 

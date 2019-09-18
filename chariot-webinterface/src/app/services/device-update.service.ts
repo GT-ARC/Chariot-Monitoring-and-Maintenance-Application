@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import {__metadata} from 'tslib';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +9,27 @@ export class DeviceUpdateService {
 
   constructor(private socket: Socket) { }
 
-  subscribeToTopic(msg: string) {
-    this.socket.emit("subscribe", msg);
-    return this.socket.fromEvent<string>('data');
+  topicList = [];
+
+
+  subscribeToTopic(topic: string) {
+    if(this.topicList.indexOf(topic) == -1){
+      this.socket.emit("subscribe", topic);
+      this.topicList.push(topic);
+    }
+    return this.socket.fromEvent<string>(topic);
   }
 
   unSubscribeOfTopic(topic: string) {
-    this.socket.emit("unsubscribe", topic);
+    console.log("Unsubscribe");
+
+  }
+
+  unSubscribeDevice() {
+    this.topicList.forEach( element => {
+      this.socket.emit("unsubscribe", element);
+    });
+    this.topicList = [];
     this.socket.removeAllListeners();
   }
 }

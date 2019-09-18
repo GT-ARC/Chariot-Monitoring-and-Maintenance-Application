@@ -74,7 +74,7 @@ export class Property {
   prediction: {
     y: number,
     x: number
-  }[];
+  }[] = [];
 
 
   constructor(

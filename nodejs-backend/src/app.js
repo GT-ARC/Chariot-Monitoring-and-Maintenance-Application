@@ -33,11 +33,13 @@ io.on('connection', function (socket) {
         socketToKafkaMap[socket.id] = consumer;
         consumer.run({
             eachMessage: async ({ topic, partition, message }) => {
-                //   console.log(message.value.toString());
+		console.log("\n\n");
+		console.log("{" + topic + "}");
+                console.log(message.value.toString());
                 //   console.log({ partition, offset: message.offset, value: message.value.toString() })
 
                 // When the consumer receives a message send it over the socket to the front end
-                socket.emit("data", message.value.toString());
+                socket.emit(topic+"", message.value.toString());
             }
         });
     });

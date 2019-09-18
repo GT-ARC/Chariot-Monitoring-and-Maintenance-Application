@@ -124,7 +124,8 @@ export class MaintenanceComponent implements OnInit {
 
       if (!this.groupedIssues.has(key))
         this.groupedIssues.set(key, []);
-      this.groupedIssues.get(key).push(i);
+      if(this.groupedIssues.get(key).indexOf(i) == -1)
+        this.groupedIssues.get(key).push(i);
     });
 
     // Sort the issues in each group
