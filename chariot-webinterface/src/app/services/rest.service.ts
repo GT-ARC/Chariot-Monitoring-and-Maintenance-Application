@@ -5,7 +5,6 @@ import {Device, Property} from '../../model/device';
 import {Location} from '../../model/location';
 import {DeviceModel, LocationModel, PropertyModel} from '../../model/deviceModel';
 import * as faker from 'faker';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Injectable({
   providedIn: 'root'
@@ -117,5 +116,9 @@ export class RestService {
     newProperty.max_value = prop['maxValue'] == undefined ? 100 : prop['maxValue'];
 
     return newProperty;
+  }
+
+  getDeviceMapping(): Observable<Object> {
+    return this.http.get('http://chariot-km.dai-lab.de:8001/monitoringservice/2/agentlist/2/');
   }
 }

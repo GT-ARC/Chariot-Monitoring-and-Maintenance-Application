@@ -1,14 +1,31 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentUpdateService {
 
-  constructor() { }
+  proxyAgentAddress: string = 'http://chariot-main.dai-lab.de:8080/chariot/ProxyAgent/sendAction';
 
-  public static sendUpdate(url: string, value: any) {
-    console.log(url, value);
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  };
+
+  constructor(private http: HttpClient) {
+  }
+
+  public sendUpdate(deviceID: string, value: any) {
+    let message = {
+      device_id: JSON.stringify(deviceID),
+      value: JSON.stringify(JSON.stringify(value))
+    };
+
+    console.log(JSON.stringify(message));
+
+    this.http.post(this.proxyAgentAddress, JSON.stringify(message), this.httpOptions).subscribe();
   }
 
 }

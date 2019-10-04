@@ -1,13 +1,18 @@
 
-<!--<div style="position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">-->
-<!--  <label>-->
-<!--    <input type="text" [(ngModel)]="text">-->
-<!--  </label>-->
-<!--  <br>-->
-<!--  <button-->
-<!--    (click)="subscribeToTopic(text)">-->
-<!--    Subscribe-->
-<!--  </button>-->
-<!--  <br>-->
-<!--  <p>{{message}}</p>-->
-<!--</div>-->
+<div style="position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+  <table>
+    <thead>
+      <tr>
+        <th>Device ID</th>
+        <th>Agent ID</th>
+        <th>Send</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let ele of mapping">
+      <td>{{ele.deviceID}}</td>
+      <td>{{ele.agentID}}</td>
+      <td><button (click)="sendToDevice(ele.deviceID)">Send to Agent</button></td>
+    </tr>
+  </table>
+  <textarea rows="4" cols="50" [(ngModel)]="json"></textarea>
+</div>
