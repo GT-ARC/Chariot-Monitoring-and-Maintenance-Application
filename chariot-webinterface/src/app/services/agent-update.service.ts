@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AgentUpdateService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
+      'Content-Type':  'application/json'
     })
   };
 
@@ -25,7 +25,9 @@ export class AgentUpdateService {
 
     console.log(JSON.stringify(message));
 
-    this.http.post(this.proxyAgentAddress, JSON.stringify(message), this.httpOptions).subscribe();
+    this.http.post(this.proxyAgentAddress, JSON.stringify(message), this.httpOptions).subscribe( data =>
+      console.log(data)
+    );
   }
 
 }

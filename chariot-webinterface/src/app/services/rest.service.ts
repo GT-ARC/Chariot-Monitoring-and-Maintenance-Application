@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Device, Property} from '../../model/device';
@@ -10,6 +10,10 @@ import * as faker from 'faker';
   providedIn: 'root'
 })
 export class RestService {
+
+  monitoringServiceURL: string = "http://chariot-km.dai-lab.de:8001/monitoringservice/";
+  currentMonitoringService: string = "";
+  mappingObserv = new EventEmitter<{deviceID : String, agentID: String} []>();
 
   url: string = "http://chariot-km.dai-lab.de:8001";
   // testURL: String = "https://jsonplaceholder.typicode.com/";
@@ -118,7 +122,26 @@ export class RestService {
     return newProperty;
   }
 
-  getDeviceMapping(): Observable<Object> {
-    return this.http.get('http://chariot-km.dai-lab.de:8001/monitoringservice/2/agentlist/2/');
+  getDeviceMapping(): Observable<{deviceID : String, agentID: String}[]> {
+    this.http.get(this.monitoringServiceURL).subscribe(data => {
+      if (Array.isArray(data) && data.length != 0) {
+        let monitoringService = data[0]['agentlist'];
+        this.currentMonitoringService = monitoringService['url'];
+        console.log(this.currentMonitoringService);
+
+        let mapping: {deviceID : String, agentID: String} [] = [];
+
+        let mappings = monitoringService['mappings'];
+        for(let element of mappings) {
+          mapping.push({
+            deviceID : element['device_id'],
+            agentID : element['agent_id']
+          });
+        }
+
+        this.mappingObserv.emit(mapping);
+      }
+    });
+    return this.mappingObserv.asObservable();
   }
 }

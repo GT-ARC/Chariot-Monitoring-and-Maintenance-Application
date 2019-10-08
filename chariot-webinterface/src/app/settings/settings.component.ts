@@ -22,14 +22,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.restService.getDeviceMapping().subscribe(data => {
-      console.log(data['mappings']);
-      let mappings = data['mappings'];
-      for(let element of mappings) {
-        this.mapping.push({
-            deviceID : element['device_id'],
-            agentID : element['agent_id']
-          });
-      }
+      this.mapping = data;
     });
   }
 
