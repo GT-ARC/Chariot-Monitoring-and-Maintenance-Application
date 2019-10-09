@@ -1,7 +1,7 @@
 import {Component, OnInit, SimpleChange, SimpleChanges, ViewChild} from '@angular/core';
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
-import {Device} from "../../model/device";
+import {Device, Property} from '../../model/device';
 import {MockDataService} from "../services/mock-data.service";
 import {Issue} from "../../model/issue";
 import {Color} from "ng2-charts";
@@ -26,12 +26,16 @@ export class MaintenanceComponent implements OnInit {
   groupedIssues: Map<any, Issue[]> = new Map();
   issueDeviceMap: Map<Issue, Device> = new Map();
 
+  property: Property;
+
   issueSort: string[] = ["Date", "Type", "Importance"];
   issueSortSelected: string = "Date";
 
   datesShown: number = 2;
   today = Math.floor(Date.now() / 86400000) * 86400000;
   yesterday = Math.floor(Date.now() / 86400000) * 86400000 - 86400000;
+
+  selectedData;
 
   window = window;
 
@@ -92,15 +96,10 @@ export class MaintenanceComponent implements OnInit {
 
   doGraphStuff() {
     let currentDevice = this.issueDeviceMap.get(this.selectedIssue);
-    this.lineChartLabels = currentDevice.properties[0].data.map(data =>
-      this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
-    );
-    this.lineChartData = [
-      {
-        data: currentDevice.properties[0].data.map(data => data.x),
-        label: 'History'
-      }
-    ];
+    let selectedProperty = currentDevice.properties.find( prop => prop.type != 'string' && prop.type != 'array');
+    if (selectedProperty) {
+      this.selectedData = selectedProperty.data;
+    }
   }
 
   /**
@@ -160,41 +159,6 @@ export class MaintenanceComponent implements OnInit {
         this.devices = data.devices;
       });
   }
-
-  public lineChartType = 'line';
-  public lineChartLegend = true;
-  public lineChartLabels = [];
-  public lineChartData = [];
-  public lineChartColors: Color[] = [
-    {
-      backgroundColor: 'rgba(48,92,255,0.1)',
-      borderColor: 'rgba(48,92,255,1)',
-      pointBorderColor: 'rgba(48,92,255,1)',
-      pointBorderWidth: 2,
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      pointBackgroundColor: "#fff",
-      pointRadius: 3
-    }
-  ];
-  public lineChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-  };
-
-  monthAbrNames: string [] = [
-    "Jan", "Feb", "Mar",
-    "Apr", "May", "Jun", "Jul",
-    "Aug", "Sept", "Oct",
-    "Nov", "Dec"
-  ];
 
   newSelectedIssue(issue: Issue) {
     this.selectedIssue = issue;

@@ -135,6 +135,8 @@ export class DevicesComponent implements OnInit {
       this.selectedDevice = this.visibleDevice[devicePos];
     }
 
+    console.log(this.selectedDevice);
+
     this.countTheIssues();
   }
 
