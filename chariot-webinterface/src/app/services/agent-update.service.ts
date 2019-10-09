@@ -6,7 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 })
 export class AgentUpdateService {
 
-  proxyAgentAddress: string = 'http://chariot-main.dai-lab.de:8080/chariot/ProxyAgent/sendAction';
+  proxyAgentAddress: string = 'http://chariot-main.dai-lab.de:8080/chariot/sendAction';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -19,8 +19,8 @@ export class AgentUpdateService {
 
   public sendUpdate(deviceID: string, value: any) {
     let message = {
-      device_id: JSON.stringify(deviceID),
-      value: JSON.stringify(JSON.stringify(value))
+      device_id: deviceID,
+      value: value
     };
 
     console.log(JSON.stringify(message));
