@@ -63,6 +63,7 @@ import {FormsModule} from '@angular/forms';
 import { DataGraphComponent } from './components/data-graph/data-graph.component';
 import { DeviceGroupCardComponent } from './components/device-group-card/device-group-card.component';
 import { PropertyBundleComponent } from './components/property-bundle/property-bundle.component';
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { PropertyBundleComponent } from './components/property-bundle/property-b
     MatInputModule,
     MatSidenavModule,
     HttpClientModule,
+    NotifierModule,
     InlineSVGModule.forRoot(),
     MatProgressBarModule,
     ProgressBarModule,

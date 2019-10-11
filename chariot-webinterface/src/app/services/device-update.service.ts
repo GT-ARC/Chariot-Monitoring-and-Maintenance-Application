@@ -1,6 +1,6 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import {Observable} from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 export class DeviceUpdateService {
 
   constructor(private socket: Socket) { }
-
   topicList = [];
 
 

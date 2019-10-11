@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RestService} from '../services/rest.service';
 import {DeviceUpdateService} from '../services/device-update.service';
-import {Floor} from '../../model/floor';
 import {AgentUpdateService} from '../services/agent-update.service';
 
 @Component({

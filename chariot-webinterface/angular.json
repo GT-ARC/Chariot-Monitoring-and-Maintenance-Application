@@ -28,7 +28,8 @@
               "src/css/slider.css",
               "src/css/checkbox.css",
               "src/css/switch.css",
-              "src/css/fonts.css"
+              "src/css/fonts.css",
+              "node_modules/angular-notifier/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true
