@@ -99,7 +99,7 @@ export class Property {
     this.unit = unit;
     this.min_value = min_value;
     this.max_value = max_value;
-    this.data = [{x: new Date(), y: value}]
+    this.data = []
   }
 
   createMockData( data: { y: number, x: number }[],
