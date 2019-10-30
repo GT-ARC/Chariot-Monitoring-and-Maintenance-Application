@@ -22,7 +22,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
       'Only New',
       '1 Minute', '5 Minutes', '10 Minutes', '15 Minutes', '30 Minutes',
       '1 Hour', '2 Hours', '3 Hours', '6 Hours', '12 Hours',
-      'Today', '2 Days', '3 Days',
+      '1 Day', '2 Days', '3 Days',
       '1 Week', '2 Weeks', '3 Weeks',
       '1 Month', '2 Months', '1 Year',
       'All Time'

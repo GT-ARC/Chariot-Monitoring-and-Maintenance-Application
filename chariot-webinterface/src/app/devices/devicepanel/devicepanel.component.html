@@ -3,7 +3,7 @@
   <span id="device-panel-head"
         fxFlex="0 1 calc(100%)">
     <span>{{device.name}}</span>
-    <button *ngIf="!issueState" class="issue-detected-button" routerLink="/maintenance/{{device.getIssueID()}}">
+    <button *ngIf="this.device.issues != null && !issueState" class="issue-detected-button" routerLink="/maintenance/{{device.getIssueID()}}">
       Issue detected
       <mat-icon>launch</mat-icon>
     </button>
@@ -66,6 +66,7 @@
           (click)="selectedProperty = property"
           *ngSwitchCase="'boolean'"
           (uploaded)="emitDeviceProperty($event.property, $event.state)"
+          [device]="device"
           [property]="property"
           [selectedProperty]="selectedProperty">
         </app-device-panel-switch>

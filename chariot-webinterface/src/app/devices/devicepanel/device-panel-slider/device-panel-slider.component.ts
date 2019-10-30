@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@an
 import 'hammerjs';
 import {MatSliderChange} from '@angular/material';
 import {isNumber} from 'util';
-import {Property} from '../../../../model/device';
+import {Device, Property} from '../../../../model/device';
 import {Observable} from 'rxjs';
 import {DeviceUpdateService} from '../../../services/device-update.service';
 

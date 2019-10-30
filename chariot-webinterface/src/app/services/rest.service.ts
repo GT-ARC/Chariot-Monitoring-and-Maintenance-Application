@@ -42,7 +42,7 @@ export class RestService {
   parseDeviceData(data : Array<DeviceModel>): {location: Location[], device: Device[]}  {
     for(let element of data) {
       let newDevice = new Device(
-        element.id,
+        element.uuid,
         element.name,
         null,
         Math.floor(Math.random() * 10000) / 100,
@@ -50,22 +50,23 @@ export class RestService {
         Math.floor(Math.random() * 50),
         [
           {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
+            title: "ID",
+            desc: element.id
           },
           {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
+            title: "objectType",
+            desc: element.objectType
           },
           {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
+            title: "UUID",
+            desc: element.uuid
           },
           {
-            title: faker.commerce.productName(),
-            desc: faker.hacker.phrase()
+            title: "IP-Address",
+            desc: element.ip
           }
         ],
+        []
       );
 
       let location = this.createLocFromLocModel(element.location);

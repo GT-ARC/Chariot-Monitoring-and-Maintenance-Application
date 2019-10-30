@@ -29,13 +29,13 @@ export class DevicepanelComponent implements OnInit {
   normalProperties: Property[];
   selectedProperty: Property = null;
 
-  public issueState: boolean;
+  public issueState: boolean = false;
   property_open: boolean = true;
 
   ngOnChanges(changes: SimpleChanges) {
     this.deviceUpdateService.unSubscribeDevice();
 
-    if(this.device.issues)
+    if(this.device.issues != null)
       this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
     else
       this.issueState = false;

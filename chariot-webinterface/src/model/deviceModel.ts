@@ -1,6 +1,7 @@
 export class DeviceModel {
 
-  ObjectType: string;
+  objectType: string;
+  uuid: string;
   groupId: string;
   id: string;
   ip: string;

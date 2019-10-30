@@ -235,7 +235,7 @@ export class MockDataService {
 
     // Create the random issues
     let retIssues: Issue[] = [];
-    for (let c = 0; c < 3; c++) {
+    for (let c = 0; c < Math.random() * 4; c++) {
       let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
       retIssues.push({
         identifier: MockDataService.issueIdentifier++,
@@ -341,20 +341,12 @@ export class MockDataService {
       Math.floor(Math.random() * 50),
       [
         {
-          title: faker.commerce.productName(),
-          desc: faker.hacker.phrase()
+          title: "IP",
+          desc: faker.internet.ip()
         },
         {
-          title: faker.commerce.productName(),
-          desc: faker.hacker.phrase()
-        },
-        {
-          title: faker.commerce.productName(),
-          desc: faker.hacker.phrase()
-        },
-        {
-          title: faker.commerce.productName(),
-          desc: faker.hacker.phrase()
+          title: "UUID",
+          desc: faker.random.uuid()
         }
       ],
       issues,
@@ -837,6 +829,11 @@ export class MockDataService {
     return JSON.parse(JSON.stringify(src));
   }
 
+  addData() {
+
+  }
+
+
   getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[], deviceGroup: DeviceGroup[]}> {
     return of({
       floors: this.floor,
@@ -875,4 +872,11 @@ export class MockDataService {
   }
 
 
+  addFloor(newFloor: Floor) {
+    if (this.floor.find(s => s.identifier == newFloor.identifier) == undefined){
+      this.floor.push(newFloor);
+      return true;
+    }
+    return false;
+  }
 }

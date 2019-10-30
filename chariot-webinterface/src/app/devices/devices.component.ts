@@ -91,7 +91,10 @@ export class DevicesComponent implements OnInit {
           level: 11,
           locations: parsedData.location,
         };
-        this.floors.push(newFloor);
+
+        let add = this.mockDataService.addFloor(newFloor);
+        if(add) this.floors.push(newFloor);
+
         this.locations.concat(parsedData.location);
         this.visibleLocation[newFloor.identifier] = newFloor.locations;
 
@@ -313,13 +316,15 @@ export class DevicesComponent implements OnInit {
    * Retrieves the mock data from the mock data service
    */
   getMockData(): void {
-    this.mockDataService.getFloor()
-      .subscribe(data => {
-        this.floors = this.floors.concat(data.floors);
-        this.locations = this.locations.concat(data.locations);
-        this.devices = this.devices.concat(data.devices);
-        this.deviceGroups = this.deviceGroups.concat(data.deviceGroup);
-      });
+    if(this.floors.length == 0) {
+      this.mockDataService.getFloor()
+        .subscribe(data => {
+          this.floors = this.floors.concat(data.floors);
+          this.locations = this.locations.concat(data.locations);
+          this.devices = this.devices.concat(data.devices);
+          this.deviceGroups = this.deviceGroups.concat(data.deviceGroup);
+        });
+    }
   }
 
   /**

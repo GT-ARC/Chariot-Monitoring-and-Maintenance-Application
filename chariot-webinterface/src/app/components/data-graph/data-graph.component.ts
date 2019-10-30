@@ -33,16 +33,15 @@ export class DataGraphComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if ('data' in changes) {
       if(this.data != undefined) {
-        // TODO change label logic
         this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {
           if(data.x > 1500000000000)
-            return this.monthAbrNames[new Date(Math.floor(data.x)).getMonth()] + " " + new Date(Math.floor(data.x)).getDay();
+            return this.getEntryLabel(data.x);
           else
             return data.x;
         });
         this.lineChartData = [
           {
-            data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => data.y),
+            data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => Math.round(data.y * 100) / 100),
             label: 'History'
           }
         ];
@@ -75,24 +74,33 @@ export class DataGraphComponent implements OnInit {
           }
         }
 
-        // let dataFilter = this.getSelectedVisibility(this.selectedVisibility);
-        // for(let i = 0; i < this.data.length; i++) {
-        //   let currData = this.data[i];
-        //   if(currData.x < dataFilter) {
-        //     this.lineChartLabels.slice(this.lineChartLabels.length - 1, 1);
-        //     this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 1, 1);
-        //   }
-        // }
-
         this.data.push({y: property.value, x: property.timestamp});
         // console.log("Data-Graph", property);
         if(property.timestamp > 1500000000000) {
-          this.lineChartLabels.push(this.monthAbrNames[new Date(Math.floor(property.timestamp)).getMonth()] + " " + new Date(Math.floor(property.timestamp)).getDay());
-          this.lineChartData[0].data.push(property.value);
+          this.lineChartLabels.push(this.getEntryLabel(property.timestamp));
+          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
         } else {
           this.lineChartLabels.push(property.timestamp);
-          this.lineChartData[0].data.push(property.value);
+          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
         }
+
+        // Check if you have to remove the last entry
+        if ( this.selectedVisibility.indexOf('Only New') != -1) {
+          if(this.lineChartLabels.length > 5) {
+            this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
+            this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
+          }
+        } else {
+          let lastVisibleTime = this.getSelectedVisibility();
+          let dataLength = this.lineChartLabels.length;
+          for(let i = this.data.length - dataLength; i < this.data.length; i++){
+            if(this.data[i].x > lastVisibleTime) break;
+            this.lineChartLabels.splice(0, 1);
+            this.lineChartData[0].data.splice(0, 1);
+          }
+
+        }
+
 
         this.dataLength.emit(this.data.length);
       });
@@ -100,16 +108,42 @@ export class DataGraphComponent implements OnInit {
   }
 
 
-  private oneSecond: number =     1_000;
   private oneMinute: number =     60_000;
   private oneHour: number =       3_600_000;
   private oneDay: number =        86_400_000;
   private oneWeek: number =       604_800_000;
   private oneMonth: number =      2_419_200_000;
   private oneYear: number =       29_030_400_000;
-  private dataFilterThreshold: number;
 
-  private getSelectedVisibility(visibility: string): number {
+  getEntryLabel(x: number) {
+    let visibility = this.selectedVisibility;
+
+    let xDate = new Date(Math.floor(x));
+
+    if ( visibility.indexOf('Only New') != -1  )
+      return xDate.getMinutes() + "m " + xDate.getSeconds() + '.' + xDate.getMilliseconds();
+    else if ( visibility.indexOf('Minute') != -1 ) {
+      return xDate.getMinutes() + 'm ' + xDate.getSeconds() + "s";
+    }
+    else if ( visibility.indexOf('Hour') != -1 ) {
+      return xDate.getHours() + ":" + xDate.getMinutes() + 'm ';
+    }
+    else if ( visibility.indexOf('Day') != -1 ) {
+      return xDate.getDate() + ' of ' + this.monthAbrNames[xDate.getMonth()];
+    }
+    else if ( visibility.indexOf('Week') != -1 ) {
+      return xDate.getDate() + ' of ' + this.monthAbrNames[xDate.getMonth()];
+    }
+    else if ( visibility.indexOf('Month') != -1 ) {
+      return this.monthAbrNames[xDate.getMonth()];
+    }
+    else if ( visibility.indexOf('1 Year') != -1 ) {
+      return this.monthAbrNames[xDate.getMonth()];
+    }
+  }
+
+  private getSelectedVisibility(): number {
+    let visibility = this.selectedVisibility;
     const currentDate = Date.now();
     const indicator = visibility.slice(0, visibility.indexOf(' '));
     // console.log(indicator, currentDate, visibility);
@@ -121,7 +155,7 @@ export class DataGraphComponent implements OnInit {
     else if ( visibility.indexOf('Hour') != -1 ) {
       return currentDate - this.oneHour * Number(indicator);
     }
-    else if ( visibility.indexOf('Today') != -1 ) {
+    else if ( visibility.indexOf('1 Day') != -1 ) {
       return currentDate - this.oneDay;
     }
     else if ( visibility.indexOf('Days') != -1 ) {
@@ -139,12 +173,14 @@ export class DataGraphComponent implements OnInit {
     return 0;
   }
 
+
   /** Graph data **/
   public lineChartOptions = {
 
     scaleShowVerticalLines: false,
     maintainAspectRatio: false,
     responsive: true,
+    animation: false
     // scales: {
     //   yAxes: [{
     //     ticks: {
