@@ -873,7 +873,7 @@ export class MockDataService {
 
 
   addFloor(newFloor: Floor) {
-    if (this.floor.find(s => s.identifier == newFloor.identifier) == undefined){
+    if (this.floor.find(s => s.name == newFloor.name) == undefined){
       this.floor.push(newFloor);
       return true;
     }

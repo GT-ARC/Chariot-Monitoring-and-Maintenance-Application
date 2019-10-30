@@ -69,8 +69,9 @@ export class Device {
 
   resolveLastIssue() {
     if(this.issues != null && this.issues.length != 0) {
-      let lastIssue = this.issues[this.issues.length - 1];
-      lastIssue.state = true;
+      for ( let issue of this.issues) {
+        issue.state = true;
+      }
     }
   }
 }
