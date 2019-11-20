@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MockDataService} from "../services/mock-data.service";
+import {DataService} from "../services/data.service";
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
 import {Device} from "../../model/device";
@@ -8,6 +8,7 @@ import {ChartOptions, ChartType} from "chart.js";
 import {Color, Label, MultiDataSet, SingleDataSet} from "ng2-charts";
 import {ProductProcess} from "../../model/productProcess";
 import {Container} from "../../model/Container";
+import {DeviceGroup} from '../../model/deviceGroup';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,16 +17,16 @@ import {Container} from "../../model/Container";
 })
 export class DashboardComponent implements OnInit {
 
-  floors: Floor[];        // Holds the fetched data of the floors
-  locations: Location[];  // Holds the fetched data of the locations
-  devices: Device[];      // Holds the fetched data of the devices
+  floors: Floor[] = [];        // Holds the fetched data of the floors
+  locations: Location[] = [];  // Holds the fetched data of the locations
+  devices: Device[] = [];      // Holds the fetched data of the devices
 
-  issueList: Issue[];
+  issueList: Issue[] = [];
   issueDeviceMap: Map<Issue, Device> = new Map();
 
-  products: ProductProcess[];
+  products: ProductProcess[] = [];
 
-  containers: Container[];
+  containers: Container[] = [];
 
   public static clickedDoughnutPiece: {value: number, name: string};
 
@@ -35,12 +36,23 @@ export class DashboardComponent implements OnInit {
   public static idleDevices: number;
   public static brokenDevices: number;
   public static fullDeviceAmount: number;
+  public displayDounat = false;
 
-  constructor(private mockDataService: MockDataService) {
+  constructor(private dataService: DataService) {
+    // Receive updates on data change events
+    dataService.getFloorDataNotification().subscribe(next => {
+      this.initDashboard();
+    });
   }
 
   ngOnInit() {
     this.getMockData();
+    this.initDashboard();
+  }
+
+  initDashboard() {
+    if(this.devices == undefined || this.devices.length == 0)
+      return;
 
     this.issueList = this.devices.map(d => {
       d.issues.forEach(i => {
@@ -61,20 +73,21 @@ export class DashboardComponent implements OnInit {
       this.classReference.onDevices, this.classReference.idleDevices, this.classReference.brokenDevices
     ];
     this.classReference.clickedDoughnutPiece = {value: Math.round(this.classReference.onDevices / this.classReference.fullDeviceAmount * 1000)/10, name: "Running"};
+    this.displayDounat = true;
   }
 
   getMockData(): void {
-    this.mockDataService.getFloor()
+    this.dataService.getFloor()
       .subscribe(data => {
         this.floors = data.floors;
         this.locations = data.locations;
         this.devices = data.devices;
       });
-    this.mockDataService.getProcess()
+    this.dataService.getProcess()
       .subscribe( data => {
         this.products = data.process;
       });
-    this.mockDataService.getContainer()
+    this.dataService.getContainer()
       .subscribe(data => {
         this.containers = data.container;
       });

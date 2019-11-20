@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material";
-import {MockDataService} from "../services/mock-data.service";
+import {DataService} from "../services/data.service";
 import {Container} from "../../model/Container";
 
 @Component({
@@ -14,7 +14,7 @@ export class WarehouseComponent implements OnInit {
   visibleContainer: Container[];
 
   constructor(
-    private mockDataService: MockDataService,
+    private mockDataService: DataService,
   ) { }
 
   window = window;

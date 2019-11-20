@@ -23,4 +23,18 @@ export class Location {
   public addDeviceGroup(deviceGroup: (Device | DeviceGroup)): void {
     this.devices.push(deviceGroup);
   }
+
+  public getDeviceById(id : string) : (Device | DeviceGroup) {
+    let device = this.devices.filter(element => element instanceof Device).find(device => device.identifier == id);
+    if(device != undefined) return device;
+    return this.devices.filter(element => element instanceof DeviceGroup).find(deviceGroup => deviceGroup.identifier == id);
+  }
+
+  getAllDevices(): Device[] {
+    return this.devices.filter(element => element instanceof Device) as Device[];
+  }
+
+  getAllDeviceGroups(): DeviceGroup[] {
+    return this.devices.filter(element => element instanceof DeviceGroup) as DeviceGroup[];
+  }
 }

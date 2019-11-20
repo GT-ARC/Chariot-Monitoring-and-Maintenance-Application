@@ -2,7 +2,7 @@ import {Component, OnInit, SimpleChange, SimpleChanges, ViewChild} from '@angula
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
 import {Device, Property} from '../../model/device';
-import {MockDataService} from "../services/mock-data.service";
+import {DataService} from "../services/data.service";
 import {Issue} from "../../model/issue";
 import {Color} from "ng2-charts";
 
@@ -47,7 +47,7 @@ export class MaintenanceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private mockDataService: MockDataService,
+    private mockDataService: DataService,
     private locationService: Locl) {
   }
 

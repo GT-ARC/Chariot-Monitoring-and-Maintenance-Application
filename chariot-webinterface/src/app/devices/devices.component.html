@@ -37,9 +37,11 @@
         </label>
       </div>
 
-      <div id="floor-list-wrapper" class="list">
+      <div id="floor-list-wrapper" class="list"
+        *ngIf="floors.length != 0">
         <div class="floor-entry" *ngFor="let floor of floors">
-          <div class="floor" *ngIf="visibleLocation[floor.identifier].length != 0">
+          <div class="floor" *ngIf="visibleLocation[floor.identifier] != undefined
+           && visibleLocation[floor.identifier].length != 0">
             <label class="checkbox-label">{{floor.name}}
               <input type="checkbox" name="sel_name"
                      (change)="floorSelected(floor, $event.target.checked)"

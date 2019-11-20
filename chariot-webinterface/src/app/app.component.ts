@@ -1,6 +1,9 @@
 import {Component, HostListener, ViewChild} from '@angular/core';
-import {MockDataService} from "./services/mock-data.service";
+import {DataService} from "./services/data.service";
 import {Location as Locl} from "@angular/common";
+import {PmNotificationReceiverService} from './services/pm-notification-receiver.service';
+import {Floor} from '../model/floor';
+import {RestService} from './services/rest.service';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +25,29 @@ export class AppComponent {
   ];
 
   constructor(
-    private locationService: Locl
+    private locationService: Locl,
+    private pmService: PmNotificationReceiverService,
+    private restService: RestService,
+    private dataService: DataService,
   ) {
   }
 
   ngOnInit() {
+
+    this.restService.getDeviceData().subscribe(data => {
+        let parsedData = this.restService.parseDeviceData(data as Array<any>);
+
+        let newFloor : Floor = {
+          identifier: Math.random().toString(36).substring(7),
+          name: 'Floor 11',
+          level: 11,
+          locations: parsedData.location,
+        };
+        this.dataService.addFloor(newFloor);
+        console.log(parsedData);
+      }
+    );
+
     this.path = this.locationService.path();
     console.log(this.path);
     AppComponent.toggleNav(window.innerWidth)

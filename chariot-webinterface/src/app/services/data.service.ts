@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 
 import {Location} from '../../model/location';
@@ -15,7 +15,7 @@ import {DeviceGroup} from '../../model/deviceGroup';
 @Injectable({
   providedIn: 'root'
 })
-export class MockDataService {
+export class DataService {
 
   floor: Floor[] = [];
   locations: Location[] = [];
@@ -32,6 +32,56 @@ export class MockDataService {
   constructor() {
     console.log('Create new mock Data');
     this.createData();
+  }
+
+  dataNotificationList: EventEmitter<Floor>[] = [];
+  getFloorDataNotification() : EventEmitter<Floor> {
+    let newDataNotifier = new EventEmitter<Floor>();
+    this.dataNotificationList.push(newDataNotifier);
+    return newDataNotifier;
+  }
+
+
+  getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[], deviceGroup: DeviceGroup[]}> {
+    let newObserver = of({
+      floors: this.floor,
+      locations: this.locations,
+      devices: this.devices,
+      deviceGroup: this.deviceGroup
+    });
+    return newObserver;
+  }
+
+  getProcess(): Observable<{ process: ProductProcess[] }> {
+    return of({
+      process: this.processes,
+    });
+  }
+
+  getContainer(): Observable<{ container: Container[] }> {
+    return of({
+      container: this.container,
+    });
+  }
+
+  getMetaData(): Observable<{ metaData: Metadata }> {
+    return of({
+      metaData: this.metadata,
+    });
+  }
+
+  addFloor(newFloor: Floor) {
+    if (this.floor.find(s => s.name == newFloor.name) == undefined){
+      this.floor.push(newFloor);
+      for (let loc of newFloor.locations) {
+        this.locations.push(loc);
+        for(let element of loc.getAllDevices()) this.devices.push(element);
+        for(let element of loc.getAllDeviceGroups()) this.deviceGroup.push(element);
+      }
+      for(let element of this.dataNotificationList) element.emit(newFloor);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -57,8 +107,8 @@ export class MockDataService {
     // create the data and put it into the
     for (let i = 0; i < amount; i++) {
       retData.push({x: endTime, y: endValue}); // Push the data into the ret array
-      endTime -= MockDataService.getRandValue(0, timeInterval);
-      endValue -= MockDataService.getRandValue(-valueRange, valueRange);
+      endTime -= DataService.getRandValue(0, timeInterval);
+      endValue -= DataService.getRandValue(-valueRange, valueRange);
     }
 
     return retData;
@@ -75,7 +125,7 @@ export class MockDataService {
     let valueInterval: number = (Math.random() * 20 + 5);
     let dataAmount = Math.round(Math.random() * 30) + 10;   // The amount of data points
 
-    let productsBehindPlan = MockDataService.createRandomData(dataAmount, dataEndTime, dataValue, timeInterval, valueInterval);
+    let productsBehindPlan = DataService.createRandomData(dataAmount, dataEndTime, dataValue, timeInterval, valueInterval);
 
     let predictionSize = Math.round(Math.random() * 5) + 5;  // The amount of prediction time
 
@@ -97,7 +147,7 @@ export class MockDataService {
         'sensitivity',
         this.getRandValue(1, 100),
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Sensitivity',
         '%',
         0,
@@ -109,7 +159,7 @@ export class MockDataService {
         'measurementSchedule',
         this.getRandValue(1, 100),
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Measurement schedule',
         'sec',
         0,
@@ -121,7 +171,7 @@ export class MockDataService {
         'accuracy',
         this.getRandValue(1, 360),
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Accuracy',
         '°',
         0,
@@ -133,7 +183,7 @@ export class MockDataService {
         'securityMeasurement',
         Math.random() > 0.5,
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Security Measurement'
       ),
       new Property(
@@ -142,7 +192,7 @@ export class MockDataService {
         'log',
         Math.random() > 0.5,
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Log'
       ),
       new Property(
@@ -151,7 +201,7 @@ export class MockDataService {
         'name',
         faker.name.firstName() + ' ' + faker.name.lastName(),
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Name'
       ),
       new Property(
@@ -160,7 +210,7 @@ export class MockDataService {
         'destination',
         faker.address.streetAddress(true),
         Math.random() > 0.5,
-        MockDataService.makeid(10),
+        DataService.makeid(10),
         'Destination'
       ),
       new Property(
@@ -174,7 +224,7 @@ export class MockDataService {
           "starting_speed",
           5.0,
           Math.random() > 0.5,
-          MockDataService.makeid(10),
+          DataService.makeid(10),
           "starting_speed",
           ""
           ), new Property(
@@ -183,7 +233,7 @@ export class MockDataService {
           "ending_speed",
           35.0,
           Math.random() > 0.5,
-          MockDataService.makeid(10),
+          DataService.makeid(10),
           "ending_speed",
           "",
           1,
@@ -194,7 +244,7 @@ export class MockDataService {
           "numberofsteps",
           30.0,
           Math.random() > 0.5,
-          MockDataService.makeid(10),
+          DataService.makeid(10),
           "numberofsteps",
           "",
           1,
@@ -205,7 +255,7 @@ export class MockDataService {
           "step_time",
           2.0,
           Math.random() > 0.5,
-          MockDataService.makeid(10),
+          DataService.makeid(10),
           "step_time",
           "",
           0.5,
@@ -213,7 +263,7 @@ export class MockDataService {
         )
       ],
       Math.random() > 0.5,
-      MockDataService.makeid(10),
+      DataService.makeid(10),
       'Continuous Speed Request',
       '°'
       )
@@ -238,7 +288,7 @@ export class MockDataService {
     for (let c = 0; c < Math.random() * 4; c++) {
       let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
       retIssues.push({
-        identifier: MockDataService.issueIdentifier++,
+        identifier: DataService.issueIdentifier++,
         // state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
         state: selectedDate == Math.floor(Date.now().valueOf() / 86400000) * 86400000 ? Math.random() >= 0.5 : Math.random() >= 0,
         description: '',
@@ -256,7 +306,7 @@ export class MockDataService {
    */
   static createMockDeviceProperties():  Property[] {
     // Get mock device properties
-    let mockDeviceProperties = MockDataService.createDeviceProperties();
+    let mockDeviceProperties = DataService.createDeviceProperties();
 
     // if(this['log1'] == undefined) {
     //   console.log(mockDeviceProperties);
@@ -304,12 +354,12 @@ export class MockDataService {
     switch (prop.type) {
       case 'number':
         dataValue = Math.random() * 100;
-        data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
+        data = DataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
         prop.createMockData(data, null);
         break;
       case 'boolean':
         dataValue= Math.random();
-        data = MockDataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
+        data = DataService.createRandomData(device_data_size, dataEndTime, dataValue, timeInterval, valueInterval);
         data.forEach(ele => ele.y = Math.round(ele.y));
         prop.createMockData(data, null);
         break;
@@ -328,13 +378,13 @@ export class MockDataService {
    */
   static createDevice(): Device {
 
-    let issues: Issue[] = MockDataService.createIssues();
+    let issues: Issue[] = DataService.createIssues();
 
-    MockDataService.deviceIdentifier++;
+    DataService.deviceIdentifier++;
     let predictionSize = Math.round(Math.random() * 5) + 5;
     let retDevice = new Device (
-      MockDataService.deviceIdentifier + "",                         // Identifier
-      'Device ' + MockDataService.deviceIdentifier,      // Name
+      DataService.deviceIdentifier + "",                         // Identifier
+      'Device ' + DataService.deviceIdentifier,      // Name
       null,                                             // Symbol
       Math.floor(Math.random() * 10000) / 100,
       Math.floor(Math.random() * 200 + 50),
@@ -352,7 +402,7 @@ export class MockDataService {
       issues,
     );
 
-    retDevice.properties = MockDataService.createMockDeviceProperties();
+    retDevice.properties = DataService.createMockDeviceProperties();
 
     return retDevice;
   }
@@ -366,24 +416,24 @@ export class MockDataService {
     // Create device groups
     for (let i = 0; i < 20; i++) {
 
-      let dgi = MockDataService.deviceGroupIdentifier;
+      let dgi = DataService.deviceGroupIdentifier;
 
       let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi, "Device Group: " + dgi);
-      let randomDeviceAmountPerGroup = MockDataService.getRandValue(1, 3);
+      let randomDeviceAmountPerGroup = DataService.getRandValue(1, 3);
 
       for(let c = 0; c < randomDeviceAmountPerGroup; c++) {
-        let newDevice = MockDataService.createDevice();
+        let newDevice = DataService.createDevice();
         newDevice.deviceGroupObj = newDeviceGroup;
         newDeviceGroup.addDevice(newDevice);
       }
 
-      MockDataService.deviceGroupIdentifier++;
+      DataService.deviceGroupIdentifier++;
       this.deviceGroup.push(newDeviceGroup);
     }
 
     // Create some individual devices
     for(let i = 0; i < 20; i++) {
-      this.mockDevices.push(MockDataService.createDevice());
+      this.mockDevices.push(DataService.createDevice());
     }
   }
 
@@ -402,7 +452,7 @@ export class MockDataService {
         null
       );
 
-      let randNumber = MockDataService.getRandValue(2, 3);
+      let randNumber = DataService.getRandValue(2, 3);
       for(let c = 0; c < randNumber; c++) {
         // Put individual devices and device groups into the location devices
         if(Math.random() > 0.5) {
@@ -573,7 +623,7 @@ export class MockDataService {
    */
   static createProductProcessArray(): IndividualProcess[] {
     let currentProgress = Math.floor(Math.random() * 7);      // On which process the product currently is
-    let randomProperties = MockDataService.createProcessProperties();
+    let randomProperties = DataService.createProcessProperties();
     let productProcessArray = [
       {
         name: 'Scheduling',
@@ -583,7 +633,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.jsonCopy(randomProperties)
+        properties: DataService.jsonCopy(randomProperties)
           .sort(() => Math.random() - 0.5)
           .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
       },
@@ -595,7 +645,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.createPrintingProcessProperties()
+        properties: DataService.createPrintingProcessProperties()
       },
       {
         name: 'Measurement',
@@ -605,7 +655,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.jsonCopy(randomProperties)
+        properties: DataService.jsonCopy(randomProperties)
           .sort(() => Math.random() - 0.5)
           .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
       },
@@ -617,7 +667,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.jsonCopy(randomProperties)
+        properties: DataService.jsonCopy(randomProperties)
           .sort(() => Math.random() - 0.5)
           .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
       },
@@ -629,7 +679,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.jsonCopy(randomProperties)
+        properties: DataService.jsonCopy(randomProperties)
           .sort(() => Math.random() - 0.5)
           .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
       },
@@ -641,7 +691,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.jsonCopy(randomProperties)
+        properties: DataService.jsonCopy(randomProperties)
           .sort(() => Math.random() - 0.5)
           .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
       },
@@ -653,7 +703,7 @@ export class MockDataService {
         paused: false,
         total: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 10))),
         running: new Date(Math.floor(24 * 60 * 60 * 1000 / (Math.random() * 20 + 5))),
-        properties: MockDataService.jsonCopy(randomProperties)
+        properties: DataService.jsonCopy(randomProperties)
           .sort(() => Math.random() - 0.5)
           .slice(0, Math.floor(Math.random() * randomProperties.length + 3))
       },
@@ -742,8 +792,8 @@ export class MockDataService {
           productStatus[Math.floor(Math.random() * productStatus.length)],
           Math.random() > 0.5,
           Math.random() > 0.5 ? './assets/Images/product1.png' : './assets/Images/product2.png',
-          MockDataService.createProductProcessArray(),
-          MockDataService.createProductInfo(),
+          DataService.createProductProcessArray(),
+          DataService.createProductInfo(),
           categorys[Math.floor(Math.random() * categorys.length)]
         )
       );
@@ -764,7 +814,7 @@ export class MockDataService {
 
       let maxProduct = Math.floor(Math.random() * this.processes.length + 10);
 
-      let products = MockDataService.jsonCopy(this.processes)
+      let products = DataService.jsonCopy(this.processes)
         .sort(() => Math.random() - 0.5)
         .slice(0, Math.floor(Math.random() * (maxProduct - 10) + 10));
 
@@ -789,9 +839,9 @@ export class MockDataService {
   createData(): void {
 
     this.createMetaData();
-    this.createDevices();
-    this.createLocations();
-    this.createFloors();
+    // this.createDevices();
+    // this.createLocations();
+    // this.createFloors();
 
     // Do to the fact that not all devices and locations are used reduce the locations and device parameter to the actual used
     this.locations = this.floor.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
@@ -829,38 +879,6 @@ export class MockDataService {
     return JSON.parse(JSON.stringify(src));
   }
 
-  addData() {
-
-  }
-
-
-  getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[], deviceGroup: DeviceGroup[]}> {
-    return of({
-      floors: this.floor,
-      locations: this.locations,
-      devices: this.devices,
-      deviceGroup: this.deviceGroup
-    });
-  }
-
-  getProcess(): Observable<{ process: ProductProcess[] }> {
-    return of({
-      process: this.processes,
-    });
-  }
-
-  getContainer(): Observable<{ container: Container[] }> {
-    return of({
-      container: this.container,
-    });
-  }
-
-  getMetaData(): Observable<{ metaData: Metadata }> {
-    return of({
-      metaData: this.metadata,
-    });
-  }
-
   static makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -869,14 +887,5 @@ export class MockDataService {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
-  }
-
-
-  addFloor(newFloor: Floor) {
-    if (this.floor.find(s => s.name == newFloor.name) == undefined){
-      this.floor.push(newFloor);
-      return true;
-    }
-    return false;
   }
 }

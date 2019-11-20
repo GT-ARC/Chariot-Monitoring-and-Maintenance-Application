@@ -2,7 +2,7 @@ import {Component, OnInit, SimpleChange, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location as Locl} from '@angular/common';
 
-import {MockDataService} from '../services/mock-data.service';
+import {DataService} from '../services/data.service';
 
 import {Location} from '../../model/location';
 import {Device} from '../../model/device';
@@ -57,6 +57,8 @@ export class DevicesComponent implements OnInit {
 
   deviceCardStyle: string = 'Large';
 
+  routedId:string = undefined;
+
   window = window;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
@@ -74,42 +76,41 @@ export class DevicesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private mockDataService: MockDataService,
+    private dataService: DataService,
     private locationService: Locl,
-    private restService: RestService
   ) {
+    // Receive updates on data change events
+    dataService.getFloorDataNotification().subscribe(next => {
+      // Select the routed device
+      if(this.routedId != undefined) {
+        for(let loc of next.locations) {
+          let foundElement = loc.getDeviceById(this.routedId);
+          if (foundElement instanceof Device) {
+            this.selectedDevice = foundElement;
+            this.selectedDeviceGroup = undefined;
+            break;
+          } else if  (foundElement instanceof DeviceGroup) {
+            this.selectedDeviceGroup = foundElement;
+            this.selectedDevice = undefined;
+            break;
+          }
+        }
+      }
+
+     this.initInterface();
+    });
   }
 
   ngOnInit() {
-
-    this.restService.getDeviceData().subscribe(data => {
-        let parsedData = this.restService.parseDeviceData(data as Array<any>);
-
-        let newFloor : Floor = {
-          identifier: Math.random().toString(36).substring(7),
-          name: 'Floor 11',
-          level: 11,
-          locations: parsedData.location,
-        };
-
-        let add = this.mockDataService.addFloor(newFloor);
-        if(add) this.floors.push(newFloor);
-
-        this.locations.concat(parsedData.location);
-        this.visibleLocation[newFloor.identifier] = newFloor.locations;
-
-        for(let loc of parsedData.location)
-          this.locationSelected(loc, true, false);
-
-        this.updateUI();
-
-        console.log(parsedData);
-      }
-    );
-
-
     // Get the mock data from the mock data service
-    this.getMockData();
+    this.getData();
+    this.initInterface();
+
+  }
+
+  initInterface() {
+    if(this.devices.length == 0 || this.locations.length == 0 || this.floors.length == 0)
+      return;
 
     let routedElement = this.getRoutedDevice();
 
@@ -124,7 +125,7 @@ export class DevicesComponent implements OnInit {
       }
     });
     // If by chance no location is selected, select the first
-    if (this.selectedLocation.length == 0) {
+    if (this.selectedLocation.length == 0 && this.locations.length != 0) {
       this.selectedLocation.push(this.locations[0]);
     }
 
@@ -138,23 +139,20 @@ export class DevicesComponent implements OnInit {
       this.selectedDevice = this.visibleDevice[devicePos];
     }
 
-    console.log(this.selectedDevice);
-
     this.countTheIssues();
   }
 
   getRoutedDevice(): DeviceGroup | Device {
     // If a specific id is in the url route to the id
-    let id: string = null;
+    this.routedId = undefined;
     if (this.route.snapshot.paramMap.has('id')) {
-      id = this.route.snapshot.paramMap.get('id');
+      this.routedId = this.route.snapshot.paramMap.get('id');
     }
 
     // Get the selected device
-
-    if (id != null) {
-      if (id.indexOf('g') == 0) {
-        let tempID = id.slice(1);
+    if (this.routedId != null) {
+      if (this.routedId.indexOf('g') == 0) {
+        let tempID = this.routedId.slice(1);
         let selectDeviceGroup = this.deviceGroups.find(value => value.identifier == +tempID);
         this.selectedDeviceGroup = selectDeviceGroup;
         if (selectDeviceGroup != undefined) {
@@ -162,7 +160,7 @@ export class DevicesComponent implements OnInit {
           return selectDeviceGroup;
         }
       } else {
-        let selectDevice = this.devices.find(value => value.identifier == id);
+        let selectDevice = this.devices.find(value => value.identifier == this.routedId);
         if(selectDevice == undefined)
           return undefined;
         this.selectedDevice = selectDevice;
@@ -315,14 +313,13 @@ export class DevicesComponent implements OnInit {
   /**
    * Retrieves the mock data from the mock data service
    */
-  getMockData(): void {
+  getData(): void {
     if(this.floors.length == 0) {
-      this.mockDataService.getFloor()
+      this.dataService.getFloor()
         .subscribe(data => {
-          this.floors = this.floors.concat(data.floors);
-          this.locations = this.locations.concat(data.locations);
-          this.devices = this.devices.concat(data.devices);
-          this.deviceGroups = this.deviceGroups.concat(data.deviceGroup);
+          this.floors = data.floors;
+          this.locations = data.locations;
+          this.devices = data.devices;
         });
     }
   }
@@ -344,8 +341,7 @@ export class DevicesComponent implements OnInit {
     } else {
       this.selectedLocation.splice(entry, 1);
     }
-    if(updateUi)
-    this.updateUI();
+    if(updateUi) this.updateUI();
   }
 
   /**

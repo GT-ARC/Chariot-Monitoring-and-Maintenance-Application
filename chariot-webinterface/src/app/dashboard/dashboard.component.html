@@ -60,7 +60,8 @@
            fxFlex="1 0 280px">
         <span class="title">DEVICES STATUS</span>
         <mat-icon>more_vert</mat-icon>
-        <div class="dashboard-card-content">
+        <div class="dashboard-card-content"
+             *ngIf="displayDounat">
           <div style="display: block; max-width: 280px;">
             <p id="doughnutValue">
               {{classReference.clickedDoughnutPiece.value}}
