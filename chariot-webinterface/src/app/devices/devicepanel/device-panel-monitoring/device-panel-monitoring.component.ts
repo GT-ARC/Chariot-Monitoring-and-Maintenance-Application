@@ -48,11 +48,11 @@ export class DevicePanelMonitoringComponent implements OnInit {
           if(regData.hasOwnProperty("value")) {
             this.property.data = regData['value'];
           }
-        this.filterData();
+        this.filterData(true);
       });
+    } else {
+      this.filterData(true);
     }
-
-    this.filterData();
   }
 
   ngOnInit() {
@@ -60,11 +60,11 @@ export class DevicePanelMonitoringComponent implements OnInit {
       this.dataRangeValues.push(this.getSelectedVisibility(element))
     }
 
-    // for( let element of this.dataRangeOptions) {
-    //   let index = this.dataRangeOptions.indexOf(element);
-    //   console.log(index, element, this.dataRangeValues[index])
-    // }
-    this.filterData();
+    for( let element of this.dataRangeOptions) {
+      let index = this.dataRangeOptions.indexOf(element);
+      console.log(index, element, this.dataRangeValues[index])
+    }
+    this.filterData(true);
   }
 
   private getSelectedVisibility(visibility: string): number {
@@ -82,7 +82,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     else if ( visibility.indexOf('Today') != -1 ) {
       return currentDate - this.oneDay;
     }
-    else if ( visibility.indexOf('Days') != -1 ) {
+    else if ( visibility.indexOf('Day') != -1 ) {
       return currentDate - this.oneDay * Number(indicator);
     }
     else if ( visibility.indexOf('Week') != -1 ) {
@@ -97,7 +97,9 @@ export class DevicePanelMonitoringComponent implements OnInit {
     return 0;
   }
 
-  private filterData() {
+  private filterData(searchForData : boolean = false) {
+    console.log("Filter data: Search for data - " + searchForData);
+
     if(this.property.data == undefined || this.property.data.length == 0) {
       this.visibleData = [];
       return
@@ -111,16 +113,35 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
     // If the data received uses unix timestamps filter for the selected visible data range
     if(this.dataRangeValues.length == 0) return;
-    const index = this.dataRangeOptions.indexOf(this.selectedVisibility);
-    const value = this.dataRangeValues[index];
-    this.dataFilterThreshold = value;
-    if(this.property.data != undefined )
+
+
+    if(searchForData){
+      let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+      do {
+        let value = this.dataRangeValues[index];
+        this.dataFilterThreshold = value;
+        this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
+        if(this.visibleData.length < 5 && index < this.dataRangeValues.length - 1){
+          index++;
+          this.selectedVisibility = this.dataRangeOptions[index];
+        } else {
+          console.log("Filter found: " + this.selectedVisibility + " with " + this.visibleData.length);
+          break;
+        }
+      } while(true);
+    } else {
+      let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+      let value = this.dataRangeValues[index];
+      this.dataFilterThreshold = value;
       this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
-    else this.visibleData = [];
+    }
+
+    this.visibleData.reverse();
   }
 
   private showMoreData() {
     let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+    console.log(index);
     if (index > 0){
       this.selectedVisibility = this.dataRangeOptions[index - 1];
       this.filterData()

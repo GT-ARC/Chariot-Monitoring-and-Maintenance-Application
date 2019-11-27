@@ -34,13 +34,16 @@ export class DataService {
     this.createData();
   }
 
-  dataNotificationList: EventEmitter<Floor>[] = [];
-  getFloorDataNotification() : EventEmitter<Floor> {
-    let newDataNotifier = new EventEmitter<Floor>();
+  dataNotificationList: EventEmitter<any>[] = [];
+  getDataNotification() : EventEmitter<any> {
+    let newDataNotifier = new EventEmitter<any>();
     this.dataNotificationList.push(newDataNotifier);
     return newDataNotifier;
   }
 
+  dataUpdate() {
+    for(let element of this.dataNotificationList) element.emit(null);
+  }
 
   getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[], deviceGroup: DeviceGroup[]}> {
     let newObserver = of({

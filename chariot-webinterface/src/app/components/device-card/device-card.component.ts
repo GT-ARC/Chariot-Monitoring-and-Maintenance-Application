@@ -23,9 +23,17 @@ export class DeviceCardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.statusProperty = this.device.properties.find( s => s.key == 'status');
-    if(this.statusProperty == undefined)
+    if(this.statusProperty == undefined){
       console.log("status property is missing from the device model");
-    else
+      this.writable = false;
+      this.statusProperty = new Property(
+        1572439237374,
+        "boolean",
+         "status",
+         false,
+         false,
+    )
+    } else
       this.writable = this.statusProperty.writable;
     this.getIssueState();
   }

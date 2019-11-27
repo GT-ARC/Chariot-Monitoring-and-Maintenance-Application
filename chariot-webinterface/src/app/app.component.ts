@@ -43,6 +43,12 @@ export class AppComponent {
           level: 11,
           locations: parsedData.location,
         };
+
+        parsedData.device.forEach(d =>
+            d.properties.filter(p => p.key == "pm_result")
+              .forEach(prop => this.pmService.getIssuesAndSubscribeToPmResult(prop, d))
+        );
+
         this.dataService.addFloor(newFloor);
         console.log(parsedData);
       }

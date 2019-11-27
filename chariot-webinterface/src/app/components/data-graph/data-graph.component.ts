@@ -140,6 +140,7 @@ export class DataGraphComponent implements OnInit {
     else if ( visibility.indexOf('1 Year') != -1 ) {
       return this.monthAbrNames[xDate.getMonth()];
     }
+    return xDate.getFullYear();
   }
 
   private getSelectedVisibility(): number {

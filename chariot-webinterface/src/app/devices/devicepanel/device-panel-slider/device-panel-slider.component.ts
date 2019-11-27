@@ -66,4 +66,8 @@ export class DevicePanelSliderComponent implements OnInit {
       }
     }
   }
+
+  ngOnDestroy() {
+    this.deviceUpdateService.unSubscribeOfTopic(this.property.topic);
+  }
 }

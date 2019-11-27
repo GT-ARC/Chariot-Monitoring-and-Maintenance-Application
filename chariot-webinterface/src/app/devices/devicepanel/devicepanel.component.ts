@@ -124,7 +124,7 @@ export class DevicepanelComponent implements OnInit {
   }
 
   getNormalProperties() {
-    return this.device.properties.filter(value => value.type !== 'array' && value.key != 'status');
+    return this.device.properties.filter(value => value.type !== 'array' && value.key != 'status' && value.key != 'pm_result');
   }
 
 }

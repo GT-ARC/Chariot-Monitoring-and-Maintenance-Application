@@ -80,9 +80,9 @@ export class DevicesComponent implements OnInit {
     private locationService: Locl,
   ) {
     // Receive updates on data change events
-    dataService.getFloorDataNotification().subscribe(next => {
+    dataService.getDataNotification().subscribe(next => {
       // Select the routed device
-      if(this.routedId != undefined) {
+      if(next && this.routedId != undefined) {
         for(let loc of next.locations) {
           let foundElement = loc.getDeviceById(this.routedId);
           if (foundElement instanceof Device) {

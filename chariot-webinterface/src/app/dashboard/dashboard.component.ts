@@ -32,15 +32,15 @@ export class DashboardComponent implements OnInit {
 
   public classReference = DashboardComponent;
 
-  public static onDevices: number;
-  public static idleDevices: number;
-  public static brokenDevices: number;
-  public static fullDeviceAmount: number;
+  public static onDevices: number = 0;
+  public static idleDevices: number = 0;
+  public static brokenDevices: number = 0;
+  public static fullDeviceAmount: number = 0;
   public displayDounat = false;
 
   constructor(private dataService: DataService) {
     // Receive updates on data change events
-    dataService.getFloorDataNotification().subscribe(next => {
+    dataService.getDataNotification().subscribe(next => {
       this.initDashboard();
     });
   }

@@ -2,14 +2,14 @@
   <p class="device-panel-title">Device Monitoring</p>
   <div id="device-chart-wrapper">
     <div id="accuracy-arrows">
-      <mat-icon id="up" (click)="showMoreData()">keyboard_arrow_up</mat-icon>
+      <mat-icon id="up" (click)="showLessData()">keyboard_arrow_up</mat-icon>
       <span id="monitoring-data-select">
         {{selectedVisibility}}:
       </span>
       <span>
         {{dataAmount}}
       </span>
-      <mat-icon id="down" (click)="showLessData()">keyboard_arrow_down</mat-icon>
+      <mat-icon id="down" (click)="showMoreData()">keyboard_arrow_down</mat-icon>
 
       <mat-icon *ngIf="!getCurrentData" id="play" (click)="getRealtimeData()">play_arrow</mat-icon>
       <mat-icon *ngIf="getCurrentData" id="pause" (click)="stopDataFlow()">pause</mat-icon>

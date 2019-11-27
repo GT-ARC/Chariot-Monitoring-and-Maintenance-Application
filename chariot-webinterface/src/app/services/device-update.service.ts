@@ -12,16 +12,19 @@ export class DeviceUpdateService {
 
 
   subscribeToTopic(topic: string) {
+    let message = {
+      topic: topic,
+      regex: false
+    };
     if(this.topicList.indexOf(topic) == -1){
-      this.socket.emit("subscribe", topic);
+      this.socket.emit("subscribe", JSON.stringify(message));
       this.topicList.push(topic);
     }
     return this.socket.fromEvent<string>(topic);
   }
 
   unSubscribeOfTopic(topic: string) {
-    console.log("Unsubscribe");
-
+    this.socket.emit("unsubscribe", topic);
   }
 
   unSubscribeDevice() {

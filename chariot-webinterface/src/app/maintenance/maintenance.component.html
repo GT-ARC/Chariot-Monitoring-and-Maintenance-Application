@@ -6,7 +6,8 @@
   fullscreen
   (backdropClick)="backDropClicked()">
   <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
-    <aside id="issue-list">
+    <aside id="issue-list"
+           *ngIf="devices != undefined && devices.length != 0">
 
       <div class="list-head">
         <p id="sort-by">SORT BY: {{issueSortSelected | uppercase}}</p>
@@ -47,8 +48,9 @@
       </div>
     </aside>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start">
+  <mat-sidenav-content >
+    <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start"
+          *ngIf="devices != undefined && devices.length != 0 && issueDeviceMap.get(selectedIssue) != undefined">
       <div id="issue-content-head"
            routerLink="/devices/{{issueDeviceMap.get(selectedIssue).identifier}}"
            fxFlex="1 1 calc(100%)">

@@ -53,25 +53,25 @@ export class Device {
     return this.issues.reduce((prev, curr) => curr.state == false ? prev + 1 : prev, 0)
   }
 
+  lastIssue : Issue = null;
   addIssue(date? : number) {
     if(this.issues != null) {
-      if( date != undefined && this.issues.find(s => s.issue_date == date)) return;
-      this.issues.push({
+      let issue = {
         identifier: this.issues.length,
         state: false,
         description: '',
         type: '',
         issue_date: date != undefined ? new Date(date).valueOf() : Date.now(),
         importance: Math.floor(Math.random() * 100)
-      });
+      };
+      this.lastIssue = issue;
+      this.issues.push(issue);
     }
   }
 
   resolveLastIssue() {
     if(this.issues != null && this.issues.length != 0) {
-      for ( let issue of this.issues) {
-        issue.state = true;
-      }
+      this.lastIssue.state = true;
     }
   }
 }

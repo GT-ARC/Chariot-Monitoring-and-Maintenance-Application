@@ -5,6 +5,7 @@ import {Device, Property} from '../../model/device';
 import {Location} from '../../model/location';
 import {DeviceModel, LocationModel, PropertyModel} from '../../model/deviceModel';
 import * as faker from 'faker';
+import {PmNotificationReceiverService} from './pm-notification-receiver.service';
 
 @Injectable({
   providedIn: 'root'

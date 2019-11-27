@@ -29,30 +29,10 @@ export class DevicePanelSwitchComponent implements OnInit {
   constructor (
     private deviceUpdateService: DeviceUpdateService,
     private notifierService: NotifierService,
-    private restService : RestService
   ) { }
 
   ngOnInit() {
     this.cardName = this.property.name == undefined ? this.property.key : this.property.name;
-    if (this.property.key == "pm_result") {
-      if (this.property.url != undefined){
-        this.restService.getHistoryData(this.property.url).subscribe(regData => {
-          if(regData.hasOwnProperty("value")) {
-            let historyData: {x: number, y: any}[] = regData['value'];
-            let prevPoint = 0;
-            for (let point of historyData) {
-              if (prevPoint == 0 && point.y == 1) {
-                // Issue detected
-                this.device.addIssue(point.x);
-              } else if (prevPoint == 1 && point.y == 0) {
-                this.device.resolveLastIssue();
-              }
-              prevPoint = point.y;
-            }
-          }
-        });
-      }
-    }
 
     this.receiveDataStream();
   }
@@ -63,23 +43,10 @@ export class DevicePanelSwitchComponent implements OnInit {
 
       this.currentDataReceiver.subscribe(message => {
         //console.log(message);
-        let property = JSON.parse(JSON.parse(message));
-        // console.log("switch: ", property);
-        // Check for pm result
-        if (this.property.key == "pm_result") {
-          if (this.property.value == 0 && property.value == 1) {
-            // Issue detected
-            this.device.addIssue();
-            this.notifierService.notify('error', 'Issue detected');
-          } else if (this.property.value == 1 && property.value == 0) {
-            this.device.resolveLastIssue();
-            this.notifierService.notify('success', 'Issue resolved');
-          }
-        }
-
-        if(property.value == 0) {
+        let jsonMessage = JSON.parse(JSON.parse(message));
+        if(jsonMessage.value == 0) {
           this.property.value = false;
-        } if(property.value == 1) {
+        } if(jsonMessage.value == 1) {
           this.property.value = true;
         }
       });

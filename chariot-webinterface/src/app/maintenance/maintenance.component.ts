@@ -9,6 +9,7 @@ import {Color} from "ng2-charts";
 import {ActivatedRoute} from '@angular/router';
 import {Location as Locl} from '@angular/common';
 import {MatSidenav} from "@angular/material";
+import {DeviceGroup} from '../../model/deviceGroup';
 
 @Component({
   selector: 'app-maintenance',
@@ -47,13 +48,22 @@ export class MaintenanceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private mockDataService: DataService,
+    private dataService: DataService,
     private locationService: Locl) {
+    this.dataService.getDataNotification().subscribe(next => {
+      // Select the routed device
+      this.initInterface();
+    });
   }
 
   ngOnInit() {
+    this.getData();
+    this.initInterface();
+  }
 
-    this.getMockData();
+  initInterface() {
+    if(this.devices == undefined || this.devices.length == 0)
+      return;
 
     let id = null;
     if (this.route.snapshot.paramMap.has('id')) {
@@ -153,8 +163,8 @@ export class MaintenanceComponent implements OnInit {
     }).slice(0, this.datesShown);
   }
 
-  getMockData(): void {
-    this.mockDataService.getFloor()
+  getData(): void {
+    this.dataService.getFloor()
       .subscribe(data => {
         this.devices = data.devices;
       });
