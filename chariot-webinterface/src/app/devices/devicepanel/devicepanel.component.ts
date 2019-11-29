@@ -1,11 +1,7 @@
-import {Component, OnInit, Input, Output, SimpleChanges, SimpleChange, HostListener} from '@angular/core';
-
+import {Component, OnInit, Input, Output, SimpleChanges, OnDestroy, HostListener} from '@angular/core';
 import {EventEmitter} from '@angular/core';
-
-import {Device, Property} from '../../../model/device';
-import {log} from 'util';
+import {Device, Property, PropertyBundle} from '../../../model/device';
 import {DeviceUpdateService} from '../../services/device-update.service';
-
 
 @Component({
   selector: 'app-devicepanel',
@@ -21,40 +17,39 @@ export class DevicepanelComponent implements OnInit {
 
   deviceStatus: Property = null;
 
-  areaMD : String;
-  areaSD : String;
-  areaXS : String;
-
-  arrayProperties: Property[];
-  normalProperties: Property[];
+  arrayProperties: PropertyBundle[];
+  normalProperties: PropertyBundle;
   selectedProperty: Property = null;
 
   public issueState: boolean = false;
   property_open: boolean = true;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.deviceUpdateService.unSubscribeDevice();
-
+    // Get all device issues
     if(this.device.issues != null)
       this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
     else
       this.issueState = false;
 
+    // Get the array properties and normal properties
     this.arrayProperties = this.getArrayProperties();
     this.normalProperties = this.getNormalProperties();
-    if(this.normalProperties.length > 0)
-      this.selectedProperty = this.normalProperties[0];
-    this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
 
-    this.areaMD = DevicepanelComponent.getMdArea(this.normalProperties.length, 1280);
-    this.areaSD = DevicepanelComponent.getMdArea(this.normalProperties.length, 899);
-    this.areaXS = DevicepanelComponent.getMdArea(this.normalProperties.length, 449);
-    this.getArea(null);
+    // Select the first normal property
+    if(this.normalProperties.properties.length > 0)
+      this.selectedProperty = this.normalProperties.properties[0];
+
+    // Set the device status property
+    this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
   }
 
   constructor(private deviceUpdateService: DeviceUpdateService) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.deviceUpdateService.unSubscribeDevice();
   }
 
   emitDeviceProperty(property: string, state: any) {
@@ -65,66 +60,21 @@ export class DevicepanelComponent implements OnInit {
 
   }
 
-  static getMdArea(propAmount : number, width: number) : string {
-
-    let getRow = function(i : number, amount: number) {
-      if(amount == 1)
-        return " a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " ";
-      if(amount == 2)
-        return " a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + (i+1) + " " + "a" + (i+1) + " " + "a" + (i+1) + " ";
-      if(amount == 3)
-        return " a" + i + " " + "a" + i + " " + "a" + (i+1) + " " + "a" + (i+1) + " " + "a" + (i+2) + " " + "a" + (i+2) + " ";
-    };
-
-    let index = 0;
-    let retString = "";
-    while (index < propAmount) {
-      let leftProperties = propAmount - index;
-      if(retString != "") retString += "|";
-
-      if(leftProperties == 0)
-        break;
-
-      let rand = Math.random();
-
-      // Make it size dependent
-      let selectedAmount = 0;
-      if (width < 450) selectedAmount = 1;
-      else if (width < 900) selectedAmount = rand < 0.4 ? 1 : 2;
-      else selectedAmount = rand < 0.2 ? 1 : (rand < 0.6 ? 2 : 3);
-
-      if (selectedAmount > leftProperties)
-        selectedAmount = leftProperties;
-
-      retString += getRow(index, selectedAmount);
-      index += selectedAmount;
+  getArrayProperties() : PropertyBundle[] {
+    let retBundle = [];
+    for(let propBundle of this.device.properties.filter(value => value.type === 'Array')) {
+      // @ts-ignore
+      let bundledProp = new PropertyBundle(propBundle.value, this.device, propBundle);
+      retBundle.push(bundledProp);
     }
-    return retString;
-  }
-
-  propertyArea = null;
-
-  @HostListener('window:resize', ['$event'])
-  getArea(event) {
-    if(window.innerWidth < 500){
-      this.propertyArea =  this.areaXS;
-    }
-    else if(window.innerWidth < 900){
-      this.propertyArea =  this.areaSD;
-    }
-    else {
-      this.propertyArea = this.areaMD;
-    }
-
-    // console.log("Current Area", this.propertyArea)
-  }
-
-  getArrayProperties() {
-    return this.device.properties.filter(value => value.type === 'array');
+    return retBundle;
   }
 
   getNormalProperties() {
-    return this.device.properties.filter(value => value.type !== 'array' && value.key != 'status' && value.key != 'pm_result');
+    return new PropertyBundle(
+      this.device.properties.filter(value => value.type !== 'Array' && value.key != 'status' && value.key != 'pm_result'),
+      this.device,
+      undefined);
   }
 
 }

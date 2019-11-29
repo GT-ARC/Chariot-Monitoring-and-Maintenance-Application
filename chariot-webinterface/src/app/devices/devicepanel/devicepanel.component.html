@@ -32,62 +32,21 @@
       <app-property-bundle
         (uploaded)="emitDeviceProperty($event.property, $event.state)"
         (selectedPropertyEvent)="selectedProperty = $event.selectedProperty"
-        [property]="property"
+        [propertyBundle]="property"
         [selectedProperty]="selectedProperty">
       </app-property-bundle>
     </div>
 
-    <div fxFlex="1 1 calc(100% - 16px)">
-      <mat-icon id="property-bundle-icon"
-        (click)="property_open = !property_open"
-        class="sort-arrow">{{property_open ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
-      <div id="property-bundle-name">
-        Properties
-      </div>
-    </div>
-
     <!--  Create the cards for the properties of the device  -->
-    <div
-      fxFlex="1 1 calc(100% - 16px)"
-      *ngIf="property_open"
-      gdAlignColumns="start start"
-
-      gdAreas="{{propertyArea}}"
-      gdColumns="calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px)"
-
-      gdAuto="row"
-      gdGap="16px">
-
-      <div [ngSwitch]="property.type.toLocaleLowerCase()"
-           *ngFor="let property of normalProperties; let i = index"
-           gdArea="a{{i}}">
-
-        <app-device-panel-switch
-          (click)="selectedProperty = property"
-          *ngSwitchCase="'boolean'"
-          (uploaded)="emitDeviceProperty($event.property, $event.state)"
-          [device]="device"
-          [property]="property"
-          [selectedProperty]="selectedProperty">
-        </app-device-panel-switch>
-
-
-        <app-device-panel-slider
-          (click)="selectedProperty = property"
-          *ngSwitchCase="'number'"
-          (uploaded)="emitDeviceProperty($event.property, $event.state)"
-          [property]="property"
-          [selectedProperty]="selectedProperty">
-        </app-device-panel-slider>
-
-        <app-device-panel-text-field
-          *ngSwitchCase="'string'"
-          (uploaded)="emitDeviceProperty($event.property, $event.state)"
-          [property]="property">
-        </app-device-panel-text-field>
-
-      </div>
+    <div fxFlex="1 1 calc(100% - 16px)">
+      <app-property-bundle
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
+        (selectedPropertyEvent)="selectedProperty = $event.selectedProperty"
+        [propertyBundle]="normalProperties"
+        [selectedProperty]="selectedProperty">
+      </app-property-bundle>
     </div>
+
 
     <app-device-panel-info
       [device]="device"

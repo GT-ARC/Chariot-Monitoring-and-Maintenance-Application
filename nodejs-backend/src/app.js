@@ -73,6 +73,7 @@ io.on('connection', function (socket) {
 
     // When the socket disconnects
     socket.on('disconnect', function () {
+	console.log('Socket disconected: ' + socket.id);
         if (socket.id in socketToKafkaMap) {
             console.log("User disconnected" + socket.id + " release kafka consumer");
             for(let consumer of socketToKafkaMap[socket.id])

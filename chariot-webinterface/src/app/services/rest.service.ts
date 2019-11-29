@@ -41,6 +41,7 @@ export class RestService {
 
 
   parseDeviceData(data : Array<DeviceModel>): {location: Location[], device: Device[]}  {
+    console.log("Parse received data");
     for(let element of data) {
       let newDevice = new Device(
         element.uuid,
@@ -59,12 +60,16 @@ export class RestService {
             desc: element.objectType
           },
           {
-            title: "UUID",
-            desc: element.uuid
+            title: "URL",
+            desc: element.url
           },
           {
             title: "IP-Address",
             desc: element.ip
+          },
+          {
+            title: "Manufacturer",
+            desc: element.manufacturer
           }
         ],
         []
@@ -107,7 +112,7 @@ export class RestService {
     if(prop.value instanceof Array) {
       for(let nestedProp of prop.value) {
         // @ts-ignore
-        let newProp = new Property(nestedProp.timestamp, nestedProp.type, nestedProp.key, nestedProp.value, nestedProp.writable);
+        let newProp = this.createPropFromPropModel(nestedProp);
         nestedProperty.push(newProp);
       }
     }
@@ -118,8 +123,8 @@ export class RestService {
     newProperty.topic = prop.kafka_topic;
 
     // If min or max value isn't set put default values in place
-    newProperty.min_value = prop['minValue'] == undefined ? 0 : prop['minValue'];
-    newProperty.max_value = prop['maxValue'] == undefined ? 100 : prop['maxValue'];
+    newProperty.min_value = prop['min'] ? prop['min'] : 0;
+    newProperty.max_value = prop['max'] ? prop['max'] : 100;
 
     return newProperty;
   }

@@ -1,5 +1,6 @@
 import {Issue} from "./issue";
 import {DeviceGroup} from './deviceGroup';
+import seedrandom from 'seedrandom';
 
 export class Device {
   identifier: string;
@@ -73,6 +74,69 @@ export class Device {
     if(this.issues != null && this.issues.length != 0) {
       this.lastIssue.state = true;
     }
+  }
+}
+
+export class PropertyBundle {
+  bundledProperty : Property;
+  areaMD : String;
+  areaSD : String;
+  areaXS : String;
+  properties: Property [];
+  device: Device;
+
+  constructor(properties: Property [], device: Device, bundledProperty : Property) {
+    this.device = device;
+    this.bundledProperty = bundledProperty;
+    this.properties = properties == undefined ? [] : properties;
+    if(this.areaMD == undefined) {
+      this.areaMD = this.getMdArea(properties.length, 1280);
+    }
+    if(this.areaSD == undefined) {
+      this.areaSD = this.getMdArea(properties.length, 899);
+    }
+    if(this.areaXS == undefined) {
+      this.areaXS = this.getMdArea(properties.length, 449);
+    }
+  }
+
+  getMdArea(propAmount : number, width: number) : string {
+
+    let getRow = function(i : number, amount: number) {
+      if(amount == 1)
+        return " a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + i + " ";
+      if(amount == 2)
+        return " a" + i + " " + "a" + i + " " + "a" + i + " " + "a" + (i+1) + " " + "a" + (i+1) + " " + "a" + (i+1) + " ";
+      if(amount == 3)
+        return " a" + i + " " + "a" + i + " " + "a" + (i+1) + " " + "a" + (i+1) + " " + "a" + (i+2) + " " + "a" + (i+2) + " ";
+    };
+
+    let randObj = seedrandom( (this.bundledProperty ? this.bundledProperty.url : this.device.identifier) + width + "" + propAmount);
+
+    let index = 0;
+    let retString = "";
+    while (index < propAmount) {
+      let leftProperties = propAmount - index;
+      if(retString != "") retString += "|";
+
+      if(leftProperties == 0)
+        break;
+
+      let rand = randObj();
+
+      // Make it size dependent
+      let selectedAmount = 0;
+      if (width < 450) selectedAmount = 1;
+      else if (width < 900) selectedAmount = rand < 0.4 ? 1 : 2;
+      else selectedAmount = rand < 0.2 ? 1 : (rand < 0.6 ? 2 : 3);
+
+      if (selectedAmount > leftProperties)
+        selectedAmount = leftProperties;
+
+      retString += getRow(index, selectedAmount);
+      index += selectedAmount;
+    }
+    return retString;
   }
 }
 

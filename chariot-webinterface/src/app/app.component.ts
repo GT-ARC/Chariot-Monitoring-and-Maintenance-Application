@@ -39,7 +39,7 @@ export class AppComponent {
 
         let newFloor : Floor = {
           identifier: Math.random().toString(36).substring(7),
-          name: 'Floor 11',
+          name: 'IoT Testbed',
           level: 11,
           locations: parsedData.location,
         };

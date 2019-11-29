@@ -60,10 +60,10 @@ export class DevicePanelMonitoringComponent implements OnInit {
       this.dataRangeValues.push(this.getSelectedVisibility(element))
     }
 
-    for( let element of this.dataRangeOptions) {
-      let index = this.dataRangeOptions.indexOf(element);
-      console.log(index, element, this.dataRangeValues[index])
-    }
+    // for( let element of this.dataRangeOptions) {
+    //   let index = this.dataRangeOptions.indexOf(element);
+    //   console.log(index, element, this.dataRangeValues[index])
+    // }
     this.filterData(true);
   }
 
@@ -98,7 +98,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   private filterData(searchForData : boolean = false) {
-    console.log("Filter data: Search for data - " + searchForData);
+    // console.log("Filter data: Search for data - " + searchForData);
 
     if(this.property.data == undefined || this.property.data.length == 0) {
       this.visibleData = [];
@@ -125,7 +125,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
           index++;
           this.selectedVisibility = this.dataRangeOptions[index];
         } else {
-          console.log("Filter found: " + this.selectedVisibility + " with " + this.visibleData.length);
+          // console.log("Filter found: " + this.selectedVisibility + " with " + this.visibleData.length);
           break;
         }
       } while(true);
@@ -141,7 +141,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
   private showMoreData() {
     let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
-    console.log(index);
     if (index > 0){
       this.selectedVisibility = this.dataRangeOptions[index - 1];
       this.filterData()

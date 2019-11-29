@@ -1,31 +1,34 @@
-<div id="device-panel-slider" class="device-panel-card"
+<div id="device-panel-slider" class="device-panel-card device-panel-card-selectable"
      [ngClass]="selectedProperty == property ? 'device-panel-card-selected' : ''">
-  <p class="device-panel-title">{{property.name == undefined ? property.key : property.name}}</p>
+  <p class="device-panel-title">
+    {{property.name == undefined ? property.key : property.name}}
+  </p>
   <div id="accuracy-arrows">
     <mat-icon id="up" (click)="this.accuracy = this.accuracy + 1">keyboard_arrow_up</mat-icon>
     {{accuracy}}
     <mat-icon id="down" (click)="this.accuracy > 0 ? this.accuracy = this.accuracy - 1 : null">keyboard_arrow_down</mat-icon>
   </div>
   <p id="property_value"
-     [ngStyle]="{'padding-top': property.writable ? '12px' : '0px'}">
+     [ngStyle]="{'padding-top': !property.writable ? '12px' : '0px'}">
     <app-clickable-text
       id="clickable-text-id"
-      [color]="!property.writable ? '#2E384D' : '#8798AD'"
+      [color]="property.writable ? '#2E384D' : '#4a566a'"
       [size]="48"
       [accuracy]="accuracy"
       [text]="property.value"
       [min]="property.min_value"
       [max]="property.max_value"
-      [enabled]="!property.writable"
+      [enabled]="property.writable"
       (eventEmitter)="applyValueChange($event.value)">
     </app-clickable-text>
     <span class="unit" *ngIf="property.unit && property.unit.length > 1"
-          [ngStyle]="{color : !property.writable ? '#2E384D' : '#8798AD'}"> {{property.unit}}</span>
+          [ngStyle]="{color : property.writable ? '#2E384D' : '#4a566a'}"> {{property.unit}}</span>
     <span *ngIf="property.unit && property.unit.length == 1"
-          [ngStyle]="{color : !property.writable ? '#2E384D' : '#8798AD'}">{{property.unit}}</span>
+          [ngStyle]="{color : property.writable ? '#2E384D' : '#4a566a'}">{{property.unit}}</span>
   </p>
 
   <app-clickable-text
+    *ngIf="property.writable"
     id="slider-min"
     [color]="'#8798AD'"
     [size]="14"
@@ -33,11 +36,12 @@
     name="property.value.min_value"
     ngDefaultControl
     [text]="property.min_value"
-    [enabled]="property.writable"
+    [enabled]="!property.writable"
     (eventEmitter)="property.min_value = $event.value;">
   </app-clickable-text>
 
   <app-clickable-text
+    *ngIf="property.writable"
     id="slider-max"
     [color]="'#8798AD'"
     [size]="14"
@@ -45,12 +49,12 @@
     ngDefaultControl
     [(ngModel)]="property.max_value"
     [text]="property.max_value"
-    [enabled]="property.writable"
+    [enabled]="!property.writable"
     (eventEmitter)="property.max_value = $event.value;">
   </app-clickable-text>
 
   <mat-slider
-    *ngIf="!property.writable"
+    *ngIf="property.writable"
     min="{{property.min_value}}"
     max="{{property.max_value}}"
     step="{{accuracy == 0 ? 1 : 1 / math.pow(10,accuracy)}}"

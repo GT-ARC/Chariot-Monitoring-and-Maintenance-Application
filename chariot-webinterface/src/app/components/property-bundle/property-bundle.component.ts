@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
-import {Property} from '../../../model/device';
+import {Property, PropertyBundle} from '../../../model/device';
 import {DevicepanelComponent} from '../../devices/devicepanel/devicepanel.component';
 
 @Component({
@@ -9,42 +9,33 @@ import {DevicepanelComponent} from '../../devices/devicepanel/devicepanel.compon
 })
 export class PropertyBundleComponent implements OnInit {
 
-  @Input() property: Property;
   @Input() selectedProperty: Property;
-  propertyBundle: Property[];
+  @Input() propertyBundle: PropertyBundle;
+
+  property: Property;
 
   open: boolean = true;
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
   @Output() selectedPropertyEvent = new EventEmitter<{selectedProperty: Property}>();
 
-  area: string;
-
-  private areaMD: string;
-  private areaSD: string;
-  private areaXS: string;
-
   constructor() { }
 
   ngOnInit() {
 
-    // @ts-ignore
-    this.propertyBundle = this.property.value;
+    this.property = this.propertyBundle.bundledProperty;
 
-    this.areaMD = DevicepanelComponent.getMdArea(this.propertyBundle.length, 1280);
-    this.areaSD = DevicepanelComponent.getMdArea(this.propertyBundle.length, 899);
-    this.areaXS = DevicepanelComponent.getMdArea(this.propertyBundle.length, 449);
     this.getArea(null);
   }
 
   send() {
     let retObject = {};
 
-    for(let prop of this.propertyBundle) {
+    for(let prop of this.propertyBundle.properties) {
       retObject[prop.key] = prop.value;
     }
 
-    this.uploaded.emit({property: this.property.key, state: retObject});
+    this.uploaded.emit({property: this.propertyBundle.bundledProperty.key, state: retObject});
   }
 
   currentArea = null;
@@ -52,9 +43,9 @@ export class PropertyBundleComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   getArea(event) {
     if(window.innerWidth < 500)
-      this.currentArea =  this.areaXS;
+      this.currentArea =  this.propertyBundle.areaXS;
     else if(window.innerWidth < 900)
-      this.currentArea =  this.areaSD;
-    else this.currentArea = this.areaMD
+      this.currentArea =  this.propertyBundle.areaSD;
+    else this.currentArea = this.propertyBundle.areaMD
   }
 }

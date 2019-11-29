@@ -3,9 +3,10 @@
     (click)="open = !open"
     class="sort-arrow">{{open ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
   <div id="property-bundle-name">
-    {{ property.name == undefined ? property.key : property.name }}
+    {{ this.property ? property.name == undefined ? property.key : property.name : "Properties"}}
   </div>
   <button
+    *ngIf="this.property != undefined"
     id="property-bundle-button"
     mat-raised-button
     color="primary"
@@ -23,7 +24,7 @@
   gdGap="16px">
 
   <div [ngSwitch]="property['type'].toLocaleLowerCase()"
-       *ngFor="let property of propertyBundle; let i = index"
+       *ngFor="let property of propertyBundle.properties; let i = index"
        gdArea="a{{i}}">
 
     <app-device-panel-switch
