@@ -22,7 +22,6 @@ RUN npm install -g @angular/cli
 
 RUN npm uninstall @angular-devkit/build-angular
 RUN npm install @angular-devkit/build-angular
-RUN ng update --all
 
 
 # add app
