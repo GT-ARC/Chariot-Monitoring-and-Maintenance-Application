@@ -117,7 +117,17 @@ export class RestService {
       }
     }
 
-    let newProperty = new Property(prop.timestamp, prop.type, prop.key, prop.value instanceof Array ? nestedProperty : prop.value, prop.writable);
+    let value = undefined;
+    if(prop.type == "Array") {
+      value = nestedProperty;
+    } else if(prop.type == "Number") {
+      // @ts-ignore
+      value = parseFloat(prop.value);
+    } else {
+      value = prop.value;
+    }
+
+    let newProperty = new Property(prop.timestamp, prop.type, prop.key, value, prop.writable);
     newProperty.unit = prop.unit;
     newProperty.url = prop.url;
     newProperty.topic = prop.kafka_topic;

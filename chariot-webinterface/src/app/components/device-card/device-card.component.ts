@@ -10,7 +10,6 @@ export class DeviceCardComponent implements OnInit {
 
   @Input() device: Device;
   @Input() deviceCardStyle: String = "Large";
-  deviceIssueState: boolean;
 
   @Input() selectedDevice: Device = null;
 
@@ -35,24 +34,15 @@ export class DeviceCardComponent implements OnInit {
     )
     } else
       this.writable = this.statusProperty.writable;
-    this.getIssueState();
   }
 
   emitDevicePower(device: Device, state: boolean) {
     this.uploaded.emit({device, state});
   }
 
-  getIssueState() {
-    if(this.device.issues)
-      this.deviceIssueState = this.device.issues.reduce((prev, curr) => prev && curr.state, true);
-    else
-      this.deviceIssueState = true;
-  }
 
   constructor() { }
 
-  ngOnInit() {
-    this.getIssueState();
-  }
+  ngOnInit() { }
 
 }

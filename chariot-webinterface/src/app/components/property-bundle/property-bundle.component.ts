@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
 import {Property, PropertyBundle} from '../../../model/device';
 import {DevicepanelComponent} from '../../devices/devicepanel/devicepanel.component';
 
@@ -21,11 +21,14 @@ export class PropertyBundleComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-
+  ngOnChanges(changes: SimpleChanges) {
     this.property = this.propertyBundle.bundledProperty;
-
     this.getArea(null);
+  }
+
+  ngOnInit() {
+    // this.property = this.propertyBundle.bundledProperty;
+    // this.getArea(null);
   }
 
   send() {

@@ -81,21 +81,21 @@ export class DevicesComponent implements OnInit {
   ) {
     // Receive updates on data change events
     dataService.getDataNotification().subscribe(next => {
-      // Select the routed device
-      if(next && this.routedId != undefined) {
-        for(let loc of next.locations) {
-          let foundElement = loc.getDeviceById(this.routedId);
-          if (foundElement instanceof Device) {
-            this.selectedDevice = foundElement;
-            this.selectedDeviceGroup = undefined;
-            break;
-          } else if  (foundElement instanceof DeviceGroup) {
-            this.selectedDeviceGroup = foundElement;
-            this.selectedDevice = undefined;
-            break;
-          }
-        }
-      }
+      // // Select the routed device
+      // if(next && this.routedId != undefined) {
+      //   for(let loc of next.locations) {
+      //     let foundElement = loc.getDeviceById(this.routedId);
+      //     if (foundElement instanceof Device) {
+      //       this.selectedDevice = foundElement;
+      //       this.selectedDeviceGroup = undefined;
+      //       break;
+      //     } else if (foundElement instanceof DeviceGroup) {
+      //       this.selectedDeviceGroup = foundElement;
+      //       this.selectedDevice = undefined;
+      //       break;
+      //     }
+      //   }
+      // }
 
      this.initInterface();
     });
@@ -105,7 +105,6 @@ export class DevicesComponent implements OnInit {
     // Get the mock data from the mock data service
     this.getData();
     this.initInterface();
-
   }
 
   initInterface() {
@@ -117,9 +116,7 @@ export class DevicesComponent implements OnInit {
     // Make the selected floor with the device group visible and push some random locations to be selected
     this.floors.forEach(floor => {
       for (let loc of floor.locations) {
-        if (loc.devices.indexOf(routedElement) != -1) {
-          this.selectedLocation.push(loc);
-        } else if (Math.random() > 0.9) {
+        if (loc.devices.indexOf(routedElement) != -1 && this.selectedLocation.indexOf(loc) == -1) {
           this.selectedLocation.push(loc);
         }
       }
@@ -140,6 +137,8 @@ export class DevicesComponent implements OnInit {
     }
 
     this.countTheIssues();
+
+    console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
   }
 
   getRoutedDevice(): DeviceGroup | Device {
@@ -350,7 +349,7 @@ export class DevicesComponent implements OnInit {
    * @param checked the state of the checkbox
    */
   floorSelected(floor: Floor, checked: boolean) {
-    floor.locations.map(l => {
+    floor.locations.forEach(l => {
       this.locationSelected(l, checked, false);
     });
     this.updateUI();

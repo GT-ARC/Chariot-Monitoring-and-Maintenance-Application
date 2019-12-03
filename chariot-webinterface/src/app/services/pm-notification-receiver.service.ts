@@ -48,10 +48,10 @@ export class PmNotificationReceiverService {
           for (let point of historyData) {
             if (point.y && !prevPoint) {
               device.addIssue(point.x);
-              console.log("New Issue detected");
+              // console.log("New Issue detected");
             } else if (!point.y && prevPoint) {
               device.resolveLastIssue();
-              console.log("Resolve last issue");
+              // console.log("Resolve last issue");
             }
             prevPoint = point.y;
           }

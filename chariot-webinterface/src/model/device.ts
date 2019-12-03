@@ -23,6 +23,8 @@ export class Device {
     desc: string }[];
   issues: Issue[];
 
+  issueDetected: boolean = false;
+
   constructor(identifier: string,
               name: string,
               symbol: symbol,
@@ -67,12 +69,14 @@ export class Device {
       };
       this.lastIssue = issue;
       this.issues.push(issue);
+      this.issueDetected = true;
     }
   }
 
   resolveLastIssue() {
     if(this.issues != null && this.issues.length != 0) {
       this.lastIssue.state = true;
+      this.issueDetected = false;
     }
   }
 }

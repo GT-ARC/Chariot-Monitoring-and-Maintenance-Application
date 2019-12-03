@@ -42,7 +42,7 @@ export class DevicePanelSliderComponent implements OnInit {
       this.currentDataReceiver.subscribe(message => {
         let property = JSON.parse(JSON.parse(message));
         // console.log(this.property.key, property.value);
-        this.property.value = property.value;
+        this.property.value = property.value * 1;
       });
     }
   }

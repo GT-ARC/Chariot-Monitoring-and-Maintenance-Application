@@ -7,7 +7,7 @@
           'margin': location == 'devicepanel'
         }" >
   <div class="device-card-oval">
-    <div class="device-card-indicator" *ngIf="deviceIssueState == false"></div>
+    <div class="device-card-indicator" *ngIf="device.issueDetected == true"></div>
     <mat-icon>devices</mat-icon>
   </div>
   <p class="device-card-name">{{device.name}}</p>

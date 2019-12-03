@@ -17,7 +17,7 @@ export class DeviceUpdateService {
       regex: false
     };
     if(this.topicList.indexOf(topic) == -1){
-      console.log("Subscribe to topic");
+      // console.log("Subscribe to topic: " + topic);
       this.socket.emit("subscribe", JSON.stringify(message));
       this.topicList.push(topic);
     }
@@ -25,7 +25,7 @@ export class DeviceUpdateService {
   }
 
   unSubscribeOfTopic(topic: string) {
-    console.log("UnSubscribe to topic");
+    // console.log("UnSubscribe to topic: " + topic);
     this.topicList.splice(this.topicList.indexOf(topic), 1);
     this.socket.emit("unsubscribe", topic);
   }

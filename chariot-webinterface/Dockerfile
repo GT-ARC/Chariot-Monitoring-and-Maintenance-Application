@@ -20,6 +20,11 @@ COPY package-lock.json /usr/src/app/package-lock.json
 RUN npm install
 RUN npm install -g @angular/cli
 
+RUN npm uninstall @angular-devkit/build-angular
+RUN npm install @angular-devkit/build-angular
+RUN ng update --all
+
+
 # add app
 COPY . /usr/src/app
 

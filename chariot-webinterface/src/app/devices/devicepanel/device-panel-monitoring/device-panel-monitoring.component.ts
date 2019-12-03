@@ -136,7 +136,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
       this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
     }
 
-    this.visibleData.reverse();
+    // this.visibleData.reverse();
   }
 
   private showMoreData() {

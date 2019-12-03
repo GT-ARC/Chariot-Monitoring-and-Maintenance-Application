@@ -31,6 +31,7 @@ export class DataGraphComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log("Changes detected in data graph: ", changes);
     if ('data' in changes) {
       if(this.data != undefined) {
         this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {
@@ -59,7 +60,6 @@ export class DataGraphComponent implements OnInit {
 
   private receiveDataStream() {
     if(this.topic != '') {
-      console.log("Receive data stream: kafka topic: " + this.topic);
       this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
 
       this.subscription = this.currentDataReceiver.subscribe(message => {

@@ -49,6 +49,7 @@ export class AppComponent {
               .forEach(prop => this.pmService.getIssuesAndSubscribeToPmResult(prop, d))
         );
 
+        console.log("Add new data");
         this.dataService.addFloor(newFloor);
         console.log(parsedData);
       }
