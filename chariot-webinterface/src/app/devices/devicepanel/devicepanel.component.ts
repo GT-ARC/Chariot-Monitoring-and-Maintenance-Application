@@ -21,23 +21,12 @@ export class DevicepanelComponent implements OnInit {
   normalProperties: PropertyBundle;
   selectedProperty: Property = null;
 
-  public issueState: boolean = false;
-  property_open: boolean = true;
-
   ngOnChanges(changes: SimpleChanges) {
-    console.log("Selected device changed", changes);
-
-    // Get all device issues
-    if(this.device.issues != null)
-      this.issueState = this.device.issues.reduce((acc, curr) => acc && curr.state, true);
-    else
-      this.issueState = false;
+    // console.log("Selected device changed", changes);
 
     // Get the array properties and normal properties
     this.arrayProperties = this.getArrayProperties();
-    console.log(this.normalProperties);
     this.normalProperties = this.getNormalProperties();
-    console.log(this.normalProperties);
 
     // Select the first normal property
     if(this.normalProperties.properties.length > 0)

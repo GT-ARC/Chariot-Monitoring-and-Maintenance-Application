@@ -123,6 +123,8 @@ export class RestService {
     } else if(prop.type == "Number") {
       // @ts-ignore
       value = parseFloat(prop.value);
+    } else if(prop.type == "boolean") {
+      value = prop.value == "on" || prop.value == "true";
     } else {
       value = prop.value;
     }
@@ -144,7 +146,7 @@ export class RestService {
       if (Array.isArray(data) && data.length != 0) {
         let monitoringService = data[0]['agentlist'];
         this.currentMonitoringService = monitoringService['url'];
-        console.log(this.currentMonitoringService);
+        // console.log(this.currentMonitoringService);
 
         let mapping: {deviceID : String, agentID: String} [] = [];
 

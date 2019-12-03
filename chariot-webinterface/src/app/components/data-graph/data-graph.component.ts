@@ -31,7 +31,7 @@ export class DataGraphComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("Changes detected in data graph: ", changes);
+    // console.log("Changes detected in data graph: ", changes);
     if ('data' in changes) {
       if(this.data != undefined) {
         this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {

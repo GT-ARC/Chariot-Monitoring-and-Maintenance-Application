@@ -138,7 +138,7 @@ export class DevicesComponent implements OnInit {
 
     this.countTheIssues();
 
-    console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
+    // console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
   }
 
   getRoutedDevice(): DeviceGroup | Device {

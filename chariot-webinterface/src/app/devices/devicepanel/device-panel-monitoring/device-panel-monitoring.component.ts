@@ -117,6 +117,8 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
     if(searchForData){
       let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+      let foundAmount = 0;
+      let foundVisibility = 0;
       do {
         let value = this.dataRangeValues[index];
         this.dataFilterThreshold = value;
@@ -126,7 +128,14 @@ export class DevicePanelMonitoringComponent implements OnInit {
           this.selectedVisibility = this.dataRangeOptions[index];
         } else {
           // console.log("Filter found: " + this.selectedVisibility + " with " + this.visibleData.length);
+          if(index >= this.dataRangeValues.length - 1) {
+            this.selectedVisibility = this.dataRangeOptions[foundVisibility];
+          }
           break;
+        }
+        if(this.visibleData.length > foundAmount){
+          foundVisibility = index - 1;
+          foundAmount = this.visibleData.length;
         }
       } while(true);
     } else {
