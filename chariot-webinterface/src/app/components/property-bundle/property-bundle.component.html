@@ -31,19 +31,22 @@
       (click)="selectedProperty = property; selectedPropertyEvent.emit({selectedProperty: property})"
       *ngSwitchCase="'boolean'"
       [property]="property"
-      [selectedProperty]="selectedProperty">
+      [selectedProperty]="selectedProperty"
+      (uploaded)="pushData($event)">
     </app-device-panel-switch>
 
     <app-device-panel-slider
       (click)="selectedProperty = property; selectedPropertyEvent.emit({selectedProperty: property})"
       *ngSwitchCase="'number'"
       [property]="property"
-      [selectedProperty]="selectedProperty">
+      [selectedProperty]="selectedProperty"
+      (uploaded)="pushData($event)">
     </app-device-panel-slider>
 
     <app-device-panel-text-field
       *ngSwitchCase="'string'"
-      [property]="property">
+      [property]="property"
+      (uploaded)="pushData($event)">
     </app-device-panel-text-field>
   </div>
 </div>

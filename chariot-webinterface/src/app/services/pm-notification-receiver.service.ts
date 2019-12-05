@@ -10,7 +10,7 @@ import {DataService} from './data.service';
 })
 export class PmNotificationReceiverService {
 
-  serviceUrl = "http://chariot-km.dai-lab.de:8001/services/?format=json";
+  serviceUrl = "http://chariot-km.dai-lab.de:81/services/?format=json";
 
   constructor(private socket: Socket,
               private dataService: DataService,

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
 import {Property, PropertyBundle} from '../../../model/device';
 import {DevicepanelComponent} from '../../devices/devicepanel/devicepanel.component';
+import {AgentUpdateService} from '../../services/agent-update.service';
 
 @Component({
   selector: 'app-property-bundle',
@@ -50,5 +51,17 @@ export class PropertyBundleComponent implements OnInit {
     else if(window.innerWidth < 900)
       this.currentArea =  this.propertyBundle.areaSD;
     else this.currentArea = this.propertyBundle.areaMD
+  }
+
+  /**
+   * Relay the data to the device panel
+   *
+   * @param $event The property changed
+   */
+  pushData($event: { property: string; state: any }) {
+    console.log($event, this.property);
+    if(!this.property) {
+      this.uploaded.emit({property: $event.property, state : $event.state});
+    }
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, SimpleChanges, OnDestroy, HostListener
 import {EventEmitter} from '@angular/core';
 import {Device, Property, PropertyBundle} from '../../../model/device';
 import {DeviceUpdateService} from '../../services/device-update.service';
+import {AgentUpdateService} from '../../services/agent-update.service';
 
 @Component({
   selector: 'app-devicepanel',
@@ -36,7 +37,8 @@ export class DevicepanelComponent implements OnInit {
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
   }
 
-  constructor(private deviceUpdateService: DeviceUpdateService) { }
+  constructor(private deviceUpdateService: DeviceUpdateService,
+              private proxyAgent: AgentUpdateService) { }
 
   ngOnInit() {
   }
@@ -48,8 +50,11 @@ export class DevicepanelComponent implements OnInit {
   emitDeviceProperty(property: string, state: any) {
       this.device.properties.find(s => s.key == property).value = state;
       if(property == "status") this.uploaded.emit({device: this.device, state: state});
-      // TODO use the agent service to send the update too the respective device
-      console.log(property, state);
+
+      let sendObject = {};
+      sendObject[property] = state;
+
+      this.proxyAgent.sendUpdate(this.device.identifier, sendObject);
   }
 
   getArrayProperties() : PropertyBundle[] {

@@ -12,11 +12,11 @@ import {PmNotificationReceiverService} from './pm-notification-receiver.service'
 })
 export class RestService {
 
-  monitoringServiceURL: string = "http://chariot-km.dai-lab.de:8001/monitoringservice/";
+  monitoringServiceURL: string = "http://chariot-km.dai-lab.de:81/monitoringservice/";
   currentMonitoringService: string = "";
   mappingObserv = new EventEmitter<{deviceID : String, agentID: String} []>();
 
-  url: string = "http://chariot-km.dai-lab.de:8001";
+  url: string = "http://chariot-km.dai-lab.de:81";
   // testURL: String = "https://jsonplaceholder.typicode.com/";
 
   locations: Location[] = [];

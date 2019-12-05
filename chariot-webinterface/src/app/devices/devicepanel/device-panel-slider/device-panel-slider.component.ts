@@ -55,7 +55,7 @@ export class DevicePanelSliderComponent implements OnInit {
 
   emitValue(value: any) {
     if(value != this.property.value)
-      this.uploaded.emit({property: this.property.name, state: value});
+      this.uploaded.emit({property: this.property.key, state: value});
   }
 
   applyValueChange(value: any) {
