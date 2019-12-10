@@ -291,7 +291,7 @@ export class DataService {
     for (let c = 0; c < Math.random() * 4; c++) {
       let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
       retIssues.push({
-        identifier: DataService.issueIdentifier++,
+        identifier: [...Array(10)].map(i=>(~~(Math.random()*36)).toString(36)).join(''),
         // state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
         state: selectedDate == Math.floor(Date.now().valueOf() / 86400000) * 86400000 ? Math.random() >= 0.5 : Math.random() >= 0,
         description: '',

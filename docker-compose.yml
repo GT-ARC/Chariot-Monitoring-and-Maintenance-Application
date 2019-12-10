@@ -8,10 +8,11 @@ services:
     depends_on:
       - kafkapipe
     ports:
-      - "4200:4200" 
+      - "80:80"
 
   kafkapipe: 
     build: nodejs-backend 
     restart: always
     ports:
       - "4444:4444"
+

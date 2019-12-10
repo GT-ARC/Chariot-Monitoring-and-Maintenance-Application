@@ -112,7 +112,7 @@
            class="progress-cards">
         <div id="remaining">
           <p>REMAINING</p>
-          <p class="value">{{currentProcess[0].total - currentProcess[0].running | date:'H:mm' }}</p>
+          <p class="value">{{currentProcess[0].total.getDate() - currentProcess[0].running.getDate() | date:'H:mm' }}</p>
         </div>
         <div id="running">
           <p>RUNNING</p>

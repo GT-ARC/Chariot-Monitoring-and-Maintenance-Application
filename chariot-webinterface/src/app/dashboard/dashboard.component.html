@@ -16,6 +16,7 @@
           <div *ngIf="issueList && issueList.length != 0">
             <div *ngFor="let issue of issueList.slice(0, 4)">
               <app-issue-card
+                routerLink="/maintenance/{{issue.identifier}}"
                 [device]="issueDeviceMap.get(issue)"
                 [issue]="issue"></app-issue-card>
             </div>
@@ -47,6 +48,7 @@
         </div>
       </div>
       <div class="dashboard-card small"
+           routerLink="/devices/"
            fxFlex="1 0 140px">
         <div class="dashboard-card-icon good">
           <mat-icon>
@@ -57,6 +59,7 @@
         <p class="dashboard-card-description">Devices working</p>
       </div>
       <div class="dashboard-card small"
+           routerLink="/maintenance/"
            fxFlex="1 0 140px">
         <div class="dashboard-card-icon bad">
           <mat-icon>

@@ -1,6 +1,6 @@
 export class Issue {
 
-  identifier: number;
+  identifier: string;
 
   state: boolean;
 

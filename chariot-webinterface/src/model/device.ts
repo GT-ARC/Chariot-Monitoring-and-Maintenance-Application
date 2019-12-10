@@ -59,8 +59,9 @@ export class Device {
   lastIssue : Issue = null;
   addIssue(date? : number) {
     if(this.issues != null) {
+      let issueID = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
       let issue = {
-        identifier: this.issues.length,
+        identifier: issueID,
         state: false,
         description: '',
         type: '',

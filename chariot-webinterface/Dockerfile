@@ -1,5 +1,5 @@
 # base image
-FROM node:12.2.0
+FROM tiangolo/node-frontend:10 as build-stage
 
 # install chrome for protractor tests
 RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
@@ -28,4 +28,12 @@ RUN npm install @angular-devkit/build-angular
 COPY . /usr/src/app
 
 # start app
-CMD ng serve --disableHostCheck --host 0.0.0.0
+#CMD ng serve --disableHostCheck --host 0.0.0.0
+RUN ng build
+
+FROM nginx:1.15
+
+COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html
+
+# Copy the default nginx.conf provided by tiangolo/node-frontend
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf

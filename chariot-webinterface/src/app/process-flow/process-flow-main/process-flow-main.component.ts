@@ -146,7 +146,7 @@ export class ProcessFlowMainComponent implements OnInit {
     }
   }
 
-  getProductStatusColor(status: string) {
+  getProductStatusColor(status: String) {
     if (status == 'Status A') {
       return '#33ab42';
     }

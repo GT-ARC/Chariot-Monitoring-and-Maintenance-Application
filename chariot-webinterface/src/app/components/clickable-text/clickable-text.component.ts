@@ -13,6 +13,8 @@ export class ClickableTextComponent implements OnInit {
   textFieldWith: string = '100%';
 
   visibleText: string;
+  isStr: boolean;
+  val: number;
 
   @Output() eventEmitter = new EventEmitter<{value: string}>();
   @Input() text: string;
@@ -63,8 +65,11 @@ export class ClickableTextComponent implements OnInit {
   getVisibleString(text: any): string {
     if(isNumber(text)){
       const retValue =  Math.round(Number(text) * Math.pow(10, this.accuracy)) / Math.pow(10, this.accuracy);
+      this.isStr = false;
+      this.val = retValue;
       return retValue.toString();
     }
+    this.isStr = true;
     return text;
   }
 

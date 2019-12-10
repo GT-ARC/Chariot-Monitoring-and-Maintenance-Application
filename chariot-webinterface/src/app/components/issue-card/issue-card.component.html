@@ -8,7 +8,7 @@
   </div>
 
   <p class="issue-card-device-name">{{device.name}}</p>
-  <p class="issue-card-type">{{issue.type}}</p>
+  <p class="issue-card-type">ID: {{issue.identifier}}</p>
 
   <div class="issue-oval"
        [ngClass]="issue.state ? 'solved' : ''">
