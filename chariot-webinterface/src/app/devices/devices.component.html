@@ -78,6 +78,7 @@
         <aside id="device-list">
           <div class="list-head">
             <span class="search">
+              <button mat-button style="height: 0; position: absolute;"> <!-- 'absorbs' the auto-focus behavior --> </button>
               <mat-icon class="search-field-symbol">search</mat-icon>
               <input type="text" name="device-list-search" placeholder="Search"
                      (input)="filterDevices($event.target.value)">

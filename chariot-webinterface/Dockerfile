@@ -30,6 +30,7 @@ COPY . /usr/src/app
 # start app
 #CMD ng serve --disableHostCheck --host 0.0.0.0
 RUN ng build
+#RUN node --max_old_space_size=4096 node_modules/.bin/ng build --prod --verbose true
 
 FROM nginx:1.15
 

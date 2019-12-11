@@ -6,7 +6,7 @@
   transform: translate(0%, -50%);
   border: 1px solid #69707F;
   border-radius: 5px;
-  width: 184px;
+  width: 54%;
   height: 32px;
 }
 
@@ -159,9 +159,9 @@ mat-icon {
 
 #floor-list {
   background-color: #323b4e;
-  width: 328px;
+  /*width: 328px;*/
   height: 100%;
-  min-width: 312px;
+  min-width: 328px;
   margin-left: 0;
   overflow: hidden;
 }
@@ -186,7 +186,6 @@ mat-icon {
 
 #floor-list-wrapper {
   position: relative;
-  min-width: 328px;
   height: calc(-180px + 100vh);
 }
 
@@ -243,11 +242,11 @@ mat-icon {
 }
 
 #device-list > .list-head .mat-menu-panel {
-  min-width: 212px !important;
+  min-width: 70% !important;
 }
 
 #device-list > .list-head span {
-  min-width: 212px !important;
+  min-width: 70% !important;
 }
 
 #device-list-second-head {

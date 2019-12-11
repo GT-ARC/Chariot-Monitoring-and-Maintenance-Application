@@ -6,6 +6,10 @@
   transform: translateY(-60%);
 }
 
+#clear {
+  clear: both;
+}
+
 #property-bundle-name {
   display: inline-block;
   font-family: Rubik-Light, Rubik, 'Arial', serif;
@@ -14,11 +18,18 @@
   text-align: left;
   padding-bottom: 16px;
   font-size: 28px;
+  float: left;
 }
 
 #property-bundle-button {
   float: right;
   background-color: #2972e6;
+  margin-bottom: 16px;
 }
 
+.sort-arrow {
+  float: left;
+  top: 10px;
+  position: relative;
+}
 

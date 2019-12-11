@@ -1,16 +1,15 @@
-import {Issue} from "./issue";
+import {Issue} from './issue';
 import {DeviceGroup} from './deviceGroup';
 import seedrandom from 'seedrandom';
 
 export class Device {
   identifier: string;
 
-  deviceGroup: boolean = false;
+  deviceGroup = false;
   deviceGroupObj: DeviceGroup = null;
 
   name: string;
   symbol: symbol;
-
   power_consumption: number;
 
   properties: Property [];
