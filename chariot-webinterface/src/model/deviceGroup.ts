@@ -2,12 +2,12 @@ import {Device} from './device';
 
 export class DeviceGroup {
 
-  private readonly _identifier : number;
+  private readonly _identifier : string;
   private readonly _devices : Device[];
   private readonly _name: string;
   private _visible: boolean = Math.random() > 0.5;
 
-  constructor(identifier: number, name: string) {
+  constructor(identifier: string, name: string) {
     this._identifier = identifier;
     this._name = name;
     this._devices = [];
@@ -29,7 +29,7 @@ export class DeviceGroup {
     return this._name;
   }
 
-  get identifier(): number {
+  get identifier(): string {
     return this._identifier;
   }
 

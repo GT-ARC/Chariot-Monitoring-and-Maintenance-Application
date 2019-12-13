@@ -80,6 +80,9 @@ app-sidenav-button {
   height: 100%;
 }
 
+.mat-drawer-inner-container {
+  overflow-y: hidden !important;
+}
 
 button.mat-menu-item:hover {
   background-color: #d4e3fa;
@@ -99,15 +102,11 @@ button.mat-menu-item:hover {
   -ms-overflow-style: none;
 }
 
-/*html {*/
-/*  !*overflow: scroll;*!*/
-/*  !*overflow-x: hidden;*!*/
-/*}*/
-/*::-webkit-scrollbar {*/
-/*  width: 0px;  !* Remove scrollbar space *!*/
-/*  background: transparent;  !* Optional: just make scrollbar invisible *!*/
-/*}*/
-/*!* Optional: show position indicator in red *!*/
-/*::-webkit-scrollbar-thumb {*/
-/*  background: #FF0000;*/
-/*}*/
+.list::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+.list::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}

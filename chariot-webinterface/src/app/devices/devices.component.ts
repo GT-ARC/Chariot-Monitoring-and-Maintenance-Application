@@ -81,23 +81,12 @@ export class DevicesComponent implements OnInit {
   ) {
     // Receive updates on data change events
     dataService.getDataNotification().subscribe(next => {
-      // // Select the routed device
-      // if(next && this.routedId != undefined) {
-      //   for(let loc of next.locations) {
-      //     let foundElement = loc.getDeviceById(this.routedId);
-      //     if (foundElement instanceof Device) {
-      //       this.selectedDevice = foundElement;
-      //       this.selectedDeviceGroup = undefined;
-      //       break;
-      //     } else if (foundElement instanceof DeviceGroup) {
-      //       this.selectedDeviceGroup = foundElement;
-      //       this.selectedDevice = undefined;
-      //       break;
-      //     }
-      //   }
-      // }
-
-     this.initInterface();
+      this.selectedLocation = [];
+      this.selectedFloors = [];
+      this.visibleElements = [];
+      this.visibleDeviceGroups = [];
+      this.visibleDevice = [];
+      this.initInterface();
     });
   }
 
@@ -114,21 +103,29 @@ export class DevicesComponent implements OnInit {
     let routedElement = this.getRoutedDevice();
 
     // Make the selected floor with the device group visible and push some random locations to be selected
-    this.floors.forEach(floor => {
-      for (let loc of floor.locations) {
-        if (loc.devices.indexOf(routedElement) != -1 && this.selectedLocation.indexOf(loc) == -1) {
-          this.selectedLocation.push(loc);
+    if (routedElement) {
+      this.floors.forEach(floor => {
+        for (let loc of floor.locations) {
+          if (loc.devices.indexOf(routedElement instanceof Device ? routedElement : null) != -1
+            || loc.deviceGroups.indexOf(routedElement instanceof DeviceGroup ? routedElement : null) != -1 && this.selectedLocation.indexOf(loc) == -1) {
+            this.selectedLocation.push(loc);
+          }
         }
-      }
-    });
+      });
+    }
+
     // If by chance no location is selected, select the first
     if (this.selectedLocation.length == 0 && this.locations.length != 0) {
       this.selectedLocation.push(this.locations[0]);
     }
 
+    console.log(this.selectedLocation);
+
     // Put all locations in the visible locations map
     this.floors.forEach(f => this.visibleLocation[f.identifier] = f.locations);
     this.updateUI();
+
+    console.log(this.selectedLocation);
 
     // If the selected device is still null select a random visible device
     if (this.selectedDeviceGroup == null && this.selectedDevice == null) {
@@ -152,7 +149,7 @@ export class DevicesComponent implements OnInit {
     if (this.routedId != null) {
       if (this.routedId.indexOf('g') == 0) {
         let tempID = this.routedId.slice(1);
-        let selectDeviceGroup = this.deviceGroups.find(value => value.identifier == +tempID);
+        let selectDeviceGroup = this.deviceGroups.find(value => value.identifier == tempID);
         this.selectedDeviceGroup = selectDeviceGroup;
         if (selectDeviceGroup != undefined) {
           this.newDeviceGroupSelected(selectDeviceGroup);
@@ -217,7 +214,7 @@ export class DevicesComponent implements OnInit {
 
     // Go through each selected location and check if there is a device in the device group matching the filter string
     this.selectedLocation.map(loc => {
-      for (let device_group of <DeviceGroup[]> loc.devices.filter(s => s.constructor.name == "DeviceGroup")) {
+      for (let device_group of loc.deviceGroups) {
         for (let device of device_group.devices) {
           if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
             this.visibleElements.push(device_group);
@@ -226,13 +223,15 @@ export class DevicesComponent implements OnInit {
           }
         }
       }
-      for (let device of <Device[]> loc.devices.filter(s => s.constructor.name == "Device")) {
-        if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
+      for (let device of  loc.devices) {
+        if (device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
           this.visibleElements.push(device);
           this.visibleDevice.push(device);
         }
       }
     });
+
+    console.log(this.visibleElements);
 
     // Go through each visible device group and check which devices should be visible
     this.visibleDeviceGroups.forEach(dg =>
@@ -319,12 +318,14 @@ export class DevicesComponent implements OnInit {
           this.floors = data.floors;
           this.locations = data.locations;
           this.devices = data.devices;
+          this.deviceGroups = data.deviceGroup;
         });
     }
   }
 
   /**
    * Function that handles if a location is selected
+   *
    * @param location The location that has been selected
    * @param checked the sate it supposed to be
    * @param updateUi if the ui should update after location selected
@@ -485,6 +486,8 @@ export class DevicesComponent implements OnInit {
   }
 
   checkType(value) {
-    return value.constructor.name;
+    if (value.hasOwnProperty("deviceGroup"))
+      return "Device";
+    return "DeviceGroup";
   }
 }

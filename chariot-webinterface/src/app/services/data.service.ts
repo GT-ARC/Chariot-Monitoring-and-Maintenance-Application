@@ -8,10 +8,6 @@ import {Floor} from '../../model/floor';
 import * as faker from 'faker';
 import {Issue} from '../../model/issue';
 import {IndividualProcess, ProcessProperty, ProductProcess} from '../../model/productProcess';
-import {Container} from '../../model/Container';
-import {Metadata} from '../../model/Metadata';
-import {DeviceGroup} from '../../model/deviceGroup';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +25,38 @@ export class DataService {
 
   metadata: Metadata = null;
 
-  constructor() {
+  constructor(restService : RestService) {
+    let storedFloors = localStorage.getItem("floor");
+    try {
+      let floors = JSON.parse(storedFloors);
+      for(let flor of floors) {
+        let storedFloor : Floor = flor;
+        this.floor.push(storedFloor);
+        for(let loc of flor.locations) {
+          this.locations.push(loc);
+          for(let device of loc.devices) {
+              let newDevice = new Device(device.identifier,
+                device.name,
+                device.symbol,
+                device.power_consumption,
+                device.running,
+                device.down_time,
+                device.description,
+                device.issues
+              );
+               newDevice.properties = device.properties;
+               newDevice.issues = device.issues;
+               newDevice.lastIssue = device.lastIssue;
+              this.devices.push(newDevice);
+          }
+          for(let deviceGroup of loc.deviceGroups) {
+            this.deviceGroup.push(deviceGroup);
+          }
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
     console.log('Create new mock Data');
     this.createData();
   }
@@ -42,6 +69,8 @@ export class DataService {
   }
 
   dataUpdate() {
+    console.log("Update Data");
+    localStorage.setItem("floor", JSON.stringify(this.floor));
     for(let element of this.dataNotificationList) element.emit(null);
   }
 
@@ -73,18 +102,40 @@ export class DataService {
     });
   }
 
-  addFloor(newFloor: Floor) {
-    if (this.floor.find(s => s.name == newFloor.name) == undefined){
-      this.floor.push(newFloor);
-      for (let loc of newFloor.locations) {
-        this.locations.push(loc);
-        for(let element of loc.getAllDevices()) this.devices.push(element);
-        for(let element of loc.getAllDeviceGroups()) this.deviceGroup.push(element);
+  addFloor(newFloor: Floor, isLocalStorage: boolean) {
+
+    localStorage.setItem("floor", JSON.stringify(this.floor));
+
+    // remove old floor
+    let addedFloor = this.floor.find(s => s.identifier == newFloor.identifier);
+    if(addedFloor)
+      this.floor.splice(this.floor.indexOf(addedFloor), 1);
+
+    this.floor.push(newFloor);
+    for (let loc of newFloor.locations) {
+      this.locations.push(loc);
+      for(let element of loc.devices.filter(element => element instanceof Device)) {
+        if (element instanceof Device) {
+          let index = this.devices.indexOf(this.devices.find(d => d.identifier == element.identifier));
+          if (index >= 0) {
+              this.devices.splice(index, 1);
+          }
+          this.devices.push(element);
+        }
       }
-      for(let element of this.dataNotificationList) element.emit(newFloor);
-      return true;
+      for(let element of loc.devices.filter(element => element instanceof DeviceGroup)) {
+        if (element instanceof DeviceGroup) {
+          let index = this.deviceGroup.indexOf(this.deviceGroup.find(d => d.identifier == element.identifier));
+          if (index >= 0) {
+            this.deviceGroup.splice(index, 1);
+          }
+          this.deviceGroup.push(element);
+        }
+      }
     }
-    return false;
+    for(let element of this.dataNotificationList) element.emit(newFloor);
+
+    return true;
   }
 
   /**
@@ -169,7 +220,7 @@ export class DataService {
         100
       ),
       new Property(
-          new Date().valueOf(),
+        new Date().valueOf(),
         'number',
         'accuracy',
         this.getRandValue(1, 360),
@@ -218,18 +269,18 @@ export class DataService {
       ),
       new Property(
         new Date().valueOf(),
-      'array',
-      'contSpeedReq',
-      [
-        new Property(
-          new Date().valueOf(),
-          "number",
-          "starting_speed",
-          5.0,
-          Math.random() > 0.5,
-          DataService.makeid(10),
-          "starting_speed",
-          ""
+        'array',
+        'contSpeedReq',
+        [
+          new Property(
+            new Date().valueOf(),
+            "number",
+            "starting_speed",
+            5.0,
+            Math.random() > 0.5,
+            DataService.makeid(10),
+            "starting_speed",
+            ""
           ), new Property(
           new Date().valueOf(),
           "number",
@@ -264,13 +315,13 @@ export class DataService {
           0.5,
           5
         )
-      ],
-      Math.random() > 0.5,
-      DataService.makeid(10),
-      'Continuous Speed Request',
-      '°'
+        ],
+        Math.random() > 0.5,
+        DataService.makeid(10),
+        'Continuous Speed Request',
+        '°'
       )
-  ];
+    ];
   }
 
   static issueIdentifier: number = 0;
@@ -327,7 +378,7 @@ export class DataService {
     // Each device has the status property displaying the power state of the device if its turned on or off
     retDeviceProperties.push(
       new Property(
-         new Date().valueOf(),
+        new Date().valueOf(),
         "boolean",
         "status",
         Math.random() > 0.5,
@@ -421,7 +472,7 @@ export class DataService {
 
       let dgi = DataService.deviceGroupIdentifier;
 
-      let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi, "Device Group: " + dgi);
+      let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi + "", "Device Group: " + dgi);
       let randomDeviceAmountPerGroup = DataService.getRandValue(1, 3);
 
       for(let c = 0; c < randomDeviceAmountPerGroup; c++) {
@@ -463,7 +514,7 @@ export class DataService {
           if(devIndex + 1 > this.mockDevices.length)
             return;
 
-          currLocation.addDeviceGroup(this.mockDevices.pop());
+          currLocation.addDevice(this.mockDevices.pop());
 
           devIndex += 1;
         } else {
@@ -588,7 +639,7 @@ export class DataService {
       },
       {
         name: 'Filament usage',
-          unit: 'mm/s',
+        unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
         icon: 'flash_on',
@@ -597,7 +648,7 @@ export class DataService {
       },
       {
         name: 'Extruder Temperature',
-          unit: 'mm/s',
+        unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
         icon: 'flash_on',
@@ -606,12 +657,12 @@ export class DataService {
       },
       {
         name: 'Filament level',
-          value: Math.floor(Math.random() * 100),
+        value: Math.floor(Math.random() * 100),
         display: false,
       },
       {
         name: 'Filament Diameter',
-          unit: 'mm/s',
+        unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
         icon: 'flash_on',
@@ -730,39 +781,39 @@ export class DataService {
    */
   static createProductInfo(): { name: string; value: string }[] {
     let productInfo =  [
-        {
-          name: 'Material',
-          value: faker.commerce.productMaterial()
-        },
-        {
-          name: 'Color',
-          value: faker.commerce.color(),
-        },
-        {
-          name: 'Price',
-          value: faker.commerce.price(),
-        },
-        {
-          name: 'Catch Phrase',
-          value: faker.company.catchPhrase()
-        },
-        {
-          name: 'Date',
-          value: faker.date.future().toDateString()
-        },
-        {
-          name: 'Reg Number',
-          value: faker.finance.iban()
-        },
-        {
-          name: 'Bitcoin Address',
-          value: faker.finance.bitcoinAddress()
-        },
-        {
-          name: 'Country',
-          value: faker.address.country()
-        }
-      ];
+      {
+        name: 'Material',
+        value: faker.commerce.productMaterial()
+      },
+      {
+        name: 'Color',
+        value: faker.commerce.color(),
+      },
+      {
+        name: 'Price',
+        value: faker.commerce.price(),
+      },
+      {
+        name: 'Catch Phrase',
+        value: faker.company.catchPhrase()
+      },
+      {
+        name: 'Date',
+        value: faker.date.future().toDateString()
+      },
+      {
+        name: 'Reg Number',
+        value: faker.finance.iban()
+      },
+      {
+        name: 'Bitcoin Address',
+        value: faker.finance.bitcoinAddress()
+      },
+      {
+        name: 'Country',
+        value: faker.address.country()
+      }
+    ];
 
     // For individuality remove some information
     for (let i = 0; i < Math.floor(Math.random() * 4 + 2); i++) {
@@ -847,19 +898,18 @@ export class DataService {
     // this.createFloors();
 
     // Do to the fact that not all devices and locations are used reduce the locations and device parameter to the actual used
-    this.locations = this.floor.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
-
-    this.deviceGroup = <DeviceGroup[]> this.floor.map(f =>
-      f.locations.map(l => l.devices).reduce((prev, curr) => prev.concat(curr), [])
-    ).reduce((prev, curr) => prev.concat(curr), []).filter( elem => elem instanceof DeviceGroup);
-
-    // Ganz schöner quatsch hier. Guck dir das blos nicht an
-    this.devices = this.floor.map(f =>
-      f.locations.map(l => (<DeviceGroup[]> l.devices.filter(elem => elem instanceof DeviceGroup)).map(value => value.devices)
-        .concat(f.locations.map(l => (<Device[]> l.devices.filter(elem => elem instanceof Device))))
-          .reduce((prev, curr) => prev.concat(curr), [])
-      ).reduce((prev, curr) => prev.concat(curr), [])
-    ).reduce((prev, curr) => prev.concat(curr), []);
+    // this.locations = this.floor.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
+    //
+    // this.deviceGroup = this.floor.map(f =>
+    //   f.locations.map(l => l.deviceGroups).reduce((prev, curr) => prev.concat(curr), [])
+    // ).reduce((prev, curr) => prev.concat(curr), []).filter( elem => elem instanceof DeviceGroup);
+    //
+    // this.devices = this.floor.map(f =>
+    //   f.locations.map(l => (<DeviceGroup[]> l.devices.filter(elem => elem instanceof DeviceGroup)).map(value => value.devices)
+    //     .concat(f.locations.map(l => (<Device[]> l.devices.filter(elem => elem instanceof Device))))
+    //     .reduce((prev, curr) => prev.concat(curr), [])
+    //   ).reduce((prev, curr) => prev.concat(curr), [])
+    // ).reduce((prev, curr) => prev.concat(curr), []);
 
     this.createProcesses();
     this.createContainers();
@@ -868,14 +918,14 @@ export class DataService {
   printData() {
     console.log(
       JSON.stringify({
-        devices: this.devices,
-        locations: this.locations,
-        floor: this.floor,
-        processes: this.processes,
-        container: this.container,
-        metadata: this.metadata,
-      }
-    ));
+          devices: this.devices,
+          locations: this.locations,
+          floor: this.floor,
+          processes: this.processes,
+          container: this.container,
+          metadata: this.metadata,
+        }
+      ));
   }
 
   static jsonCopy(src) {
@@ -892,3 +942,8 @@ export class DataService {
     return result;
   }
 }
+import {Container} from '../../model/Container';
+import {Metadata} from '../../model/Metadata';
+
+import {DeviceGroup} from '../../model/deviceGroup';
+import {RestService} from "./rest.service";

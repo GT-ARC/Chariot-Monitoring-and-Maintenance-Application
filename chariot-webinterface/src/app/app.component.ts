@@ -36,9 +36,8 @@ export class AppComponent {
 
     this.restService.getDeviceData().subscribe(data => {
         let parsedData = this.restService.parseDeviceData(data as Array<any>);
-
         let newFloor : Floor = {
-          identifier: Math.random().toString(36).substring(7),
+          identifier: "MyFloorId",
           name: 'IoT Testbed',
           level: 11,
           locations: parsedData.location,
@@ -50,20 +49,19 @@ export class AppComponent {
         );
 
         console.log("Add new data");
-        this.dataService.addFloor(newFloor);
+        this.dataService.addFloor(newFloor, false);
         console.log(parsedData);
       }
     );
 
     this.path = this.locationService.path();
-    console.log(this.path);
     AppComponent.toggleNav(window.innerWidth)
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event){
-    AppComponent.toggleNav(event.target.innerWidth)
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event){
+  //   AppComponent.toggleNav(event.target.innerWidth)
+  // }
 
   static toggleNav(width : number) {
     let nav1 = document.getElementById("nav-button");

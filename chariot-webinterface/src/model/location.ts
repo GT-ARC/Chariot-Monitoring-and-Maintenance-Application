@@ -2,7 +2,6 @@ import {DeviceGroup} from './deviceGroup';
 import {Device} from './device';
 
 export class Location {
-
   public identifier: string;
   public type: String;
   public name: String;
@@ -10,7 +9,8 @@ export class Location {
     lat: number;
     lng: number;
   };
-  public devices: (Device | DeviceGroup) [];
+  public devices: Device [];
+  public deviceGroups: DeviceGroup[];
 
   constructor(identifier: string, type: String, name: String, position: { lat: number; lng: number }) {
     this.identifier = identifier;
@@ -18,23 +18,18 @@ export class Location {
     this.name = name;
     this.position = position;
     this.devices = [];
+    this.deviceGroups = [];
   }
 
-  public addDeviceGroup(deviceGroup: (Device | DeviceGroup)): void {
-    this.devices.push(deviceGroup);
+  public addDevice(device: Device) {
+    this.devices.push(device);
   }
 
-  public getDeviceById(id : string) : (Device | DeviceGroup) {
-    let device = this.devices.filter(element => element instanceof Device).find(device => device.identifier == id);
-    if(device != undefined) return device;
-    return this.devices.filter(element => element instanceof DeviceGroup).find(deviceGroup => deviceGroup.identifier == id);
+  public addDeviceGroup(deviceGroup: DeviceGroup): void {
+    this.deviceGroups.push(deviceGroup);
   }
 
-  getAllDevices(): Device[] {
-    return this.devices.filter(element => element instanceof Device) as Device[];
-  }
-
-  getAllDeviceGroups(): DeviceGroup[] {
-    return this.devices.filter(element => element instanceof DeviceGroup) as DeviceGroup[];
+  public getDeviceById(id : string) : Device {
+    return this.devices.find(device => device.identifier == id);
   }
 }

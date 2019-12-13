@@ -29,7 +29,7 @@ export class RestService {
     if(url.indexOf('?format=json')) {
       url = url.replace('?format=json', 'history/?format=json');
     }
-    console.log("Receive data: " + url);
+    // console.log("Receive data: " + url);
     return this.http.get(url);
   }
 
@@ -77,7 +77,7 @@ export class RestService {
 
       let location = this.createLocFromLocModel(element.location);
       if(location.devices.find( s => s.constructor == newDevice.constructor && s.identifier == newDevice.identifier) == undefined)
-        location.addDeviceGroup(newDevice);
+        location.addDevice(newDevice);
       if(this.locations.find(s => s.identifier == element.location.identifier) == undefined)
         this.locations.push(location);
 

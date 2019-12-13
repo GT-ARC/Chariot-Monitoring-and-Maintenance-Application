@@ -52,8 +52,6 @@ export class SidenavButtonComponent implements OnInit {
 
   reset = false;
   handleSize(width: number): void {
-    console.log(this.route);
-
     if (window.innerWidth < this.viewPortSizeBig){
       this.sideNav.mode = 'over';
     } else
@@ -109,7 +107,6 @@ export class SidenavButtonComponent implements OnInit {
     }
 
     if(this.reset && (width > this.sidenavSize || this.route.snapshot.url[0].path != 'devices')) {
-      console.log("Reset Sidenav");
       this.sideNav['_elementRef'].nativeElement.style['left'] = '0';
       if(this.toggleSideNav2){
         this.sideNav2['_elementRef'].nativeElement.style['left'] = '0';

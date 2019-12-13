@@ -73,6 +73,7 @@
     <mat-sidenav-container
       (backdropClick)="backDropClicked()">
       <mat-sidenav #snav2
+                   style="overflow-y: hidden;"
                    [opened]="window.innerWidth > 1248"
                    [ngClass]="window.innerWidth < 1248 ? 'sidebar2' : ''">
         <aside id="device-list">

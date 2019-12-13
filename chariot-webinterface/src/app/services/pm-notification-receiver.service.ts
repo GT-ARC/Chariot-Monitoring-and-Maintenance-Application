@@ -33,6 +33,7 @@ export class PmNotificationReceiverService {
   }
 
   lastProperty = {};
+  lastUpdateId = "";
 
   public getIssuesAndSubscribeToPmResult(property : Property, device: Device) {
     let sendMessage = {
@@ -45,6 +46,7 @@ export class PmNotificationReceiverService {
         if(regData.hasOwnProperty("value")) {
           let historyData: {x: number, y: any}[] = regData['value'];
           let prevPoint = false;
+          device.issues = [];
           for (let point of historyData) {
             if (point.y && !prevPoint) {
               device.addIssue(point.x);
@@ -56,7 +58,12 @@ export class PmNotificationReceiverService {
             prevPoint = point.y;
           }
         }
-        this.dataService.dataUpdate();
+        this.lastUpdateId = device.identifier;
+        setTimeout(() => {
+          if(this.lastUpdateId == device.identifier){
+            this.dataService.dataUpdate();
+          }
+        }, 400)
       });
     }
     // subscribe to the issue topic globaly

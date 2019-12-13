@@ -63,6 +63,8 @@ export class DashboardComponent implements OnInit {
       .reduce((previousValue, currentValue) => currentValue.concat(previousValue))
       .sort((a, b) => b.issue_date - a.issue_date);
 
+    console.log("ISSUE LIST", this.issueList);
+
     this.classReference.onDevices = this.devices.reduce((prev, curr) => curr.properties.find(s => s.key == "status").value ? prev + 1 : prev, 0);
     this.classReference.idleDevices = this.devices.reduce((prev, curr) => !curr.properties.find(s => s.key == "status").value && curr.hasIssue() == 0 ? prev + 1 : prev, 0);
     this.classReference.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
@@ -83,6 +85,9 @@ export class DashboardComponent implements OnInit {
         this.locations = data.locations;
         this.devices = data.devices;
       });
+    console.log("floors", this.floors);
+    console.log("locations", this.locations);
+    console.log("devices", this.devices);
     this.dataService.getProcess()
       .subscribe( data => {
         this.products = data.process;
