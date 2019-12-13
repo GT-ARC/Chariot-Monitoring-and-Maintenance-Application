@@ -65,8 +65,22 @@ export class DashboardComponent implements OnInit {
 
     console.log("ISSUE LIST", this.issueList);
 
-    this.classReference.onDevices = this.devices.reduce((prev, curr) => curr.properties.find(s => s.key == "status").value ? prev + 1 : prev, 0);
-    this.classReference.idleDevices = this.devices.reduce((prev, curr) => !curr.properties.find(s => s.key == "status").value && curr.hasIssue() == 0 ? prev + 1 : prev, 0);
+    this.classReference.onDevices = this.devices.reduce((prev, curr) => {
+      if(curr.hasOwnProperty('properties')) {
+        let statusProp = curr.properties.find(s => s.key == "status");
+        if(statusProp && statusProp.hasOwnProperty('value'))
+          return statusProp.value ? prev + 1 : prev ;
+      }
+      return prev;
+    }, 0);
+    this.classReference.idleDevices = this.devices.reduce((prev, curr) => {
+      if(curr.hasOwnProperty('properties')) {
+        let statusProp = curr.properties.find(s => s.key == "status");
+        if(statusProp && statusProp.hasOwnProperty('value'))
+          return !statusProp.value && curr.hasIssue() == 0? prev + 1 : prev ;
+      }
+      return prev;
+    }, 0);
     this.classReference.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
 
     this.classReference.fullDeviceAmount = this.classReference.onDevices + this.classReference.idleDevices + this.classReference.brokenDevices;

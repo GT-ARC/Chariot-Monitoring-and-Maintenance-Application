@@ -81,11 +81,8 @@ export class DevicesComponent implements OnInit {
   ) {
     // Receive updates on data change events
     dataService.getDataNotification().subscribe(next => {
-      this.selectedLocation = [];
-      this.selectedFloors = [];
-      this.visibleElements = [];
-      this.visibleDeviceGroups = [];
-      this.visibleDevice = [];
+      console.log("Device Update received");
+
       this.initInterface();
     });
   }
@@ -96,18 +93,38 @@ export class DevicesComponent implements OnInit {
     this.initInterface();
   }
 
+  resetDataStructures() {
+    this.overallIssueCounter = 0;
+    this.selectedDevice = null;
+    this.floorIssues = {};
+    this.locationIssues = {};   // Map for counting the issues per location
+    this.deviceIssues = {};
+    this.deviceGroupIssues = {};
+    this.visibleLocation = {};
+    this.selectedLocation = [];
+    this.selectedFloors = [];
+    this.visibleElements = [];
+    this.visibleDeviceGroups = [];
+    this.visibleDevice = [];
+  }
+
   initInterface() {
     if(this.devices.length == 0 || this.locations.length == 0 || this.floors.length == 0)
       return;
 
+    this.resetDataStructures();
+
+
     let routedElement = this.getRoutedDevice();
+    console.log("Routed element", routedElement);
 
     // Make the selected floor with the device group visible and push some random locations to be selected
     if (routedElement) {
       this.floors.forEach(floor => {
         for (let loc of floor.locations) {
-          if (loc.devices.indexOf(routedElement instanceof Device ? routedElement : null) != -1
-            || loc.deviceGroups.indexOf(routedElement instanceof DeviceGroup ? routedElement : null) != -1 && this.selectedLocation.indexOf(loc) == -1) {
+          if ((loc.devices.find(d => d.identifier == routedElement.identifier) ||
+              loc.deviceGroups.find(dg => dg.identifier == routedElement.identifier)) &&
+               this.selectedLocation.indexOf(loc) == -1) {
             this.selectedLocation.push(loc);
           }
         }
@@ -119,13 +136,9 @@ export class DevicesComponent implements OnInit {
       this.selectedLocation.push(this.locations[0]);
     }
 
-    console.log(this.selectedLocation);
-
     // Put all locations in the visible locations map
     this.floors.forEach(f => this.visibleLocation[f.identifier] = f.locations);
     this.updateUI();
-
-    console.log(this.selectedLocation);
 
     // If the selected device is still null select a random visible device
     if (this.selectedDeviceGroup == null && this.selectedDevice == null) {
@@ -135,7 +148,9 @@ export class DevicesComponent implements OnInit {
 
     this.countTheIssues();
 
-    // console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
+    console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
+    console.log("Visible Location", JSON.parse(JSON.stringify(this.visibleLocation)));
+    this.visibleLocation['MyFloorId'].forEach(loc => console.log(this.selectedLocation.indexOf(loc)))
   }
 
   getRoutedDevice(): DeviceGroup | Device {

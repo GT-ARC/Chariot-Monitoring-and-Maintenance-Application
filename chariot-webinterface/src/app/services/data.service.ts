@@ -47,6 +47,7 @@ export class DataService {
                newDevice.properties = device.properties;
                newDevice.issues = device.issues;
                newDevice.lastIssue = device.lastIssue;
+               newDevice.issueDetected = device.issueDetected;
               this.devices.push(newDevice);
           }
           for(let deviceGroup of loc.deviceGroups) {
@@ -110,10 +111,16 @@ export class DataService {
     let addedFloor = this.floor.find(s => s.identifier == newFloor.identifier);
     if(addedFloor)
       this.floor.splice(this.floor.indexOf(addedFloor), 1);
-
     this.floor.push(newFloor);
+
     for (let loc of newFloor.locations) {
+
+      let index = this.locations.indexOf(this.locations.find(l => l.identifier == loc.identifier));
+      if (index >= 0) {
+        this.locations.splice(index, 1);
+      }
       this.locations.push(loc);
+
       for(let element of loc.devices.filter(element => element instanceof Device)) {
         if (element instanceof Device) {
           let index = this.devices.indexOf(this.devices.find(d => d.identifier == element.identifier));

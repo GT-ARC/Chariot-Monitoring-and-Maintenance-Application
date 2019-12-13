@@ -39,7 +39,6 @@ export class RestService {
     return this.http.get(this.url + "/devices/?format=json", {headers: header})
   }
 
-
   parseDeviceData(data : Array<DeviceModel>): {location: Location[], device: Device[]}  {
     console.log("Parse received data");
     for(let element of data) {
