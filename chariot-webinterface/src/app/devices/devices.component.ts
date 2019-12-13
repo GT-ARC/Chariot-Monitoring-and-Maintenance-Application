@@ -206,8 +206,9 @@ export class DevicesComponent implements OnInit {
 
     // count the device issues per location
     this.locations.forEach(l =>
-      this.locationIssues[l.identifier] = l.devices.map(d => this.deviceGroupIssues[d.identifier])
-        .reduce((c, n) => c + n, 0)
+      this.locationIssues[l.identifier] =
+        l.devices.map(d => this.deviceIssues[d.identifier].amount).reduce((c, n) => c + n, 0) +
+        l.deviceGroups.map(dg => this.deviceGroupIssues[dg.identifier]).reduce((c, n) => c + n, 0)
     );
 
     this.floors.forEach(f =>

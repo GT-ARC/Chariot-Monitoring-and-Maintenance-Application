@@ -10,7 +10,6 @@ export class DeviceUpdateService {
   constructor(private socket: Socket) { }
   topicList = [];
 
-
   subscribeToTopic(topic: string) {
     let message = {
       topic: topic,

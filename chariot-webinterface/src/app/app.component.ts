@@ -30,6 +30,7 @@ export class AppComponent {
     private restService: RestService,
     private dataService: DataService,
   ) {
+    console.log = () => {};
   }
 
   ngOnInit() {
