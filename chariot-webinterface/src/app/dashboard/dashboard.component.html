@@ -16,8 +16,7 @@
           <div *ngIf="issueList && issueList.length != 0">
             <div *ngFor="let issue of issueList.slice(0, 4)">
               <app-issue-card
-                routerLink="/maintenance/{{issue.identifier}}"
-                [device]="issueDeviceMap.get(issue)"
+                [routerLink]="'/maintenance/' + issue.identifier"
                 [issue]="issue"></app-issue-card>
             </div>
           </div>
@@ -34,7 +33,7 @@
           <div *ngIf="devices && devices.length != 0">
             <div *ngFor="let device of devices.slice(0, 4)">
               <app-device-card
-                routerLink="/devices/{{device.identifier}}"
+                [routerLink]="'/devices/' + device.identifier"
                 [device]="device"
                 [deviceCardStyle]="'Large'"
                 [selectedDevice]="null"

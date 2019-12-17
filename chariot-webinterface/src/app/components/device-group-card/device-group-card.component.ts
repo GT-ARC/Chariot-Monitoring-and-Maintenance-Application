@@ -26,13 +26,13 @@ export class DeviceGroupCardComponent implements OnInit {
       if(device.hasIssue() > 0)
         this.deviceIssueState = true;
 
-    this.visible = this.device_group.visible;
+    this.visible = this.device_group.unfolded;
     this.symbol = this.getSymbol();
   }
 
   hideDeviceGroup() {
-    this.device_group.visible = !this.device_group.visible;
-    this.visible = this.device_group.visible;
+    this.device_group.unfolded = !this.device_group.unfolded;
+    this.visible = this.device_group.unfolded;
   }
 
   getSymbol() : string {

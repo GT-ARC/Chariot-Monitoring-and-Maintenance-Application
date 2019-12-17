@@ -2,7 +2,7 @@ import {Component, OnInit, SimpleChange, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location as Locl} from '@angular/common';
 
-import {DataService} from '../services/data.service';
+import {DataHandlingService} from '../services/data-handling.service';
 
 import {Location} from '../../model/location';
 import {Device} from '../../model/device';
@@ -39,8 +39,8 @@ export class DevicesComponent implements OnInit {
   deviceIssues: {} = {};
   deviceGroupIssues: {} = {};
 
-  selectedDevice: Device = null; // Currently selected device
-  selectedDeviceGroup: DeviceGroup = null; // Currently selected device
+  selectedDevice: Device = undefined; // Currently selected device
+  selectedDeviceGroup: DeviceGroup = undefined; // Currently selected device
 
   // Connected to model switches
   allLocationsSelected: boolean = false;
@@ -76,13 +76,12 @@ export class DevicesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService,
+    private dataService: DataHandlingService,
     private locationService: Locl,
   ) {
     // Receive updates on data change events
     dataService.getDataNotification().subscribe(next => {
       console.log("Device Update received");
-
       this.initInterface();
     });
   }
@@ -95,7 +94,7 @@ export class DevicesComponent implements OnInit {
 
   resetDataStructures() {
     this.overallIssueCounter = 0;
-    this.selectedDevice = null;
+    this.selectedDevice = undefined;
     this.floorIssues = {};
     this.locationIssues = {};   // Map for counting the issues per location
     this.deviceIssues = {};
@@ -131,26 +130,35 @@ export class DevicesComponent implements OnInit {
       });
     }
 
+
     // If by chance no location is selected, select the first
     if (this.selectedLocation.length == 0 && this.locations.length != 0) {
       this.selectedLocation.push(this.locations[0]);
     }
 
+    console.log("Device parent page: selected location:", this.selectedLocation, " locations ", this.locations);
+
     // Put all locations in the visible locations map
     this.floors.forEach(f => this.visibleLocation[f.identifier] = f.locations);
     this.updateUI();
 
-    // If the selected device is still null select a random visible device
-    if (this.selectedDeviceGroup == null && this.selectedDevice == null) {
+    if(this.selectedDevice) {
+      console.log("Devices parent page: ", this.selectedDevice);
+      console.log("Devices parent page: ", this.selectedDevice.getIssueID());
+    }
+
+    // If the selected device is still undefined select a random visible device
+    if (this.selectedDeviceGroup === undefined && this.selectedDevice === undefined) {
       let devicePos = Math.floor(Math.random() * this.visibleDeviceGroups.length * 0.25);
-      this.selectedDevice = this.visibleDevice[devicePos];
+      this.newDeviceSelected(this.visibleDevice[devicePos]);
     }
 
     this.countTheIssues();
 
     console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
-    console.log("Visible Location", JSON.parse(JSON.stringify(this.visibleLocation)));
-    this.visibleLocation['MyFloorId'].forEach(loc => console.log(this.selectedLocation.indexOf(loc)))
+    console.log("Visible Location", this.visibleLocation);
+    console.log("Devices parent page: ", this.selectedDevice);
+    console.log("Devices parent page: ", this.selectedDevice.getIssueID());
   }
 
   getRoutedDevice(): DeviceGroup | Device {
@@ -160,8 +168,10 @@ export class DevicesComponent implements OnInit {
       this.routedId = this.route.snapshot.paramMap.get('id');
     }
 
+    console.log("Routed ID: " + this.routedId);
+
     // Get the selected device
-    if (this.routedId != null) {
+    if (this.routedId != undefined) {
       if (this.routedId.indexOf('g') == 0) {
         let tempID = this.routedId.slice(1);
         let selectDeviceGroup = this.deviceGroups.find(value => value.identifier == tempID);
@@ -174,13 +184,8 @@ export class DevicesComponent implements OnInit {
         let selectDevice = this.devices.find(value => value.identifier == this.routedId);
         if(selectDevice == undefined)
           return undefined;
-        this.selectedDevice = selectDevice;
-        if(selectDevice.deviceGroupObj == null)
-          return selectDevice;
-        else {
-          selectDevice.deviceGroupObj.visible = true;
-          return selectDevice.deviceGroupObj;
-        }
+        this.newDeviceSelected(selectDevice);
+        return selectDevice;
       }
     }
 
@@ -229,7 +234,7 @@ export class DevicesComponent implements OnInit {
     this.visibleDevice = [];
 
     // Go through each selected location and check if there is a device in the device group matching the filter string
-    this.selectedLocation.map(loc => {
+    this.selectedLocation.forEach(loc => {
       for (let device_group of loc.deviceGroups) {
         for (let device of device_group.devices) {
           if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
@@ -378,7 +383,7 @@ export class DevicesComponent implements OnInit {
    */
   viewAllLocations(checked: boolean) {
     if (checked) {
-      this.floors.map(floor => {
+      this.floors.forEach(floor => {
         this.floorSelected(floor, checked);
       });
     } else {
@@ -396,7 +401,7 @@ export class DevicesComponent implements OnInit {
    * Updates the visible devices
    */
   private updateUI() {
-    this.floors.map(f => {
+    this.floors.forEach(f => {
       if (f.locations.reduce((acc, loc) => acc && this.selectedLocation.indexOf(loc) >= 0, true)) {
         if (this.selectedFloors.indexOf(f) < 0) {
           this.selectedFloors.push(f);
@@ -419,7 +424,7 @@ export class DevicesComponent implements OnInit {
    */
   filterFloors(filterString: string) {
     // if(input.length != 0)
-    this.floors.map(f => {
+    this.floors.forEach(f => {
       this.visibleLocation[f.identifier] = f.locations.filter(l =>
         l.name.toLowerCase().indexOf(filterString.toLocaleLowerCase()) > -1
       );
@@ -455,13 +460,12 @@ export class DevicesComponent implements OnInit {
 
   newDeviceSelected(device: Device) {
     this.selectedDevice = device;
-    this.selectedDeviceGroup = null;
+    this.selectedDeviceGroup = undefined;
     this.locationService.replaceState('/devices/' + device.identifier);
   }
 
   newDeviceGroupSelected(deviceGroup: DeviceGroup) {
 
-    // TODO create a mock device with all the properties of the devices of the device group
     console.log('DEVICE GROUP SELECTED');
 
     let power_consumption = deviceGroup.devices.reduce((acc, prev) => acc + prev.power_consumption, 0);

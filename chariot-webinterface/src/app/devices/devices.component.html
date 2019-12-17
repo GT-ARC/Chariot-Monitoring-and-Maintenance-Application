@@ -133,7 +133,7 @@
                   [selected_device_group]="selectedDeviceGroup">
                 </app-device-group-card>
                 <div class="device-group-devices"
-                     *ngIf="element.visible">
+                     *ngIf="element.unfolded">
                   <div *ngFor="let device of element.devices">
                     <app-device-card
                       *ngIf="visibleDevice.indexOf(device) != -1"

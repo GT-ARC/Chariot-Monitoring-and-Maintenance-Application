@@ -3,17 +3,15 @@ import {Socket} from 'ngx-socket-io';
 import {NotifierService} from 'angular-notifier';
 import {Device, Property} from '../../model/device';
 import {RestService} from './rest.service';
-import {DataService} from './data.service';
+import {DataHandlingService} from './data-handling.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PmNotificationReceiverService {
 
-  serviceUrl = "http://chariot-km.dai-lab.de:81/services/?format=json";
-
   constructor(private socket: Socket,
-              private dataService: DataService,
+              private dataService: DataHandlingService,
               private notifierService: NotifierService,
               private restService : RestService
   ) {
@@ -58,6 +56,8 @@ export class PmNotificationReceiverService {
             prevPoint = point.y;
           }
         }
+        for(let issue of device.issues) this.dataService.addIssue(issue);
+        // console.log("get issue from history data: ",device, device.getIssueID());
         this.lastUpdateId = device.identifier;
         setTimeout(() => {
           if(this.lastUpdateId == device.identifier){

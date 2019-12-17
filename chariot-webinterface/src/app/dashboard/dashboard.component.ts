@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {DataService} from "../services/data.service";
+import {Component, OnInit, SimpleChange} from '@angular/core';
+import {DataHandlingService} from "../services/data-handling.service";
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
 import {Device} from "../../model/device";
@@ -38,11 +38,15 @@ export class DashboardComponent implements OnInit {
   public static fullDeviceAmount: number = 0;
   public displayDounat = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataHandlingService) {
     // Receive updates on data change events
     dataService.getDataNotification().subscribe(next => {
       this.initDashboard();
     });
+  }
+
+  ngOnChanges(change: SimpleChange) {
+    console.log(change);
   }
 
   ngOnInit() {
@@ -54,14 +58,14 @@ export class DashboardComponent implements OnInit {
     if(this.devices == undefined || this.devices.length == 0)
       return;
 
-    this.issueList = this.devices.map(d => {
-      d.issues.forEach(i => {
-        this.issueDeviceMap.set(i, d);
-      });
-      return d.issues;
-    })
-      .reduce((previousValue, currentValue) => currentValue.concat(previousValue))
-      .sort((a, b) => b.issue_date - a.issue_date);
+    // this.issueList = this.devices.map(d => {
+    //   d.issues.forEach(i => {
+    //     this.issueDeviceMap.set(i, d);
+    //   });
+    //   return d.issues;
+    // })
+    //   .reduce((previousValue, currentValue) => currentValue.concat(previousValue))
+    //   .sort((a, b) => b.issue_date - a.issue_date);
 
     console.log("ISSUE LIST", this.issueList);
 
@@ -99,9 +103,9 @@ export class DashboardComponent implements OnInit {
         this.locations = data.locations;
         this.devices = data.devices;
       });
-    console.log("floors", this.floors);
-    console.log("locations", this.locations);
-    console.log("devices", this.devices);
+    // console.log("floors", this.floors);
+    // console.log("locations", this.locations);
+    // console.log("devices", this.devices);
     this.dataService.getProcess()
       .subscribe( data => {
         this.products = data.process;
@@ -110,6 +114,10 @@ export class DashboardComponent implements OnInit {
       .subscribe(data => {
         this.containers = data.container;
       });
+    this.dataService.getIssues()
+      .subscribe( data => {
+        this.issueList = data.issues;
+      })
   }
 
   changeDevicePowerState(device: Device, state: boolean) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {DataService} from "../services/data.service";
+import {DataHandlingService} from "../services/data-handling.service";
 import {ProductProcess} from "../../model/productProcess";
 import {log} from "util";
 
@@ -27,7 +27,7 @@ export class ProcessFlowComponent implements OnInit {
   selectedProcess: ProductProcess;
 
   constructor(
-    private mockDataService: DataService,
+    private mockDataService: DataHandlingService,
   ) { }
 
   ngOnInit() {

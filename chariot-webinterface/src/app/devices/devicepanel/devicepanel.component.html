@@ -3,7 +3,9 @@
   <span id="device-panel-head"
         fxFlex="0 1 calc(100%)">
     <span>{{device.name}}</span>
-    <button *ngIf="device.issues != null && device.issueDetected" class="issue-detected-button" routerLink="/maintenance/{{device.getIssueID()}}">
+    <button *ngIf="device.issues != null && device.issueDetected"
+            class="issue-detected-button"
+            [routerLink]="'/maintenance/' + device.getIssueID()">
       Issue detected
       <mat-icon>launch</mat-icon>
     </button>

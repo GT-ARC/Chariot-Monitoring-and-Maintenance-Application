@@ -41,7 +41,6 @@
           <app-issue-card
             *ngFor="let issue of groupedIssues.get(key)"
             (click)="newSelectedIssue(issue)"
-            [device]="issueDeviceMap.get(issue)"
             [selectedIssue]="selectedIssue"
             [issue]="issue"></app-issue-card>
         </div>
@@ -52,7 +51,7 @@
     <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start"
           *ngIf="devices != undefined && devices.length != 0 && issueDeviceMap.get(selectedIssue) != undefined">
       <div id="issue-content-head"
-           routerLink="/devices/{{issueDeviceMap.get(selectedIssue).identifier}}"
+           [routerLink]="'/devices/' + issueDeviceMap.get(selectedIssue).identifier"
            fxFlex="1 1 calc(100%)">
         {{issueDeviceMap.get(selectedIssue).name}} - Issue ID: {{selectedIssue.identifier}}
       </div>

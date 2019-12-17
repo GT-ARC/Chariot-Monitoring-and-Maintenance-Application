@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material";
-import {DataService} from "../services/data.service";
+import {DataHandlingService} from "../services/data-handling.service";
 import {Container} from "../../model/Container";
 
 @Component({
@@ -14,7 +14,7 @@ export class WarehouseComponent implements OnInit {
   visibleContainer: Container[];
 
   constructor(
-    private mockDataService: DataService,
+    private mockDataService: DataHandlingService,
   ) { }
 
   window = window;
@@ -117,7 +117,7 @@ export class WarehouseComponent implements OnInit {
     }
   }
 
-  data = [300, 500, 100];
+  data = [];
 
   pieChartColor(container: Container): string {
     let retColor = "black";

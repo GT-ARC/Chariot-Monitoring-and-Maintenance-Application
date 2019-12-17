@@ -9,12 +9,9 @@ import {Issue} from "../../../model/issue";
 })
 export class IssueCardComponent implements OnInit {
 
-  @Input() device: Device;
   @Input() issue: Issue;
 
   @Input() selectedIssue: Issue;
-
-  @Output() uploaded = new EventEmitter<{device: Device, state: boolean}>();
 
   constructor() { }
 

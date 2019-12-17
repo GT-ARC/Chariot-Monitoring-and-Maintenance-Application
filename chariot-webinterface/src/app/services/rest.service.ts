@@ -6,18 +6,16 @@ import {Location} from '../../model/location';
 import {DeviceModel, LocationModel, PropertyModel} from '../../model/deviceModel';
 import * as faker from 'faker';
 import {PmNotificationReceiverService} from './pm-notification-receiver.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-  monitoringServiceURL: string = "http://chariot-km.dai-lab.de:81/monitoringservice/";
+
   currentMonitoringService: string = "";
   mappingObserv = new EventEmitter<{deviceID : String, agentID: String} []>();
-
-  url: string = "http://chariot-km.dai-lab.de:81";
-  // testURL: String = "https://jsonplaceholder.typicode.com/";
 
   locations: Location[] = [];
   devices : Device[] = [];
@@ -36,7 +34,7 @@ export class RestService {
   getDeviceData(): Observable<Object> {
     let header: HttpHeaders = new HttpHeaders();
     header.append("Access-Control-Allow-Origin", "*");
-    return this.http.get(this.url + "/devices/?format=json", {headers: header})
+    return this.http.get(environment.databaseUrl + "/devices/?format=json", {headers: header})
   }
 
   parseDeviceData(data : Array<DeviceModel>): {location: Location[], device: Device[]}  {
@@ -141,7 +139,7 @@ export class RestService {
   }
 
   getDeviceMapping(): Observable<{deviceID : String, agentID: String}[]> {
-    this.http.get(this.monitoringServiceURL).subscribe(data => {
+    this.http.get(environment.monitoringServiceURL).subscribe(data => {
       if (Array.isArray(data) && data.length != 0) {
         let monitoringService = data[0]['agentlist'];
         this.currentMonitoringService = monitoringService['url'];

@@ -3,41 +3,41 @@ Version: webpack 4.39.2
 Time: 37872ms
 Built at: 12/12/2019 10:55:09 PM
                                              Asset        Size  Chunks                    Chunk Names
-                              3rdpartylicenses.txt    61.5 KiB          [emitted]         
-              Rubik-Black.99e5b40f53bee03fd094.ttf     143 KiB          [emitted]         
-        Rubik-BlackItalic.a96c8f00a7292b398594.ttf     144 KiB          [emitted]         
-               Rubik-Bold.87b4e0d5acc5093dfca4.ttf     140 KiB          [emitted]         
-         Rubik-BoldItalic.7f21422cadc0517d3335.ttf     143 KiB          [emitted]         
-             Rubik-Italic.5ca63c019a27084168dd.ttf     140 KiB          [emitted]         
-              Rubik-Light.1dc94b26c8096522ad60.ttf     134 KiB          [emitted]         
-        Rubik-LightItalic.94c2d7e085089b8abde2.ttf     137 KiB          [emitted]         
-             Rubik-Medium.394a3b3371914d7a65e8.ttf     140 KiB          [emitted]         
-       Rubik-MediumItalic.ea1121bd23230359189f.ttf     142 KiB          [emitted]         
-            Rubik-Regular.6c980940392587c8d7d3.ttf     137 KiB          [emitted]         
-                     assets/Icons/CHARIOT_Logo.ico     195 KiB          [emitted]         
-                    assets/Icons/CHARIOT_Logo.ico~    53.9 KiB          [emitted]         
-assets/Icons/process_flow/deformation_checking.svg  1020 bytes          [emitted]         
-         assets/Icons/process_flow/measurement.svg    1.29 KiB          [emitted]         
-             assets/Icons/process_flow/packing.svg  1020 bytes          [emitted]         
-             assets/Icons/process_flow/printer.svg    1.17 KiB          [emitted]         
-               assets/Icons/process_flow/robot.svg    1.52 KiB          [emitted]         
-           assets/Icons/process_flow/warehouse.svg   976 bytes          [emitted]         
-                    assets/Images/CHARIOT_Logo.png    15.9 KiB          [emitted]         
-                        assets/Images/product1.png     191 KiB          [emitted]         
-                        assets/Images/product2.png     561 KiB          [emitted]  [big]  
-                       assets/Images/warehouse.png     277 KiB          [emitted]  [big]  
-                          assets/RubikFont/OFL.txt    4.33 KiB          [emitted]         
-                  assets/RubikFont/Rubik-Black.ttf     143 KiB          [emitted]         
-            assets/RubikFont/Rubik-BlackItalic.ttf     144 KiB          [emitted]         
-                   assets/RubikFont/Rubik-Bold.ttf     140 KiB          [emitted]         
-             assets/RubikFont/Rubik-BoldItalic.ttf     143 KiB          [emitted]         
-                 assets/RubikFont/Rubik-Italic.ttf     140 KiB          [emitted]         
-                  assets/RubikFont/Rubik-Light.ttf     134 KiB          [emitted]         
-            assets/RubikFont/Rubik-LightItalic.ttf     137 KiB          [emitted]         
-                 assets/RubikFont/Rubik-Medium.ttf     140 KiB          [emitted]         
-           assets/RubikFont/Rubik-MediumItalic.ttf     142 KiB          [emitted]         
-                assets/RubikFont/Rubik-Regular.ttf     137 KiB          [emitted]         
-                                       favicon.ico     5.3 KiB          [emitted]         
+                              3rdpartylicenses.txt    61.5 KiB          [emitted]
+              Rubik-Black.99e5b40f53bee03fd094.ttf     143 KiB          [emitted]
+        Rubik-BlackItalic.a96c8f00a7292b398594.ttf     144 KiB          [emitted]
+               Rubik-Bold.87b4e0d5acc5093dfca4.ttf     140 KiB          [emitted]
+         Rubik-BoldItalic.7f21422cadc0517d3335.ttf     143 KiB          [emitted]
+             Rubik-Italic.5ca63c019a27084168dd.ttf     140 KiB          [emitted]
+              Rubik-Light.1dc94b26c8096522ad60.ttf     134 KiB          [emitted]
+        Rubik-LightItalic.94c2d7e085089b8abde2.ttf     137 KiB          [emitted]
+             Rubik-Medium.394a3b3371914d7a65e8.ttf     140 KiB          [emitted]
+       Rubik-MediumItalic.ea1121bd23230359189f.ttf     142 KiB          [emitted]
+            Rubik-Regular.6c980940392587c8d7d3.ttf     137 KiB          [emitted]
+                     assets/Icons/CHARIOT_Logo.ico     195 KiB          [emitted]
+                    assets/Icons/CHARIOT_Logo.ico~    53.9 KiB          [emitted]
+assets/Icons/process_flow/deformation_checking.svg  1020 bytes          [emitted]
+         assets/Icons/process_flow/measurement.svg    1.29 KiB          [emitted]
+             assets/Icons/process_flow/packing.svg  1020 bytes          [emitted]
+             assets/Icons/process_flow/printer.svg    1.17 KiB          [emitted]
+               assets/Icons/process_flow/robot.svg    1.52 KiB          [emitted]
+           assets/Icons/process_flow/warehouse.svg   976 bytes          [emitted]
+                    assets/Images/CHARIOT_Logo.png    15.9 KiB          [emitted]
+                        assets/Images/product1.png     191 KiB          [emitted]
+                        assets/Images/product2.png     561 KiB          [emitted]  [big]
+                       assets/Images/warehouse.png     277 KiB          [emitted]  [big]
+                          assets/RubikFont/OFL.txt    4.33 KiB          [emitted]
+                  assets/RubikFont/Rubik-Black.ttf     143 KiB          [emitted]
+            assets/RubikFont/Rubik-BlackItalic.ttf     144 KiB          [emitted]
+                   assets/RubikFont/Rubik-Bold.ttf     140 KiB          [emitted]
+             assets/RubikFont/Rubik-BoldItalic.ttf     143 KiB          [emitted]
+                 assets/RubikFont/Rubik-Italic.ttf     140 KiB          [emitted]
+                  assets/RubikFont/Rubik-Light.ttf     134 KiB          [emitted]
+            assets/RubikFont/Rubik-LightItalic.ttf     137 KiB          [emitted]
+                 assets/RubikFont/Rubik-Medium.ttf     140 KiB          [emitted]
+           assets/RubikFont/Rubik-MediumItalic.ttf     142 KiB          [emitted]
+                assets/RubikFont/Rubik-Regular.ttf     137 KiB          [emitted]
+                                       favicon.ico     5.3 KiB          [emitted]
                       main.c2a007aa5c7fdd5ba3b7.js    2.91 MiB       1  [emitted]  [big]  main
              polyfills-es5.fd7e96546f5bba182eb7.js     128 KiB       3  [emitted]         polyfills-es5
                  polyfills.379d2aa37ba0804e18e1.js    48.8 KiB       2  [emitted]         polyfills
@@ -51,7 +51,7 @@ chunk    {0} runtime.9f140873d024d6055d47.js (runtime) 0 bytes ={1}= ={2}= ={3}=
 chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rendered]
  [0] multi ./src/main.ts 28 bytes {1} [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
-     multi entry 
+     multi entry
  [1] crypto (ignored) 15 bytes {1} [optional] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      cjs require crypto [pJ3+] ./node_modules/seedrandom/seedrandom.js 236:17-34
@@ -7046,10 +7046,10 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      cjs require ./secondary_address [iEBO] ./node_modules/faker/lib/locales/cz/address/index.js 5:28-58
  [F/XL] ./node_modules/rxjs/_esm5/internal/observable/of.js 615 bytes {1} [built]
      [only some exports used: of]
-     harmony import specifier rxjs  ./src/app/services/data.service.ts 35:26-28 (skipped side-effect-free modules)
-     harmony import specifier rxjs  ./src/app/services/data.service.ts 44:15-17 (skipped side-effect-free modules)
-     harmony import specifier rxjs  ./src/app/services/data.service.ts 49:15-17 (skipped side-effect-free modules)
-     harmony import specifier rxjs  ./src/app/services/data.service.ts 54:15-17 (skipped side-effect-free modules)
+     harmony import specifier rxjs  ./src/app/services/data-handling.service.ts 35:26-28 (skipped side-effect-free modules)
+     harmony import specifier rxjs  ./src/app/services/data-handling.service.ts 44:15-17 (skipped side-effect-free modules)
+     harmony import specifier rxjs  ./src/app/services/data-handling.service.ts 49:15-17 (skipped side-effect-free modules)
+     harmony import specifier rxjs  ./src/app/services/data-handling.service.ts 54:15-17 (skipped side-effect-free modules)
      harmony import specifier rxjs  ./node_modules/@angular/cdk/esm5/collections.es5.js 63:67-69 (skipped side-effect-free modules)
      harmony import specifier rxjs  ./node_modules/@angular/cdk/esm5/scrolling.es5.js 455:23-25 (skipped side-effect-free modules)
      harmony import specifier rxjs  ./node_modules/@angular/material/esm5/icon.es5.js 483:23-25 (skipped side-effect-free modules)
@@ -16685,7 +16685,7 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      |     harmony side effect evaluation ../../model/device  ./src/app/services/rest.service.ts 3:0-54
      |     harmony side effect evaluation ../../../model/device  ./src/app/devices/devicepanel/devicepanel.component.ts 3:0-63
      |     harmony side effect evaluation ../../../../model/device  ./src/app/devices/devicepanel/device-panel-slider/device-panel-slider.component.ts 3:0-52
-     |     harmony side effect evaluation ../../model/device  ./src/app/services/data.service.ts 4:0-54
+     |     harmony side effect evaluation ../../model/device  ./src/app/services/data-handling.service.ts 4:0-54
      |     harmony side effect evaluation ../../model/device  ./src/app/devices/devices.component.ts 5:0-44
      |     harmony import specifier ../../../model/device  ./src/app/components/device-card/device-card.component.ts 14:38-46
      |     harmony import specifier ./device  ./src/model/location.ts 15:88-94
@@ -16694,24 +16694,24 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      |     harmony import specifier ../../../model/device  ./src/app/devices/devicepanel/devicepanel.component.ts 43:34-48
      |     harmony import specifier ../../../model/device  ./src/app/devices/devicepanel/devicepanel.component.ts 49:19-33
      |     harmony import specifier ../../model/device  ./src/app/services/rest.service.ts 110:30-38
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 129:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 130:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 131:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 132:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 133:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 134:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 135:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 136:16-24
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 137:20-28
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 137:156-164
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 137:297-305
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 137:440-448
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 184:37-45
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 227:28-34
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 129:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 130:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 131:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 132:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 133:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 134:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 135:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 136:16-24
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 137:20-28
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 137:156-164
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 137:297-305
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 137:440-448
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 184:37-45
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 227:28-34
      |     harmony import specifier ../../model/device  ./src/app/devices/devices.component.ts 424:29-35
-     |     harmony import specifier ../../model/device  ./src/app/services/data.service.ts 630:124-130
-     | ./src/app/services/data.service.ts 29.5 KiB [built]
-     |     [only some exports used: DataService]
+     |     harmony import specifier ../../model/device  ./src/app/services/data-handling.service.ts 630:124-130
+     | ./src/app/services/data-handling.service.ts 29.5 KiB [built]
+     |     [only some exports used: DataHandlingService]
      |     harmony side effect evaluation ./services/data.service  ./src/app/app.component.ts 1:0-54
      |     harmony side effect evaluation ../services/data.service  ./src/app/products-behind-plan/products-behind-plan.component.ts 2:0-55
      |     harmony side effect evaluation ../services/data.service  ./src/app/maintenance/maintenance.component.ts 2:0-55
@@ -17706,24 +17706,24 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      |     [only some exports used: DeviceGroup]
      |     harmony side effect evaluation ./deviceGroup  ./src/model/location.ts 1:0-44
      |     harmony side effect evaluation ../../../model/deviceGroup  ./src/app/components/device-group-card/device-group-card.component.ts 2:0-57
-     |     harmony side effect evaluation ../../model/deviceGroup  ./src/app/services/data.service.ts 7:0-54
+     |     harmony side effect evaluation ../../model/deviceGroup  ./src/app/services/data-handling.service.ts 7:0-54
      |     harmony import specifier ./deviceGroup  ./src/model/location.ts 18:82-93
      |     harmony import specifier ./deviceGroup  ./src/model/location.ts 24:82-93
-     |     harmony import specifier ../../model/deviceGroup  ./src/app/services/data.service.ts 250:37-48
-     |     harmony import specifier ../../model/deviceGroup  ./src/app/services/data.service.ts 625:123-134
-     |     harmony import specifier ../../model/deviceGroup  ./src/app/services/data.service.ts 629:81-92
+     |     harmony import specifier ../../model/deviceGroup  ./src/app/services/data-handling.service.ts 250:37-48
+     |     harmony import specifier ../../model/deviceGroup  ./src/app/services/data-handling.service.ts 625:123-134
+     |     harmony import specifier ../../model/deviceGroup  ./src/app/services/data-handling.service.ts 629:81-92
      | ./src/model/location.ts 1.25 KiB [built]
      |     [only some exports used: Location]
-     |     harmony side effect evaluation ../../model/location  ./src/app/services/data.service.ts 3:0-48
+     |     harmony side effect evaluation ../../model/location  ./src/app/services/data-handling.service.ts 3:0-48
      |     harmony side effect evaluation ../../model/location  ./src/app/services/rest.service.ts 4:0-48
      |     harmony import specifier ../../model/location  ./src/app/services/rest.service.ts 84:19-27
-     |     harmony import specifier ../../model/location  ./src/app/services/data.service.ts 272:35-43
+     |     harmony import specifier ../../model/location  ./src/app/services/data-handling.service.ts 272:35-43
      | ./src/model/productProcess.ts 1.87 KiB [built]
      |     [only some exports used: ProductProcess]
      |     harmony side effect evaluation ../../../model/productProcess  ./src/app/process-flow/process-flow-main/process-flow-main.component.ts 2:0-63
      |     harmony side effect evaluation ../../../model/productProcess  ./src/app/components/processflow-card/processflow-card.component.ts 2:0-63
-     |     harmony side effect evaluation ../../model/productProcess  ./src/app/services/data.service.ts 6:0-60
-     |     harmony import specifier ../../model/productProcess  ./src/app/services/data.service.ts 582:36-50
+     |     harmony side effect evaluation ../../model/productProcess  ./src/app/services/data-handling.service.ts 6:0-60
+     |     harmony import specifier ../../model/productProcess  ./src/app/services/data-handling.service.ts 582:36-50
      | ./src/app/components/issue-card/issue-card.component.css.shim.ngstyle.js 1.95 KiB [built]
      |     [only some exports used: styles]
      |     harmony side effect evaluation ./issue-card.component.css.shim.ngstyle  ./src/app/components/issue-card/issue-card.component.ngfactory.js 7:0-62
@@ -18093,7 +18093,7 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
 chunk    {2} polyfills.379d2aa37ba0804e18e1.js (polyfills) 172 KiB ={0}= [initial] [rendered]
  [4] multi ./src/polyfills.ts 28 bytes {2} [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
-     multi entry 
+     multi entry
  [0TWp] ./node_modules/zone.js/dist/zone.js 159 KiB {2} {3} [built]
      [no exports used]
      ModuleConcatenation bailout: Module is not an ECMAScript module
@@ -18815,7 +18815,7 @@ chunk    {2} polyfills.379d2aa37ba0804e18e1.js (polyfills) 172 KiB ={0}= [initia
 chunk    {3} polyfills-es5.fd7e96546f5bba182eb7.js (polyfills-es5) 411 KiB ={0}= [initial] [rendered]
  [3] multi ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js ./src/polyfills.ts 40 bytes {3} [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
-     multi entry 
+     multi entry
  [+5Eg] ./node_modules/@angular-devkit/build-angular/node_modules/core-js/modules/es.object.seal.js 612 bytes {3} [built]
      [no exports used]
      ModuleConcatenation bailout: Module is not an ECMAScript module
@@ -21071,7 +21071,7 @@ chunk    {3} polyfills-es5.fd7e96546f5bba182eb7.js (polyfills-es5) 411 KiB ={0}=
 chunk    {4} styles.32d771a8e2c53d87d050.css (styles) 79.2 KiB ={0}= [initial] [rendered]
  [5] multi ./src/css/MyMaterialTheme.scss ./src/css/styles.css ./src/css/slider.css ./src/css/checkbox.css ./src/css/switch.css ./src/css/fonts.css ./node_modules/angular-notifier/styles.scss 100 bytes {4} [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
-     multi entry 
+     multi entry
  [] css ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./node_modules/sass-loader/lib/loader.js??ref--15-3!./src/css/MyMaterialTheme.scss 70.4 KiB {4}
      ModuleConcatenation bailout: Module is not an ECMAScript module
      [SbSA] ./src/css/MyMaterialTheme.scss
@@ -25332,7 +25332,7 @@ WARNING in Terser Plugin: Dropping duplicated definition of variable i [polyfill
 WARNING in Terser Plugin: Condition always true [polyfills-es5.fd7e96546f5bba182eb7.js:10912,32]
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!node_modules/sass-loader/lib/loader.js??ref--15-3!node_modules/angular-notifier/styles.scss:
                    Asset      Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1.07 KiB          
+    3rdpartylicenses.txt  1.07 KiB
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 2.29 KiB [entry] [rendered]
      [zHvT] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./node_modules/sass-loader/lib/loader.js??ref--15-3!./node_modules/angular-notifier/styles.scss 2.29 KiB {0} [built]
@@ -25340,7 +25340,7 @@ Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/ang
          single entry !!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/postcss-loader/src/index.js??extracted!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/sass-loader/lib/loader.js??ref--15-3!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/angular-notifier/styles.scss  mini-css-extract-plugin
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!node_modules/sass-loader/lib/loader.js??ref--15-3!src/css/MyMaterialTheme.scss:
                    Asset     Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1 bytes          
+    3rdpartylicenses.txt  1 bytes
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 72.5 KiB [entry] [rendered]
      [mGuv] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./node_modules/sass-loader/lib/loader.js??ref--15-3!./src/css/MyMaterialTheme.scss 72.5 KiB {0} [built]
@@ -25348,7 +25348,7 @@ Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/ang
          single entry !!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/postcss-loader/src/index.js??extracted!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/sass-loader/lib/loader.js??ref--15-3!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/src/css/MyMaterialTheme.scss  mini-css-extract-plugin
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!src/css/checkbox.css:
                    Asset     Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1 bytes          
+    3rdpartylicenses.txt  1 bytes
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 42 bytes [entry] [rendered]
      [BvUI] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./src/css/checkbox.css 42 bytes {0} [built]
@@ -25356,7 +25356,7 @@ Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/ang
          single entry !!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/postcss-loader/src/index.js??extracted!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/src/css/checkbox.css  mini-css-extract-plugin
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!src/css/fonts.css:
                    Asset     Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1 bytes          
+    3rdpartylicenses.txt  1 bytes
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 1.28 KiB [entry] [rendered]
      [xCxj] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./src/css/fonts.css 1.28 KiB {0} [built]
@@ -25364,7 +25364,7 @@ Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/ang
          single entry !!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/postcss-loader/src/index.js??extracted!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/src/css/fonts.css  mini-css-extract-plugin
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!src/css/slider.css:
                    Asset     Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1 bytes          
+    3rdpartylicenses.txt  1 bytes
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 1.05 KiB [entry] [rendered]
      [PKnE] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./src/css/slider.css 1.05 KiB {0} [built]
@@ -25372,7 +25372,7 @@ Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/ang
          single entry !!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/postcss-loader/src/index.js??extracted!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/src/css/slider.css  mini-css-extract-plugin
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!src/css/styles.css:
                    Asset      Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1.07 KiB          
+    3rdpartylicenses.txt  1.07 KiB
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 3.48 KiB [entry] [rendered]
      [iz0x] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./src/css/styles.css 3.48 KiB {0} [built]
@@ -25380,7 +25380,7 @@ Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/ang
          single entry !!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/node_modules/postcss-loader/src/index.js??extracted!/mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/src/css/styles.css  mini-css-extract-plugin
 Child mini-css-extract-plugin node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!node_modules/postcss-loader/src/index.js??extracted!src/css/switch.css:
                    Asset     Size  Chunks  Chunk Names
-    3rdpartylicenses.txt  1 bytes          
+    3rdpartylicenses.txt  1 bytes
     Entrypoint mini-css-extract-plugin = *
     chunk    {0} * (mini-css-extract-plugin) 1.18 KiB [entry] [rendered]
      [ku02] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??extracted!./src/css/switch.css 1.18 KiB {0} [built]

@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  databaseUrl: 'http://chariot-km.dai-lab.de:81',
+  monitoringServiceURL: 'http://chariot-km.dai-lab.de:81/monitoringservice/',
+  serviceUrl: 'http://chariot-km.dai-lab.de:81/services/?format=json',
+  proxyAgentAddress: 'http://chariot-main.dai-lab.de:8080/chariot/sendAction'
 };
 
 /*

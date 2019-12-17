@@ -2,7 +2,7 @@ import {Component, OnInit, SimpleChange, SimpleChanges, ViewChild} from '@angula
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
 import {Device, Property} from '../../model/device';
-import {DataService} from "../services/data.service";
+import {DataHandlingService} from "../services/data-handling.service";
 import {Issue} from "../../model/issue";
 import {Color} from "ng2-charts";
 
@@ -48,7 +48,7 @@ export class MaintenanceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService,
+    private dataService: DataHandlingService,
     private locationService: Locl) {
     this.dataService.getDataNotification().subscribe(next => {
       // Select the routed device

@@ -1,6 +1,6 @@
 <nav>
   <a routerLink="/dashboard" id="dashboard-link"
-     [ngClass]="path == '/dashboard' ? 'selected' : ''"
+     [ngClass]="{selected: path === '/dashboard'}"
      (click)="path = '/dashboard'">
     <img src="../assets/Images/CHARIOT_Logo.png" alt="logo" id="logo_img"/>
     <span id="project_name">
@@ -15,8 +15,8 @@
       <button mat-menu-item
               *ngFor="let site of sites"
               (click)="path = site.route"
-              routerLink="{{site.route}}">
-          <span [ngClass]="path == site.route ? 'selected' : ''">
+              [routerLink]="site.route">
+          <span [ngClass]="{selected: path === site.route}">
               <mat-icon>{{site.icon}}</mat-icon>
               <span>{{site.name}}</span>
           </span>
@@ -25,10 +25,10 @@
   </div>
 
   <div id="nav-wrap">
-    <a *ngFor="let site of sites.reverse()"
-       [ngClass]="path == site.route ? 'selected' : ''"
+    <a *ngFor="let site of sitesReversed"
+       [ngClass]="{selected: path === site.route}"
        (click)="path = site.route"
-       routerLink="{{site.route}}">
+       [routerLink]="site.route">
       <mat-icon>{{site.icon}}</mat-icon>
       <span>{{site.name}}</span>
     </a>

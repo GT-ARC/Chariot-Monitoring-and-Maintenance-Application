@@ -3,9 +3,9 @@ import {Device} from './device';
 export class DeviceGroup {
 
   private readonly _identifier : string;
-  private readonly _devices : Device[];
-  private readonly _name: string;
-  private _visible: boolean = Math.random() > 0.5;
+  private _devices : Device[];
+  private _name: string;
+  private _unfolded: boolean = Math.random() > 0.5;
 
   constructor(identifier: string, name: string) {
     this._identifier = identifier;
@@ -17,12 +17,19 @@ export class DeviceGroup {
     this._devices.push(device);
   }
 
-  get visible(): boolean {
-    return this._visible;
+  get unfolded(): boolean {
+    return this._unfolded;
   }
 
-  set visible(value: boolean) {
-    this._visible = value;
+  set unfolded(value: boolean) {
+    this._unfolded = value;
+  }
+
+  set devices(value: Device[]) {
+    this._devices = value;
+  }
+  set name(value: string) {
+    this._name = value;
   }
 
   get name(): string {

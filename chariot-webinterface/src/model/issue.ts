@@ -1,3 +1,5 @@
+import {Device} from './device';
+
 export class Issue {
 
   identifier: string;
@@ -11,4 +13,6 @@ export class Issue {
   issue_date: number;
 
   importance: number;
+
+  name: string;
 }

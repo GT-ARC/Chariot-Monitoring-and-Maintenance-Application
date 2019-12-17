@@ -82,3 +82,11 @@ nav a:hover {
     margin-left: 64px;
   }
 }
+
+#nav1 { display: none; }
+#nav2 { display: block; }
+
+@media only screen and (min-width: 1144px) {
+  #nav1 { display: block; }
+  #nav2 { display: none; }
+}

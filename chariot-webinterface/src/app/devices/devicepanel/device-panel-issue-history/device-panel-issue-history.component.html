@@ -18,6 +18,6 @@
     </div>
     <div class="rectangle"
          [ngStyle]="{'height' : getHeight() }"></div>
-    <input id="issue-button" type="button" value="Go to Issues" routerLink="/maintenance/{{device.getIssueID()}}">
+    <input id="issue-button" type="button" value="Go to Issues" [routerLink]="'/maintenance/' + device.getIssueID()">
   </div>
 </div>

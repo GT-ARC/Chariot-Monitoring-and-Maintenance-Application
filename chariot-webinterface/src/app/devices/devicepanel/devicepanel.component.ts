@@ -23,7 +23,10 @@ export class DevicepanelComponent implements OnInit {
   selectedProperty: Property = null;
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log("Selected device changed", changes);
+    console.log("Selected device changed", changes);
+    console.log("Selected device changed", this.device);
+    console.log("Selected device changed", this.device.getIssueID());
+
 
     // Get the array properties and normal properties
     this.arrayProperties = this.getArrayProperties();

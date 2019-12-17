@@ -3,14 +3,12 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { NotifierService } from 'angular-notifier';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentUpdateService {
-
-  proxyAgentAddress: string = 'http://chariot-main.dai-lab.de:8080/chariot/sendAction';
-  // proxyAgentAddress: string = 'http://localhost:8080/chariot/sendAction';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,7 +31,7 @@ export class AgentUpdateService {
     console.log(JSON.stringify(message));
 
 
-    this.http.post(this.proxyAgentAddress, JSON.stringify(message), this.httpOptions)
+    this.http.post(environment.proxyAgentAddress, JSON.stringify(message), this.httpOptions)
       .pipe(
         catchError(err => this.handleError(err, this.notifierService))
       ).subscribe(data => this.notifierService.notify('success', 'device-updated'));

@@ -6,7 +6,7 @@ export class Device {
   identifier: string;
 
   deviceGroup = false;
-  deviceGroupObj: DeviceGroup = null;
+  deviceGroupObj: DeviceGroup = undefined;
 
   name: string;
   symbol: symbol;
@@ -23,6 +23,8 @@ export class Device {
   issues: Issue[];
 
   issueDetected: boolean = false;
+
+  lastIssueId: string = "";
 
   constructor(identifier: string,
               name: string,
@@ -45,10 +47,10 @@ export class Device {
 
   getIssueID(): string {
     if(this.issues){
-      let retID = this.issues.reduceRight((previousValue, currentValue) => !currentValue.state ?  "" + currentValue.identifier : "", "");
-      return retID == "" ? "" + this.identifier : "i" + retID;
+      let retIssue = this.issues.find(i => !i.state);
+      if (retIssue) return retIssue.identifier;
     }
-    return "";
+    return undefined;
   }
 
   hasIssue(): number {
@@ -59,16 +61,18 @@ export class Device {
   addIssue(date? : number) {
     if(this.issues != null) {
       let issueID = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
-      let issue = {
+      let issue: Issue = {
         identifier: issueID,
         state: false,
         description: '',
         type: '',
         issue_date: date != undefined ? new Date(date).valueOf() : Date.now(),
-        importance: Math.floor(Math.random() * 100)
+        importance: Math.floor(Math.random() * 100),
+        name: this.name
       };
       this.lastIssue = issue;
       this.issues.push(issue);
+      this.lastIssueId = issue.identifier;
       this.issueDetected = true;
     }
   }

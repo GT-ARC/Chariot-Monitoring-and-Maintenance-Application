@@ -1,6 +1,6 @@
 import {Component, OnInit, } from '@angular/core';
 import {ProductProcess} from "../../model/productProcess";
-import {DataService} from "../services/data.service";
+import {DataHandlingService} from "../services/data-handling.service";
 import {Metadata} from "../../model/Metadata";
 import {MatSliderChange} from "@angular/material";
 import {log} from "util";
@@ -26,7 +26,7 @@ export class ProductsBehindPlanComponent implements OnInit {
   averagePBP: number;
   maxPBP: number;
 
-  constructor(private mockDataService: DataService) {
+  constructor(private mockDataService: DataHandlingService) {
   }
 
   getMockData(): void {

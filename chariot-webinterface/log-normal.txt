@@ -3,40 +3,40 @@ Version: webpack 4.39.2
 Time: 22317ms
 Built at: 12/12/2019 10:57:23 PM
                                              Asset        Size         Chunks                    Chunk Names
-                                   Rubik-Black.ttf     143 KiB                 [emitted]         
-                             Rubik-BlackItalic.ttf     144 KiB                 [emitted]         
-                                    Rubik-Bold.ttf     140 KiB                 [emitted]         
-                              Rubik-BoldItalic.ttf     143 KiB                 [emitted]         
-                                  Rubik-Italic.ttf     140 KiB                 [emitted]         
-                                   Rubik-Light.ttf     134 KiB                 [emitted]         
-                             Rubik-LightItalic.ttf     137 KiB                 [emitted]         
-                                  Rubik-Medium.ttf     140 KiB                 [emitted]         
-                            Rubik-MediumItalic.ttf     142 KiB                 [emitted]         
-                                 Rubik-Regular.ttf     137 KiB                 [emitted]         
-                     assets/Icons/CHARIOT_Logo.ico     195 KiB                 [emitted]         
-                    assets/Icons/CHARIOT_Logo.ico~    53.9 KiB                 [emitted]         
-assets/Icons/process_flow/deformation_checking.svg  1020 bytes                 [emitted]         
-         assets/Icons/process_flow/measurement.svg    1.29 KiB                 [emitted]         
-             assets/Icons/process_flow/packing.svg  1020 bytes                 [emitted]         
-             assets/Icons/process_flow/printer.svg    1.17 KiB                 [emitted]         
-               assets/Icons/process_flow/robot.svg    1.52 KiB                 [emitted]         
-           assets/Icons/process_flow/warehouse.svg   976 bytes                 [emitted]         
-                    assets/Images/CHARIOT_Logo.png    15.9 KiB                 [emitted]         
-                        assets/Images/product1.png     191 KiB                 [emitted]         
-                        assets/Images/product2.png     561 KiB                 [emitted]  [big]  
-                       assets/Images/warehouse.png     277 KiB                 [emitted]  [big]  
-                          assets/RubikFont/OFL.txt    4.33 KiB                 [emitted]         
-                  assets/RubikFont/Rubik-Black.ttf     143 KiB                 [emitted]         
-            assets/RubikFont/Rubik-BlackItalic.ttf     144 KiB                 [emitted]         
-                   assets/RubikFont/Rubik-Bold.ttf     140 KiB                 [emitted]         
-             assets/RubikFont/Rubik-BoldItalic.ttf     143 KiB                 [emitted]         
-                 assets/RubikFont/Rubik-Italic.ttf     140 KiB                 [emitted]         
-                  assets/RubikFont/Rubik-Light.ttf     134 KiB                 [emitted]         
-            assets/RubikFont/Rubik-LightItalic.ttf     137 KiB                 [emitted]         
-                 assets/RubikFont/Rubik-Medium.ttf     140 KiB                 [emitted]         
-           assets/RubikFont/Rubik-MediumItalic.ttf     142 KiB                 [emitted]         
-                assets/RubikFont/Rubik-Regular.ttf     137 KiB                 [emitted]         
-                                       favicon.ico     5.3 KiB                 [emitted]         
+                                   Rubik-Black.ttf     143 KiB                 [emitted]
+                             Rubik-BlackItalic.ttf     144 KiB                 [emitted]
+                                    Rubik-Bold.ttf     140 KiB                 [emitted]
+                              Rubik-BoldItalic.ttf     143 KiB                 [emitted]
+                                  Rubik-Italic.ttf     140 KiB                 [emitted]
+                                   Rubik-Light.ttf     134 KiB                 [emitted]
+                             Rubik-LightItalic.ttf     137 KiB                 [emitted]
+                                  Rubik-Medium.ttf     140 KiB                 [emitted]
+                            Rubik-MediumItalic.ttf     142 KiB                 [emitted]
+                                 Rubik-Regular.ttf     137 KiB                 [emitted]
+                     assets/Icons/CHARIOT_Logo.ico     195 KiB                 [emitted]
+                    assets/Icons/CHARIOT_Logo.ico~    53.9 KiB                 [emitted]
+assets/Icons/process_flow/deformation_checking.svg  1020 bytes                 [emitted]
+         assets/Icons/process_flow/measurement.svg    1.29 KiB                 [emitted]
+             assets/Icons/process_flow/packing.svg  1020 bytes                 [emitted]
+             assets/Icons/process_flow/printer.svg    1.17 KiB                 [emitted]
+               assets/Icons/process_flow/robot.svg    1.52 KiB                 [emitted]
+           assets/Icons/process_flow/warehouse.svg   976 bytes                 [emitted]
+                    assets/Images/CHARIOT_Logo.png    15.9 KiB                 [emitted]
+                        assets/Images/product1.png     191 KiB                 [emitted]
+                        assets/Images/product2.png     561 KiB                 [emitted]  [big]
+                       assets/Images/warehouse.png     277 KiB                 [emitted]  [big]
+                          assets/RubikFont/OFL.txt    4.33 KiB                 [emitted]
+                  assets/RubikFont/Rubik-Black.ttf     143 KiB                 [emitted]
+            assets/RubikFont/Rubik-BlackItalic.ttf     144 KiB                 [emitted]
+                   assets/RubikFont/Rubik-Bold.ttf     140 KiB                 [emitted]
+             assets/RubikFont/Rubik-BoldItalic.ttf     143 KiB                 [emitted]
+                 assets/RubikFont/Rubik-Italic.ttf     140 KiB                 [emitted]
+                  assets/RubikFont/Rubik-Light.ttf     134 KiB                 [emitted]
+            assets/RubikFont/Rubik-LightItalic.ttf     137 KiB                 [emitted]
+                 assets/RubikFont/Rubik-Medium.ttf     140 KiB                 [emitted]
+           assets/RubikFont/Rubik-MediumItalic.ttf     142 KiB                 [emitted]
+                assets/RubikFont/Rubik-Regular.ttf     137 KiB                 [emitted]
+                                       favicon.ico     5.3 KiB                 [emitted]
                                            main.js     591 KiB           main  [emitted]  [big]  main
                                        main.js.map     603 KiB           main  [emitted]         main
                                   polyfills-es5.js     691 KiB  polyfills-es5  [emitted]  [big]  polyfills-es5
@@ -55,7 +55,7 @@ Entrypoint polyfills [big] = runtime.js runtime.js.map polyfills.js polyfills.js
 Entrypoint styles [big] = runtime.js runtime.js.map styles.js styles.js.map
 chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial] [rendered]
  [0] multi ./src/main.ts 28 bytes {main} [built]
-     multi entry 
+     multi entry
  [1] crypto (ignored) 15 bytes {main} [optional] [built]
      cjs require crypto [./node_modules/seedrandom/seedrandom.js] 236:17-34
  [2] ws (ignored) 15 bytes {main} [optional] [built]
@@ -1987,9 +1987,9 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony side effect evaluation tslib [./src/app/services/agent-update.service.ts] 1:0-33
      harmony import specifier tslib [./src/app/services/agent-update.service.ts] 37:25-43
      harmony import specifier tslib [./src/app/services/agent-update.service.ts] 41:8-26
-     harmony side effect evaluation tslib [./src/app/services/data.service.ts] 1:0-33
-     harmony import specifier tslib [./src/app/services/data.service.ts] 662:34-52
-     harmony import specifier tslib [./src/app/services/data.service.ts] 666:8-26
+     harmony side effect evaluation tslib [./src/app/services/data-handling.service.ts] 1:0-33
+     harmony import specifier tslib [./src/app/services/data-handling.service.ts] 662:34-52
+     harmony import specifier tslib [./src/app/services/data-handling.service.ts] 666:8-26
      harmony side effect evaluation tslib [./src/app/services/device-update.service.ts] 1:0-33
      harmony import specifier tslib [./src/app/services/device-update.service.ts] 37:26-44
      harmony import specifier tslib [./src/app/services/device-update.service.ts] 41:8-26
@@ -2207,7 +2207,7 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony side effect evaluation ../services/agent-update.service [./src/app/settings/settings.component.ts] 4:0-70
      harmony import specifier ../services/agent-update.service [./src/app/settings/settings.component.ts] 24:16-34
      harmony import specifier ../services/agent-update.service [./src/app/settings/settings.component.ts] 33:12-30
- [./src/app/services/data.service.ts] 29.6 KiB {main} [built]
+ [./src/app/services/data-handling.service.ts] 29.6 KiB {main} [built]
      harmony side effect evaluation ./services/data.service [./src/app/app.component.ts] 3:0-54
      harmony import specifier ./services/data.service [./src/app/app.component.ts] 66:16-27
      harmony import specifier ./services/data.service [./src/app/app.component.ts] 83:12-23
@@ -2324,22 +2324,22 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier ../../../model/device [./src/app/devices/devicepanel/devicepanel.component.ts] 58:42-48
      harmony side effect evaluation ../../model/device [./src/app/devices/devices.component.ts] 6:0-44
      harmony import specifier ../../model/device [./src/app/devices/devices.component.ts] 425:29-35
-     harmony side effect evaluation ../../model/device [./src/app/services/data.service.ts] 5:0-54
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 130:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 131:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 132:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 133:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 134:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 135:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 136:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 137:16-24
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 138:20-28
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 138:158-166
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 138:301-309
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 138:446-454
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 185:37-45
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 228:28-34
-     harmony import specifier ../../model/device [./src/app/services/data.service.ts] 630:120-126
+     harmony side effect evaluation ../../model/device [./src/app/services/data-handling.service.ts] 5:0-54
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 130:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 131:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 132:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 133:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 134:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 135:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 136:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 137:16-24
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 138:20-28
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 138:158-166
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 138:301-309
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 138:446-454
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 185:37-45
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 228:28-34
+     harmony import specifier ../../model/device [./src/app/services/data-handling.service.ts] 630:120-126
      harmony side effect evaluation ../../model/device [./src/app/services/rest.service.ts] 4:0-54
      harmony import specifier ../../model/device [./src/app/services/rest.service.ts] 32:32-38
      harmony import specifier ../../model/device [./src/app/services/rest.service.ts] 109:30-38
@@ -2350,10 +2350,10 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony side effect evaluation ../../../model/deviceGroup [./src/app/components/device-group-card/device-group-card.component.ts] 3:0-57
      harmony import specifier ../../../model/deviceGroup [./src/app/components/device-group-card/device-group-card.component.ts] 39:42-53
      harmony import specifier ../../../model/deviceGroup [./src/app/components/device-group-card/device-group-card.component.ts] 43:42-53
-     harmony side effect evaluation ../../model/deviceGroup [./src/app/services/data.service.ts] 8:0-54
-     harmony import specifier ../../model/deviceGroup [./src/app/services/data.service.ts] 251:37-48
-     harmony import specifier ../../model/deviceGroup [./src/app/services/data.service.ts] 626:123-134
-     harmony import specifier ../../model/deviceGroup [./src/app/services/data.service.ts] 629:115-126
+     harmony side effect evaluation ../../model/deviceGroup [./src/app/services/data-handling.service.ts] 8:0-54
+     harmony import specifier ../../model/deviceGroup [./src/app/services/data-handling.service.ts] 251:37-48
+     harmony import specifier ../../model/deviceGroup [./src/app/services/data-handling.service.ts] 626:123-134
+     harmony import specifier ../../model/deviceGroup [./src/app/services/data-handling.service.ts] 629:115-126
      harmony side effect evaluation ./deviceGroup [./src/model/location.ts] 2:0-44
      harmony import specifier ./deviceGroup [./src/model/location.ts] 19:82-93
      harmony import specifier ./deviceGroup [./src/model/location.ts] 25:82-93
@@ -2362,8 +2362,8 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier ../../../model/issue [./src/app/components/issue-card/issue-card.component.ts] 17:42-47
      harmony import specifier ../../../model/issue [./src/app/components/issue-card/issue-card.component.ts] 21:42-47
  [./src/model/location.ts] 1.27 KiB {main} [built]
-     harmony side effect evaluation ../../model/location [./src/app/services/data.service.ts] 4:0-48
-     harmony import specifier ../../model/location [./src/app/services/data.service.ts] 273:35-43
+     harmony side effect evaluation ../../model/location [./src/app/services/data-handling.service.ts] 4:0-48
+     harmony import specifier ../../model/location [./src/app/services/data-handling.service.ts] 273:35-43
      harmony side effect evaluation ../../model/location [./src/app/services/rest.service.ts] 5:0-48
      harmony import specifier ../../model/location [./src/app/services/rest.service.ts] 83:19-27
  [./src/model/productProcess.ts] 1.87 KiB {main} [built]
@@ -2372,11 +2372,11 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier ../../../model/productProcess [./src/app/components/processflow-card/processflow-card.component.ts] 15:42-56
      harmony side effect evaluation ../../../model/productProcess [./src/app/process-flow/process-flow-main/process-flow-main.component.ts] 3:0-63
      harmony import specifier ../../../model/productProcess [./src/app/process-flow/process-flow-main/process-flow-main.component.ts] 142:42-56
-     harmony side effect evaluation ../../model/productProcess [./src/app/services/data.service.ts] 7:0-60
-     harmony import specifier ../../model/productProcess [./src/app/services/data.service.ts] 583:36-50
+     harmony side effect evaluation ../../model/productProcess [./src/app/services/data-handling.service.ts] 7:0-60
+     harmony import specifier ../../model/productProcess [./src/app/services/data-handling.service.ts] 583:36-50
 chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 227 KiB ={runtime}= [initial] [rendered]
  [4] multi ./src/polyfills.ts ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js 40 bytes {polyfills} [built]
-     multi entry 
+     multi entry
  [./node_modules/@angular-devkit/build-angular/node_modules/core-js/internals/a-function.js] 140 bytes {polyfills-es5} {polyfills} [built]
      cjs require ../internals/a-function [./node_modules/@angular-devkit/build-angular/node_modules/core-js/internals/array-reduce.js] 1:16-50
      cjs require ../internals/a-function [./node_modules/@angular-devkit/build-angular/node_modules/core-js/internals/bind-context.js] 1:16-50
@@ -5050,9 +5050,9 @@ chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 227 KiB ={runtime}=
      harmony side effect evaluation tslib [./src/app/services/agent-update.service.ts] 1:0-33
      harmony import specifier tslib [./src/app/services/agent-update.service.ts] 37:25-43
      harmony import specifier tslib [./src/app/services/agent-update.service.ts] 41:8-26
-     harmony side effect evaluation tslib [./src/app/services/data.service.ts] 1:0-33
-     harmony import specifier tslib [./src/app/services/data.service.ts] 662:34-52
-     harmony import specifier tslib [./src/app/services/data.service.ts] 666:8-26
+     harmony side effect evaluation tslib [./src/app/services/data-handling.service.ts] 1:0-33
+     harmony import specifier tslib [./src/app/services/data-handling.service.ts] 662:34-52
+     harmony import specifier tslib [./src/app/services/data-handling.service.ts] 666:8-26
      harmony side effect evaluation tslib [./src/app/services/device-update.service.ts] 1:0-33
      harmony import specifier tslib [./src/app/services/device-update.service.ts] 37:26-44
      harmony import specifier tslib [./src/app/services/device-update.service.ts] 41:8-26
@@ -5099,7 +5099,7 @@ chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 227 KiB ={runtime}=
      single entry /mnt/d/Programming/Work/chariot-mm-app/chariot-webinterface/src/polyfills.ts [4] multi ./src/polyfills.ts ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js polyfills[0]
 chunk {polyfills-es5} polyfills-es5.js, polyfills-es5.js.map (polyfills-es5) 407 KiB ={runtime}= [initial] [rendered]
  [3] multi ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js ./src/polyfills.ts 52 bytes {polyfills-es5} [built]
-     multi entry 
+     multi entry
  [./node_modules/@angular-devkit/build-angular/node_modules/core-js/es/date/index.js] 292 bytes {polyfills-es5} [built]
      harmony side effect evaluation core-js/es/date [./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js] 93:0-25
  [./node_modules/@angular-devkit/build-angular/node_modules/core-js/es/math/index.js] 795 bytes {polyfills-es5} [built]
@@ -8266,9 +8266,9 @@ chunk {polyfills-es5} polyfills-es5.js, polyfills-es5.js.map (polyfills-es5) 407
      harmony side effect evaluation tslib [./src/app/services/agent-update.service.ts] 1:0-33
      harmony import specifier tslib [./src/app/services/agent-update.service.ts] 37:25-43
      harmony import specifier tslib [./src/app/services/agent-update.service.ts] 41:8-26
-     harmony side effect evaluation tslib [./src/app/services/data.service.ts] 1:0-33
-     harmony import specifier tslib [./src/app/services/data.service.ts] 662:34-52
-     harmony import specifier tslib [./src/app/services/data.service.ts] 666:8-26
+     harmony side effect evaluation tslib [./src/app/services/data-handling.service.ts] 1:0-33
+     harmony import specifier tslib [./src/app/services/data-handling.service.ts] 662:34-52
+     harmony import specifier tslib [./src/app/services/data-handling.service.ts] 666:8-26
      harmony side effect evaluation tslib [./src/app/services/device-update.service.ts] 1:0-33
      harmony import specifier tslib [./src/app/services/device-update.service.ts] 37:26-44
      harmony import specifier tslib [./src/app/services/device-update.service.ts] 41:8-26
@@ -8316,7 +8316,7 @@ chunk {polyfills-es5} polyfills-es5.js, polyfills-es5.js.map (polyfills-es5) 407
 chunk {runtime} runtime.js, runtime.js.map (runtime) 0 bytes ={main}= ={polyfills}= ={polyfills-es5}= ={styles}= ={vendor}= [entry] [rendered]
 chunk {styles} styles.js, styles.js.map (styles) 432 KiB ={runtime}= [initial] [rendered]
  [5] multi ./src/css/MyMaterialTheme.scss ./src/css/styles.css ./src/css/slider.css ./src/css/checkbox.css ./src/css/switch.css ./src/css/fonts.css ./node_modules/angular-notifier/styles.scss 100 bytes {styles} [built]
-     multi entry 
+     multi entry
  [./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/angular-notifier/styles.scss] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??embedded!./node_modules/sass-loader/lib/loader.js??ref--15-3!./node_modules/angular-notifier/styles.scss 13.9 KiB {styles} [built]
      cjs require !!../@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!../postcss-loader/src/index.js??embedded!../sass-loader/lib/loader.js??ref--15-3!./styles.scss [./node_modules/angular-notifier/styles.scss] 1:14-202
  [./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./src/css/MyMaterialTheme.scss] ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src??embedded!./node_modules/sass-loader/lib/loader.js??ref--15-3!./src/css/MyMaterialTheme.scss 387 KiB {styles} [built]
@@ -13024,9 +13024,9 @@ chunk {vendor} vendor.js, vendor.js.map (vendor) 9.77 MiB ={main}= ={runtime}= [
      harmony import specifier @angular/core [./src/app/products-behind-plan/products-behind-plan.component.ts] 89:8-17
      harmony side effect evaluation @angular/core [./src/app/services/agent-update.service.ts] 2:0-43
      harmony import specifier @angular/core [./src/app/services/agent-update.service.ts] 38:8-18
-     harmony side effect evaluation @angular/core [./src/app/services/data.service.ts] 2:0-57
-     harmony import specifier @angular/core [./src/app/services/data.service.ts] 25:34-46
-     harmony import specifier @angular/core [./src/app/services/data.service.ts] 663:8-18
+     harmony side effect evaluation @angular/core [./src/app/services/data-handling.service.ts] 2:0-57
+     harmony import specifier @angular/core [./src/app/services/data-handling.service.ts] 25:34-46
+     harmony import specifier @angular/core [./src/app/services/data-handling.service.ts] 663:8-18
      harmony side effect evaluation @angular/core [./src/app/services/device-update.service.ts] 2:0-43
      harmony import specifier @angular/core [./src/app/services/device-update.service.ts] 38:8-18
      harmony side effect evaluation @angular/core [./src/app/services/pm-notification-receiver.service.ts] 2:0-43
@@ -14283,26 +14283,26 @@ chunk {vendor} vendor.js, vendor.js.map (vendor) 9.77 MiB ={main}= ={runtime}= [
      cjs require component-inherit [./node_modules/ngx-socket-io/node_modules/engine.io-client/lib/transports/polling.js] 8:14-42
      cjs require component-inherit [./node_modules/ngx-socket-io/node_modules/engine.io-client/lib/transports/websocket.js] 8:14-42
  [./node_modules/faker/index.js] 196 bytes {vendor} [built]
-     harmony side effect evaluation faker [./src/app/services/data.service.ts] 6:0-31
-     harmony import specifier faker [./src/app/services/data.service.ts] 135:65-75
-     harmony import specifier faker [./src/app/services/data.service.ts] 135:96-106
-     harmony import specifier faker [./src/app/services/data.service.ts] 136:72-85
-     harmony import specifier faker [./src/app/services/data.service.ts] 160:22-36
-     harmony import specifier faker [./src/app/services/data.service.ts] 234:22-36
-     harmony import specifier faker [./src/app/services/data.service.ts] 238:22-34
-     harmony import specifier faker [./src/app/services/data.service.ts] 319:23-33
-     harmony import specifier faker [./src/app/services/data.service.ts] 328:23-35
-     harmony import specifier faker [./src/app/services/data.service.ts] 337:23-37
-     harmony import specifier faker [./src/app/services/data.service.ts] 537:23-37
-     harmony import specifier faker [./src/app/services/data.service.ts] 541:23-37
-     harmony import specifier faker [./src/app/services/data.service.ts] 545:23-37
-     harmony import specifier faker [./src/app/services/data.service.ts] 549:23-36
-     harmony import specifier faker [./src/app/services/data.service.ts] 553:23-33
-     harmony import specifier faker [./src/app/services/data.service.ts] 557:23-36
-     harmony import specifier faker [./src/app/services/data.service.ts] 561:23-36
-     harmony import specifier faker [./src/app/services/data.service.ts] 565:23-36
-     harmony import specifier faker [./src/app/services/data.service.ts] 583:97-111
-     harmony import specifier faker [./src/app/services/data.service.ts] 592:32-46
+     harmony side effect evaluation faker [./src/app/services/data-handling.service.ts] 6:0-31
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 135:65-75
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 135:96-106
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 136:72-85
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 160:22-36
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 234:22-36
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 238:22-34
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 319:23-33
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 328:23-35
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 337:23-37
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 537:23-37
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 541:23-37
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 545:23-37
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 549:23-36
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 553:23-33
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 557:23-36
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 561:23-36
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 565:23-36
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 583:97-111
+     harmony import specifier faker [./src/app/services/data-handling.service.ts] 592:32-46
  [./node_modules/faker/lib/address.js] 5.47 KiB {vendor} [built]
      cjs require ./address [./node_modules/faker/lib/index.js] 62:16-36
  [./node_modules/faker/lib/commerce.js] 2.67 KiB {vendor} [built]
@@ -17424,11 +17424,11 @@ chunk {vendor} vendor.js, vendor.js.map (vendor) 9.77 MiB ={main}= ={runtime}= [
      harmony import specifier rxjs [./node_modules/ngx-socket-io/fesm5/ngx-socket-io.js] 50:15-25
      harmony side effect evaluation rxjs [./src/app/services/agent-update.service.ts] 6:0-34
      harmony import specifier rxjs [./src/app/services/agent-update.service.ts] 31:15-25
-     harmony side effect evaluation rxjs [./src/app/services/data.service.ts] 3:0-26
-     harmony import specifier rxjs [./src/app/services/data.service.ts] 36:26-28
-     harmony import specifier rxjs [./src/app/services/data.service.ts] 45:15-17
-     harmony import specifier rxjs [./src/app/services/data.service.ts] 50:15-17
-     harmony import specifier rxjs [./src/app/services/data.service.ts] 55:15-17
+     harmony side effect evaluation rxjs [./src/app/services/data-handling.service.ts] 3:0-26
+     harmony import specifier rxjs [./src/app/services/data-handling.service.ts] 36:26-28
+     harmony import specifier rxjs [./src/app/services/data-handling.service.ts] 45:15-17
+     harmony import specifier rxjs [./src/app/services/data-handling.service.ts] 50:15-17
+     harmony import specifier rxjs [./src/app/services/data-handling.service.ts] 55:15-17
  [./node_modules/rxjs/_esm5/internal/AsyncSubject.js] 1.59 KiB {vendor} [built]
      harmony side effect evaluation ./internal/AsyncSubject [./node_modules/rxjs/_esm5/index.js] 9:0-55
      harmony export imported specifier ./internal/AsyncSubject [./node_modules/rxjs/_esm5/index.js] 9:0-55
