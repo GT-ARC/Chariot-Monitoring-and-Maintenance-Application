@@ -1,4 +1,4 @@
-import {Component, OnInit, SimpleChange, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform, SimpleChange, SimpleChanges, ViewChild} from '@angular/core';
 import {Floor} from "../../model/floor";
 import {Location} from "../../model/location";
 import {Device, Property} from '../../model/device';
@@ -20,27 +20,29 @@ export class MaintenanceComponent implements OnInit {
 
   devices: Device[];      // Holds the fetched data of the devices
 
+  currentDevice: Device;
   selectedIssue: Issue;
+  relatedProperty: Property;
 
   group: any[] = [];
   issueList: Issue[];
   groupedIssues: Map<any, Issue[]> = new Map();
-  issueDeviceMap: Map<Issue, Device> = new Map();
 
-  property: Property;
+  issueGroupings: string[] = [
+    'Date',
+    'State',
+    'Importance'
+  ];
+  issueSortSelected: string = 'State';
 
-  issueSort: string[] = ["Date", "Type", "Importance"];
-  issueSortSelected: string = "Date";
-
-  datesShown: number = 2;
+  datesShown: number = -1;
   today = Math.floor(Date.now() / 86400000) * 86400000;
   yesterday = Math.floor(Date.now() / 86400000) * 86400000 - 86400000;
-
-  selectedData;
 
   window = window;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
+
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578)
       this.sideNav.close();
@@ -50,10 +52,10 @@ export class MaintenanceComponent implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataHandlingService,
     private locationService: Locl) {
-    this.dataService.getDataNotification().subscribe(next => {
-      // Select the routed device
-      this.initInterface();
-    });
+    // this.dataService.getDataNotification().subscribe(next => {
+    //   // Select the routed device
+    //   this.initInterface();
+    // });
   }
 
   ngOnInit() {
@@ -65,50 +67,29 @@ export class MaintenanceComponent implements OnInit {
     if(this.devices == undefined || this.devices.length == 0)
       return;
 
-    let id = null;
     if (this.route.snapshot.paramMap.has('id')) {
-      let routing = this.route.snapshot.paramMap.get('id');
-      if (routing.charAt(0) == 'i')
-        id = +routing.slice(1, routing.length);
-      else {
-        let issueDevice = this.devices.find(value => value.identifier == routing);
-        if (issueDevice != undefined && issueDevice.issues.length != 0) {
-          id = issueDevice.issues[0].identifier;
-        }
+      let routedIssueId = this.route.snapshot.paramMap.get('id');
+      let issue = this.issueList.find(value => value.identifier == routedIssueId);
+      if (issue != undefined) {
+        this.newSelectedIssue(issue);
+        console.log("Routed issue ID:", this.selectedIssue.identifier);
       }
     }
 
-    console.log("Issue ID:", id);
-
-    this.issueList = this.devices.map(d => {
-      d.issues.forEach(i => {
-        this.issueDeviceMap.set(i, d);
-      });
-      return d.issues;
-    }).reduce((previousValue, currentValue) => currentValue.concat(previousValue));
-
     this.sort(this.issueSortSelected);
-
-
-    if (id != null) {
-      let issue = this.issueList.find(value => value.identifier == id);
-      if (issue != undefined)
-        this.selectedIssue = issue;
-    }
 
     // If no issue is selected due to routing select the first in the list
     if (this.selectedIssue == null)
-      this.selectedIssue = this.issueList[0];
-
+      this.newSelectedIssue(this.issueList[0]);
 
     this.doGraphStuff();
   }
 
   doGraphStuff() {
-    let currentDevice = this.issueDeviceMap.get(this.selectedIssue);
-    let selectedProperty = currentDevice.properties.find( prop => prop.type != 'string' && prop.type != 'array');
+    // todo if the pm service model is set get the related property to the issue
+    let selectedProperty = this.currentDevice.properties.find( prop =>  prop.key == 'pm_result');
     if (selectedProperty) {
-      this.selectedData = selectedProperty.data;
+      this.relatedProperty = selectedProperty;
     }
   }
 
@@ -125,8 +106,8 @@ export class MaintenanceComponent implements OnInit {
     this.issueList.forEach(i => {
       // Select after what property should be grouped
       let key =
-        sortBy == "Date" ? Math.floor(i.issue_date / 86400000) * 86400000 :
-          sortBy == "Type" ? i.type : i.importance;
+        sortBy == 'Date' ? Math.floor(i.issue_date / 86400000) * 86400000 :
+          sortBy == 'State' ? i.state : i.importance;
 
       if (this.group.indexOf(key) == -1)
         this.group.push(key);
@@ -141,11 +122,11 @@ export class MaintenanceComponent implements OnInit {
     this.groupedIssues.forEach((value, key) => {
       value.sort((a, b) => {
         switch (sortBy) {
-          case "Date":
+          case 'Date':
             return b.issue_date - a.issue_date;
-          case "Type":
+          case 'State':
             return a.type > b.type ? 1 : -1;
-          case "Importance":
+          case 'Importance':
             return b.importance - a.importance;
         }
       })
@@ -154,13 +135,17 @@ export class MaintenanceComponent implements OnInit {
     // Sort the group
     this.group = this.group.sort((a, b) => {
       switch (sortBy) {
-        case "Date":
-        case "Importance":
+        case 'Date':
+        case 'Importance':
           return b - a;
-        case "Type":
+        case 'Type':
           return a.type > b.type ? 1 : -1;
       }
-    }).slice(0, this.datesShown);
+    });
+
+    if(this.datesShown != -1 && this.issueSortSelected == 'Date') {
+      this.group = this.group.slice(0, this.datesShown);
+    }
   }
 
   getData(): void {
@@ -168,12 +153,16 @@ export class MaintenanceComponent implements OnInit {
       .subscribe(data => {
         this.devices = data.devices;
       });
+    this.dataService.getIssues()
+      .subscribe(data => {
+        this.issueList = data.issues;
+      });
   }
 
   newSelectedIssue(issue: Issue) {
     this.selectedIssue = issue;
-
-    this.locationService.replaceState("/maintenance/i" + issue.identifier);
+    this.locationService.replaceState("/maintenance/" + issue.identifier);
+    this.currentDevice = this.devices.find(d => d.identifier == issue.relatedDeviceId);
     this.doGraphStuff();
   }
 }

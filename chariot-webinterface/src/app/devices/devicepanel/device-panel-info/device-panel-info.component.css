@@ -15,6 +15,7 @@
 }
 
 #device-panel-info .device-panel-info-info {
+  display: block;
   margin-top: 8px;
   margin-left: 30px;
   color: #2E384D;

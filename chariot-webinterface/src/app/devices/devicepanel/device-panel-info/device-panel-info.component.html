@@ -1,6 +1,9 @@
 <div id="device-panel-info" class="device-panel-card">
   <div *ngFor="let info of device.description" style="position: relative">
     <p class="device-panel-info-title">{{info.title}}</p>
-    <p class="device-panel-info-info">{{info.desc}}</p>
+    <p *ngIf="!isURL(info.desc)" class="device-panel-info-info">
+      {{info.desc}}
+    </p>
+    <a *ngIf="isURL(info.desc)" class="device-panel-info-info" [href]="info.desc">{{info.desc}}</a>
   </div>
 </div>

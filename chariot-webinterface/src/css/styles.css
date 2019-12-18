@@ -84,6 +84,10 @@ app-sidenav-button {
   overflow-y: hidden !important;
 }
 
+.mat-sidenav-container {
+  background-color: transparent !important;
+}
+
 button.mat-menu-item:hover {
   background-color: #d4e3fa;
   color: blue !important;
@@ -96,9 +100,9 @@ button.mat-menu-item:hover {
 
 .list {
   height: calc(100vh - 80px);
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   overflow-x: hidden;
-  scrollbar-width: none;
+  scrollbar-width: 2px;
   -ms-overflow-style: none;
 }
 

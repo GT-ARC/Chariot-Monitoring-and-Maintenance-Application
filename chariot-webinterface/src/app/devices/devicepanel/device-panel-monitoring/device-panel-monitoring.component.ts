@@ -14,6 +14,8 @@ import {RestService} from '../../../services/rest.service';
 export class DevicePanelMonitoringComponent implements OnInit {
 
   @Input() property: Property;
+  @Input() name: string;
+  @Input() height: number;
   dataAmount: number = 0;
 
   dataRangeValues: number[] = [];
@@ -56,6 +58,9 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!this.name) this.name = "Device Monitoring";
+    if(!this.height) this.height = 380;
+
     for(let element of this.dataRangeOptions) {
       this.dataRangeValues.push(this.getSelectedVisibility(element))
     }

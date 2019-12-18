@@ -4,6 +4,7 @@ import {NotifierService} from 'angular-notifier';
 import {Device, Property} from '../../model/device';
 import {RestService} from './rest.service';
 import {DataHandlingService} from './data-handling.service';
+import {Issue} from '../../model/issue';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,10 @@ export class PmNotificationReceiverService {
         if(regData.hasOwnProperty("value")) {
           let historyData: {x: number, y: any}[] = regData['value'];
           let prevPoint = false;
-          device.issues = [];
+          // device.issues = [];
+          let lastIssue: Issue = device.getLastIssue();
+          if (lastIssue)
+            historyData = historyData.filter((point) => point.x > lastIssue.issue_date);
           for (let point of historyData) {
             if (point.y && !prevPoint) {
               device.addIssue(point.x);

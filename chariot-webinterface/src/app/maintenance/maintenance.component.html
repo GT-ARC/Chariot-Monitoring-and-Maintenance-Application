@@ -10,14 +10,14 @@
            *ngIf="devices != undefined && devices.length != 0">
 
       <div class="list-head">
-        <p id="sort-by">SORT BY: {{issueSortSelected | uppercase}}</p>
+        <p id="sort-by">SORT BY: {{issueSortSelected.toString() | uppercase}}</p>
         <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
           <mat-icon>sort</mat-icon>
         </button>
         <mat-menu #device_sort_menu="matMenu">
-          <div *ngFor="let sort_point of issueSort">
+          <div *ngFor="let sort_point of issueGroupings">
             <button mat-menu-item (click)="sort(sort_point)">
-              <span [ngClass]="sort_point == issueSortSelected  ? 'selected' : ''">{{sort_point}}</span>
+              <span [ngClass]="{selected: sort_point === issueSortSelected}">{{sort_point}}</span>
             </button>
           </div>
         </mat-menu>
@@ -28,13 +28,13 @@
       <div id="issue-list-wrapper" class="list">
         <div *ngFor="let key of group">
           <p class="issue-list-grouping">
-          <span *ngIf="issueSortSelected == 'Date'">
+          <span *ngIf="issueSortSelected === 'Date'">
             {{key == today ? "HEUTE: " : ""}}{{key == yesterday ? "GESTERN: " : ""}}{{key | date:'dd.MM.yyyy' }}
           </span>
-            <span *ngIf="issueSortSelected == 'Type'">
-            {{key | uppercase}}
+            <span *ngIf="issueSortSelected === 'State'">
+            {{key ? 'RESOLVED' : 'OPEN'}}
           </span>
-            <span *ngIf="issueSortSelected == 'Importance'">
+            <span *ngIf="issueSortSelected === 'Importance'">
             Wichtigkeitsstufe: {{key}}
           </span>
           </p>
@@ -49,11 +49,11 @@
   </mat-sidenav>
   <mat-sidenav-content >
     <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start"
-          *ngIf="devices != undefined && devices.length != 0 && issueDeviceMap.get(selectedIssue) != undefined">
+          *ngIf="devices != undefined && devices.length != 0 && this.currentDevice != undefined">
       <div id="issue-content-head"
-           [routerLink]="'/devices/' + issueDeviceMap.get(selectedIssue).identifier"
+           [routerLink]="'/devices/' + this.currentDevice.identifier"
            fxFlex="1 1 calc(100%)">
-        {{issueDeviceMap.get(selectedIssue).name}} - Issue ID: {{selectedIssue.identifier}}
+        {{selectedIssue.name}} - Issue ID: {{selectedIssue.identifier}}
       </div>
       <div id="issue-card-wrapper"
            fxFlex="1 1 calc(100%)"
@@ -66,7 +66,7 @@
             <span class="info-bar-comp">
               <span>
                 <span class="issue-oval"
-                      [ngClass]="selectedIssue.state ? 'solved' : ''">
+                      [ngClass]="{solved: selectedIssue.state}">
                   <i class="material-icons" *ngIf="!selectedIssue.state">priority_high</i>
                   <i class="material-icons" *ngIf="selectedIssue.state">done</i>
                 </span>
@@ -84,42 +84,46 @@
           </div>
         </div>
 
-        <div
+        <app-device-panel-info
+          [device]="currentDevice"
           fxFlex="1 1 calc(40%)"
           fxFlex.lt-lg="1 1 calc(100%)">
-          <div id="issue-panel-info" class="issue-panel-card">
-            <div *ngFor="let info of issueDeviceMap.get(selectedIssue).description" style="position: relative">
-              <p class="info-panel-info-title">{{info.title}}</p>
-              <p class="info-panel-info-info">{{info.desc}}</p>
-            </div>
-          </div>
-        </div>
+        </app-device-panel-info>
 
-        <div fxFlex="1 1 calc(60%)"
-             fxFlex.lt-lg="1 1 calc(100%)">
-          <div id="issue-panel-monitoring" class="issue-panel-card" >
-            <p id="issue-panel-title">VISUALIZATION OF DETECTED MEASUREMENT</p>
+        <app-device-panel-monitoring
+          *ngIf="relatedProperty != null && relatedProperty.type != 'string'"
+          [property]="relatedProperty"
+          [name]="'VISUALIZATION OF DETECTED MEASUREMENT'"
+          [height]="375"
+          fxFlex="1 1 calc(60%)"
+          fxFlex.lt-lg="1 1 calc(100%)">
+        </app-device-panel-monitoring>
 
-            <div id="issue-chart-wrapper">
-              <app-data-graph
-                id="prediction-graph"
-                [data]="selectedData"
-                [dataAmount]="20"
-                [height]="315">
-              </app-data-graph>
-            </div>
-            <!--              <canvas height="122"-->
-            <!--                      id="issue-chart"-->
-            <!--                      baseChart-->
-            <!--                      [datasets]="lineChartData"-->
-            <!--                      [labels]="lineChartLabels"-->
-            <!--                      [options]="lineChartOptions"-->
-            <!--                      [colors]="lineChartColors"-->
-            <!--                      [legend]="lineChartLegend"-->
-            <!--                      [chartType]="lineChartType">-->
-            <!--              </canvas>-->
-          </div>
-        </div>
+<!--        <div fxFlex="1 1 calc(60%)"-->
+<!--             fxFlex.lt-lg="1 1 calc(100%)">-->
+<!--          <div id="issue-panel-monitoring" class="issue-panel-card" >-->
+<!--            <p id="issue-panel-title">VISUALIZATION OF DETECTED MEASUREMENT</p>-->
+
+<!--            <div id="issue-chart-wrapper">-->
+<!--              <app-data-graph-->
+<!--                id="prediction-graph"-->
+<!--                [data]="selectedData"-->
+<!--                [dataAmount]="20"-->
+<!--                [height]="315">-->
+<!--              </app-data-graph>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;              <canvas height="122"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      id="issue-chart"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      baseChart&ndash;&gt;-->
+<!--            &lt;!&ndash;                      [datasets]="lineChartData"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      [labels]="lineChartLabels"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      [options]="lineChartOptions"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      [colors]="lineChartColors"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      [legend]="lineChartLegend"&ndash;&gt;-->
+<!--            &lt;!&ndash;                      [chartType]="lineChartType">&ndash;&gt;-->
+<!--            &lt;!&ndash;              </canvas>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
     </main>
   </mat-sidenav-content>

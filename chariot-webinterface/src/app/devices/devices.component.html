@@ -19,7 +19,7 @@
         <mat-menu #floor_sort_menu="matMenu">
           <div *ngFor="let sort_point of floorSort">
             <button mat-menu-item (click)="sortLocationList(sort_point)">
-              <span [ngClass]="sort_point == floorSortSelected ? 'selected' : ''">{{sort_point}}</span>
+              <span [ngClass]="{selected: sort_point === floorSortSelected}">{{sort_point}}</span>
             </button>
           </div>
         </mat-menu>

@@ -1,5 +1,8 @@
-<div id="device-panel-monitoring" class="device-panel-card">
-  <p class="device-panel-title">Device Monitoring</p>
+<div id="device-panel-monitoring"
+     class="device-panel-card"
+     [ngStyle]="{'height': height + 'px'}">
+
+  <p class="device-panel-title">{{name}}</p>
   <div id="device-chart-wrapper">
     <div id="accuracy-arrows">
       <mat-icon id="up" (click)="showLessData()">keyboard_arrow_up</mat-icon>
@@ -21,7 +24,7 @@
       [dataAmount]="visibleData.length"
       [selectedVisibility]="selectedVisibility"
       (dataLength)="dataAmount = $event"
-      [height]="380">
+      [height]="height - 100">
     </app-data-graph>
   </div>
 </div>

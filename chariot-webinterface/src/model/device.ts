@@ -66,9 +66,10 @@ export class Device {
         state: false,
         description: '',
         type: '',
-        issue_date: date != undefined ? new Date(date).valueOf() : Date.now(),
+        issue_date: date != undefined ? date : Date.now(),
         importance: Math.floor(Math.random() * 100),
-        name: this.name
+        name: this.name,
+        relatedDeviceId: this.identifier
       };
       this.lastIssue = issue;
       this.issues.push(issue);
@@ -82,6 +83,12 @@ export class Device {
       this.lastIssue.state = true;
       this.issueDetected = false;
     }
+  }
+
+  getLastIssue() {
+    if(this.issues && this.issues.length > 0)
+    return this.issues[this.issues.length - 1];
+    return undefined;
   }
 }
 

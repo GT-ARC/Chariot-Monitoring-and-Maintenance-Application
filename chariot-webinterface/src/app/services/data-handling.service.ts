@@ -484,7 +484,8 @@ export class DataHandlingService {
         type: faker.commerce.productName().slice(0, 15),
         issue_date: selectedDate + Math.floor(Math.random() * 86400000),
         importance: Math.floor(Math.random() * 100),
-        name: device.name
+        name: device.name,
+        relatedDeviceId: device.identifier
       });
     }
 

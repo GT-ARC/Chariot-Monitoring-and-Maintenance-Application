@@ -26,7 +26,7 @@
 
   <div id="nav-wrap">
     <a *ngFor="let site of sitesReversed"
-       [ngClass]="{selected: path === site.route}"
+       [ngClass]="{selected: path.indexOf(site.route) !== -1}"
        (click)="path = site.route"
        [routerLink]="site.route">
       <mat-icon>{{site.icon}}</mat-icon>

@@ -31,7 +31,7 @@ export class AppComponent {
     private restService: RestService,
     private dataService: DataHandlingService,
   ) {
-    console.log = () => {};
+    // console.log = () => {};
   }
 
   ngOnInit() {
@@ -56,6 +56,7 @@ export class AppComponent {
     );
 
     this.path = this.locationService.path();
+    console.log("App: the path" + this.path);
     // AppComponent.toggleNav(window.innerWidth)
   }
 

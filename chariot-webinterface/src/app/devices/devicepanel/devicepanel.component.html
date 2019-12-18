@@ -63,6 +63,8 @@
     <app-device-panel-monitoring
       *ngIf="selectedProperty != null && selectedProperty.type != 'string'"
       [property]="selectedProperty"
+      [height]="480"
+      [name]="'Device Monitoring'"
       fxFlex="1 1 calc(100% - 16px)">
     </app-device-panel-monitoring>
 

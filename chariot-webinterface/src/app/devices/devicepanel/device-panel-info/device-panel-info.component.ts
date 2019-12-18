@@ -18,4 +18,10 @@ export class DevicePanelInfoComponent implements OnInit {
   ngOnInit() {
   }
 
+  isURL(str) {
+    let expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    let pattern = new RegExp(expression);
+    return pattern.test(str);
+  }
+
 }
