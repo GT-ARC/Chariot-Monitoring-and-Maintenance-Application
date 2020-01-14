@@ -3,7 +3,7 @@
   width: min-content;
 }
 
-#input-field {
+.input-field {
   position: relative;
 
   border-radius: 4px;

@@ -115,7 +115,7 @@ export class DevicesComponent implements OnInit {
 
 
     let routedElement = this.getRoutedDevice();
-    console.log("Routed element", routedElement);
+    // console.log("Routed element", routedElement);
 
     // Make the selected floor with the device group visible and push some random locations to be selected
     if (routedElement) {
@@ -136,15 +136,15 @@ export class DevicesComponent implements OnInit {
       this.selectedLocation.push(this.locations[0]);
     }
 
-    console.log("Device parent page: selected location:", this.selectedLocation, " locations ", this.locations);
+    // console.log("Device parent page: selected location:", this.selectedLocation, " locations ", this.locations);
 
     // Put all locations in the visible locations map
     this.floors.forEach(f => this.visibleLocation[f.identifier] = f.locations);
     this.updateUI();
 
     if(this.selectedDevice) {
-      console.log("Devices parent page: ", this.selectedDevice);
-      console.log("Devices parent page: ", this.selectedDevice.getIssueID());
+      // console.log("Devices parent page: ", this.selectedDevice);
+      // console.log("Devices parent page: ", this.selectedDevice.getIssueID());
     }
 
     // If the selected device is still undefined select a random visible device
@@ -155,10 +155,10 @@ export class DevicesComponent implements OnInit {
 
     this.countTheIssues();
 
-    console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
-    console.log("Visible Location", this.visibleLocation);
-    console.log("Devices parent page: ", this.selectedDevice);
-    console.log("Devices parent page: ", this.selectedDevice.getIssueID());
+    // console.log("Devices", this.devices, "Selected Location", this.selectedLocation, "Visible stuff", this.visibleElements);
+    // console.log("Visible Location", this.visibleLocation);
+    // console.log("Devices parent page: ", this.selectedDevice);
+    // console.log("Devices parent page: ", this.selectedDevice.getIssueID());
   }
 
   getRoutedDevice(): DeviceGroup | Device {
