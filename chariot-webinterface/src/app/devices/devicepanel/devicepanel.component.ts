@@ -54,10 +54,7 @@ export class DevicepanelComponent implements OnInit {
       this.device.properties.find(s => s.key == property).value = state;
       if(property == "status") this.uploaded.emit({device: this.device, state: state});
 
-      let sendObject = {};
-      sendObject[property] = state;
-
-      this.proxyAgent.sendUpdate(this.device.identifier, sendObject);
+      this.proxyAgent.sendUpdate(this.device.identifier, property, state);
   }
 
   getArrayProperties() : PropertyBundle[] {

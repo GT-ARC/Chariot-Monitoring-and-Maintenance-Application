@@ -22,14 +22,15 @@ export class AgentUpdateService {
   ) {
   }
 
-  public sendUpdate(deviceID: string, value: any) {
-    let message = {
-      device_id: deviceID,
-      value: value
+  public sendUpdate(deviceID: string, propertyName: any, propertyValue: any) {
+    let message = {};
+    message["command"] = "property-state-change";
+    message["uuid"] = deviceID;
+    message["inputs"] = {
+      propertyName: propertyValue
     };
 
-    console.log(JSON.stringify(message));
-
+    console.log("Send message to proxy agent: ", JSON.stringify(message));
 
     this.http.post(environment.proxyAgentAddress, JSON.stringify(message), this.httpOptions)
       .pipe(

@@ -120,7 +120,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     if(this.dataRangeValues.length == 0) return;
 
 
-    if(searchForData){
+    if (searchForData){
       let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
       let foundAmount = 0;
       let foundVisibility = 0;
@@ -157,7 +157,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
     if (index > 0){
       this.selectedVisibility = this.dataRangeOptions[index - 1];
-      this.filterData()
+      this.filterData(false)
     }
   }
 
@@ -165,7 +165,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
     if (index < this.dataRangeOptions.length - 1) {
       this.selectedVisibility = this.dataRangeOptions[index + 1];
-      this.filterData()
+      this.filterData(false)
     }
   }
 

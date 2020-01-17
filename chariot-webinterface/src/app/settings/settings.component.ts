@@ -26,6 +26,6 @@ export class SettingsComponent implements OnInit {
   }
 
   sendToDevice(deviceID: string) {
-    this.agentUpdateService.sendUpdate(deviceID, JSON.parse(this.json));
+    this.agentUpdateService.sendUpdate(deviceID, "test-property", 5);
   }
 }

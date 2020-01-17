@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  databaseUrl: 'http://chariot-km.dai-lab.de:81',
-  monitoringServiceURL: 'http://chariot-km.dai-lab.de:81/monitoringservice/',
-  serviceUrl: 'http://chariot-km.dai-lab.de:81/services/?format=json',
+  databaseUrl: 'http://chariot-km.dai-lab.de:8080/v1',
+  monitoringServiceURL: 'http://chariot-km.dai-lab.de:8080/v1/monitoringservice/',
+  serviceUrl: 'http://chariot-km.dai-lab.de:8080/v1/services/?format=json',
   proxyAgentAddress: 'http://chariot-main.dai-lab.de:8080/chariot/sendAction'
 };
 
