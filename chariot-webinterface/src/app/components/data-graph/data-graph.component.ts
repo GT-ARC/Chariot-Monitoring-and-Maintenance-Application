@@ -20,8 +20,9 @@ export class DataGraphComponent implements OnInit {
   @Input() dataAmount: number;
   @Input() topic: string;
   @Input() height: number = 20;
-  @Output() dataLength = new EventEmitter<number>();
   @Input() selectedVisibility: string = "";
+  @Output() dataLength = new EventEmitter<number>();
+  @Output() updateData = new EventEmitter<{ x: number, y: number }>();
 
   constructor(private deviceUpdateService: DeviceUpdateService) { }
 
@@ -75,6 +76,7 @@ export class DataGraphComponent implements OnInit {
         }
 
         this.data.push({y: property.value, x: property.timestamp});
+        this.updateData.emit({y: property.value, x: property.timestamp});
         // console.log("Data-Graph", property);
         if(property.timestamp > 1500000000000) {
           this.lineChartLabels.push(this.getEntryLabel(property.timestamp));

@@ -146,6 +146,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     } else {
       let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
       let value = this.dataRangeValues[index];
+      console.log("Filter with value: " + value);
       this.dataFilterThreshold = value;
       this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
     }
@@ -177,5 +178,9 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
   stopDataFlow() {
     this.getCurrentData = false;
+  }
+
+  updateLocalData($event: { x: number, y: number }) {
+    this.property.data.push($event);
   }
 }
