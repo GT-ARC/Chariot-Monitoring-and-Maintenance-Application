@@ -33,6 +33,7 @@ export class DataHandlingService {
         localStorage.clear();
       }
     } else {
+      localStorage.clear();
       localStorage.setItem("version", environment.version);
     }
 

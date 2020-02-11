@@ -14,14 +14,14 @@ WORKDIR /usr/src/app
 # add `/usr/src/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-RUN npm uninstall @angular-devkit/build-angular
-RUN npm install @angular-devkit/build-angular
 
 # install and cache app dependencies
 COPY package.json /usr/src/app/package.json
 COPY package-lock.json /usr/src/app/package-lock.json
 RUN npm install
 RUN npm install -g @angular/cli
+RUN npm uninstall @angular-devkit/build-angular
+RUN npm install @angular-devkit/build-angular
 
 # add app
 COPY . /usr/src/app
