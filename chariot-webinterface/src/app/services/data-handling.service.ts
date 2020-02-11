@@ -27,6 +27,15 @@ export class DataHandlingService {
   metadata: Metadata = null;
 
   constructor(restService : RestService) {
+    let version = localStorage.getItem("version");
+    if (version) {
+      if (environment.version != version) {
+        localStorage.clear();
+      }
+    } else {
+      localStorage.setItem("version", environment.version);
+    }
+
     this.getLocalStoredDevices();
     console.log('Create new mock Data');
     this.createData();
@@ -1084,3 +1093,5 @@ import {Metadata} from '../../model/Metadata';
 
 import {DeviceGroup} from '../../model/deviceGroup';
 import {RestService} from "./rest.service";
+import {Environment} from '@angular/compiler-cli/src/ngtsc/typecheck/src/environment';
+import {environment} from '../../environments/environment';

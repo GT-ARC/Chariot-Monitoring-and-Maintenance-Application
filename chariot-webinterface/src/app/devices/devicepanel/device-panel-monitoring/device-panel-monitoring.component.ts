@@ -47,6 +47,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(this.property != null && this.property.url != undefined){
       this.restService.getHistoryData(this.property.url).subscribe(regData => {
+          console.log(regData['value']);
           if(regData.hasOwnProperty("value")) {
             this.property.data = regData['value'];
           }

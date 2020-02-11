@@ -24,11 +24,8 @@ export class RestService {
   }
 
   getHistoryData(url: string) : Observable<Object> {
-    if(url.indexOf('?format=json')) {
-      url = url.replace('?format=json', 'history/?format=json');
-    }
     // console.log("Receive data: " + url);
-    return this.http.get(url);
+    return this.http.get(url + "history/");
   }
 
   getDeviceData(): Observable<Object> {
