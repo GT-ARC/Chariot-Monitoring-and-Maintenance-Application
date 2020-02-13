@@ -34,6 +34,12 @@ export class RestService {
     return this.http.get(environment.databaseUrl + "/devices/?format=json", {headers: header})
   }
 
+  getServices() {
+    let header: HttpHeaders = new HttpHeaders();
+    header.append("Access-Control-Allow-Origin", "*");
+    return this.http.get(environment.databaseUrl + "/services/", {headers: header})
+  }
+
   parseDeviceData(data : Array<DeviceModel>): {location: Location[], device: Device[]}  {
     console.log("Parse received data");
     for(let element of data) {
@@ -157,4 +163,5 @@ export class RestService {
     });
     return this.mappingObserv.asObservable();
   }
+
 }

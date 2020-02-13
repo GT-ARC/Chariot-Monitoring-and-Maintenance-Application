@@ -10,4 +10,6 @@ export class Issue {
   importance: number;
   name: string;
   relatedDeviceId: string;
+  relatedTo: string[];
+  url: string;
 }

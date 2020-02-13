@@ -5,6 +5,8 @@ import {Device, Property} from '../../model/device';
 import {RestService} from './rest.service';
 import {DataHandlingService} from './data-handling.service';
 import {Issue} from '../../model/issue';
+import {Floor} from '../../model/floor';
+import {Service, ServiceProperty} from '../../model/service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,85 +17,101 @@ export class PmNotificationReceiverService {
               private dataService: DataHandlingService,
               private notifierService: NotifierService,
               private restService : RestService
-  ) {
-    // let header: HttpHeaders = new HttpHeaders();
-    // header.append("Access-Control-Allow-Origin", "*");
-    // this.http.get(this.serviceUrl, {headers: header}).subscribe(message => {
-    //    let json = JSON.parse(message as string);
-    //    let service = (json as Array<any>).find(service => service['id'] == "pm-service");
-    //
-    //    let topic = (service["properties"] as Array<any>).find(props => props["key"] == 'pm-operation')['kafka_topic'];
-    //    this.serviceTopic.topic = topic;
-    //     this.socket.emit("subscribe", JSON.stringify(this.serviceTopic));
-    //     this.socket.fromEvent<string>(this.serviceTopic.topic).subscribe(message => {
-    //       this.notifierService.notify('error', 'Issue detected');
-    //     })
-    //  });
-  }
+  ) { }
 
-  lastProperty = {};
-  lastUpdateId = "";
+  private subscribeToPMNotifications(property: ServiceProperty, device: Device) {
 
-  public getIssuesAndSubscribeToPmResult(property : Property, device: Device) {
     let sendMessage = {
-      topic: property.topic,
+      topic: property.kafka_topic,
       regex: false
     };
 
-    if (property.url != undefined){
-      this.restService.getHistoryData(property.url).subscribe(regData => {
-        if(regData.hasOwnProperty("value")) {
-          let historyData: {x: number, y: any}[] = regData['value'];
-          let prevPoint = false;
-          // device.issues = [];
-          let lastIssue: Issue = device.getLastIssue();
-          if (lastIssue)
-            historyData = historyData.filter((point) => point.x > lastIssue.issue_date);
-          for (let point of historyData) {
-            if (point.y && !prevPoint) {
-              device.addIssue(point.x);
-              // console.log("New Issue detected");
-            } else if (!point.y && prevPoint) {
-              device.resolveLastIssue();
-              // console.log("Resolve last issue");
-            }
-            prevPoint = point.y;
-          }
-        }
-        for(let issue of device.issues) this.dataService.addIssue(issue);
-        // console.log("get issue from history data: ",device, device.getIssueID());
-        this.lastUpdateId = device.identifier;
-        setTimeout(() => {
-          if(this.lastUpdateId == device.identifier){
-            this.dataService.dataUpdate();
-          }
-        }, 400)
-      });
-    }
     // subscribe to the issue topic globaly
-    this.socket.emit("subscribe", JSON.stringify(sendMessage));
+    this.socket.emit('subscribe', JSON.stringify(sendMessage));
     this.socket.fromEvent<string>(sendMessage.topic).subscribe(message => {
 
       let jsonMessage = JSON.parse(JSON.parse(message));
 
-      console.log("Issue message: ", jsonMessage, property);
+      console.log('Issue message: ', jsonMessage, property);
       if (jsonMessage.value && !property.value) {
         // Issue detected
-        device.addIssue();
+        // device.createIssue();
         property.value = jsonMessage.value;
         // Issue detected
-        console.log("Issue detected");
+        console.log('Issue detected');
         this.notifierService.notify('error', 'Issue detected');
         this.dataService.dataUpdate();
+
         // Check for pm result
       } else if (!jsonMessage.value && property.value) {
-        console.log("Issue resolved: ");
+        console.log('Issue resolved: ');
         device.resolveLastIssue();
         property.value = jsonMessage.value;
         this.notifierService.notify('success', 'Issue resolved');
         this.dataService.dataUpdate();
       }
-    })
+    });
   }
 
+  getIssues() {
+    this.restService.getServices().subscribe(data => {
+
+      let pm_services = (data as Array<Service>).filter(service => service.name == "PM-Service");
+
+      pm_services.forEach(service => {
+        service.properties.forEach(property => {
+
+          let device = this.dataService.getDeviceByURL(property.url);
+
+          this.restService.getHistoryData(property.url).subscribe(reqData => {
+            this.parseHistoryData(reqData, device, property);
+            this.subscribeToPMNotifications(property, device);
+          });
+        });
+      });
+    });
+  }
+
+  private parseHistoryData(reqData: Object, device: Device, property: ServiceProperty) {
+    if (reqData.hasOwnProperty('value')) {
+
+      let historyData: { x: number, y: any }[] = reqData['value'];
+      if (historyData.length != 0) {
+        return;
+      }
+      if (device.getLastIssue() != undefined) {
+        historyData = historyData.filter((point) => point.x > device.getLastIssue().issue_date);
+      }
+
+      let prevPoint = false;
+      for (let point of historyData) {
+        if (point.y && !prevPoint) {
+          let issue = this.createIssue(property, point, device);
+          device.addIssue(issue);
+          this.dataService.addIssue(issue);
+          // console.log("New Issue detected");
+        } else if (!point.y && prevPoint) {
+          device.resolveLastIssue();
+          // console.log("Resolve last issue");
+        }
+        prevPoint = point.y;
+      }
+    }
+  }
+
+  private createIssue(property: ServiceProperty, point: { x: number; y: any }, device: Device) {
+    let issue: Issue = {
+      identifier: property.key,
+      state: false,
+      description: '',
+      type: '',
+      issue_date: point.y,
+      importance: Math.floor(Math.random() * 100),
+      name: device.name,
+      relatedDeviceId: device.identifier,
+      relatedTo: property.relatedTo,
+      url: property.url
+    };
+    return issue;
+  }
 }

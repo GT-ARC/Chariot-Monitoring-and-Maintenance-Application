@@ -19,6 +19,8 @@ export class DataHandlingService {
   deviceGroups: DeviceGroup[] = [];
   issues: Issue[] = [];
 
+  deviceMap: Map<string, Device> = new Map();
+
   mockDevices: Device[] = [];
 
   processes: ProductProcess[] = [];
@@ -41,6 +43,14 @@ export class DataHandlingService {
     console.log('Create new mock Data');
     this.createData();
   }
+
+  getDeviceByURL(url: string) {
+    let deviceID = url.substr(url.indexOf("devices/") + 8, 36);
+    if(!this.deviceMap.has(deviceID))
+      return null;
+    return this.deviceMap.get(deviceID);
+  }
+
 
   getLocalStoredDevices() {
     let storedFloors = localStorage.getItem("floor");
@@ -98,6 +108,7 @@ export class DataHandlingService {
     newDevice.lastIssue = device.lastIssue;
     newDevice.issueDetected = device.issueDetected;
     this.devices.push(newDevice);
+    this.deviceMap.set(device.identifier, newDevice);
     return newDevice;
   }
 
@@ -192,6 +203,7 @@ export class DataHandlingService {
           } else {
             loc.devices.push(newDevice);
             this.devices.push(newDevice);
+            this.deviceMap.set(newDevice.identifier, newDevice)
           }
         }
       }
@@ -210,12 +222,14 @@ export class DataHandlingService {
                 this.updateDevice(oldDevice, newDevice);
               } else {
                 this.devices.push(newDevice);
+                this.deviceMap.set(newDevice.identifier, newDevice);
                 foundDeviceGroup.addDevice(newDevice);
               }
             }
           } else {
             for (let newDevice of newDeviceGroup.devices) {
               this.devices.push(newDevice);
+              this.deviceMap.set(newDevice.identifier, newDevice);
             }
             this.deviceGroups.push(newDeviceGroup);
           }
@@ -233,12 +247,14 @@ export class DataHandlingService {
       for(let newDevice of loc.devices.filter(element => element instanceof Device)) {
         if (newDevice instanceof Device) {
           this.devices.push(newDevice);
+          this.deviceMap.set(newDevice.identifier, newDevice)
         }
       }
       for(let newDeviceGroup of loc.devices.filter(element => element instanceof DeviceGroup)) {
         if (newDeviceGroup instanceof DeviceGroup) {
           for (let newDevice of newDeviceGroup.devices) {
             this.devices.push(newDevice);
+            this.deviceMap.set(newDevice.identifier, newDevice)
           }
           this.deviceGroups.push(newDeviceGroup);
         }
@@ -495,7 +511,9 @@ export class DataHandlingService {
         issue_date: selectedDate + Math.floor(Math.random() * 86400000),
         importance: Math.floor(Math.random() * 100),
         name: device.name,
-        relatedDeviceId: device.identifier
+        relatedDeviceId: device.identifier,
+        relatedTo: [],
+        url: ""
       });
     }
 
@@ -1088,6 +1106,7 @@ export class DataHandlingService {
     }
     return result;
   }
+
 }
 import {Container} from '../../model/Container';
 import {Metadata} from '../../model/Metadata';

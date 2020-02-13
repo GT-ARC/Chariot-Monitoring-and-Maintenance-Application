@@ -58,25 +58,34 @@ export class Device {
   }
 
   lastIssue : Issue = null;
-  addIssue(date? : number) {
-    if(this.issues != null) {
-      let issueID = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
-      let issue: Issue = {
-        identifier: issueID,
-        state: false,
-        description: '',
-        type: '',
-        issue_date: date != undefined ? date : Date.now(),
-        importance: Math.floor(Math.random() * 100),
-        name: this.name,
-        relatedDeviceId: this.identifier
-      };
-      this.lastIssue = issue;
-      this.issues.push(issue);
-      this.lastIssueId = issue.identifier;
-      this.issueDetected = true;
-    }
+
+  addIssue(issue : Issue) {
+    this.lastIssue = issue;
+    this.issues.push(issue);
+    this.lastIssueId = issue.identifier;
+    this.issueDetected = true;
   }
+
+  // createIssue(date? : number) {
+  //   if(this.issues != null) {
+  //     let issueID = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
+  //     let issue: Issue = {
+  //       identifier: issueID,
+  //       state: false,
+  //       description: '',
+  //       type: '',
+  //       issue_date: date != undefined ? date : Date.now(),
+  //       importance: Math.floor(Math.random() * 100),
+  //       name: this.name,
+  //       relatedDeviceId: this.identifier,
+  //       url:
+  //     };
+  //     this.lastIssue = issue;
+  //     this.issues.push(issue);
+  //     this.lastIssueId = issue.identifier;
+  //     this.issueDetected = true;
+  //   }
+  // }
 
   resolveLastIssue() {
     if(this.issues != null && this.issues.length != 0) {

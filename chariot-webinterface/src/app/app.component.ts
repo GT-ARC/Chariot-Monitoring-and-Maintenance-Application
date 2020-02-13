@@ -48,8 +48,9 @@ export class AppComponent {
         console.log("Add new data");
         this.dataService.handleNewFloor(newFloor).forEach(d =>
           d.properties.filter(p => p.key == "pm_result")
-            .forEach(prop => this.pmService.getIssuesAndSubscribeToPmResult(prop, d))
         );
+
+        this.pmService.getIssues();
 
         console.log(parsedData);
       }
