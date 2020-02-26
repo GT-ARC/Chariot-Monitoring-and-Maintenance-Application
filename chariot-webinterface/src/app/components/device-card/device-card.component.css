@@ -85,6 +85,11 @@
 
   margin: 0;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 55%;
+
   color: #2E384D;
   font-size: 15px;
   font-weight: 500;
