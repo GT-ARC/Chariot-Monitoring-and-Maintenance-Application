@@ -184,9 +184,13 @@ export class DataHandlingService {
       return this.devices;
     }
 
+    let newDevicesIDs : string[] = [];
+    let newLocationIDs : string[] = [];
+
     for (let loc of newFloor.locations) {
 
       // Search for the location and find it
+      newLocationIDs.push(loc.identifier);
       let foundLocation = this.locations.find(l => l.identifier == loc.identifier);
       if (foundLocation) {
         foundLocation.name = loc.name;
@@ -197,6 +201,7 @@ export class DataHandlingService {
       }
       for(let newDevice of loc.devices.filter(element => element instanceof Device)) {
         if (newDevice instanceof Device) {
+          newDevicesIDs.push(newDevice.identifier);
           let foundDevice = this.devices.find(d => d.identifier == newDevice.identifier);
           if (foundDevice) {
             this.updateDevice(foundDevice, newDevice);
@@ -236,6 +241,11 @@ export class DataHandlingService {
         }
       }
     }
+
+    this.devices = this.devices.filter(d => newDevicesIDs.indexOf(d.identifier) != -1);
+    this.locations = this.locations.filter(d => newLocationIDs.indexOf(d.identifier) != -1);
+
+
     localStorage.setItem("floor", JSON.stringify(this.floors));
     return this.devices;
   }
