@@ -191,60 +191,81 @@ export class DataHandlingService {
 
       // Search for the location and find it
       newLocationIDs.push(loc.identifier);
+
       let foundLocation = this.locations.find(l => l.identifier == loc.identifier);
+
       if (foundLocation) {
         foundLocation.name = loc.name;
         foundLocation.type = loc.type;
         foundLocation.position = loc.position;
       } else {
+        console.log("Found new location");
         this.locations.push(loc);
+        foundFloor.locations.push(loc);
       }
+
       for(let newDevice of loc.devices.filter(element => element instanceof Device)) {
         if (newDevice instanceof Device) {
+
           newDevicesIDs.push(newDevice.identifier);
           let foundDevice = this.devices.find(d => d.identifier == newDevice.identifier);
+
           if (foundDevice) {
             this.updateDevice(foundDevice, newDevice);
           } else {
-            loc.devices.push(newDevice);
+            if(loc.devices.map(d => d.identifier).indexOf(newDevice.identifier) == -1)
+              loc.devices.push(newDevice);
             this.devices.push(newDevice);
             this.deviceMap.set(newDevice.identifier, newDevice)
           }
         }
       }
 
-      for(let newDeviceGroup of loc.devices.filter(element => element instanceof DeviceGroup)) {
-        if (newDeviceGroup instanceof DeviceGroup) {
-          let foundDeviceGroup = this.deviceGroups.find(d => d.identifier == newDeviceGroup.identifier);
-          if (foundDeviceGroup) {
-            for (let newDevice of newDeviceGroup.devices) {
-
-              foundDeviceGroup.name = newDeviceGroup.name;
-
-              // Update the device of the device group
-              let oldDevice = foundDeviceGroup.devices.find(d => d.identifier == newDevice.identifier);
-              if (oldDevice) {
-                this.updateDevice(oldDevice, newDevice);
-              } else {
-                this.devices.push(newDevice);
-                this.deviceMap.set(newDevice.identifier, newDevice);
-                foundDeviceGroup.addDevice(newDevice);
-              }
-            }
-          } else {
-            for (let newDevice of newDeviceGroup.devices) {
-              this.devices.push(newDevice);
-              this.deviceMap.set(newDevice.identifier, newDevice);
-            }
-            this.deviceGroups.push(newDeviceGroup);
-          }
-        }
-      }
+      // for(let newDeviceGroup of loc.devices.filter(element => element instanceof DeviceGroup)) {
+      //   if (newDeviceGroup instanceof DeviceGroup) {
+      //     let foundDeviceGroup = this.deviceGroups.find(d => d.identifier == newDeviceGroup.identifier);
+      //     if (foundDeviceGroup) {
+      //       for (let newDevice of newDeviceGroup.devices) {
+      //
+      //         foundDeviceGroup.name = newDeviceGroup.name;
+      //
+      //         // Update the device of the device group
+      //         let oldDevice = foundDeviceGroup.devices.find(d => d.identifier == newDevice.identifier);
+      //         if (oldDevice) {
+      //           this.updateDevice(oldDevice, newDevice);
+      //         } else {
+      //           this.devices.push(newDevice);
+      //           this.deviceMap.set(newDevice.identifier, newDevice);
+      //           foundDeviceGroup.addDevice(newDevice);
+      //         }
+      //       }
+      //     } else {
+      //       for (let newDevice of newDeviceGroup.devices) {
+      //         this.devices.push(newDevice);
+      //         this.deviceMap.set(newDevice.identifier, newDevice);
+      //       }
+      //       this.deviceGroups.push(newDeviceGroup);
+      //     }
+      //   }
+      // }
     }
 
-    this.devices = this.devices.filter(d => newDevicesIDs.indexOf(d.identifier) != -1);
-    this.locations = this.locations.filter(d => newLocationIDs.indexOf(d.identifier) != -1);
-
+    this.devices.forEach(d => {
+      let deviceIndex = newDevicesIDs.indexOf(d.identifier);
+      if (deviceIndex == -1) {
+        console.log("Remove not found device: " + d);
+        this.devices.splice(deviceIndex, 1);
+        this.floors.forEach(f => f.locations.forEach( l => {
+          let deviceIndex = l.devices.map(d => d.identifier).indexOf(d.identifier);
+          if (deviceIndex != -1) {
+            l.devices.splice(deviceIndex, 1);
+          }
+          if (l.devices.length == 0) {
+            f.locations.splice(f.locations.indexOf(l), 1);
+          }
+        }));
+      }
+    });
 
     localStorage.setItem("floor", JSON.stringify(this.floors));
     return this.devices;
@@ -306,7 +327,7 @@ export class DataHandlingService {
         oldDevice.properties.push(prop);
       }
     }
-    console.log("Update device: old: ", oldDevice.getIssueID(), " new ", newDevice.getIssueID());
+    console.log("Update device: old: ", oldDevice, " new ", newDevice);
   }
 
   /**
