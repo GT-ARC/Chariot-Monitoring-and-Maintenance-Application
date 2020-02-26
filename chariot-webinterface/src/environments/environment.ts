@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  version: "1.1",
+  version: "1.2",
   production: false,
   databaseUrl: 'http://chariot-km.dai-lab.de:8080/v1',
   monitoringServiceURL: 'http://chariot-km.dai-lab.de:8080/v1/monitoringservice/',
