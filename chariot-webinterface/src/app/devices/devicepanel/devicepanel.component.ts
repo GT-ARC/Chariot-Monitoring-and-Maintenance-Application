@@ -47,6 +47,7 @@ export class DevicepanelComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    console.log("Unsubscribe everything");
     this.deviceUpdateService.unSubscribeDevice();
   }
 
