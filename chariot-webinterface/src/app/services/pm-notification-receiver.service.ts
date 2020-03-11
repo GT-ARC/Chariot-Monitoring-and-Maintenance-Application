@@ -85,15 +85,20 @@ export class PmNotificationReceiverService {
         return;
       }
       if (device.getLastIssue() != undefined) {
-        historyData = historyData.filter((point) => point.x > device.getLastIssue().issue_date);
+        console.log("Filter Issue Data");
+        historyData = historyData.filter((point) => point.x >= device.getLastIssue().issue_date);
       }
 
       let prevPoint = false;
       for (let point of historyData) {
         if (point.y && !prevPoint) {
           let issue = this.createIssue(property, point, device);
-          device.addIssue(issue);
-          this.dataService.addIssue(issue);
+          let successful = this.dataService.addIssue(issue);
+          if (successful){
+            console.log("Added issue: " + JSON.stringify(issue));
+            device.addIssue(issue);
+            this.dataService.dataUpdate();
+          }
           // console.log("New Issue detected");
         } else if (!point.y && prevPoint) {
           device.resolveLastIssue();
@@ -106,8 +111,9 @@ export class PmNotificationReceiverService {
   }
 
   private createIssue(property: ServiceProperty, point: { x: number; y: any }, device: Device) {
+    console.log(property.key + point.x);
     let issue: Issue = {
-      identifier: property.key + device.issues.length,
+      identifier: "i" + ((+property.key + point.x) % 2147483647),
       state: false,
       description: '',
       type: '',

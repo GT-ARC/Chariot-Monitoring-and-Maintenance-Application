@@ -40,8 +40,8 @@ export class DataHandlingService {
       localStorage.setItem("version", environment.version);
     }
 
-    this.getLocalStoredDevices();
     this.getLocalStoredIssues();
+    this.getLocalStoredDevices();
     console.log('Create new mock Data');
     this.createData();
   }
@@ -58,6 +58,7 @@ export class DataHandlingService {
     if(storedIssues) {
       let storedIssueMap = new Map<String, Issue>(storedIssues);
       this.issueMap = storedIssueMap;
+      this.issueMap.forEach(entry => this.issues.push(entry));
     } else {
       this.issueMap = new Map();
     }
@@ -175,8 +176,9 @@ export class DataHandlingService {
     if(!this.issueMap.has(issue.identifier)){
       this.issues.push(issue);
       this.issueMap.set(issue.identifier, issue);
-      this.dataUpdate();
+      return true;
     }
+    return false;
   }
 
   /**

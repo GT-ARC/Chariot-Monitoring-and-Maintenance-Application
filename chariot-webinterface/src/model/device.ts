@@ -96,8 +96,8 @@ export class Device {
 
   getLastIssue() {
     if(this.issues && this.issues.length > 0)
-    return this.issues[this.issues.length - 1];
-    return undefined;
+      return this.issues[this.issues.length - 1];
+      return undefined;
   }
 }
 
