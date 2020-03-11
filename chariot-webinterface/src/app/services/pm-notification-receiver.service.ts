@@ -56,12 +56,17 @@ export class PmNotificationReceiverService {
   getIssues() {
     this.restService.getServices().subscribe(data => {
 
+      console.log(data);
+
       let pm_services = (data as Array<Service>).filter(service => service.name == "PM-Service");
 
       pm_services.forEach(service => {
         service.properties.forEach(property => {
+          let relatedTo = property.relatedTo;
+          if(relatedTo && relatedTo.length == 0)
+            return;
 
-          let device = this.dataService.getDeviceByURL(property.url);
+          let device = this.dataService.getDeviceByURL(relatedTo[0]);
 
           this.restService.getHistoryData(property.url).subscribe(reqData => {
             this.parseHistoryData(reqData, device, property);
@@ -73,10 +78,10 @@ export class PmNotificationReceiverService {
   }
 
   private parseHistoryData(reqData: Object, device: Device, property: ServiceProperty) {
-    if (reqData.hasOwnProperty('value')) {
+    if (reqData.hasOwnProperty('value') && device != undefined) {
 
       let historyData: { x: number, y: any }[] = reqData['value'];
-      if (historyData.length != 0) {
+      if (historyData.length == 0) {
         return;
       }
       if (device.getLastIssue() != undefined) {
@@ -92,6 +97,7 @@ export class PmNotificationReceiverService {
           // console.log("New Issue detected");
         } else if (!point.y && prevPoint) {
           device.resolveLastIssue();
+          this.dataService.dataUpdate();
           // console.log("Resolve last issue");
         }
         prevPoint = point.y;
@@ -101,11 +107,11 @@ export class PmNotificationReceiverService {
 
   private createIssue(property: ServiceProperty, point: { x: number; y: any }, device: Device) {
     let issue: Issue = {
-      identifier: property.key,
+      identifier: property.key + device.issues.length,
       state: false,
       description: '',
       type: '',
-      issue_date: point.y,
+      issue_date: point.x,
       importance: Math.floor(Math.random() * 100),
       name: device.name,
       relatedDeviceId: device.identifier,

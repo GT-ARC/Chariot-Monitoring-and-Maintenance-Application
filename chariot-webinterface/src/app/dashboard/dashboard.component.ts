@@ -116,7 +116,7 @@ export class DashboardComponent implements OnInit {
       });
     this.dataService.getIssues()
       .subscribe( data => {
-        this.issueList = data.issues;
+        this.issueList = data.issues.sort((a, b) => b.issue_date - a.issue_date);
       })
   }
 

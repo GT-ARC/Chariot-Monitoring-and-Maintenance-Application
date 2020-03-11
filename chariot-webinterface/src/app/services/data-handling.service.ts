@@ -19,6 +19,7 @@ export class DataHandlingService {
   deviceGroups: DeviceGroup[] = [];
   issues: Issue[] = [];
 
+  issueMap: Map<String, Issue> = new Map();
   deviceMap: Map<string, Device> = new Map();
 
   mockDevices: Device[] = [];
@@ -40,6 +41,7 @@ export class DataHandlingService {
     }
 
     this.getLocalStoredDevices();
+    this.getLocalStoredIssues();
     console.log('Create new mock Data');
     this.createData();
   }
@@ -51,6 +53,15 @@ export class DataHandlingService {
     return this.deviceMap.get(deviceID);
   }
 
+  getLocalStoredIssues() {
+    let storedIssues = JSON.parse(localStorage.getItem("issues"));
+    if(storedIssues) {
+      let storedIssueMap = new Map<String, Issue>(storedIssues);
+      this.issueMap = storedIssueMap;
+    } else {
+      this.issueMap = new Map();
+    }
+  }
 
   getLocalStoredDevices() {
     let storedFloors = localStorage.getItem("floor");
@@ -98,13 +109,8 @@ export class DataHandlingService {
     newDevice.properties = device.properties;
     newDevice.issues = device.issues;
     for(let issue of device.issues){
-      this.issues.push(issue);
+      this.addIssue(issue)
     }
-    this.issues.sort((a, b) => {
-      if (a.state != b.state)
-        return a.state == false ? -1 : 1;
-      return b.issue_date - a.issue_date
-    });
     newDevice.lastIssue = device.lastIssue;
     newDevice.issueDetected = device.issueDetected;
     this.devices.push(newDevice);
@@ -122,6 +128,7 @@ export class DataHandlingService {
   dataUpdate() {
     console.log("Store changed data");
     localStorage.setItem("floor", JSON.stringify(this.floors));
+    this.storeIssues();
     // for(let element of this.dataNotificationList) element.emit(null);
   }
 
@@ -155,12 +162,21 @@ export class DataHandlingService {
 
   getIssues(): Observable<{ issues: Issue[] }> {
     return of({
-      issues: this.issues,
+      issues:  this.issues,
     });
   }
 
+
+  storeIssues() {
+    localStorage.setItem("issues", JSON.stringify(Array.from(this.issueMap.entries())));
+  }
+
   addIssue(issue: Issue) {
-    this.issues.push(issue);
+    if(!this.issueMap.has(issue.identifier)){
+      this.issues.push(issue);
+      this.issueMap.set(issue.identifier, issue);
+      this.dataUpdate();
+    }
   }
 
   /**
