@@ -91,39 +91,31 @@
         </app-device-panel-info>
 
         <app-device-panel-monitoring
-          *ngIf="relatedProperty != null && relatedProperty.type != 'string'"
-          [property]="relatedProperty"
-          [name]="'VISUALIZATION OF DETECTED MEASUREMENT'"
+          *ngIf="relatedProperty != null && relatedProperty.length == 1 && relatedProperty[0].type != 'string'"
+          [property]="relatedProperty[0]"
+          [name]="'Related property: ' + relatedProperty[0].name ? relatedProperty[0].name : relatedProperty[0].key"
           [height]="375"
           fxFlex="1 1 calc(60%)"
           fxFlex.lt-lg="1 1 calc(100%)">
         </app-device-panel-monitoring>
 
-<!--        <div fxFlex="1 1 calc(60%)"-->
-<!--             fxFlex.lt-lg="1 1 calc(100%)">-->
-<!--          <div id="issue-panel-monitoring" class="issue-panel-card" >-->
-<!--            <p id="issue-panel-title">VISUALIZATION OF DETECTED MEASUREMENT</p>-->
+        <div *ngIf="relatedProperty != null && relatedProperty.length > 1"
+             fxFlex="1 1 calc(100%)"
+             fxLayout="row wrap"
+             fxLayoutGap="16px grid"
+             fxLayoutAlign="flex-start">
+          <div *ngFor="let prop of relatedProperty"
+               fxFlex="1 1 calc(45%)"
+               fxFlex.lt-lg="1 1 calc(100%)">
+            <app-device-panel-monitoring
+              *ngIf="prop != null && prop.type != 'string'"
+              [property]="prop"
+              [name]="'Related property: ' + prop.name ? prop.name : prop.key"
+              [height]="375">
+            </app-device-panel-monitoring>
+          </div>
+        </div>
 
-<!--            <div id="issue-chart-wrapper">-->
-<!--              <app-data-graph-->
-<!--                id="prediction-graph"-->
-<!--                [data]="selectedData"-->
-<!--                [dataAmount]="20"-->
-<!--                [height]="315">-->
-<!--              </app-data-graph>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;              <canvas height="122"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      id="issue-chart"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      baseChart&ndash;&gt;-->
-<!--            &lt;!&ndash;                      [datasets]="lineChartData"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      [labels]="lineChartLabels"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      [options]="lineChartOptions"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      [colors]="lineChartColors"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      [legend]="lineChartLegend"&ndash;&gt;-->
-<!--            &lt;!&ndash;                      [chartType]="lineChartType">&ndash;&gt;-->
-<!--            &lt;!&ndash;              </canvas>&ndash;&gt;-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
     </main>
   </mat-sidenav-content>

@@ -22,7 +22,7 @@ export class MaintenanceComponent implements OnInit {
 
   currentDevice: Device;
   selectedIssue: Issue;
-  relatedProperty: Property;
+  relatedProperty: Property[];
 
   group: any[] = [];
   issueList: Issue[];
@@ -87,10 +87,8 @@ export class MaintenanceComponent implements OnInit {
 
   doGraphStuff() {
     // todo if the pm service model is set get the related property to the issue
-    let selectedProperty = this.currentDevice.properties.find( prop =>  prop.key == 'pm_result');
-    if (selectedProperty) {
-      this.relatedProperty = selectedProperty;
-    }
+    this.relatedProperty = this.selectedIssue.relatedTo;
+    console.log(this.selectedIssue.relatedTo)
   }
 
   /**

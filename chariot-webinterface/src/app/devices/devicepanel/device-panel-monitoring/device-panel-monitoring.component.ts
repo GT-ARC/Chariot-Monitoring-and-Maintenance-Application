@@ -1,7 +1,8 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, OnDestroy} from '@angular/core';
 
 import {Property} from '../../../../model/device';
 import {RestService} from '../../../services/rest.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-device-panel-monitoring',
@@ -18,7 +19,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
   @Input() height: number;
   dataAmount: number = 0;
 
-  dataRangeValues: number[] = [];
   dataRangeOptions: string[] =
     [
       'Only New',
@@ -33,24 +33,28 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
   visibleData: { y: number, x: number }[] = [];
 
-  private oneSecond: number =     1_000;
-  private oneMinute: number =     60_000;
-  private oneHour: number =       3_600_000;
-  private oneDay: number =        86_400_000;
-  private oneWeek: number =       604_800_000;
-  private oneMonth: number =      2_419_200_000;
-  private oneYear: number =       29_030_400_000;
+  private oneSecond: number = 1_000;
+  private oneMinute: number = 60_000;
+  private oneHour: number = 3_600_000;
+  private oneDay: number = 86_400_000;
+  private oneWeek: number = 604_800_000;
+  private oneMonth: number = 2_419_200_000;
+  private oneYear: number = 29_030_400_000;
   private dataFilterThreshold: number;
+  private subscription: Subscription;
 
-  constructor(private restService : RestService) { }
+  constructor(private restService: RestService) {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.property != null && this.property.url != undefined){
+    console.log(changes);
+    if (this.property != null && this.property.url != undefined) {
+
       this.restService.getHistoryData(this.property.url).subscribe(regData => {
-          console.log(regData['value']);
-          if(regData.hasOwnProperty("value")) {
-            this.property.data = regData['value'];
-          }
+        console.log(regData['value']);
+        if (regData.hasOwnProperty("value")) {
+          this.property.data = regData['value'];
+        }
         this.filterData(true);
       });
     } else {
@@ -59,11 +63,16 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!this.name) this.name = "Device Monitoring";
-    if(!this.height) this.height = 380;
+    if (!this.name) this.name = "Device Monitoring";
+    if (!this.height) this.height = 380;
 
-    for(let element of this.dataRangeOptions) {
-      this.dataRangeValues.push(this.getSelectedVisibility(element))
+    if (this.property.updateListener) {
+      this.subscription = this.property.updateListener.subscribe(data => {
+          // console.log(data);
+          if (this.getCurrentData)
+            return this.visibleData.push(data);
+        }
+      );
     }
 
     // for( let element of this.dataRangeOptions) {
@@ -73,83 +82,79 @@ export class DevicePanelMonitoringComponent implements OnInit {
     this.filterData(true);
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   private getSelectedVisibility(visibility: string): number {
     const currentDate = Date.now();
     const indicator = visibility.slice(0, visibility.indexOf(' '));
     // console.log(indicator, currentDate, visibility);
-    if ( visibility.indexOf('Only New') != -1  )
+    if (visibility.indexOf('Only New') != -1)
       return currentDate;
-    else if ( visibility.indexOf('Minute') != -1 ) {
+    else if (visibility.indexOf('Minute') != -1) {
       return currentDate - this.oneMinute * Number(indicator);
-    }
-    else if ( visibility.indexOf('Hour') != -1 ) {
+    } else if (visibility.indexOf('Hour') != -1) {
       return currentDate - this.oneHour * Number(indicator);
-    }
-    else if ( visibility.indexOf('Today') != -1 ) {
+    } else if (visibility.indexOf('Today') != -1) {
       return currentDate - this.oneDay;
-    }
-    else if ( visibility.indexOf('Day') != -1 ) {
+    } else if (visibility.indexOf('Day') != -1) {
       return currentDate - this.oneDay * Number(indicator);
-    }
-    else if ( visibility.indexOf('Week') != -1 ) {
+    } else if (visibility.indexOf('Week') != -1) {
       return currentDate - this.oneWeek * Number(indicator);
-    }
-    else if ( visibility.indexOf('Month') != -1 ) {
+    } else if (visibility.indexOf('Month') != -1) {
       return currentDate - this.oneMonth * Number(indicator);
-    }
-    else if ( visibility.indexOf('1 Year') != -1 ) {
+    } else if (visibility.indexOf('1 Year') != -1) {
       return currentDate - this.oneYear * Number(indicator);
     }
     return 0;
   }
 
-  private filterData(searchForData : boolean = false) {
+  private filterData(searchForData: boolean = false) {
     // console.log("Filter data: Search for data - " + searchForData);
 
-    if(this.property.data == undefined || this.property.data.length == 0) {
+    if (this.property.data == undefined || this.property.data.length == 0) {
       this.visibleData = [];
       return
     }
 
     // If the data received doesnt use unix time stamp dont filter for selected date
-    if(this.property.data[this.property.data.length - 1].x < 1500000000000) {
+    if (this.property.data[this.property.data.length - 1].x < 1500000000000) {
       this.visibleData = this.property.data;
       return;
     }
 
-    // If the data received uses unix timestamps filter for the selected visible data range
-    if(this.dataRangeValues.length == 0) return;
 
-
-    if (searchForData){
-      let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+    if (searchForData) {
+      let index = 0;
       let foundAmount = 0;
       let foundVisibility = 0;
       do {
-        let value = this.dataRangeValues[index];
+        let value = this.getSelectedVisibility(this.selectedVisibility);
         this.dataFilterThreshold = value;
-        this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
-        if(this.visibleData.length < 5 && index < this.dataRangeValues.length - 1){
+        this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value);
+        if (this.visibleData.length < 5 && index < this.dataRangeOptions.length - 1) {
           index++;
           this.selectedVisibility = this.dataRangeOptions[index];
         } else {
           // console.log("Filter found: " + this.selectedVisibility + " with " + this.visibleData.length);
-          if(index >= this.dataRangeValues.length - 1) {
+          if (index >= this.dataRangeOptions.length - 1) {
             this.selectedVisibility = this.dataRangeOptions[foundVisibility];
           }
           break;
         }
-        if(this.visibleData.length > foundAmount){
+        if (this.visibleData.length > foundAmount) {
           foundVisibility = index - 1;
           foundAmount = this.visibleData.length;
         }
-      } while(true);
+      } while (true);
     } else {
-      let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
-      let value = this.dataRangeValues[index];
+      let value = this.getSelectedVisibility(this.selectedVisibility);
       console.log("Filter with value: " + value);
       this.dataFilterThreshold = value;
-      this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value );
+      this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value);
     }
 
     // this.visibleData.reverse();
@@ -157,7 +162,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
   showMoreData() {
     let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
-    if (index > 0){
+    if (index > 0) {
       this.selectedVisibility = this.dataRangeOptions[index - 1];
       this.filterData(false)
     }
@@ -171,7 +176,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     }
   }
 
-  getCurrentData : boolean = true;
+  getCurrentData: boolean = true;
 
   getRealtimeData() {
     this.getCurrentData = true;

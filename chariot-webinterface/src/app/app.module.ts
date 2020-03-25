@@ -9,7 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { NgxGaugeModule } from 'ngx-gauge';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // const config: SocketIoConfig = { url: 'localhost:4444', options: {} };
-const config: SocketIoConfig = { url: 'http://chariot-main.dai-lab.de:4444', options: {} };
+// const config: SocketIoConfig = { url: 'http://chariot-main.dai-lab.de:4444', options: {} };
 
 import { ChartsModule } from 'ng2-charts';
 
@@ -124,7 +124,6 @@ import { NotifierModule } from 'angular-notifier';
     ProgressBarModule,
     FormsModule,
     MatTooltipModule,
-    SocketIoModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent]

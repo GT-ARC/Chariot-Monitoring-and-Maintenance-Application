@@ -1,4 +1,4 @@
-import {Device} from './device';
+import {Device, Property} from './device';
 
 export class Issue {
 
@@ -10,6 +10,6 @@ export class Issue {
   importance: number;
   name: string;
   relatedDeviceId: string;
-  relatedTo: string[];
+  relatedTo: Property[];
   url: string;
 }

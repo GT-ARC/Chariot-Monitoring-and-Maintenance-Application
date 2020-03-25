@@ -36,25 +36,26 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.restService.getDeviceData().subscribe(data => {
-        let parsedData = this.restService.parseDeviceData(data as Array<any>);
-        let newFloor : Floor = new Floor(
-          "MyFloorId",
-          'IoT Testbed',
-          11,
-          parsedData.location,
-        );
-
-        console.log("Add new data");
-        this.dataService.handleNewFloor(newFloor).forEach(d =>
-          d.properties.filter(p => p.key == "pm_result")
-        );
-
-        this.pmService.getIssues();
-
-        console.log(parsedData);
-      }
-    );
+    // Receive the data from the backend
+    // this.restService.getDeviceData().subscribe(data => {
+    //     let parsedData = this.restService.parseDeviceData(data as Array<any>);
+    //     let newFloor : Floor = new Floor(
+    //       "MyFloorId",
+    //       'IoT Testbed',
+    //       11,
+    //       parsedData.location,
+    //     );
+    //
+    //     console.log("Add new data");
+    //     this.dataService.handleNewFloor(newFloor).forEach(d =>
+    //       d.properties.filter(p => p.key == "pm_result")
+    //     );
+    //
+    //     this.pmService.getIssues();
+    //
+    //     console.log(parsedData);
+    //   }
+    // );
 
     this.path = this.locationService.path();
     console.log("App: the path" + this.path);

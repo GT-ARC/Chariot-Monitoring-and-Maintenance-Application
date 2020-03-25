@@ -94,12 +94,30 @@
 
 .issue-card-type {
   max-width: 160px;
-  overflow-y: hidden;
   position: absolute;
   left: 60px;
   top: 42px;
   margin: 0;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.issue-card-type:hover {
+  max-width: 250px;
+  background-color: white;
+  z-index: 10;
+  position: absolute;
+  left: 60px;
+  top: 42px;
+  margin: 0;
+  width: 100%;
   color: #8798AD;
   font-size: 15px;
   font-weight: 400;

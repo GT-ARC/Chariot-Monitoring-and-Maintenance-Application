@@ -1,12 +1,11 @@
 import {Issue} from './issue';
-import {DeviceGroup} from './deviceGroup';
 import seedrandom from 'seedrandom';
+import {EventEmitter} from "@angular/core";
 
 export class Device {
   identifier: string;
 
   deviceGroup = false;
-  deviceGroupObj: DeviceGroup = undefined;
 
   name: string;
   symbol: symbol;
@@ -65,27 +64,6 @@ export class Device {
     this.lastIssueId = issue.identifier;
     this.issueDetected = true;
   }
-
-  // createIssue(date? : number) {
-  //   if(this.issues != null) {
-  //     let issueID = Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
-  //     let issue: Issue = {
-  //       identifier: issueID,
-  //       state: false,
-  //       description: '',
-  //       type: '',
-  //       issue_date: date != undefined ? date : Date.now(),
-  //       importance: Math.floor(Math.random() * 100),
-  //       name: this.name,
-  //       relatedDeviceId: this.identifier,
-  //       url:
-  //     };
-  //     this.lastIssue = issue;
-  //     this.issues.push(issue);
-  //     this.lastIssueId = issue.identifier;
-  //     this.issueDetected = true;
-  //   }
-  // }
 
   resolveLastIssue() {
     if(this.issues != null && this.issues.length != 0) {
@@ -186,6 +164,10 @@ export class Property {
     x: number
   }[] = [];
 
+  updateListener: EventEmitter<{
+    y: number,
+    x: number
+  }>;
 
   constructor(
     timestamp: number,

@@ -32,7 +32,7 @@ export class DataGraphComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log("Changes detected in data graph: ", changes);
+    // console.log("Changes detected in data graph: ", changes, this.data);
     if ('data' in changes) {
       if(this.data != undefined) {
         this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {
@@ -50,43 +50,9 @@ export class DataGraphComponent implements OnInit {
         this.dataLength.emit(this.data.length);
       }
     }
-    if('topic' in changes){
-      if(this.subscription != undefined) this.subscription.unsubscribe();
-      this.receiveDataStream();
-    }
-  }
-
-  private subscription: Subscription;
-  private currentDataReceiver: Observable<string>;
-
-  private receiveDataStream() {
-    if(this.topic != '') {
-      this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
-
-      this.subscription = this.currentDataReceiver.subscribe(message => {
-        //console.log(message);
-        let property = JSON.parse(JSON.parse(message));
-
-        if(this.topic != undefined) {
-          if(property.kafka_topic != this.topic) {
-            console.log("received wrong topic: ", property.topic, "!=", this.topic);
-            console.log("wrong property", property);
-            return;
-          }
-        }
-
-        this.data.push({y: property.value, x: property.timestamp});
-        this.updateData.emit({y: property.value, x: property.timestamp});
-        // console.log("Data-Graph", property);
-        if(property.timestamp > 1500000000000) {
-          this.lineChartLabels.push(this.getEntryLabel(property.timestamp));
-          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
-        } else {
-          this.lineChartLabels.push(property.timestamp);
-          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
-        }
-
-        // Check if you have to remove the last entry
+    if('dataAmount' in changes && this.data && this.data.length != 0) {
+        this.lineChartLabels.push(this.getEntryLabel(Math.round(this.data[this.dataAmount - 1].x)));
+        this.lineChartData[0].data.push(Math.round(this.data[this.dataAmount - 1].y * 100) / 100);
         if ( this.selectedVisibility.indexOf('Only New') != -1) {
           if(this.lineChartLabels.length > 5) {
             this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
@@ -95,17 +61,70 @@ export class DataGraphComponent implements OnInit {
         } else {
           let lastVisibleTime = this.getSelectedVisibility();
           let dataLength = this.lineChartLabels.length;
-          for(let i = this.data.length - dataLength; i < this.data.length; i++){
-            if(this.data[i].x > lastVisibleTime) break;
+          for (let i = this.data.length - dataLength; i < this.data.length; i++) {
+            if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
             this.lineChartLabels.splice(0, 1);
             this.lineChartData[0].data.splice(0, 1);
           }
-
         }
+    }
 
+    if('topic' in changes){
+      // if(this.subscription != undefined) this.subscription.unsubscribe();
+      // this.receiveDataStream();
+    }
+  }
 
-        this.dataLength.emit(this.data.length);
-      });
+  private subscription: Subscription;
+  private currentDataReceiver: Observable<string>;
+
+  private receiveDataStream() {
+    if(this.topic != '') {
+      // this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
+      //
+      // this.subscription = this.currentDataReceiver.subscribe(message => {
+      //   //console.log(message);
+      //   let property = JSON.parse(JSON.parse(message));
+      //
+      //   if(this.topic != undefined) {
+      //     if(property.kafka_topic != this.topic) {
+      //       console.log("received wrong topic: ", property.topic, "!=", this.topic);
+      //       console.log("wrong property", property);
+      //       return;
+      //     }
+      //   }
+      //
+      //   this.data.push({y: property.value, x: property.timestamp});
+      //   this.updateData.emit({y: property.value, x: property.timestamp});
+      //   // console.log("Data-Graph", property);
+      //   if(property.timestamp > 1500000000000) {
+      //     this.lineChartLabels.push(this.getEntryLabel(property.timestamp));
+      //     this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
+      //   } else {
+      //     this.lineChartLabels.push(property.timestamp);
+      //     this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
+      //   }
+      //
+      //   // Check if you have to remove the last entry
+      //   if ( this.selectedVisibility.indexOf('Only New') != -1) {
+      //     if(this.lineChartLabels.length > 5) {
+      //       this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
+      //       this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
+      //     }
+      //   } else {
+      //     let lastVisibleTime = this.getSelectedVisibility();
+      //     let dataLength = this.lineChartLabels.length;
+      //     for(let i = this.data.length - dataLength; i < this.data.length; i++){
+      //       if(this.data[i].x > lastVisibleTime) break;
+      //       this.lineChartLabels.splice(0, 1);
+      //       this.lineChartData[0].data.splice(0, 1);
+      //     }
+      //
+      //   }
+      //
+      //
+      //   this.dataLength.emit(this.data.length);
+      // });
     }
   }
 

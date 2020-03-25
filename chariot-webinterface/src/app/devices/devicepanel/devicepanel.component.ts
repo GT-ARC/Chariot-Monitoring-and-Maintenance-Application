@@ -3,6 +3,8 @@ import {EventEmitter} from '@angular/core';
 import {Device, Property, PropertyBundle} from '../../../model/device';
 import {DeviceUpdateService} from '../../services/device-update.service';
 import {AgentUpdateService} from '../../services/agent-update.service';
+import {timer} from "rxjs";
+import {mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-devicepanel',
@@ -21,6 +23,9 @@ export class DevicepanelComponent implements OnInit {
   arrayProperties: PropertyBundle[];
   normalProperties: PropertyBundle;
   selectedProperty: Property = null;
+  private reloadInterval: number = 5000;
+  private minInterval: number = 2000;
+  private intervalIds = [];
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("Selected device changed", changes);
@@ -38,6 +43,8 @@ export class DevicepanelComponent implements OnInit {
 
     // Set the device status property
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
+
+    this.startDummyDataStream(this.device);
   }
 
   constructor(private deviceUpdateService: DeviceUpdateService,
@@ -75,4 +82,27 @@ export class DevicepanelComponent implements OnInit {
       undefined);
   }
 
+  private startDummyDataStream(device: Device) {
+    device.properties.forEach(p => {
+      p.updateListener = new EventEmitter<{
+        y: number,
+        x: number
+      }>();
+        if ( p.type != 'number')
+          return;
+        let internVal = Math.random() * this.reloadInterval + this.minInterval;
+        let intervalID = setInterval(function () {
+          let lastData = p.data[p.data.length - 1];
+          p.value = lastData.y + (Math.random() - 0.5) * 10;
+          let newDataPoint = {
+            x: Date.now(),
+            y: p.value
+          };
+          p.data.push(newDataPoint);
+          p.updateListener.emit(newDataPoint);
+        }, internVal);
+        this.intervalIds.push(intervalID);
+      }
+    );
+  }
 }
