@@ -10,6 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location as Locl} from '@angular/common';
 import {MatSidenav} from "@angular/material";
 import {DeviceGroup} from '../../model/deviceGroup';
+import {PmNotificationReceiverService} from "../services/pm-notification-receiver.service";
 
 @Component({
   selector: 'app-maintenance',
@@ -50,6 +51,7 @@ export class MaintenanceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private pmService: PmNotificationReceiverService,
     private dataService: DataHandlingService,
     private locationService: Locl) {
     // this.dataService.getDataNotification().subscribe(next => {
@@ -59,6 +61,12 @@ export class MaintenanceComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pmService.issueResolvedEvent.subscribe(i => {
+      this.sort(this.issueSortSelected);
+    });
+    this.pmService.newIssueEvent.subscribe(i => {
+      this.sort(this.issueSortSelected);
+    });
     this.getData();
     this.initInterface();
   }
@@ -103,17 +111,7 @@ export class MaintenanceComponent implements OnInit {
     // Group each issue according to sortBy
     this.issueList.forEach(i => {
       // Select after what property should be grouped
-      let key =
-        sortBy == 'Date' ? Math.floor(i.issue_date / 86400000) * 86400000 :
-          sortBy == 'State' ? i.state : i.importance;
-
-      if (this.group.indexOf(key) == -1)
-        this.group.push(key);
-
-      if (!this.groupedIssues.has(key))
-        this.groupedIssues.set(key, []);
-      if(this.groupedIssues.get(key).indexOf(i) == -1)
-        this.groupedIssues.get(key).push(i);
+      this.insertIssueInGroup(sortBy, i);
     });
 
     if (sortBy == 'State') this.group.reverse();
@@ -146,6 +144,20 @@ export class MaintenanceComponent implements OnInit {
     if(this.datesShown != -1 && this.issueSortSelected == 'Date') {
       this.group = this.group.slice(0, this.datesShown);
     }
+  }
+
+  private insertIssueInGroup(sortBy: string, i: Issue) {
+    let key =
+      sortBy == 'Date' ? Math.floor(i.issue_date / 86400000) * 86400000 :
+        sortBy == 'State' ? i.state : i.importance;
+
+    if (this.group.indexOf(key) == -1)
+      this.group.push(key);
+
+    if (!this.groupedIssues.has(key))
+      this.groupedIssues.set(key, []);
+    if (this.groupedIssues.get(key).indexOf(i) == -1)
+      this.groupedIssues.get(key).push(i);
   }
 
   getData(): void {

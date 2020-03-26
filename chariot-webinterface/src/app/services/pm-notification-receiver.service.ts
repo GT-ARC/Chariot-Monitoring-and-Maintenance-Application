@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 // import {Socket} from 'ngx-socket-io';
 import {NotifierService} from 'angular-notifier';
 import {Device, Property} from '../../model/device';
@@ -17,6 +17,9 @@ export class PmNotificationReceiverService {
               private notifierService: NotifierService,
               private restService : RestService
   ) { }
+
+  private _newIssueEvent: EventEmitter<Issue> = new EventEmitter<Issue>();
+  private _issueResolvedEvent: EventEmitter<Issue> = new EventEmitter<Issue>();
 
   private subscribeToPMNotifications(property: ServiceProperty, device: Device) {
     //
@@ -52,6 +55,15 @@ export class PmNotificationReceiverService {
     // });
   }
 
+
+  get newIssueEvent(): EventEmitter<Issue> {
+    return this._newIssueEvent;
+  }
+
+  get issueResolvedEvent(): EventEmitter<Issue> {
+    return this._issueResolvedEvent;
+  }
+
   getIssues() {
     this.restService.getServices().subscribe(data => {
 
@@ -74,6 +86,22 @@ export class PmNotificationReceiverService {
         });
       });
     });
+  }
+
+  resolveIssue(device: Device, issue: Issue) {
+    console.log('Issue resolved: ');
+    issue.state = true;
+    device.resolveLastIssue();
+    this._issueResolvedEvent.emit(issue);
+    this.notifierService.notify('success', 'Issue resolved');
+  }
+
+  addIssue(device: Device, issue: Issue) {
+    console.log('Issue detected ', device);
+    device.addIssue(issue);
+    this.dataService.addIssue(issue);
+    this._newIssueEvent.emit(issue);
+    this.notifierService.notify('error', 'Issue detected' + issue.identifier);
   }
 
   private parseHistoryData(reqData: Object, device: Device, property: ServiceProperty) {
