@@ -1,9 +1,12 @@
-import {Component, HostListener, ViewChild} from '@angular/core';
+import {Component, EventEmitter, HostListener, ViewChild} from '@angular/core';
 import {DataHandlingService} from "./services/data-handling.service";
 import {Location as Locl} from "@angular/common";
 import {PmNotificationReceiverService} from './services/pm-notification-receiver.service';
 import {Floor} from '../model/floor';
 import {RestService} from './services/rest.service';
+import {Device} from "../model/device";
+import {NotifierService} from "angular-notifier";
+import {MockDataService} from "./services/mock-data.service";
 
 @Component({
   selector: 'app-root',
@@ -25,8 +28,12 @@ export class AppComponent {
   ];
   sitesReversed = this.sites.reverse();
 
+  mockIssueDevice: Device;
+
   constructor(
     private locationService: Locl,
+    private mockDataService: MockDataService,
+    private notifierService: NotifierService,
     private pmService: PmNotificationReceiverService,
     private restService: RestService,
     private dataService: DataHandlingService,
@@ -35,6 +42,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
+
+    setInterval(_ => this.mockPMStuff(), 30000);
 
     // Receive the data from the backend
     // this.restService.getDeviceData().subscribe(data => {
@@ -62,7 +71,28 @@ export class AppComponent {
     // AppComponent.toggleNav(window.innerWidth)
   }
 
-  // @HostListener('window:resize', ['$event'])
+  private mockPMStuff() {
+    if (!this.mockIssueDevice) {
+      this.mockIssueDevice = this.dataService.getRandomDevice();
+      // Issue detected
+      let issue = MockDataService.createIssues(this.mockIssueDevice);
+      issue[0].issue_date = Date.now();
+      issue[0].state = false;
+      this.mockIssueDevice.addIssue(issue[0]);
+      this.dataService.addIssue(issue[0]);
+      // Issue detected
+      console.log('Issue detected ', this.mockIssueDevice);
+      this.notifierService.notify('error', 'Issue detected');
+      // Check for pm result
+    } else {
+      console.log('Issue resolved: ');
+      this.mockIssueDevice.resolveLastIssue();
+      this.notifierService.notify('success', 'Issue resolved');
+      this.mockIssueDevice = undefined;
+    }
+  }
+
+// @HostListener('window:resize', ['$event'])
   // onResize(event){
   //   AppComponent.toggleNav(event.target.innerWidth)
   // }

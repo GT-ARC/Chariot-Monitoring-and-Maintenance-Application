@@ -109,7 +109,7 @@ export class PmNotificationReceiverService {
     }
   }
 
-  private createIssue(property: ServiceProperty, point: { x: number; y: any }, device: Device) {
+  createIssue(property: ServiceProperty, point: { x: number; y: any }, device: Device) {
     console.log(property.key + point.x);
     let issue: Issue = {
       identifier: "i" + ((+property.key + point.x) % 2147483647),

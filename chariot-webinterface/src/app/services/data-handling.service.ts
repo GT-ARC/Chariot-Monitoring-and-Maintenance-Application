@@ -585,5 +585,9 @@ export class DataHandlingService {
         }
       ));
   }
+
+  getRandomDevice(): Device {
+    return this.devices[Math.floor(this.devices.length * Math.random())]
+  }
 }
 

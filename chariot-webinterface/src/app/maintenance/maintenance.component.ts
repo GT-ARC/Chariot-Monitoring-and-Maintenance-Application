@@ -116,6 +116,8 @@ export class MaintenanceComponent implements OnInit {
         this.groupedIssues.get(key).push(i);
     });
 
+    if (sortBy == 'State') this.group.reverse();
+
     // Sort the issues in each group
     this.groupedIssues.forEach((value, key) => {
       value.sort((a, b) => {
