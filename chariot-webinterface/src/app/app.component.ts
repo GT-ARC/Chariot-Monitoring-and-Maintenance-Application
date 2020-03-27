@@ -8,6 +8,7 @@ import {Device} from "../model/device";
 import {NotifierService} from "angular-notifier";
 import {MockDataService} from "./services/mock-data.service";
 import {Issue} from "../model/issue";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -44,32 +45,35 @@ export class AppComponent {
 
   ngOnInit() {
 
-    setInterval(_ => this.mockPMStuff(), 30000);
-
     // Receive the data from the backend
-    // this.restService.getDeviceData().subscribe(data => {
-    //     let parsedData = this.restService.parseDeviceData(data as Array<any>);
-    //     let newFloor : Floor = new Floor(
-    //       "MyFloorId",
-    //       'IoT Testbed',
-    //       11,
-    //       parsedData.location,
-    //     );
-    //
-    //     console.log("Add new data");
-    //     this.dataService.handleNewFloor(newFloor).forEach(d =>
-    //       d.properties.filter(p => p.key == "pm_result")
-    //     );
-    //
-    //     this.pmService.getIssues();
-    //
-    //     console.log(parsedData);
-    //   }
-    // );
+
+    if (environment.mock) {
+      setInterval(_ => this.mockPMStuff(), 30000);
+    } else {
+      this.restService.getDeviceData().subscribe(data => {
+          let parsedData = this.restService.parseDeviceData(data as Array<any>);
+          let newFloor: Floor = new Floor(
+            "MyFloorId",
+            'IoT Testbed',
+            11,
+            parsedData.location,
+          );
+
+          console.log("Add new data");
+          this.dataService.handleNewFloor(newFloor);
+          this.pmService.getIssues();
+
+          console.log(parsedData);
+        }
+      );
+    }
+
+    // this.restService.getContainer().subscribe(data => {
+    //   console.log(data);
+    // });
 
     this.path = this.locationService.path();
     console.log("App: the path" + this.path);
-    // AppComponent.toggleNav(window.innerWidth)
   }
 
   lastIssue: Issue;
@@ -86,22 +90,4 @@ export class AppComponent {
       this.mockIssueDevice = undefined;
     }
   }
-
-// @HostListener('window:resize', ['$event'])
-  // onResize(event){
-  //   AppComponent.toggleNav(event.target.innerWidth)
-  // }
-
-  // static toggleNav(width : number) {
-  //   let nav1 = document.getElementById("nav-button");
-  //   let nav2 = document.getElementById("nav-wrap");
-  //   if (width < 1144){
-  //     nav1.style.display = null;
-  //     nav2.style.display = 'none';
-  //   } else {
-  //     nav1.style.display = 'none';
-  //     nav2.style.display = null;
-  //   }
-  // }
-
 }

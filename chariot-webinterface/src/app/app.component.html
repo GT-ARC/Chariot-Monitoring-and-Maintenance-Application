@@ -13,7 +13,7 @@
     </button>
     <mat-menu #navMenu="matMenu">
       <button mat-menu-item
-              *ngFor="let site of sites"
+              *ngFor="let site of sitesReversed"
               (click)="path = site.route"
               [routerLink]="site.route">
           <span [ngClass]="{selected: path === site.route}">

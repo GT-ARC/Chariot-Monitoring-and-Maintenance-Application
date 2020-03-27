@@ -63,4 +63,11 @@
     (change)="changeValue($event)"
     tickInterval="false">
   </mat-slider>
+
+  <mat-icon class="writable-lock"
+            *ngIf="!property.writable"
+            matTooltip="This property isn't writable"
+            matTooltipPosition="above">
+    lock
+  </mat-icon>
 </div>

@@ -113,3 +113,11 @@
   text-align: left;
   font-size: 28px;
 }
+
+.writable-lock {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  color: #8798AD;
+}
+

@@ -32,12 +32,14 @@ export class AgentUpdateService {
 
     console.log("Send message to proxy agent: ", JSON.stringify(message));
 
-    this.notifierService.notify('success', 'device: ' + message["uuid"] + ' updated')
-
-    // this.http.post(environment.proxyAgentAddress, JSON.stringify(message), this.httpOptions)
-    //   .pipe(
-    //     catchError(err => this.handleError(err, this.notifierService))
-    //   ).subscribe(data => this.notifierService.notify('success', 'device-updated'));
+    if(environment.mock){
+      this.notifierService.notify('success', 'device: ' + message["uuid"] + ' updated')
+    } else {
+      this.http.post(environment.proxyAgentAddress, JSON.stringify(message), this.httpOptions)
+        .pipe(
+          catchError(err => this.handleError(err, this.notifierService))
+        ).subscribe(data => this.notifierService.notify('success', 'device: ' + message["uuid"] + ' updated'));
+    }
   }
 
   handleError(error, notifyService) {

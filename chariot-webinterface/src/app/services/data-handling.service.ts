@@ -343,6 +343,8 @@ export class DataHandlingService {
       // }
     }
 
+
+    // Remove locally stored devices not found in db
     this.devices.forEach(d => {
       let deviceIndex = newDevicesIDs.indexOf(d.identifier);
       if (deviceIndex == -1) {

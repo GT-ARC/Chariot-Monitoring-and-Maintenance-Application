@@ -3,8 +3,7 @@ import {EventEmitter} from '@angular/core';
 import {Device, Property, PropertyBundle} from '../../../model/device';
 import {DeviceUpdateService} from '../../services/device-update.service';
 import {AgentUpdateService} from '../../services/agent-update.service';
-import {timer} from "rxjs";
-import {mergeMap} from "rxjs/operators";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-devicepanel',
@@ -44,7 +43,8 @@ export class DevicepanelComponent implements OnInit {
     // Set the device status property
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
 
-    this.startDummyDataStream(this.device);
+    if (environment.mock)
+      this.startDummyDataStream(this.device);
   }
 
   constructor(private deviceUpdateService: DeviceUpdateService,
@@ -67,7 +67,7 @@ export class DevicepanelComponent implements OnInit {
 
   getArrayProperties() : PropertyBundle[] {
     let retBundle = [];
-    for(let propBundle of this.device.properties.filter(value => value.type === 'Array')) {
+    for(let propBundle of this.device.properties.filter(value => value.type === 'array')) {
       // @ts-ignore
       let bundledProp = new PropertyBundle(propBundle.value, this.device, propBundle);
       retBundle.push(bundledProp);
@@ -77,7 +77,7 @@ export class DevicepanelComponent implements OnInit {
 
   getNormalProperties() {
     return new PropertyBundle(
-      this.device.properties.filter(value => value.type !== 'Array' && value.key != 'status' && value.key != 'pm_result'),
+      this.device.properties.filter(value => value.type !== 'array' && value.key != 'status' && value.key != 'pm_result'),
       this.device,
       undefined);
   }

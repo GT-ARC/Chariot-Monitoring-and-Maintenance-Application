@@ -5,6 +5,7 @@ import {DeviceUpdateService} from '../../../services/device-update.service';
 import {Observable} from 'rxjs';
 import {NotifierService} from 'angular-notifier';
 import {RestService} from '../../../services/rest.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-device-panel-switch',
@@ -34,22 +35,23 @@ export class DevicePanelSwitchComponent implements OnInit {
   ngOnInit() {
     this.cardName = this.property.name == undefined ? this.property.key : this.property.name;
 
-    // this.receiveDataStream();
+    if(!environment.mock)
+      this.receiveDataStream();
   }
 
   private receiveDataStream() {
     if(this.property.topic != '') {
-      // this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
-      //
-      // this.currentDataReceiver.subscribe(message => {
-      //   //console.log(message);
-      //   let jsonMessage = JSON.parse(JSON.parse(message));
-      //   if(jsonMessage.value == 0 || jsonMessage.value == "false" || jsonMessage.value == "off") {
-      //     this.property.value = false;
-      //   } else if(jsonMessage.value == 1 || jsonMessage.value == "true" || jsonMessage.value == "on") {
-      //     this.property.value = true;
-      //   }
-      // });
+      this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
+
+      this.currentDataReceiver.subscribe(message => {
+        //console.log(message);
+        let jsonMessage = JSON.parse(JSON.parse(message));
+        if(jsonMessage.value == 0 || jsonMessage.value == "false" || jsonMessage.value == "off") {
+          this.property.value = false;
+        } else if(jsonMessage.value == 1 || jsonMessage.value == "true" || jsonMessage.value == "on") {
+          this.property.value = true;
+        }
+      });
     }
   }
 

@@ -5,6 +5,7 @@ import {isNumber} from 'util';
 import {Device, Property} from '../../../../model/device';
 import {Observable} from 'rxjs';
 import {DeviceUpdateService} from '../../../services/device-update.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-device-panel-slider',
@@ -32,19 +33,20 @@ export class DevicePanelSliderComponent implements OnInit {
       this.accuracy = 0;
     }
     // console.log("Init", this.property);
-    // this.receiveDataStream();
+    if(!environment.mock)
+      this.receiveDataStream();
   }
 
   private receiveDataStream() {
-    // if(this.property.topic != '') {
-    //   this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
-    //   // console.log(this.currentDataReceiver);
-    //   this.currentDataReceiver.subscribe(message => {
-    //     let property = JSON.parse(JSON.parse(message));
-    //     // console.log(this.property.key, property.value);
-    //     this.property.value = property.value * 1;
-    //   });
-    // }
+    if(this.property.topic != '') {
+      this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
+      // console.log(this.currentDataReceiver);
+      this.currentDataReceiver.subscribe(message => {
+        let property = JSON.parse(JSON.parse(message));
+        // console.log(this.property.key, property.value);
+        this.property.value = property.value * 1;
+      });
+    }
   }
 
   changeValue($event: MatSliderChange) {

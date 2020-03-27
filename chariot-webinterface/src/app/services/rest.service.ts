@@ -28,6 +28,12 @@ export class RestService {
     return this.http.get(url + "history/");
   }
 
+  getContainer() {
+    let header: HttpHeaders = new HttpHeaders();
+    header.append("Access-Control-Allow-Origin", "*");
+    return this.http.get(environment.databaseUrl + "/container/?format=json", {headers: header})
+  }
+
   getDeviceData(): Observable<Object> {
     let header: HttpHeaders = new HttpHeaders();
     header.append("Access-Control-Allow-Origin", "*");
@@ -118,13 +124,15 @@ export class RestService {
     }
 
     let value = undefined;
-    if(prop.type == "Array") {
+    if(prop.type.toLowerCase() == "array") {
       value = nestedProperty;
-    } else if(prop.type == "Number") {
+    } else if(prop.type.toLowerCase() == "number") {
       // @ts-ignore
       value = parseFloat(prop.value);
-    } else if(prop.type == "boolean") {
-      value = prop.value == "on" || prop.value == "true";
+    } else if(prop.type.toLowerCase() == "boolean") {
+      if (typeof prop.value === "string") {
+        value = prop.value.toLowerCase() == "on" || prop.value.toLowerCase() == "true";
+      }
     } else {
       value = prop.value;
     }
@@ -163,5 +171,6 @@ export class RestService {
     });
     return this.mappingObserv.asObservable();
   }
+
 
 }

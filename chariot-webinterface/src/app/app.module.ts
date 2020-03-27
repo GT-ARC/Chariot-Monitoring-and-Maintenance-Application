@@ -7,9 +7,9 @@ import { AppComponent } from './app.component';
 import { MatIconModule } from "@angular/material/icon";
 
 import { NgxGaugeModule } from 'ngx-gauge';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import {SocketIoModule, SocketIoConfig, Socket} from 'ngx-socket-io';
 // const config: SocketIoConfig = { url: 'localhost:4444', options: {} };
-// const config: SocketIoConfig = { url: 'http://chariot-main.dai-lab.de:4444', options: {} };
+const config: SocketIoConfig = { url: 'http://chariot-main.dai-lab.de:4444', options: {autoConnect : false } };
 
 import { ChartsModule } from 'ng2-charts';
 
@@ -65,6 +65,7 @@ import { DataGraphComponent } from './components/data-graph/data-graph.component
 import { DeviceGroupCardComponent } from './components/device-group-card/device-group-card.component';
 import { PropertyBundleComponent } from './components/property-bundle/property-bundle.component';
 import { NotifierModule } from 'angular-notifier';
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -124,8 +125,14 @@ import { NotifierModule } from 'angular-notifier';
     ProgressBarModule,
     FormsModule,
     MatTooltipModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private socket: Socket) {
+    if(!environment.mock)
+      this.socket.connect();
+  }
+}

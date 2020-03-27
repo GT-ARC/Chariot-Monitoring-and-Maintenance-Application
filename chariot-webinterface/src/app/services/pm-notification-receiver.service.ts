@@ -15,14 +15,15 @@ export class PmNotificationReceiverService {
 
   constructor(private dataService: DataHandlingService,
               private notifierService: NotifierService,
-              private restService : RestService
+              private restService : RestService,
+              // private socket: Socket
   ) { }
 
   private _newIssueEvent: EventEmitter<Issue> = new EventEmitter<Issue>();
   private _issueResolvedEvent: EventEmitter<Issue> = new EventEmitter<Issue>();
 
   private subscribeToPMNotifications(property: ServiceProperty, device: Device) {
-    //
+
     // let sendMessage = {
     //   topic: property.kafka_topic,
     //   regex: false
@@ -79,6 +80,9 @@ export class PmNotificationReceiverService {
 
           let device = this.dataService.getDeviceByURL(relatedTo[0]);
 
+          if(device == null)
+            return;
+
           this.restService.getHistoryData(property.url).subscribe(reqData => {
             this.parseHistoryData(reqData, device, property);
             this.subscribeToPMNotifications(property, device);
@@ -101,7 +105,7 @@ export class PmNotificationReceiverService {
     device.addIssue(issue);
     this.dataService.addIssue(issue);
     this._newIssueEvent.emit(issue);
-    this.notifierService.notify('error', 'Issue detected' + issue.identifier);
+    this.notifierService.notify('error', 'Issue detected: ' + issue.identifier);
   }
 
   private parseHistoryData(reqData: Object, device: Device, property: ServiceProperty) {
@@ -123,7 +127,7 @@ export class PmNotificationReceiverService {
           let successful = this.dataService.addIssue(issue);
           if (successful){
             console.log("Added issue: " + JSON.stringify(issue));
-            device.addIssue(issue);
+            this.addIssue(device, issue);
             this.dataService.dataUpdate();
           }
           // console.log("New Issue detected");

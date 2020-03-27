@@ -8,4 +8,10 @@
            [attr.disabled]="property.writable ? '' : null"
            [ngStyle]="{color: !property.writable ? 'black' : 'grey' }">
   </label>
+  <mat-icon class="writable-lock"
+            *ngIf="!property.writable"
+            matTooltip="This property isn't writable"
+            matTooltipPosition="above">
+    lock
+  </mat-icon>
 </div>

@@ -4,6 +4,7 @@ import {ChartOptions} from "chart.js";
 import {DeviceUpdateService} from '../../services/device-update.service';
 import {Observable, Subscription} from 'rxjs';
 import {takeWhile, timestamp} from 'rxjs/operators';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-data-graph',
@@ -19,7 +20,7 @@ export class DataGraphComponent implements OnInit {
 
   @Input() dataAmount: number;
   @Input() topic: string;
-  @Input() height: number = 20;
+  @Input() height: number = 375;
   @Input() selectedVisibility: string = "";
   @Output() dataLength = new EventEmitter<number>();
   @Output() updateData = new EventEmitter<{ x: number, y: number }>();
@@ -27,8 +28,8 @@ export class DataGraphComponent implements OnInit {
   constructor(private deviceUpdateService: DeviceUpdateService) { }
 
   ngOnInit() {
-    document.getElementById("chart").setAttribute("height", this.height + "");
     this.dataLength.emit(this.data.length);
+    document.getElementById("chart").setAttribute("height", this.height + "");
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -70,8 +71,10 @@ export class DataGraphComponent implements OnInit {
     }
 
     if('topic' in changes){
-      // if(this.subscription != undefined) this.subscription.unsubscribe();
-      // this.receiveDataStream();
+      if(!environment.mock) {
+        if(this.subscription != undefined) this.subscription.unsubscribe();
+        this.receiveDataStream();
+      }
     }
   }
 
@@ -80,51 +83,49 @@ export class DataGraphComponent implements OnInit {
 
   private receiveDataStream() {
     if(this.topic != '') {
-      // this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
-      //
-      // this.subscription = this.currentDataReceiver.subscribe(message => {
-      //   //console.log(message);
-      //   let property = JSON.parse(JSON.parse(message));
-      //
-      //   if(this.topic != undefined) {
-      //     if(property.kafka_topic != this.topic) {
-      //       console.log("received wrong topic: ", property.topic, "!=", this.topic);
-      //       console.log("wrong property", property);
-      //       return;
-      //     }
-      //   }
-      //
-      //   this.data.push({y: property.value, x: property.timestamp});
-      //   this.updateData.emit({y: property.value, x: property.timestamp});
-      //   // console.log("Data-Graph", property);
-      //   if(property.timestamp > 1500000000000) {
-      //     this.lineChartLabels.push(this.getEntryLabel(property.timestamp));
-      //     this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
-      //   } else {
-      //     this.lineChartLabels.push(property.timestamp);
-      //     this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
-      //   }
-      //
-      //   // Check if you have to remove the last entry
-      //   if ( this.selectedVisibility.indexOf('Only New') != -1) {
-      //     if(this.lineChartLabels.length > 5) {
-      //       this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
-      //       this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
-      //     }
-      //   } else {
-      //     let lastVisibleTime = this.getSelectedVisibility();
-      //     let dataLength = this.lineChartLabels.length;
-      //     for(let i = this.data.length - dataLength; i < this.data.length; i++){
-      //       if(this.data[i].x > lastVisibleTime) break;
-      //       this.lineChartLabels.splice(0, 1);
-      //       this.lineChartData[0].data.splice(0, 1);
-      //     }
-      //
-      //   }
-      //
-      //
-      //   this.dataLength.emit(this.data.length);
-      // });
+      this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
+
+      this.subscription = this.currentDataReceiver.subscribe(message => {
+        //console.log(message);
+        let property = JSON.parse(JSON.parse(message));
+
+        if(this.topic != undefined) {
+          if(property.kafka_topic != this.topic) {
+            console.log("received wrong topic: ", property.topic, "!=", this.topic);
+            console.log("wrong property", property);
+            return;
+          }
+        }
+
+        this.data.push({y: property.value, x: property.timestamp});
+        this.updateData.emit({y: property.value, x: property.timestamp});
+        // console.log("Data-Graph", property);
+        if(property.timestamp > 1500000000000) {
+          this.lineChartLabels.push(this.getEntryLabel(property.timestamp));
+          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
+        } else {
+          this.lineChartLabels.push(property.timestamp);
+          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
+        }
+
+        // Check if you have to remove the last entry
+        if ( this.selectedVisibility.indexOf('Only New') != -1) {
+          if(this.lineChartLabels.length > 5) {
+            this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
+            this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
+          }
+        } else {
+          let lastVisibleTime = this.getSelectedVisibility();
+          let dataLength = this.lineChartLabels.length;
+          for(let i = this.data.length - dataLength; i < this.data.length; i++){
+            if(this.data[i].x > lastVisibleTime) break;
+            this.lineChartLabels.splice(0, 1);
+            this.lineChartData[0].data.splice(0, 1);
+          }
+        }
+
+        this.dataLength.emit(this.data.length);
+      });
     }
   }
 

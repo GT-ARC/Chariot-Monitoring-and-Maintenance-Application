@@ -11,4 +11,11 @@
           [ngStyle]="{backgroundColor: !property.writable ? 'grey' : null }"></span>
   </label>
   <p id="on">ON</p>
+
+  <mat-icon class="writable-lock"
+            *ngIf="!property.writable"
+            matTooltip="This property isn't writable"
+            matTooltipPosition="above">
+    lock
+  </mat-icon>
 </div>
