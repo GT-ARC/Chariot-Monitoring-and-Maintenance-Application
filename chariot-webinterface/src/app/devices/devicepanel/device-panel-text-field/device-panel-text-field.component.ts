@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {state} from "@angular/animations";
 import {Property} from '../../../../model/device';
+import {strings as envString} from "../../../../environments/strings";
 
 @Component({
   selector: 'app-device-panel-text-field',
@@ -13,8 +14,9 @@ import {Property} from '../../../../model/device';
 export class DevicePanelTextFieldComponent implements OnInit {
 
   @Input() property: Property;
-
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
+
+  strings = envString;
 
   constructor() { }
 

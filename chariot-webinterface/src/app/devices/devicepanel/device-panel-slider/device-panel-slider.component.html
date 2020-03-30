@@ -66,8 +66,8 @@
 
   <mat-icon class="writable-lock"
             *ngIf="!property.writable"
-            matTooltip="This property isn't writable"
+            [matTooltip]="strings.writable_lock"
             matTooltipPosition="above">
-    lock
+    remove_red_eye
   </mat-icon>
 </div>

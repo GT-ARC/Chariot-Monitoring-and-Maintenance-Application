@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import 'hammerjs';
 import {MatSliderChange} from '@angular/material';
-import {isNumber} from 'util';
-import {Device, Property} from '../../../../model/device';
+import {Property} from '../../../../model/device';
 import {Observable} from 'rxjs';
 import {DeviceUpdateService} from '../../../services/device-update.service';
 import {environment} from "../../../../environments/environment";
+import {strings as envString} from "../../../../environments/strings";
 
 @Component({
   selector: 'app-device-panel-slider',
@@ -20,25 +20,27 @@ export class DevicePanelSliderComponent implements OnInit {
   @Input() property: Property;
   @Input() selectedProperty: Property;
 
-  @Output() uploaded = new EventEmitter<{property: string, state: any}>();
+  @Output() uploaded = new EventEmitter<{ property: string, state: any }>();
   public accuracy = 2;
   math = Math;
+  strings = envString;
 
   private currentDataReceiver: Observable<string>;
 
-  constructor(private deviceUpdateService: DeviceUpdateService) { }
+  constructor(private deviceUpdateService: DeviceUpdateService) {
+  }
 
   ngOnInit() {
     if (this.property.value.toString().indexOf('.') === -1) {
       this.accuracy = 0;
     }
     // console.log("Init", this.property);
-    if(!environment.mock)
+    if (!environment.mock)
       this.receiveDataStream();
   }
 
   private receiveDataStream() {
-    if(this.property.topic != '') {
+    if (this.property.topic != '') {
       this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
       // console.log(this.currentDataReceiver);
       this.currentDataReceiver.subscribe(message => {
@@ -56,13 +58,13 @@ export class DevicePanelSliderComponent implements OnInit {
   }
 
   emitValue(value: any) {
-    if(value != this.property.value)
+    if (value != this.property.value)
       this.uploaded.emit({property: this.property.key, state: value});
   }
 
   applyValueChange(value: any) {
-    if(!isNaN(Number(value))){
-      if(Number(value) <= this.property.max_value && Number(value) >= this.property.min_value){
+    if (!isNaN(Number(value))) {
+      if (Number(value) <= this.property.max_value && Number(value) >= this.property.min_value) {
         this.emitValue(Number(value));
         this.property.value = value;
       }

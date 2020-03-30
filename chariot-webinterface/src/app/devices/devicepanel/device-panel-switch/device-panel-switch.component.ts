@@ -1,11 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Device, Property} from '../../../../model/device';
-import {MatSidenav} from '@angular/material';
 import {DeviceUpdateService} from '../../../services/device-update.service';
 import {Observable} from 'rxjs';
 import {NotifierService} from 'angular-notifier';
-import {RestService} from '../../../services/rest.service';
 import {environment} from "../../../../environments/environment";
+import {strings as envString} from "../../../../environments/strings";
 
 @Component({
   selector: 'app-device-panel-switch',
@@ -18,12 +17,13 @@ import {environment} from "../../../../environments/environment";
 export class DevicePanelSwitchComponent implements OnInit {
 
   @Input() device: Device;
-
-  @Output() uploaded = new EventEmitter<{property: string, state: any}>();
-  cardName: string;
-
   @Input() property: Property;
   @Input() selectedProperty: Property;
+
+  @Output() uploaded = new EventEmitter<{property: string, state: any}>();
+
+  cardName: string;
+  strings = envString;
 
   private currentDataReceiver: Observable<string>;
 

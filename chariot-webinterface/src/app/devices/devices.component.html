@@ -95,14 +95,14 @@
                 </button>
               </div>
               <mat-divider></mat-divider>
-              <button mat-menu-item (click)="deviceCardStyle = 'Small'">
-                <span [ngClass]="deviceCardStyle == 'Small' ? 'selected' : ''">
+              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style_small">
+                <span [ngClass]="deviceCardStyle == strings.device_card_style_small ? 'selected' : ''">
                   <mat-icon>list</mat-icon>
                   <span>Small</span>
           </span>
               </button>
-              <button mat-menu-item (click)="deviceCardStyle = 'Large'">
-          <span [ngClass]="deviceCardStyle == 'Large' ? 'selected' : ''">
+              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style_large">
+          <span [ngClass]="deviceCardStyle == strings.device_card_style_large ? 'selected' : ''">
             <mat-icon>view_list</mat-icon>
             <span>Large</span>
           </span>

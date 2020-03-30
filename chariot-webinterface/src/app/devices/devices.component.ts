@@ -10,6 +10,7 @@ import {Floor} from '../../model/floor';
 import {MatSidenav} from '@angular/material';
 import {DeviceGroup} from '../../model/deviceGroup';
 import {RestService} from '../services/rest.service';
+import {strings} from "../../environments/strings";
 
 @Component({
   selector: 'app-devices',
@@ -49,17 +50,29 @@ export class DevicesComponent implements OnInit {
   // The device filter
   deviceFilter: String = '';
 
-  floorSort: string[] = ['Number of devices', 'Number of errors', 'Level', 'Type of room'];
-  floorSortSelected: String = 'Level';
+  floorSort: string[] = [
+    strings.floor_sort.level,
+    strings.floor_sort.number_of_devices,
+    strings.floor_sort.number_of_errors,
+    strings.floor_sort.type_of_room,
+  ];
+  floorSortSelected: String = strings.floor_sort.level;
 
-  deviceSort: string[] = ['Name', 'Date', 'Device type', 'On/Off'];
-  deviceSortSelected: String = 'On/Off';
+  deviceSort: string[] = [
+    strings.device_sort.on_off,
+    strings.device_sort.name,
+    strings.device_sort.date,
+    strings.device_sort.device_type,
+  ];
+  deviceSortSelected: String = strings.device_sort.on_off;
 
-  deviceCardStyle: string = 'Large';
+  deviceCardStyle: string = strings.device_card_style.small;
 
-  routedId:string = undefined;
+  routedId: string = undefined;
 
   window = window;
+
+  strings = strings;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
   @ViewChild('snav2', {static: false}) sideNav2: MatSidenav;
@@ -108,7 +121,7 @@ export class DevicesComponent implements OnInit {
   }
 
   initInterface() {
-    if(this.devices.length == 0 || this.locations.length == 0 || this.floors.length == 0)
+    if (this.devices.length == 0 || this.locations.length == 0 || this.floors.length == 0)
       return;
 
     this.resetDataStructures();
@@ -122,8 +135,8 @@ export class DevicesComponent implements OnInit {
       this.floors.forEach(floor => {
         for (let loc of floor.locations) {
           if ((loc.devices.find(d => d.identifier == routedElement.identifier) ||
-              loc.deviceGroups.find(dg => dg.identifier == routedElement.identifier)) &&
-               this.selectedLocation.indexOf(loc) == -1) {
+            loc.deviceGroups.find(dg => dg.identifier == routedElement.identifier)) &&
+            this.selectedLocation.indexOf(loc) == -1) {
             this.selectedLocation.push(loc);
           }
         }
@@ -142,7 +155,7 @@ export class DevicesComponent implements OnInit {
     this.floors.forEach(f => this.visibleLocation[f.identifier] = f.locations);
     this.updateUI();
 
-    if(this.selectedDevice) {
+    if (this.selectedDevice) {
       // console.log("Devices parent page: ", this.selectedDevice);
       // console.log("Devices parent page: ", this.selectedDevice.getIssueID());
     }
@@ -182,7 +195,7 @@ export class DevicesComponent implements OnInit {
         }
       } else {
         let selectDevice = this.devices.find(value => value.identifier == this.routedId);
-        if(selectDevice == undefined)
+        if (selectDevice == undefined)
           return undefined;
         this.newDeviceSelected(selectDevice);
         return selectDevice;
@@ -237,14 +250,14 @@ export class DevicesComponent implements OnInit {
     this.selectedLocation.forEach(loc => {
       for (let device_group of loc.deviceGroups) {
         for (let device of device_group.devices) {
-          if(device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
+          if (device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
             this.visibleElements.push(device_group);
             this.visibleDeviceGroups.push(device_group);
             break;
           }
         }
       }
-      for (let device of  loc.devices) {
+      for (let device of loc.devices) {
         if (device.name.toLocaleLowerCase().indexOf(this.deviceFilter.toLocaleLowerCase()) > -1) {
           this.visibleElements.push(device);
           this.visibleDevice.push(device);
@@ -283,8 +296,8 @@ export class DevicesComponent implements OnInit {
     //   }
     // }));
     this.allDevicesOn = true;
-    for(let element of this.visibleDevice) {
-      if(element.properties.find( s => s.key == 'status').value == false){
+    for (let element of this.visibleDevice) {
+      if (element.properties.find(s => s.key == 'status').value == false) {
         this.allDevicesOn = false;
         break;
       }
@@ -300,10 +313,10 @@ export class DevicesComponent implements OnInit {
     console.log("Change power state of the device");
     let property = device.properties.find(s => s.key === "status");
     property.value = state;
-    this.allDevicesOn = <boolean> this.visibleDeviceGroups.reduce((acc, curr) =>
+    this.allDevicesOn = <boolean>this.visibleDeviceGroups.reduce((acc, curr) =>
       acc && curr.devices.reduce((acc, curr) => {
         let statusProperty = curr.properties.find(s => s.key === "status" && s.writable == true);
-        if(statusProperty == undefined) return acc && true;
+        if (statusProperty == undefined) return acc && true;
         else return acc && statusProperty.value;
       }, true), true);
     // this.showVisibleDevices();
@@ -316,15 +329,14 @@ export class DevicesComponent implements OnInit {
   switchAllDevices(state: boolean) {
     this.allDevicesOn = state;
     if (state) {
-      this.visibleDevice.forEach(device =>
-      {
+      this.visibleDevice.forEach(device => {
         let prop = device.properties.find(s => s.key == 'status');
-        if(prop.writable) prop.value = true;
+        if (prop.writable) prop.value = true;
       });
     } else {
       this.visibleDevice.forEach(device => {
         let prop = device.properties.find(s => s.key == 'status');
-        if(prop.writable) prop.value = false;
+        if (prop.writable) prop.value = false;
       });
     }
   }
@@ -333,7 +345,7 @@ export class DevicesComponent implements OnInit {
    * Retrieves the mock data from the mock data service
    */
   getData(): void {
-    if(this.floors.length == 0) {
+    if (this.floors.length == 0) {
       this.dataService.getFloor()
         .subscribe(data => {
           this.floors = data.floors;
@@ -352,7 +364,7 @@ export class DevicesComponent implements OnInit {
    * @param updateUi if the ui should update after location selected
    */
   locationSelected(location: Location, checked: boolean, updateUi?: boolean) {
-    if(updateUi == undefined)
+    if (updateUi == undefined)
       updateUi = true;
     let entry = this.selectedLocation.indexOf(location);
     if (checked) {
@@ -362,7 +374,7 @@ export class DevicesComponent implements OnInit {
     } else {
       this.selectedLocation.splice(entry, 1);
     }
-    if(updateUi) this.updateUI();
+    if (updateUi) this.updateUI();
   }
 
   /**
@@ -487,7 +499,7 @@ export class DevicesComponent implements OnInit {
     // deviceGroup.devices.reduce((acc, prev) => acc.concat(prev.properties), []);
 
 
-    let tempDevice = new Device (
+    let tempDevice = new Device(
       -1 + "",
       deviceGroup.name,
       null,
