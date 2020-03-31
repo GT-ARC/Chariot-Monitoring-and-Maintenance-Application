@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {state} from "@angular/animations";
 import {Property} from '../../../../model/device';
 import {strings as envString} from "../../../../environments/strings";
 
@@ -26,7 +25,7 @@ export class DevicePanelTextFieldComponent implements OnInit {
   emitProperty($event: any) {
     if ($event.key == "Enter") {
       this.property.value = $event.target.value;
-      this.uploaded.emit({property: this.property.name, state: $event.target.value})
+      this.uploaded.emit({property: this.property.key, state: $event.target.value})
     }
   }
 }

@@ -60,6 +60,7 @@ export class PropertyBundleComponent implements OnInit {
    */
   pushData($event: { property: string; state: any }) {
     console.log($event, this.property);
+    // If the property is undefined it has to be a the properties and not a bundled property
     if(!this.property) {
       this.uploaded.emit({property: $event.property, state : $event.state});
     }

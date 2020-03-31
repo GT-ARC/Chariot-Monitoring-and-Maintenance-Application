@@ -43,6 +43,8 @@ export class DevicesComponent implements OnInit {
   selectedDevice: Device = undefined; // Currently selected device
   selectedDeviceGroup: DeviceGroup = undefined; // Currently selected device
 
+  deviceLocationMap: Map<Device | DeviceGroup, Location> = new Map<Device|DeviceGroup, Location>();
+
   // Connected to model switches
   allLocationsSelected: boolean = false;
   allDevicesOn: boolean = false;
@@ -132,15 +134,9 @@ export class DevicesComponent implements OnInit {
 
     // Make the selected floor with the device group visible and push some random locations to be selected
     if (routedElement) {
-      this.floors.forEach(floor => {
-        for (let loc of floor.locations) {
-          if ((loc.devices.find(d => d.identifier == routedElement.identifier) ||
-            loc.deviceGroups.find(dg => dg.identifier == routedElement.identifier)) &&
-            this.selectedLocation.indexOf(loc) == -1) {
-            this.selectedLocation.push(loc);
-          }
-        }
-      });
+      let location = this.deviceLocationMap.get(routedElement);
+      if (location)
+        this.selectedLocation.push(location);
     }
 
 
@@ -352,6 +348,19 @@ export class DevicesComponent implements OnInit {
           this.locations = data.locations;
           this.devices = data.devices;
           this.deviceGroups = data.deviceGroup;
+
+          // Fill the device location map
+          this.locations.forEach(l => {
+            l.devices.forEach(
+              d => this.deviceLocationMap.set(d, l)
+            );
+            l.deviceGroups.forEach(
+              dg => {
+                dg.devices.forEach(d => this.deviceLocationMap.set(d, l));
+                this.deviceLocationMap.set(dg, l);
+              }
+            );
+          })
         });
     }
   }
