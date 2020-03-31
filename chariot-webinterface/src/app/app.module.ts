@@ -66,6 +66,7 @@ import { DeviceGroupCardComponent } from './components/device-group-card/device-
 import { PropertyBundleComponent } from './components/property-bundle/property-bundle.component';
 import { NotifierModule } from 'angular-notifier';
 import {environment} from "../environments/environment";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import {environment} from "../environments/environment";
     ProgressBarModule,
     FormsModule,
     MatTooltipModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,6 +13,13 @@
         <span class="title">LATEST ISSUE</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
+          <mat-progress-spinner
+            *ngIf="metadata && !metadata.issuesSynchronised"
+            class="example-margin"
+            [diameter]="20"
+            [color]="'#73aefb'"
+            [mode]="'indeterminate'">
+          </mat-progress-spinner>
           <div *ngIf="issueList && issueList.length != 0">
             <div *ngFor="let issue of issueList.slice(0, 4)">
               <app-issue-card
@@ -20,7 +27,7 @@
                 [issue]="issue"></app-issue-card>
             </div>
           </div>
-          <div *ngIf="issueList == undefined || issueList.length == 0">
+          <div *ngIf="metadata && metadata.issuesSynchronised && (issueList == undefined || issueList.length == 0)">
             No issues detected
           </div>
         </div>
@@ -30,6 +37,13 @@
         <span class="title">DEVICES LATELY CHANGED</span>
         <mat-icon>more_vert</mat-icon>
         <div class="dashboard-card-content">
+          <mat-progress-spinner
+            *ngIf="metadata && !metadata.devicesSynchronised"
+            class="example-margin"
+            [diameter]="20"
+            [color]="'#73aefb'"
+            [mode]="'indeterminate'">
+          </mat-progress-spinner>
           <div *ngIf="devices && devices.length != 0">
             <div *ngFor="let device of devices.slice(0, 4)">
               <app-device-card
@@ -41,7 +55,7 @@
                 (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
             </div>
           </div>
-          <div *ngIf="devices == undefined || devices.length == 0">
+          <div *ngIf="metadata && metadata.devicesSynchronised && devices == undefined || devices.length == 0">
             Currently no device in the database
           </div>
         </div>

@@ -217,7 +217,7 @@ export class DataHandlingService {
     });
   }
 
-  getMetaData(): Observable<{ metaData: Metadata }> {
+  getMetadata(): Observable<{ metaData: Metadata }> {
     return of({
       metaData: this.metadata,
     });
@@ -545,31 +545,33 @@ export class DataHandlingService {
     DataHandlingService.clearStorage();
 
     this.metadata = MockDataService.createMetaData();
-    this.createDevices();
-    this.createLocations();
-    this.createFloors();
+    if (environment.mock){
+      this.createDevices();
+      this.createLocations();
+      this.createFloors();
+      // Do to the fact that not all devices and locations are used reduce the locations and device parameter to the actual used
+      this.locations = this.floors.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
 
-    // Do to the fact that not all devices and locations are used reduce the locations and device parameter to the actual used
-    this.locations = this.floors.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
+      this.deviceGroups = this.floors.map(f =>
+        f.locations.map(l => l.deviceGroups).reduce((prev, curr) => prev.concat(curr), [])
+      ).reduce((prev, curr) => prev.concat(curr), []).filter( elem => elem instanceof DeviceGroup);
 
-    this.deviceGroups = this.floors.map(f =>
-      f.locations.map(l => l.deviceGroups).reduce((prev, curr) => prev.concat(curr), [])
-    ).reduce((prev, curr) => prev.concat(curr), []).filter( elem => elem instanceof DeviceGroup);
+      this.devices = this.floors.map(f =>
+        f.locations.map(l => (<DeviceGroup[]><unknown>l.devices.filter(elem => elem instanceof DeviceGroup)).map(value => value.devices)
+          .concat(f.locations.map(l => {
+            (<Device[]>l.devices.filter(elem => elem instanceof Device))
+              .map(d => d.issues)
+              .reduce((prev, curr) => prev.concat(curr), [])
+              .forEach(issue => this.addIssue(issue));
+            (<Device[]>l.devices.filter(elem => elem instanceof Device))
+              .forEach(d => this.deviceMap.set(d.identifier, d));
+            return (<Device[]>l.devices.filter(elem => elem instanceof Device));
+          }))
+          .reduce((prev, curr) => prev.concat(curr), [])
+        ).reduce((prev, curr) => prev.concat(curr), [])
+      ).reduce((prev, curr) => prev.concat(curr), []);
+    }
 
-    this.devices = this.floors.map(f =>
-      f.locations.map(l => (<DeviceGroup[]><unknown>l.devices.filter(elem => elem instanceof DeviceGroup)).map(value => value.devices)
-        .concat(f.locations.map(l => {
-          (<Device[]>l.devices.filter(elem => elem instanceof Device))
-            .map(d => d.issues)
-            .reduce((prev, curr) => prev.concat(curr), [])
-            .forEach(issue => this.addIssue(issue));
-          (<Device[]>l.devices.filter(elem => elem instanceof Device))
-            .forEach(d => this.deviceMap.set(d.identifier, d));
-          return (<Device[]>l.devices.filter(elem => elem instanceof Device));
-        }))
-        .reduce((prev, curr) => prev.concat(curr), [])
-      ).reduce((prev, curr) => prev.concat(curr), [])
-    ).reduce((prev, curr) => prev.concat(curr), []);
 
     this.createProcesses();
     this.createContainers();

@@ -9,6 +9,7 @@ import {Color, Label, MultiDataSet, SingleDataSet} from "ng2-charts";
 import {ProductProcess} from "../../model/productProcess";
 import {Container} from "../../model/Container";
 import {DeviceGroup} from '../../model/deviceGroup';
+import {Metadata} from "../../model/Metadata";
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,8 @@ export class DashboardComponent implements OnInit {
   products: ProductProcess[] = [];
 
   containers: Container[] = [];
+
+  metadata: Metadata;
 
   public static clickedDoughnutPiece: {value: number, name: string};
 
@@ -50,8 +53,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMockData();
+    this.getData();
     this.initDashboard();
+
+    console.log(this.metadata)
   }
 
   initDashboard() {
@@ -96,7 +101,7 @@ export class DashboardComponent implements OnInit {
     this.displayDounat = true;
   }
 
-  getMockData(): void {
+  getData(): void {
     this.dataService.getFloor()
       .subscribe(data => {
         this.floors = data.floors;
@@ -117,7 +122,11 @@ export class DashboardComponent implements OnInit {
     this.dataService.getIssues()
       .subscribe( data => {
         this.issueList = data.issues.sort((a, b) => b.issue_date - a.issue_date);
-      })
+      });
+    this.dataService.getMetadata()
+      .subscribe(data => {
+        this.metadata = data.metaData;
+      });
   }
 
   changeDevicePowerState(device: Device, state: boolean) {

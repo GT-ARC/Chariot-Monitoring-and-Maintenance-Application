@@ -72,24 +72,40 @@ export class PmNotificationReceiverService {
 
       let pm_services = (data as Array<Service>).filter(service => service.name == "PM-Service");
 
+      if (pm_services.length == 0){
+        this.updateMetadata();
+        return;
+      }
+
       pm_services.forEach(service => {
+        if (service.properties.length == 0)
+          this.updateMetadata();
         service.properties.forEach(property => {
           let relatedTo = property.relatedTo;
-          if(relatedTo && relatedTo.length == 0)
+          if(relatedTo && relatedTo.length == 0){
+            this.updateMetadata();
             return;
+          }
 
           let device = this.dataService.getDeviceByURL(relatedTo[0]);
 
-          if(device == null)
+          if(device == null){
+            this.updateMetadata();
             return;
+          }
 
           this.restService.getHistoryData(property.url).subscribe(reqData => {
             this.parseHistoryData(reqData, device, property);
             this.subscribeToPMNotifications(property, device);
+            this.updateMetadata();
           });
         });
       });
     });
+  }
+
+  private updateMetadata() {
+    this.dataService.getMetadata().subscribe(data => data.metaData.issuesSynchronised = true);
   }
 
   resolveIssue(device: Device, issue: Issue) {

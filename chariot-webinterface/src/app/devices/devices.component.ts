@@ -11,6 +11,7 @@ import {MatSidenav} from '@angular/material';
 import {DeviceGroup} from '../../model/deviceGroup';
 import {RestService} from '../services/rest.service';
 import {strings} from "../../environments/strings";
+import {Metadata} from "../../model/Metadata";
 
 @Component({
   selector: 'app-devices',
@@ -78,6 +79,7 @@ export class DevicesComponent implements OnInit {
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
   @ViewChild('snav2', {static: false}) sideNav2: MatSidenav;
+  private metadata: Metadata;
 
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578) {
@@ -363,6 +365,10 @@ export class DevicesComponent implements OnInit {
           })
         });
     }
+    this.dataService.getMetadata()
+      .subscribe(data => {
+        this.metadata = data.metaData;
+      });
   }
 
   /**

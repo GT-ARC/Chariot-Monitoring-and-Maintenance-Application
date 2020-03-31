@@ -34,7 +34,7 @@ export class ProductsBehindPlanComponent implements OnInit {
       .subscribe( data => {
         this.allProducts = data.process;
       });
-    this.mockDataService.getMetaData().subscribe(data => {
+    this.mockDataService.getMetadata().subscribe(data => {
       this.metadata = data.metaData;
     })
   }

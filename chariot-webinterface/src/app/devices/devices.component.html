@@ -38,7 +38,7 @@
       </div>
 
       <div id="floor-list-wrapper" class="list"
-        *ngIf="floors.length != 0">
+           *ngIf="floors.length != 0">
         <div class="floor-entry" *ngFor="let floor of floors">
           <div class="floor" *ngIf="visibleLocation[floor.identifier] != undefined
            && visibleLocation[floor.identifier].length != 0">
@@ -79,7 +79,8 @@
         <aside id="device-list">
           <div class="list-head">
             <span class="search">
-              <button mat-button style="height: 0; position: absolute;"> <!-- 'absorbs' the auto-focus behavior --> </button>
+              <button mat-button
+                      style="height: 0; position: absolute;"> <!-- 'absorbs' the auto-focus behavior --> </button>
               <mat-icon class="search-field-symbol">search</mat-icon>
               <input type="text" name="device-list-search" placeholder="Search"
                      (input)="filterDevices($event.target.value)">
@@ -95,14 +96,14 @@
                 </button>
               </div>
               <mat-divider></mat-divider>
-              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style_small">
-                <span [ngClass]="deviceCardStyle == strings.device_card_style_small ? 'selected' : ''">
+              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style.small">
+                <span [ngClass]="deviceCardStyle == strings.device_card_style.small ? 'selected' : ''">
                   <mat-icon>list</mat-icon>
                   <span>Small</span>
-          </span>
+                </span>
               </button>
-              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style_large">
-          <span [ngClass]="deviceCardStyle == strings.device_card_style_large ? 'selected' : ''">
+              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style.large">
+          <span [ngClass]="deviceCardStyle == strings.device_card_style.large ? 'selected' : ''">
             <mat-icon>view_list</mat-icon>
             <span>Large</span>
           </span>
@@ -111,8 +112,17 @@
           </div>
 
           <div id="device-list-second-head" class="second-head">
-            <p>ALL</p>
-            <label class="switch-small">
+            <p id="device-list-second-head-loading"
+               *ngIf="metadata && !metadata.issuesSynchronised">Loading: </p>
+            <mat-progress-spinner id="device-list-second-spinner"
+              *ngIf="metadata && !metadata.issuesSynchronised"
+              class="example-margin"
+              [diameter]="20"
+              [color]="'#73aefb'"
+              [mode]="'indeterminate'">
+            </mat-progress-spinner>
+            <p id="device-list-second-head-all">ALL</p>
+            <label id="device-list-second-head-switch-small" class="switch-small">
               <input type="checkbox"
                      [checked]="allDevicesOn"
                      (change)="switchAllDevices($event.target.checked)">
@@ -125,7 +135,7 @@
             <!--  List the device groups in here   -->
             <div class="device-group"
                  *ngFor="let element of visibleElements"
-                  [ngSwitch]="checkType(element)">
+                 [ngSwitch]="checkType(element)">
               <div *ngSwitchCase="'DeviceGroup'">
                 <app-device-group-card
                   (device_group_selected)="newDeviceGroupSelected($event.device_group)"

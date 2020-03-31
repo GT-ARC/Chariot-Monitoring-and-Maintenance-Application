@@ -9,6 +9,7 @@ import {NotifierService} from "angular-notifier";
 import {MockDataService} from "./services/mock-data.service";
 import {Issue} from "../model/issue";
 import {environment} from "../environments/environment";
+import {Metadata} from "../model/Metadata";
 
 @Component({
   selector: 'app-root',
@@ -31,22 +32,24 @@ export class AppComponent {
   sitesReversed = this.sites.reverse();
 
   mockIssueDevice: Device;
+  metaData: Metadata;
 
   constructor(
     private locationService: Locl,
-    private mockDataService: MockDataService,
-    private notifierService: NotifierService,
     private pmService: PmNotificationReceiverService,
     private restService: RestService,
     private dataService: DataHandlingService,
   ) {
-    // console.log = () => {};
+    if (environment.production) {
+      console.log = () => {
+      };
+    }
+    this.getData();
   }
 
   ngOnInit() {
 
     // Receive the data from the backend
-
     if (environment.mock) {
       setInterval(_ => this.mockPMStuff(), 30000);
     } else {
@@ -62,7 +65,7 @@ export class AppComponent {
           console.log("Add new data");
           this.dataService.handleNewFloor(newFloor);
           this.pmService.getIssues();
-
+          if (this.metaData) this.metaData.devicesSynchronised = true;
           console.log(parsedData);
         }
       );
@@ -77,6 +80,14 @@ export class AppComponent {
   }
 
   lastIssue: Issue;
+
+  getData(): void {
+    this.dataService.getMetadata()
+      .subscribe(data => {
+        this.metaData = data.metaData;
+      });
+  }
+
   private mockPMStuff() {
 
     if (!this.mockIssueDevice) {

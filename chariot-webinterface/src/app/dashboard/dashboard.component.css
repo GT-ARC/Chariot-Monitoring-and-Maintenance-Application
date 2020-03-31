@@ -2,6 +2,11 @@
   /*background-color: #f4f6fc; */
 }
 
+mat-progress-spinner {
+  left: 50%;
+  transform: translate(-50%, 0px);
+}
+
 .dashboard-row {
   display: block;
   margin: 32px 32px 32px 32px;

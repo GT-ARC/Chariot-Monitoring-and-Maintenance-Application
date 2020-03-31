@@ -253,14 +253,36 @@ mat-icon {
   border-bottom-color: #c6ccdc;
 }
 
-#device-list-second-head > .switch-small {
+
+#device-list-second-head-loading {
+  position: absolute;
+  display: inline-block;
+  left: 8px;
+  color: #8798AD;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.13px;
+  text-align: right;
+  top: 50%;
+  transform: translate(0%, -50%);
+  margin: 0;
+}
+
+#device-list-second-spinner {
+  position: absolute;
+  left: 69px;
+  top: 25%;
+  transform: translate(0%, -50%);
+}
+
+#device-list-second-head-switch-small {
   position: absolute;
   right: 8px;
   top: 50%;
   transform: translate(0%, -50%);
 }
 
-#device-list-second-head > p {
+#device-list-second-head-all {
   display: inline-block;
 
   position: absolute;

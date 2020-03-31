@@ -16,4 +16,5 @@ export const strings = {
     small: 'Small',
     large: 'Large',
   },
+
 };

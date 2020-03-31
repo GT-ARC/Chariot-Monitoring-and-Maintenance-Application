@@ -6,6 +6,7 @@ import {DeviceGroup} from "../../model/deviceGroup";
 import {Location} from "../../model/location";
 import {Floor} from "../../model/floor";
 import {IndividualProcess, ProcessProperty, ProductProcess} from "../../model/productProcess";
+import {Metadata} from "../../model/Metadata";
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +63,7 @@ export class MockDataService {
   /**
    * Create the meta data
    */
-  public static createMetaData(): { prodBehindPlanPrediction: { x: number; y: number }[]; prodBehindPlanData: { x: number; y: number }[] } {
+  public static createMetaData(): Metadata {
 
     let dataEndTime: number = new Date().valueOf();   // Current time
     let dataValue: number = Math.random() * 100;      // Data value
@@ -74,11 +75,12 @@ export class MockDataService {
 
     let predictionSize = Math.round(Math.random() * 5) + 5;  // The amount of prediction time
 
+    let metadata = new Metadata();
+    metadata.prodBehindPlanData = productsBehindPlan.slice(0, productsBehindPlan.length - predictionSize);
+    metadata.prodBehindPlanPrediction = productsBehindPlan.slice(productsBehindPlan.length - predictionSize - 1, productsBehindPlan.length)
+
     // Set the meta data value
-    return {
-      prodBehindPlanData: productsBehindPlan.slice(0, productsBehindPlan.length - predictionSize),
-      prodBehindPlanPrediction: productsBehindPlan.slice(productsBehindPlan.length - predictionSize - 1, productsBehindPlan.length)
-    };
+    return metadata;
   }
 
   /**
