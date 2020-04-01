@@ -11,6 +11,7 @@ import {Location as Locl} from '@angular/common';
 import {MatSidenav} from "@angular/material";
 import {DeviceGroup} from '../../model/deviceGroup';
 import {PmNotificationReceiverService} from "../services/pm-notification-receiver.service";
+import {Metadata} from "../../model/Metadata";
 
 @Component({
   selector: 'app-maintenance',
@@ -43,6 +44,7 @@ export class MaintenanceComponent implements OnInit {
   window = window;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
+  private metadata: Metadata;
 
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578)
@@ -78,7 +80,7 @@ export class MaintenanceComponent implements OnInit {
     if (this.route.snapshot.paramMap.has('id')) {
       let routedIssueId = this.route.snapshot.paramMap.get('id');
       let issue = this.issueList.find(value => value.identifier == routedIssueId);
-      if (issue != undefined) {
+      if (issue) {
         this.newSelectedIssue(issue);
         console.log("Routed issue ID:", this.selectedIssue.identifier);
       }
@@ -87,7 +89,7 @@ export class MaintenanceComponent implements OnInit {
     this.sort(this.issueSortSelected);
 
     // If no issue is selected due to routing select the first in the list
-    if (this.selectedIssue == null)
+    if (this.selectedIssue == null && this.issueList.length != 0)
       this.newSelectedIssue(this.issueList[0]);
 
     this.doGraphStuff();
@@ -169,6 +171,10 @@ export class MaintenanceComponent implements OnInit {
       .subscribe(data => {
         this.issueList = data.issues;
       });
+    this.dataService.getMetadata()
+        .subscribe(data => {
+          this.metadata = data.metaData;
+        });
   }
 
   newSelectedIssue(issue: Issue) {

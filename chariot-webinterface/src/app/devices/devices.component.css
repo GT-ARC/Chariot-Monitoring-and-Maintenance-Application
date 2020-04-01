@@ -319,3 +319,28 @@ mat-icon {
 .sidebar2 {
   margin-left: 328px;
 }
+
+#loading-screen, #no-device-selected {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#no-floor-found {
+  margin-left: 32px;
+  color: #8798AD;
+}
+
+mat-progress-spinner {
+  display: inline-block;
+  position: relative;
+  margin-left: 16px;
+}
+
+#loading-screen > p {
+  display: inline-block;
+  font-size: 30pt;
+  margin-top: -3px;
+}
+

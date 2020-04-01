@@ -76,10 +76,10 @@ export class DevicesComponent implements OnInit {
   window = window;
 
   strings = strings;
+  private metadata: Metadata;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
   @ViewChild('snav2', {static: false}) sideNav2: MatSidenav;
-  private metadata: Metadata;
 
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578) {

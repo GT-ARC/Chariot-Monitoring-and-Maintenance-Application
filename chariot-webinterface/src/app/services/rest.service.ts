@@ -132,6 +132,8 @@ export class RestService {
     } else if(prop.type.toLowerCase() == "boolean") {
       if (typeof prop.value === "string") {
         value = prop.value.toLowerCase() == "on" || prop.value.toLowerCase() == "true";
+      } else {
+        value = prop.value;
       }
     } else {
       value = prop.value;

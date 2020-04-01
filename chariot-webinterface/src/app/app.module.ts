@@ -67,6 +67,7 @@ import { PropertyBundleComponent } from './components/property-bundle/property-b
 import { NotifierModule } from 'angular-notifier';
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { FloorListComponent } from './devices/floor-list/floor-list.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     DataGraphComponent,
     DeviceGroupCardComponent,
     PropertyBundleComponent,
+    FloorListComponent,
   ],
   imports: [
     BrowserModule,

@@ -16672,7 +16672,7 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      | ./src/model/device.ts 4.92 KiB [built]
      |     [only some exports used: Device, Property, PropertyBundle]
      |     harmony side effect evaluation ./device  ./src/model/location.ts 2:0-34
-     |     harmony side effect evaluation ../../../model/device  ./src/app/components/issue-card/issue-card.component.ts 2:0-47
+     |     harmony side effect evaluation ../../../model/device  ./src/app/components/issue-card/dashboard-issue-card.component.ts 2:0-47
      |     harmony side effect evaluation ../../../../model/device  ./src/app/devices/devicepanel/device-panel-issue-history/device-panel-issue-history.component.ts 2:0-50
      |     harmony side effect evaluation ../../../../model/device  ./src/app/devices/devicepanel/device-panel-info/device-panel-info.component.ts 2:0-50
      |     harmony side effect evaluation ../../../../model/device  ./src/app/devices/devicepanel/device-panel-power/device-panel-power.component.ts 2:0-50
@@ -16957,8 +16957,8 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      |     harmony import specifier @angular/cdk/coercion [y4qS] ./node_modules/@angular/cdk/esm5/table.es5.js 59:31-52
      |     harmony import specifier @angular/cdk/coercion [y4qS] ./node_modules/@angular/cdk/esm5/table.es5.js 199:30-51
      |     harmony import specifier @angular/cdk/coercion [y4qS] ./node_modules/@angular/cdk/esm5/table.es5.js 1299:42-63
-     | ./src/app/components/issue-card/issue-card.component.ts 435 bytes [built]
-     |     [only some exports used: IssueCardComponent]
+     | ./src/app/components/issue-card/dashboard-issue-card.component.ts 435 bytes [built]
+     |     [only some exports used: DashboardIssueCardComponent]
      |     harmony side effect evaluation ../components/issue-card/issue-card.component  ./src/app/dashboard/dashboard.component.ngfactory.js 11:0-68
      |     harmony side effect evaluation ./issue-card.component  ./src/app/components/issue-card/issue-card.component.ngfactory.js 12:0-45
      |     harmony side effect evaluation ../components/issue-card/issue-card.component  ./src/app/maintenance/maintenance.component.ngfactory.js 16:0-68
@@ -17730,7 +17730,7 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      |     harmony import specifier ./issue-card.component.css.shim.ngstyle  ./src/app/components/issue-card/issue-card.component.ngfactory.js 13:33-42
      | ./src/model/issue.ts 126 bytes [built]
      |     [no exports used]
-     |     harmony side effect evaluation ../../../model/issue  ./src/app/components/issue-card/issue-card.component.ts 3:0-45
+     |     harmony side effect evaluation ../../../model/issue  ./src/app/components/issue-card/dashboard-issue-card.component.ts 3:0-45
      | ./src/app/components/device-card/device-card.component.css.shim.ngstyle.js 1.92 KiB [built]
      |     [only some exports used: styles]
      |     harmony side effect evaluation ./device-card.component.css.shim.ngstyle  ./src/app/components/device-card/device-card.component.ngfactory.js 7:0-63

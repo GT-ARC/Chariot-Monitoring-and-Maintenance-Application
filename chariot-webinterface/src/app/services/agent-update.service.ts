@@ -43,7 +43,11 @@ export class AgentUpdateService {
   }
 
   handleError(error, notifyService) {
-    notifyService.notify('error', 'code: ' + error.error.code + ' - ' + error.error.message);
+    if (error.error.code) {
+      notifyService.notify('error', 'code: ' + error.error.code + ' - ' + error.error.message);
+    } else
+      notifyService.notify('error', 'code: ' + error.statusText);
+
     return throwError(error);
   }
 

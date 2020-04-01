@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
       if(curr.hasOwnProperty('properties')) {
         let statusProp = curr.properties.find(s => s.key == "status");
         if(statusProp && statusProp.hasOwnProperty('value'))
-          return !statusProp.value && curr.hasIssue() == 0? prev + 1 : prev ;
+          return !statusProp.value && curr.hasIssue() == 0 ? prev + 1 : prev ;
       }
       return prev;
     }, 0);

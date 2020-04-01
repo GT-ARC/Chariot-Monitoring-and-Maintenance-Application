@@ -36,7 +36,7 @@
       </span>
         </label>
       </div>
-
+      <p id="no-floor-found" *ngIf="floors && floors.length == 0">No floor found</p>
       <div id="floor-list-wrapper" class="list"
            *ngIf="floors.length != 0">
         <div class="floor-entry" *ngFor="let floor of floors">
@@ -70,8 +70,7 @@
     </aside>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-sidenav-container
-      (backdropClick)="backDropClicked()">
+    <mat-sidenav-container (backdropClick)="backDropClicked()">
       <mat-sidenav #snav2
                    style="overflow-y: hidden;"
                    [opened]="window.innerWidth > 1248"
@@ -168,6 +167,7 @@
                 </app-device-card>
               </div>
             </div>
+            <p *ngIf="visibleElements && visibleElements.length == 0">No devices visible</p>
           </div>
         </aside>
       </mat-sidenav>
@@ -177,6 +177,14 @@
                          (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
       </mat-sidenav-content>
     </mat-sidenav-container>
+    <div id="loading-screen" *ngIf="metadata && !metadata.devicesSynchronised && selectedDevice == undefined">
+      <p>Loading: </p>
+      <mat-progress-spinner
+        [diameter]="40"
+        [color]="'#73aefb'"
+        [mode]="'indeterminate'">
+      </mat-progress-spinner>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

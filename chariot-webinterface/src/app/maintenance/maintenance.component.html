@@ -26,6 +26,9 @@
       <mat-divider></mat-divider>
 
       <div id="issue-list-wrapper" class="list">
+        <div id="no-issue-found" *ngIf="metadata && metadata.issuesSynchronised && group">
+          <p>No issues found</p>
+        </div>
         <div *ngFor="let key of group">
           <p class="issue-list-grouping">
           <span *ngIf="issueSortSelected === 'Date'">
@@ -49,7 +52,7 @@
   </mat-sidenav>
   <mat-sidenav-content >
     <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start"
-          *ngIf="devices != undefined && devices.length != 0 && this.currentDevice != undefined">
+          *ngIf="devices != undefined && devices.length != 0 && currentDevice != undefined">
       <div id="issue-content-head"
            [routerLink]="'/devices/' + this.currentDevice.identifier"
            fxFlex="1 1 calc(100%)">
@@ -115,9 +118,22 @@
             </app-device-panel-monitoring>
           </div>
         </div>
-
       </div>
     </main>
+
+    <div id="no-device-selected" *ngIf="metadata && metadata.issuesSynchronised && currentDevice == undefined">
+      <p>No issue selected</p>
+    </div>
+
+    <div id="loading-screen" *ngIf="metadata && !metadata.issuesSynchronised">
+      <p>Loading: </p>
+      <mat-progress-spinner
+        [diameter]="40"
+        [color]="'#73aefb'"
+        [mode]="'indeterminate'">
+      </mat-progress-spinner>
+    </div>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
 

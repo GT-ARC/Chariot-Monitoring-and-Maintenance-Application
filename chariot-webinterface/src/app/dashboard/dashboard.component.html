@@ -15,7 +15,6 @@
         <div class="dashboard-card-content">
           <mat-progress-spinner
             *ngIf="metadata && !metadata.issuesSynchronised"
-            class="example-margin"
             [diameter]="20"
             [color]="'#73aefb'"
             [mode]="'indeterminate'">
@@ -39,7 +38,6 @@
         <div class="dashboard-card-content">
           <mat-progress-spinner
             *ngIf="metadata && !metadata.devicesSynchronised"
-            class="example-margin"
             [diameter]="20"
             [color]="'#73aefb'"
             [mode]="'indeterminate'">
@@ -55,7 +53,7 @@
                 (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
             </div>
           </div>
-          <div *ngIf="metadata && metadata.devicesSynchronised && devices == undefined || devices.length == 0">
+          <div *ngIf="metadata && metadata.devicesSynchronised && (devices == undefined || devices.length == 0)">
             Currently no device in the database
           </div>
         </div>
@@ -80,7 +78,7 @@
           </mat-icon>
         </div>
         <p class="dashboard-card-value">{{classReference.brokenDevices}}</p>
-        <p class="dashboard-card-description">Devices with a issue</p>
+        <p class="dashboard-card-description">Devices with a <br> issue</p>
       </div>
       <div class="dashboard-card big"
            fxFlex="1 0 280px">

@@ -75,7 +75,7 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
  [./node_modules/raw-loader/dist/cjs.js!./src/app/components/device-usage-card/device-usage-card.component.html] 376 bytes {main} [built]
      cjs require !raw-loader!./device-usage-card.component.html [./src/app/components/device-usage-card/device-usage-card.component.ts] 19:46-103
  [./node_modules/raw-loader/dist/cjs.js!./src/app/components/issue-card/issue-card.component.html] 718 bytes {main} [built]
-     cjs require !raw-loader!./issue-card.component.html [./src/app/components/issue-card/issue-card.component.ts] 30:46-96
+     cjs require !raw-loader!./issue-card.component.html [./src/app/components/issue-card/dashboard-issue-card.component.ts] 30:46-96
  [./node_modules/raw-loader/dist/cjs.js!./src/app/components/prediction-graph/prediction-graph.component.html] 355 bytes {main} [built]
      cjs require !raw-loader!./prediction-graph.component.html [./src/app/components/prediction-graph/prediction-graph.component.ts] 89:46-102
  [./node_modules/raw-loader/dist/cjs.js!./src/app/components/processflow-card/processflow-card.component.html] 562 bytes {main} [built]
@@ -1778,19 +1778,19 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 19:22-45
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 20:21-44
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 22:8-26
-     harmony side effect evaluation tslib [./src/app/components/issue-card/issue-card.component.ts] 1:0-33
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 11:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 13:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 15:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 17:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 19:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 21:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 23:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 25:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 27:25-43
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 30:22-45
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 31:21-44
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 33:8-26
+     harmony side effect evaluation tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 1:0-33
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 11:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 13:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 15:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 17:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 19:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 21:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 23:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 25:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 27:25-43
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 30:22-45
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 31:21-44
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 33:8-26
      harmony side effect evaluation tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 1:0-33
      harmony import specifier tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 74:4-22
      harmony import specifier tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 76:8-26
@@ -2070,8 +2070,8 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony side effect evaluation ./components/device-usage-card/device-usage-card.component [./src/app/app.module.ts] 46:0-102
      harmony import specifier ./components/device-usage-card/device-usage-card.component [./src/app/app.module.ts] 85:16-40
  [./src/app/components/issue-card/issue-card.component.css] 7.18 KiB {main} [built]
-     cjs require ./issue-card.component.css [./src/app/components/issue-card/issue-card.component.ts] 31:45-82
- [./src/app/components/issue-card/issue-card.component.ts] 1.44 KiB {main} [built]
+     cjs require ./issue-card.component.css [./src/app/components/issue-card/dashboard-issue-card.component.ts] 31:45-82
+ [./src/app/components/issue-card/dashboard-issue-card.component.ts] 1.44 KiB {main} [built]
      harmony side effect evaluation ./components/issue-card/issue-card.component [./src/app/app.module.ts] 25:0-82
      harmony import specifier ./components/issue-card/issue-card.component [./src/app/app.module.ts] 68:16-34
  [./src/app/components/prediction-graph/prediction-graph.component.css] 762 bytes {main} [built]
@@ -2294,8 +2294,8 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier ../../../model/device [./src/app/components/device-card/device-card.component.ts] 15:38-46
      harmony import specifier ../../../model/device [./src/app/components/device-card/device-card.component.ts] 26:42-48
      harmony import specifier ../../../model/device [./src/app/components/device-card/device-card.component.ts] 34:42-48
-     harmony side effect evaluation ../../../model/device [./src/app/components/issue-card/issue-card.component.ts] 3:0-47
-     harmony import specifier ../../../model/device [./src/app/components/issue-card/issue-card.component.ts] 13:42-48
+     harmony side effect evaluation ../../../model/device [./src/app/components/issue-card/dashboard-issue-card.component.ts] 3:0-47
+     harmony import specifier ../../../model/device [./src/app/components/issue-card/dashboard-issue-card.component.ts] 13:42-48
      harmony side effect evaluation ../../../model/device [./src/app/components/property-bundle/property-bundle.component.ts] 3:0-65
      harmony import specifier ../../../model/device [./src/app/components/property-bundle/property-bundle.component.ts] 48:42-50
      harmony import specifier ../../../model/device [./src/app/components/property-bundle/property-bundle.component.ts] 52:42-56
@@ -2358,9 +2358,9 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier ./deviceGroup [./src/model/location.ts] 19:82-93
      harmony import specifier ./deviceGroup [./src/model/location.ts] 25:82-93
  [./src/model/issue.ts] 146 bytes {main} [built]
-     harmony side effect evaluation ../../../model/issue [./src/app/components/issue-card/issue-card.component.ts] 4:0-45
-     harmony import specifier ../../../model/issue [./src/app/components/issue-card/issue-card.component.ts] 17:42-47
-     harmony import specifier ../../../model/issue [./src/app/components/issue-card/issue-card.component.ts] 21:42-47
+     harmony side effect evaluation ../../../model/issue [./src/app/components/issue-card/dashboard-issue-card.component.ts] 4:0-45
+     harmony import specifier ../../../model/issue [./src/app/components/issue-card/dashboard-issue-card.component.ts] 17:42-47
+     harmony import specifier ../../../model/issue [./src/app/components/issue-card/dashboard-issue-card.component.ts] 21:42-47
  [./src/model/location.ts] 1.27 KiB {main} [built]
      harmony side effect evaluation ../../model/location [./src/app/services/data-handling.service.ts] 4:0-48
      harmony import specifier ../../model/location [./src/app/services/data-handling.service.ts] 273:35-43
@@ -4841,19 +4841,19 @@ chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 227 KiB ={runtime}=
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 19:22-45
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 20:21-44
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 22:8-26
-     harmony side effect evaluation tslib [./src/app/components/issue-card/issue-card.component.ts] 1:0-33
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 11:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 13:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 15:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 17:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 19:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 21:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 23:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 25:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 27:25-43
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 30:22-45
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 31:21-44
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 33:8-26
+     harmony side effect evaluation tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 1:0-33
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 11:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 13:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 15:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 17:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 19:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 21:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 23:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 25:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 27:25-43
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 30:22-45
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 31:21-44
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 33:8-26
      harmony side effect evaluation tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 1:0-33
      harmony import specifier tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 74:4-22
      harmony import specifier tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 76:8-26
@@ -8057,19 +8057,19 @@ chunk {polyfills-es5} polyfills-es5.js, polyfills-es5.js.map (polyfills-es5) 407
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 19:22-45
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 20:21-44
      harmony import specifier tslib [./src/app/components/device-usage-card/device-usage-card.component.ts] 22:8-26
-     harmony side effect evaluation tslib [./src/app/components/issue-card/issue-card.component.ts] 1:0-33
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 11:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 13:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 15:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 17:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 19:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 21:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 23:4-22
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 25:8-26
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 27:25-43
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 30:22-45
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 31:21-44
-     harmony import specifier tslib [./src/app/components/issue-card/issue-card.component.ts] 33:8-26
+     harmony side effect evaluation tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 1:0-33
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 11:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 13:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 15:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 17:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 19:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 21:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 23:4-22
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 25:8-26
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 27:25-43
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 30:22-45
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 31:21-44
+     harmony import specifier tslib [./src/app/components/issue-card/dashboard-issue-card.component.ts] 33:8-26
      harmony side effect evaluation tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 1:0-33
      harmony import specifier tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 74:4-22
      harmony import specifier tslib [./src/app/components/prediction-graph/prediction-graph.component.ts] 76:8-26
@@ -12929,13 +12929,13 @@ chunk {vendor} vendor.js, vendor.js.map (vendor) 9.77 MiB ={main}= ={runtime}= [
      harmony import specifier @angular/core [./src/app/components/device-usage-card/device-usage-card.component.ts] 9:8-13
      harmony import specifier @angular/core [./src/app/components/device-usage-card/device-usage-card.component.ts] 13:8-13
      harmony import specifier @angular/core [./src/app/components/device-usage-card/device-usage-card.component.ts] 17:8-17
-     harmony side effect evaluation @angular/core [./src/app/components/issue-card/issue-card.component.ts] 2:0-71
-     harmony import specifier @angular/core [./src/app/components/issue-card/issue-card.component.ts] 7:28-40
-     harmony import specifier @angular/core [./src/app/components/issue-card/issue-card.component.ts] 12:8-13
-     harmony import specifier @angular/core [./src/app/components/issue-card/issue-card.component.ts] 16:8-13
-     harmony import specifier @angular/core [./src/app/components/issue-card/issue-card.component.ts] 20:8-13
-     harmony import specifier @angular/core [./src/app/components/issue-card/issue-card.component.ts] 24:8-14
-     harmony import specifier @angular/core [./src/app/components/issue-card/issue-card.component.ts] 28:8-17
+     harmony side effect evaluation @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 2:0-71
+     harmony import specifier @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 7:28-40
+     harmony import specifier @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 12:8-13
+     harmony import specifier @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 16:8-13
+     harmony import specifier @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 20:8-13
+     harmony import specifier @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 24:8-14
+     harmony import specifier @angular/core [./src/app/components/issue-card/dashboard-issue-card.component.ts] 28:8-17
      harmony side effect evaluation @angular/core [./src/app/components/prediction-graph/prediction-graph.component.ts] 2:0-49
      harmony import specifier @angular/core [./src/app/components/prediction-graph/prediction-graph.component.ts] 75:8-13
      harmony import specifier @angular/core [./src/app/components/prediction-graph/prediction-graph.component.ts] 79:8-13

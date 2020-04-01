@@ -200,3 +200,22 @@ mat-divider {
   margin: 65px 16px auto 41px;
   width: calc(100% - 41px - 16px);
 }
+
+#loading-screen, #no-device-selected {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+mat-progress-spinner {
+  display: inline-block;
+  position: relative;
+  margin-left: 16px;
+}
+
+#loading-screen > p {
+  display: inline-block;
+  font-size: 30pt;
+  margin-top: -3px;
+}
