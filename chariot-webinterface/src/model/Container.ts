@@ -1,4 +1,4 @@
-import {ProductProcess} from "./productProcess";
+import {Product} from "./Product";
 
 export class Container {
 
@@ -14,5 +14,5 @@ export class Container {
     value: string;
   }[];
 
-  products: ProductProcess[];
+  products: Product[];
 }

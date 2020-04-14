@@ -17718,8 +17718,8 @@ chunk    {1} main.c2a007aa5c7fdd5ba3b7.js (main) 7.77 MiB ={0}= [initial] [rende
      |     harmony side effect evaluation ../../model/location  ./src/app/services/rest.service.ts 4:0-48
      |     harmony import specifier ../../model/location  ./src/app/services/rest.service.ts 84:19-27
      |     harmony import specifier ../../model/location  ./src/app/services/data-handling.service.ts 272:35-43
-     | ./src/model/productProcess.ts 1.87 KiB [built]
-     |     [only some exports used: ProductProcess]
+     | ./src/model/Product.ts 1.87 KiB [built]
+     |     [only some exports used: Product]
      |     harmony side effect evaluation ../../../model/productProcess  ./src/app/process-flow/process-flow-main/process-flow-main.component.ts 2:0-63
      |     harmony side effect evaluation ../../../model/productProcess  ./src/app/components/processflow-card/processflow-card.component.ts 2:0-63
      |     harmony side effect evaluation ../../model/productProcess  ./src/app/services/data-handling.service.ts 6:0-60

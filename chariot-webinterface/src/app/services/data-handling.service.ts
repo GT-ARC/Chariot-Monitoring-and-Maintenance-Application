@@ -4,13 +4,16 @@ import {Location} from '../../model/location';
 import {Device} from '../../model/device';
 import {Floor} from '../../model/floor';
 import {Issue} from '../../model/issue';
-import {IndividualProcess, ProcessProperty, ProductProcess} from '../../model/productProcess';
+import {IndividualProcess, ProcessProperty, Product} from '../../model/Product';
 import {Container} from '../../model/Container';
 import {Metadata} from '../../model/Metadata';
 import {DeviceGroup} from '../../model/deviceGroup';
 import {RestService} from "./rest.service";
 import {environment} from '../../environments/environment';
 import {MockDataService} from "./mock-data.service";
+import {Settings, SettingsEntry} from "../../model/settings";
+import { settings } from 'src/environments/default_settings';
+import {element} from "protractor";
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +29,13 @@ export class DataHandlingService {
   issueMap: Map<String, Issue> = new Map();
   deviceMap: Map<string, Device> = new Map();
 
-  processes: ProductProcess[] = [];
+  products: Product[] = [];
   container: Container[] = [];
 
   metadata: Metadata = null;
+
+  settings: Settings = settings;
+  changedSettings : {name:string, value: boolean, location: string}[] = [];
 
   constructor(restService : RestService) {
     let version = localStorage.getItem("version");
@@ -46,16 +52,19 @@ export class DataHandlingService {
       this.getLocalStoredDevices();
       this.getLocalStoredContainer();
       this.getLocalStoredMetadata();
+      this.getLocalStoredSettings();
     } catch (e) {
-      console.log('Create new mock Data');
+      console.log('Create new mock Data', e);
       this.createData();
       this.storeCreatedData();
     }
   }
 
   private static clearStorage() {
-    console.log("Clear everything");
-    localStorage.clear();
+    console.log("Clear local storage");
+    localStorage.removeItem("floor");
+    localStorage.removeItem("container");
+    localStorage.removeItem("metadata");
   }
 
   getDeviceByURL(url: string) {
@@ -63,6 +72,31 @@ export class DataHandlingService {
     if(!this.deviceMap.has(deviceID))
       return null;
     return this.deviceMap.get(deviceID);
+  }
+
+  storeSettings(settingsEntry: SettingsEntry, location: string) {
+    if(this.changedSettings.find(element => element.name == settingsEntry.name) == undefined) {
+      this.changedSettings.push({
+        name: settingsEntry.name,
+        value: settingsEntry.value,
+        location: location
+      });
+      localStorage.setItem("settings", JSON.stringify(this.changedSettings));
+    }
+  }
+
+  private getLocalStoredSettings() {
+    let settings = JSON.parse(localStorage.getItem("settings")) as {name:string, value: any, location: string}[];
+    if(settings) {
+      for (let changedSetting of settings) {
+
+        let foundSettings = this.settings[changedSetting.location].find(entry => entry.name == changedSetting.name);
+
+        if (foundSettings)
+          foundSettings.value = changedSetting.value;
+        console.log(foundSettings)
+      }
+    }
   }
 
   getLocalStoredContainer() {
@@ -83,7 +117,7 @@ export class DataHandlingService {
       for ( let process of processes) {
 
         let individualProcess : IndividualProcess[] = [];
-        for (let currInProcess of process.productFlow) {
+        for (let currInProcess of process.productionFlow) {
           individualProcess.push({
             name: currInProcess.name,
             icon: currInProcess.icon,
@@ -95,7 +129,7 @@ export class DataHandlingService {
           })
         }
 
-        let currentProcess = new ProductProcess(
+        let currentProcess = new Product(
           process.identifier,
           process.productAddInfo,
           process.productName,
@@ -110,7 +144,7 @@ export class DataHandlingService {
           process.productInfo,
           process.category);
           retProcesses.push(currentProcess);
-          this.processes.push(currentProcess);
+          this.products.push(currentProcess);
       }
     } else {
       throw Error('process aren\'t stored in local storage');
@@ -190,6 +224,19 @@ export class DataHandlingService {
     return newDataNotifier;
   }
 
+  addProducts(products: Product[]) {
+    this.cleanProducts();
+    for (let product of products)
+      this.products.push(Product.createProduct(product));
+    console.log(this.products);
+  }
+
+  private cleanProducts() {
+    while (this.products.length > 0) {
+      this.products.pop();
+    }
+  }
+
   dataUpdate() {
     // console.log("Store changed data");
     // this.storeIssues();
@@ -205,9 +252,9 @@ export class DataHandlingService {
     return newObserver;
   }
 
-  getProcess(): Observable<{ process: ProductProcess[] }> {
+  getProducts(): Observable<{ products: Product[] }> {
     return of({
-      process: this.processes,
+      products: this.products,
     });
   }
 
@@ -226,6 +273,12 @@ export class DataHandlingService {
   getIssues(): Observable<{ issues: Issue[] }> {
     return of({
       issues:  this.issues,
+    });
+  }
+
+  getSettings(): Observable<{ settings: Settings }> {
+    return of({
+      settings:  this.settings,
     });
   }
 
@@ -519,7 +572,7 @@ export class DataHandlingService {
   createProcesses() {
     for (let i = 0; i < 100; i++) {
       // Add the process to the process array
-      this.processes.push(
+      this.products.push(
         MockDataService.createProductProcess()
       );
     }
@@ -531,7 +584,7 @@ export class DataHandlingService {
   createContainers() {
     // Create containers
     for (let i = 0; i < 5; i++) {
-      this.container.push(MockDataService.createContainer(this.processes));
+      this.container.push(MockDataService.createContainer(this.products));
     }
   }
 
@@ -583,7 +636,7 @@ export class DataHandlingService {
           devices: this.devices,
           locations: this.locations,
           floor: this.floors,
-          processes: this.processes,
+          processes: this.products,
           container: this.container,
           metadata: this.metadata,
         }
@@ -593,5 +646,6 @@ export class DataHandlingService {
   getRandomDevice(): Device {
     return this.devices[Math.floor(this.devices.length * Math.random())]
   }
+
 }
 

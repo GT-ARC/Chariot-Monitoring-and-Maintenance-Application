@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProductProcess} from "../../../model/productProcess";
+import {Product} from "../../../model/Product";
 
 @Component({
   selector: 'app-product-list',
@@ -8,7 +8,7 @@ import {ProductProcess} from "../../../model/productProcess";
 })
 export class ProductListComponent implements OnInit {
 
-  @Input() products: ProductProcess[];
+  @Input() products: Product[];
 
   currentTime: number = new Date().valueOf();
 

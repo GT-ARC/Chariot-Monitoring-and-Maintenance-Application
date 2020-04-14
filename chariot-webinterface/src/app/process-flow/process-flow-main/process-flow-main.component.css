@@ -457,7 +457,7 @@
   text-align: left;
 }
 
-#filamentLevelValue {
+#filamentLevelValue, #noInformationFound {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -469,7 +469,6 @@
   color: #2E384D;
   font-size: 48px;
   font-weight: 300;
-  line-height: 15px;
   text-align: left;
 }
 

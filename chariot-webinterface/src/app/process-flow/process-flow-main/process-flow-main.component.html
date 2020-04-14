@@ -39,11 +39,11 @@
        fxLayoutAlign="center"
        fxLayoutGap="20px">
     <div class="process-flow-arrow"
-         *ngFor="let prodProcess of process.productFlow"
-         [ngClass]="currentProcess.indexOf(prodProcess) != -1 ? 'selected' : ''"
-         fxFlex="1 1 {{100/process.productFlow.length}}%"
-         fxFlex.sm="1 1 {{100/(process.productFlow.length/2)}}%"
-         fxFlex.xs="1 1 {{100/(process.productFlow.length/3)}}%">
+         *ngFor="let prodProcess of process.productionFlow"
+         [ngClass]="currentProcess == prodProcess ? 'selected' : ''"
+         fxFlex="1 1 {{100/process.productionFlow.length}}%"
+         fxFlex.sm="1 1 {{100/(process.productionFlow.length/2)}}%"
+         fxFlex.xs="1 1 {{100/(process.productionFlow.length/3)}}%">
       <div id="process-band-info">
         <div class="icon">
           <div class="checkMark" *ngIf="prodProcess.progress == 100">
@@ -60,6 +60,7 @@
   </div>
 
   <div id="progress-cards"
+       *ngIf="currentProcess"
        gdAlignColumns="start start"
        gdAreas="a0 a0 a0 a0 | a1 a2 a3 a4 | a5 a6 a7 a4"
        gdColumns="calc(30% - 12px) calc(20% - 12px) calc(20% - 12px) calc(30% - 12px)"
@@ -75,7 +76,7 @@
     <div gdArea="a0"
          fxFlexOrder="1">
       <div id="progress-bar-wrapper"
-           *ngIf="currentProcess.length != 0"
+           *ngIf="currentProcess"
 
            fxLayout.lg="row"
            fxLayout.md="row"
@@ -89,20 +90,20 @@
            fxLayoutGap.xs="20px">
 
 
-        <p id="current-process" fxFlex="0 1 auto">{{currentProcess[0].name}}</p>
+        <p id="current-process" fxFlex="0 1 auto">{{currentProcess.name}}</p>
         <progress-bar
           id="progress-bar"
           fxFlex="1 1 auto"
-          [progress]="currentProcess[0].progress"
+          [progress]="currentProcess.progress"
           [color]="'#2b72e6'">
         </progress-bar>
-        <button (click)="stopProcess(currentProcess[0])"
+        <button (click)="stopProcess(currentProcess)"
                 fxFlex="0 1 auto"
                 id="progress-toggle-button">
 
-          <mat-icon *ngIf="!currentProcess[0].paused">play_arrow</mat-icon>
-          <mat-icon *ngIf="currentProcess[0].paused">pause</mat-icon>
-          <span>{{currentProcess[0].paused ? 'Pause' : 'Start'}} {{currentProcess[0].name}}</span>
+          <mat-icon *ngIf="!currentProcess.paused">play_arrow</mat-icon>
+          <mat-icon *ngIf="currentProcess.paused">pause</mat-icon>
+          <span>{{currentProcess.paused ? 'Pause' : 'Start'}} {{currentProcess.name}}</span>
         </button>
       </div>
     </div>
@@ -112,15 +113,15 @@
            class="progress-cards">
         <div id="remaining">
           <p>REMAINING</p>
-          <p class="value">{{currentProcess[0].total.getDate() - currentProcess[0].running.getDate() | date:'H:mm' }}</p>
+          <p class="value">{{currentProcess.total.getDate() - currentProcess.running.getDate() | date:'H:mm' }}</p>
         </div>
         <div id="running">
           <p>RUNNING</p>
-          <p class="value">{{currentProcess[0].running | date:'H:mm' }}</p>
+          <p class="value">{{currentProcess.running | date:'H:mm' }}</p>
         </div>
         <div id="total">
           <p>TOTAL</p>
-          <p class="value">{{currentProcess[0].total | date:'H:mm' }}</p>
+          <p class="value">{{currentProcess.total | date:'H:mm' }}</p>
         </div>
       </div>
     </div>
@@ -140,18 +141,20 @@
           {{changeStyleOfFont()}}{{processInfo.value}} {{processInfo.unit}}
         </p>
         <p class="progress-card-name">
-          {{processInfo.name}}
+          {{processInfo.key}}
         </p>
       </div>
     </div>
 
     <div gdArea="a4"
-         *ngIf="currentProcess[0].name.includes('Printing')">
+         *ngIf="currentProcess && currentProcess.name && currentProcess.name.includes('Printing')">
       <div id="printProcessFilament"
            class="progress-cards">
         <p id="cardNameFilamentLevel">FILLAMENT LEVEL</p>
-        <p id="filamentLevelValue">{{filamentLevel}}<span id="filamentUnit">%</span><br><span id="filamentDesc">REMAIN</span></p>
+        <p id="filamentLevelValue" *ngIf="isFilament">{{filamentLevel}}<span id="filamentUnit">%</span><br><span id="filamentDesc">REMAIN</span></p>
+        <p id="noInformationFound" *ngIf="isFilament == undefined">No information found</p>
         <div style="display: block"
+             *ngIf="filamentLevel"
              id="filamentDisplay">
           <canvas baseChart
                   height="190"

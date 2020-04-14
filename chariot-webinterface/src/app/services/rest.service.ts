@@ -31,7 +31,7 @@ export class RestService {
   getContainer() {
     let header: HttpHeaders = new HttpHeaders();
     header.append("Access-Control-Allow-Origin", "*");
-    return this.http.get(environment.databaseUrl + "/container/?format=json", {headers: header})
+    return this.http.get(environment.databaseUrl + "/products/", {headers: header})
   }
 
   getDeviceData(): Observable<Object> {

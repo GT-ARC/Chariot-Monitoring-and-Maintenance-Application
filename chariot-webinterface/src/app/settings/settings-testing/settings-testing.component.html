@@ -1,0 +1,15 @@
+<table>
+  <thead>
+  <tr>
+    <th>Device ID</th>
+    <th>Agent ID</th>
+    <th>Send</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let ele of mapping">
+    <td>{{ele.deviceID}}</td>
+    <td>{{ele.agentID}}</td>
+    <td><button (click)="sendToDevice(ele.deviceID)">Send to Agent</button></td>
+  </tr>
+</table>
+<textarea rows="4" cols="50" [(ngModel)]="json"></textarea>

@@ -1,5 +1,5 @@
 import {Component, OnInit, } from '@angular/core';
-import {ProductProcess} from "../../model/productProcess";
+import {Product} from "../../model/Product";
 import {DataHandlingService} from "../services/data-handling.service";
 import {Metadata} from "../../model/Metadata";
 import {MatSliderChange} from "@angular/material";
@@ -12,10 +12,10 @@ import {log} from "util";
 })
 export class ProductsBehindPlanComponent implements OnInit {
 
-  allProducts: ProductProcess[];
-  productsBehindPlan: ProductProcess[];
+  allProducts: Product[];
+  productsBehindPlan: Product[];
 
-  visibleProducts: ProductProcess[];
+  visibleProducts: Product[];
 
   metadata : Metadata;
 
@@ -30,9 +30,9 @@ export class ProductsBehindPlanComponent implements OnInit {
   }
 
   getMockData(): void {
-    this.mockDataService.getProcess()
+    this.mockDataService.getProducts()
       .subscribe( data => {
-        this.allProducts = data.process;
+        this.allProducts = data.products;
       });
     this.mockDataService.getMetadata().subscribe(data => {
       this.metadata = data.metaData;

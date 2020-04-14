@@ -1,7 +1,8 @@
 import {Component, HostListener, Input, OnInit, SimpleChanges} from '@angular/core';
-import {IndividualProcess, ProductProcess} from '../../../model/productProcess';
+import {IndividualProcess, Product} from '../../../model/Product';
 import {ChartOptions, ChartType} from "chart.js";
 import {Color, Label, SingleDataSet} from "ng2-charts";
+import {strings} from "../../../environments/strings";
 
 @Component({
   selector: 'app-process-flow-main',
@@ -13,13 +14,13 @@ export class ProcessFlowMainComponent implements OnInit {
   constructor() {
   }
 
-  @Input() process: ProductProcess;
+  @Input() process: Product;
 
-  currentProcess: IndividualProcess[] = [];
+  currentProcess: IndividualProcess;
 
   displayProcessInfo: {
     display: boolean;
-    name: string;
+    key: string;
     unit?: string;
     value: any;
     size?: number;
@@ -27,7 +28,7 @@ export class ProcessFlowMainComponent implements OnInit {
     errorThreshold?: number;
   }[] = [];
 
-
+  isFilament = undefined;
   filamentLevel = 0;
 
   public barChartOptions: ChartOptions = {
@@ -52,31 +53,33 @@ export class ProcessFlowMainComponent implements OnInit {
   ngOnInit() {
     this.getCurrentProcessFlow();
     this.initDoughnutChart();
-    if (this.currentProcess.length == 0) {
-      for (const process of this.process.productFlow) {
-        if (process.progress != 0) { this.currentProcess.push(process); }
-      }
-    }
-    if (this.currentProcess[0] != null) {
-      this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display);
+
+    if (this.currentProcess != null) {
+      this.displayProcessInfo = this.currentProcess.properties.filter(value => value.display);
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.getCurrentProcessFlow();
     this.initDoughnutChart();
-    if (this.currentProcess[0] != null) {
-      this.displayProcessInfo = this.currentProcess[0].properties.filter(value => value.display);
+    if (this.currentProcess) {
+      this.displayProcessInfo = this.currentProcess.properties.filter(value => value.display);
     }
   }
 
   getCurrentProcessFlow() {
-    this.currentProcess = [];
-    for (const currProgress of this.process.productFlow) {
+    for (const currProgress of this.process.productionFlow) {
       if (currProgress.progress > 0 && currProgress.progress < 100) {
-        this.currentProcess.push(currProgress);
+        this.currentProcess = currProgress;
+        return;
       }
     }
+    // If no process is running take the last one with 100 progress
+    for (const process of this.process.productionFlow) {
+      if (process.progress != 0) { this.currentProcess = process; }
+    }
+    // If still no is found take the first one
+    this.currentProcess = this.process.productionFlow[0];
   }
 
   stopProcess(currentProcess: IndividualProcess) {
@@ -105,9 +108,15 @@ export class ProcessFlowMainComponent implements OnInit {
   }
 
   initDoughnutChart() {
-    if (this.currentProcess[0] == null || !this.currentProcess[0].name.includes('Printing')) { return; }
+    if (this.currentProcess == null || !this.currentProcess.name.includes('Printing')) {return; }
 
-    this.filamentLevel = this.currentProcess[0].properties.find(value => value.name == 'Fillament level').value;
+    let filamentLevelProperty = this.currentProcess.properties.find(
+        value => value.key == strings.product_process_properties.printing.filament_level);
+    if (filamentLevelProperty == undefined) {
+      return;
+    }
+    this.isFilament = true;
+    this.filamentLevel = filamentLevelProperty.value;
     this.doughnutChartData = [
       100 - this.filamentLevel, this.filamentLevel
     ];

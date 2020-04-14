@@ -16,5 +16,11 @@ export const strings = {
     small: 'Small',
     large: 'Large',
   },
-
+  product_process_properties: {
+    printing: {
+      travel_speed: 'Travel Speed',
+      infill_density: 'Infill Density',
+      filament_level: 'Filament level',
+    }
+  }
 };

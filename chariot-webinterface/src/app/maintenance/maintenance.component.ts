@@ -183,4 +183,8 @@ export class MaintenanceComponent implements OnInit {
     this.currentDevice = this.devices.find(d => d.identifier == issue.relatedDeviceId);
     this.doGraphStuff();
   }
+
+  select() {
+
+  }
 }

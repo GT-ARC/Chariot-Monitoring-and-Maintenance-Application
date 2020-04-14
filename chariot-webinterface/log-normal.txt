@@ -2027,7 +2027,7 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony side effect evaluation tslib [./src/model/deviceGroup.ts] 1:0-33
      harmony side effect evaluation tslib [./src/model/issue.ts] 1:0-33
      harmony side effect evaluation tslib [./src/model/location.ts] 1:0-33
-     harmony side effect evaluation tslib [./src/model/productProcess.ts] 1:0-33
+     harmony side effect evaluation tslib [./src/model/Product.ts] 1:0-33
      harmony side effect evaluation tslib [./src/polyfills.ts] 16:0-33
  [./src/$$_lazy_route_resource lazy recursive] ./src/$$_lazy_route_resource lazy namespace object 160 bytes {main} [built]
      import() context lazy . [./node_modules/@angular/core/fesm5/core.js] 27316:15-36
@@ -2366,7 +2366,7 @@ chunk {main} main.js, main.js.map (main) 455 KiB ={runtime}= ={vendor}= [initial
      harmony import specifier ../../model/location [./src/app/services/data-handling.service.ts] 273:35-43
      harmony side effect evaluation ../../model/location [./src/app/services/rest.service.ts] 5:0-48
      harmony import specifier ../../model/location [./src/app/services/rest.service.ts] 83:19-27
- [./src/model/productProcess.ts] 1.87 KiB {main} [built]
+ [./src/model/Product.ts] 1.87 KiB {main} [built]
      harmony side effect evaluation ../../../model/productProcess [./src/app/components/processflow-card/processflow-card.component.ts] 3:0-63
      harmony import specifier ../../../model/productProcess [./src/app/components/processflow-card/processflow-card.component.ts] 11:42-56
      harmony import specifier ../../../model/productProcess [./src/app/components/processflow-card/processflow-card.component.ts] 15:42-56
@@ -5090,7 +5090,7 @@ chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 227 KiB ={runtime}=
      harmony side effect evaluation tslib [./src/model/deviceGroup.ts] 1:0-33
      harmony side effect evaluation tslib [./src/model/issue.ts] 1:0-33
      harmony side effect evaluation tslib [./src/model/location.ts] 1:0-33
-     harmony side effect evaluation tslib [./src/model/productProcess.ts] 1:0-33
+     harmony side effect evaluation tslib [./src/model/Product.ts] 1:0-33
      harmony side effect evaluation tslib [./src/polyfills.ts] 16:0-33
  [./node_modules/zone.js/dist/zone.js] 144 KiB {polyfills-es5} {polyfills} [built]
      harmony side effect evaluation zone.js/dist/zone [./src/polyfills.ts] 55:0-27
@@ -8306,7 +8306,7 @@ chunk {polyfills-es5} polyfills-es5.js, polyfills-es5.js.map (polyfills-es5) 407
      harmony side effect evaluation tslib [./src/model/deviceGroup.ts] 1:0-33
      harmony side effect evaluation tslib [./src/model/issue.ts] 1:0-33
      harmony side effect evaluation tslib [./src/model/location.ts] 1:0-33
-     harmony side effect evaluation tslib [./src/model/productProcess.ts] 1:0-33
+     harmony side effect evaluation tslib [./src/model/Product.ts] 1:0-33
      harmony side effect evaluation tslib [./src/polyfills.ts] 16:0-33
  [./node_modules/zone.js/dist/zone.js] 144 KiB {polyfills-es5} {polyfills} [built]
      harmony side effect evaluation zone.js/dist/zone [./src/polyfills.ts] 55:0-27

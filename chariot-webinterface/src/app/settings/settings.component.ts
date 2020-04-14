@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {RestService} from '../services/rest.service';
-import {DeviceUpdateService} from '../services/device-update.service';
-import {AgentUpdateService} from '../services/agent-update.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSidenav} from "@angular/material/sidenav";
+import {Settings, SettingsEntry} from "../../model/settings";
+import {DataHandlingService} from "../services/data-handling.service";
 
 @Component({
   selector: 'app-settings',
@@ -10,22 +10,43 @@ import {AgentUpdateService} from '../services/agent-update.service';
 })
 export class SettingsComponent implements OnInit {
 
-  mapping: {deviceID : String, agentID: String} [] = [];
+  @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
 
-  text: string = 'Example Text';
-  json: string = '{\n\t"property": 5\n}';
+  selectedSite: { icon: string, name: string, settingsEntry: SettingsEntry[] };
+  window = window;
 
-  constructor(private restService: RestService,
-              private agentUpdateService: AgentUpdateService) {
+  settings: Settings;
+
+  sites: { icon: string, name: string, settingsEntry: SettingsEntry[] }[] = [];
+
+  constructor(private dataService: DataHandlingService) {
+  }
+
+  backDropClicked() {
+    if (this.sideNav.opened && window.innerWidth < 1578)
+      this.sideNav.close();
   }
 
   ngOnInit() {
-    this.restService.getDeviceMapping().subscribe(data => {
-      this.mapping = data;
-    });
+    this.getSettings();
+    this.sites = [
+      {icon: "settings", name: "General", settingsEntry: this.settings.general},
+      {icon: "location_on", name: "Devices", settingsEntry: this.settings.devices},
+      {icon: "home", name: "Warehouse", settingsEntry: this.settings.warehouse},
+      {icon: "linear_scale", name: "Product", settingsEntry: this.settings.product},
+      {icon: "warning", name: "Maintenance", settingsEntry: this.settings.maintenance},
+      {icon: "build", name: "Testing", settingsEntry: null}
+    ];
+    this.selectedSite = this.sites[0];
   }
 
-  sendToDevice(deviceID: string) {
-    this.agentUpdateService.sendUpdate(deviceID, "test-property", 5);
+  selectSite(site: { icon: string, name: string, settingsEntry: SettingsEntry[] }) {
+    this.selectedSite = site;
+  }
+
+  private getSettings() {
+    this.dataService.getSettings().subscribe(data =>
+      this.settings = data.settings
+    )
   }
 }

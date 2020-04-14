@@ -5,7 +5,7 @@ import {Issue} from "../../model/issue";
 import {DeviceGroup} from "../../model/deviceGroup";
 import {Location} from "../../model/location";
 import {Floor} from "../../model/floor";
-import {IndividualProcess, ProcessProperty, ProductProcess} from "../../model/productProcess";
+import {IndividualProcess, ProcessProperty, Product} from "../../model/Product";
 import {Metadata} from "../../model/Metadata";
 
 @Injectable({
@@ -377,7 +377,7 @@ export class MockDataService {
   static createProcessProperties(): ProcessProperty[] {
     return [
       {
-        name: 'Name',
+        key: 'Name',
         unit: '',
         value: faker.name.findName(),
         size: 1,
@@ -386,7 +386,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'File Name',
+        key: 'File Name',
         unit: '',
         value: faker.system.fileName(),
         size: 1,
@@ -395,7 +395,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Color',
+        key: 'Color',
         unit: '',
         value: faker.internet.color(),
         size: 1,
@@ -404,7 +404,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Weight',
+        key: 'Weight',
         unit: 'g',
         value: Math.floor(Math.random() * 10000) / 100,
         size: 1,
@@ -413,7 +413,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Temperature',
+        key: 'Temperature',
         unit: '°C',
         value: Math.floor(Math.random() * 10000) / 100,
         size: 2,
@@ -422,7 +422,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Speed',
+        key: 'Speed',
         unit: 'm/s',
         value: Math.floor(Math.random() * 10000) / 100,
         size: 1,
@@ -439,7 +439,7 @@ export class MockDataService {
   static createPrintingProcessProperties(): ProcessProperty[] {
     return [
       {
-        name: 'Travel Speed',
+        key: 'Travel Speed',
         unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
@@ -448,7 +448,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Infill Density',
+        key: 'Infill Density',
         unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
@@ -457,7 +457,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Filament usage',
+        key: 'Filament usage',
         unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
@@ -466,7 +466,7 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Extruder Temperature',
+        key: 'Extruder Temperature',
         unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
@@ -475,12 +475,12 @@ export class MockDataService {
         display: true,
       },
       {
-        name: 'Filament level',
+        key: 'Filament level',
         value: Math.floor(Math.random() * 100),
         display: false,
       },
       {
-        name: 'Filament Diameter',
+        key: 'Filament Diameter',
         unit: 'mm/s',
         value: Math.floor(Math.random() * 200),
         size: 1,
@@ -648,7 +648,7 @@ export class MockDataService {
   static productStatus = ['Status A', 'Status B', 'Status C'];
 
   static createProductProcess() {
-    return new ProductProcess(
+    return new Product(
       MockDataService.processIdentifier++,
       'Additonal information',
       faker.commerce.productName(),

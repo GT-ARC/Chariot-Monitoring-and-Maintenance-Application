@@ -10,6 +10,7 @@ import {MockDataService} from "./services/mock-data.service";
 import {Issue} from "../model/issue";
 import {environment} from "../environments/environment";
 import {Metadata} from "../model/Metadata";
+import {Product} from "../model/Product";
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent {
   sites: { route: string, icon: string, name: string }[] = [
     {route: "/devices", icon: "location_on", name: "Devices"},
     {route: "/warehouse", icon: "home", name: "Warehouse"},
-    {route: "/process_flow", icon: "linear_scale", name: "ProductProcess "},
+    {route: "/process_flow", icon: "linear_scale", name: "Product "},
     {route: "/maintenance", icon: "warning", name: "Maintenance"},
     {route: "/settings", icon: "settings", name: "Settings"},
   ];
@@ -71,9 +72,9 @@ export class AppComponent {
       );
     }
 
-    // this.restService.getContainer().subscribe(data => {
-    //   console.log(data);
-    // });
+    this.restService.getContainer().subscribe(data => {
+      this.dataService.addProducts(data as Array<Product>);
+    });
 
     this.path = this.locationService.path();
     console.log("App: the path" + this.path);

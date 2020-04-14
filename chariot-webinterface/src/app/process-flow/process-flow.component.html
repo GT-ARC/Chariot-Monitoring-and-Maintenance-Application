@@ -29,9 +29,9 @@
            class="list">
         <app-processflow-card
           (click)="newProcessSelected(process)"
-          *ngFor="let process of viableProcesses"
+          *ngFor="let process of visibleProducts"
           [process]="process"
-          [selectedProcess]="selectedProcess">
+          [selectedProcess]="selectedProduct">
         </app-processflow-card>
       </div>
     </aside>
@@ -39,8 +39,12 @@
   <mat-sidenav-content>
     <main>
       <app-process-flow-main
-          [process]="selectedProcess">
+          *ngIf="selectedProduct"
+          [process]="selectedProduct">
       </app-process-flow-main>
+      <h1 *ngIf="selectedProduct == undefined">
+        Choose a Product.
+      </h1>
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

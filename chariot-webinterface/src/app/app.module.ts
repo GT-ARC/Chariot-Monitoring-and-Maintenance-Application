@@ -68,6 +68,8 @@ import { NotifierModule } from 'angular-notifier';
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { FloorListComponent } from './devices/floor-list/floor-list.component';
+import { SettingsTestingComponent } from './settings/settings-testing/settings-testing.component';
+import { SettingsPageComponent } from './settings/settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +105,8 @@ import { FloorListComponent } from './devices/floor-list/floor-list.component';
     DeviceGroupCardComponent,
     PropertyBundleComponent,
     FloorListComponent,
+    SettingsTestingComponent,
+    SettingsPageComponent,
   ],
   imports: [
     BrowserModule,

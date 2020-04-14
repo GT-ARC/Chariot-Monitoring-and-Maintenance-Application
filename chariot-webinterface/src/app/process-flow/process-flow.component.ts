@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {DataHandlingService} from "../services/data-handling.service";
-import {ProductProcess} from "../../model/productProcess";
+import {Product} from "../../model/Product";
 import {log} from "util";
 
 @Component({
@@ -22,9 +22,9 @@ export class ProcessFlowComponent implements OnInit {
   ];
   processSortSelected: String = "Name";
 
-  processes: ProductProcess[] = [];
-  viableProcesses: ProductProcess[] = [];
-  selectedProcess: ProductProcess;
+  products: Product[] = [];
+  visibleProducts: Product[] = [];
+  selectedProduct: Product;
 
   constructor(
     private mockDataService: DataHandlingService,
@@ -32,30 +32,30 @@ export class ProcessFlowComponent implements OnInit {
 
   ngOnInit() {
     this.getMockData();
-    this.viableProcesses = this.processes;
-    this.selectedProcess = this.processes[0];
+    this.visibleProducts = this.products;
+    this.selectedProduct = this.products[0];
   }
 
   newProcessSelected(process: any) {
-    this.selectedProcess = process;
+    this.selectedProduct = process;
   }
 
   private getMockData() {
-    this.mockDataService.getProcess()
+    this.mockDataService.getProducts()
       .subscribe(data => {
-        this.processes = data.process;
+        this.products = data.products;
       });
   }
 
   filterProcess(filterString: any) {
-    this.viableProcesses = this.processes;
-    this.viableProcesses.filter(value => value.productName.includes(filterString)
+    this.visibleProducts = this.products;
+    this.visibleProducts.filter(value => value.productName.includes(filterString)
       || value.identifier == filterString);
   }
 
   sortProcess(sort_point: string) {
     this.processSortSelected = sort_point;
-    this.viableProcesses.sort((a, b) => {
+    this.visibleProducts.sort((a, b) => {
       switch (sort_point) {
         case "Product Process State":
           return a.state == b.state ? -1 : 1;

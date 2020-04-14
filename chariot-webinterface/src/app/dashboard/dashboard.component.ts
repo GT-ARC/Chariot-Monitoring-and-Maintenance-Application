@@ -6,7 +6,7 @@ import {Device} from "../../model/device";
 import {Issue} from "../../model/issue";
 import {ChartOptions, ChartType} from "chart.js";
 import {Color, Label, MultiDataSet, SingleDataSet} from "ng2-charts";
-import {ProductProcess} from "../../model/productProcess";
+import {Product} from "../../model/Product";
 import {Container} from "../../model/Container";
 import {DeviceGroup} from '../../model/deviceGroup';
 import {Metadata} from "../../model/Metadata";
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   issueList: Issue[] = [];
   issueDeviceMap: Map<Issue, Device> = new Map();
 
-  products: ProductProcess[] = [];
+  products: Product[] = [];
 
   containers: Container[] = [];
 
@@ -111,9 +111,9 @@ export class DashboardComponent implements OnInit {
     // console.log("floors", this.floors);
     // console.log("locations", this.locations);
     // console.log("devices", this.devices);
-    this.dataService.getProcess()
+    this.dataService.getProducts()
       .subscribe( data => {
-        this.products = data.process;
+        this.products = data.products;
       });
     this.dataService.getContainer()
       .subscribe(data => {
