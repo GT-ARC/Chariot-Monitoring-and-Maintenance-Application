@@ -67,7 +67,6 @@ import { PropertyBundleComponent } from './components/property-bundle/property-b
 import { NotifierModule } from 'angular-notifier';
 import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { FloorListComponent } from './devices/floor-list/floor-list.component';
 import { SettingsTestingComponent } from './settings/settings-testing/settings-testing.component';
 import { SettingsPageComponent } from './settings/settings-page/settings-page.component';
 
@@ -104,7 +103,6 @@ import { SettingsPageComponent } from './settings/settings-page/settings-page.co
     DataGraphComponent,
     DeviceGroupCardComponent,
     PropertyBundleComponent,
-    FloorListComponent,
     SettingsTestingComponent,
     SettingsPageComponent,
   ],
