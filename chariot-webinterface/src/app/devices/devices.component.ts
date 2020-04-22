@@ -76,7 +76,7 @@ export class DevicesComponent implements OnInit {
   window = window;
 
   strings = strings;
-  private metadata: Metadata;
+  metadata: Metadata;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
   @ViewChild('snav2', {static: false}) sideNav2: MatSidenav;

@@ -44,7 +44,7 @@ export class MaintenanceComponent implements OnInit {
   window = window;
 
   @ViewChild('snav1', {static: false}) sideNav: MatSidenav;
-  private metadata: Metadata;
+  metadata: Metadata;
 
   backDropClicked() {
     if (this.sideNav.opened && window.innerWidth < 1578)
