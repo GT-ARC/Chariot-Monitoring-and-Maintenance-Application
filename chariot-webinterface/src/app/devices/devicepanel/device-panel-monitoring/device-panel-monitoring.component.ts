@@ -113,7 +113,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   private filterData(searchForData: boolean = false) {
-    // console.log("Filter data: Search for data - " + searchForData);
+    console.log("Filter data: Search for data - " + searchForData);
 
     if (this.property.data == undefined || this.property.data.length == 0) {
       this.visibleData = [];
@@ -132,22 +132,29 @@ export class DevicePanelMonitoringComponent implements OnInit {
       let foundAmount = 0;
       let foundVisibility = 0;
       do {
+        this.selectedVisibility = this.dataRangeOptions[index];
         let value = this.getSelectedVisibility(this.selectedVisibility);
         this.dataFilterThreshold = value;
         this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value);
-        if (this.visibleData.length < 5 && index < this.dataRangeOptions.length - 1) {
-          index++;
+        if (this.visibleData.length >= 5) {
           this.selectedVisibility = this.dataRangeOptions[index];
-        } else {
-          // console.log("Filter found: " + this.selectedVisibility + " with " + this.visibleData.length);
-          if (index >= this.dataRangeOptions.length - 1) {
-            this.selectedVisibility = this.dataRangeOptions[foundVisibility];
-          }
+          this.dataAmount = this.visibleData.length;
           break;
-        }
-        if (this.visibleData.length > foundAmount) {
-          foundVisibility = index - 1;
-          foundAmount = this.visibleData.length;
+        } else {
+          // If more data has been found take that as the new return if no data above 5 is found
+          if (this.visibleData.length > foundAmount) {
+            console.log("new Found max " + this.visibleData.length);
+            foundVisibility = index;
+            foundAmount = this.visibleData.length;
+          }
+
+          index++;
+          if (index >= this.dataRangeOptions.length) {
+            console.log("No data found take first found max: " + this.dataRangeOptions[foundVisibility]);
+            this.selectedVisibility = this.dataRangeOptions[foundVisibility];
+            this.dataAmount = foundAmount;
+            break;
+          }
         }
       } while (true);
     } else {

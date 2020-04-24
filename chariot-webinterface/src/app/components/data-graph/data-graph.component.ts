@@ -13,6 +13,8 @@ import {environment} from "../../../environments/environment";
 })
 export class DataGraphComponent implements OnInit {
 
+  internalChange : boolean = false;
+
   @Input()   data: {
     y: number,
     x: number
@@ -33,7 +35,7 @@ export class DataGraphComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log("Changes detected in data graph: ", changes, this.data);
+    console.log("Changes detected in data graph: ", changes, this.data);
     if ('data' in changes) {
       if(this.data != undefined) {
         this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {
@@ -50,22 +52,27 @@ export class DataGraphComponent implements OnInit {
         ];
         this.dataLength.emit(this.data.length);
       }
-    }
-    if('dataAmount' in changes && this.data && this.data.length != 0) {
-        this.lineChartLabels.push(this.getEntryLabel(Math.round(this.data[this.dataAmount - 1].x)));
-        this.lineChartData[0].data.push(Math.round(this.data[this.dataAmount - 1].y * 100) / 100);
-        if ( this.selectedVisibility.indexOf('Only New') != -1) {
-          if(this.lineChartLabels.length > 5) {
-            this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
-            this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
-          }
+    } else if('dataAmount' in changes && this.data && this.data.length != 0) {
+        if (this.internalChange) {
+          console.log("Skip change");
+          this.internalChange = false;
         } else {
-          let lastVisibleTime = this.getSelectedVisibility();
-          let dataLength = this.lineChartLabels.length;
-          for (let i = this.data.length - dataLength; i < this.data.length; i++) {
-            if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
-            this.lineChartLabels.splice(0, 1);
-            this.lineChartData[0].data.splice(0, 1);
+          this.lineChartLabels.push(this.getEntryLabel(Math.round(this.data[this.dataAmount - 1].x)));
+          this.lineChartData[0].data.push(Math.round(this.data[this.dataAmount - 1].y * 100) / 100);
+          // check if you have to remove old ones
+          if ( this.selectedVisibility.indexOf('Only New') != -1) {
+            if(this.lineChartLabels.length > 5) {
+              this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
+              this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
+            }
+          } else {
+            let lastVisibleTime = this.getSelectedVisibility();
+            let dataLength = this.lineChartLabels.length;
+            for (let i = this.data.length - dataLength; i < this.data.length; i++) {
+              if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
+              this.lineChartLabels.splice(0, 1);
+              this.lineChartData[0].data.splice(0, 1);
+            }
           }
         }
     }
@@ -86,8 +93,8 @@ export class DataGraphComponent implements OnInit {
       this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.topic);
 
       this.subscription = this.currentDataReceiver.subscribe(message => {
-        //console.log(message);
-        let property = JSON.parse(JSON.parse(message));
+        console.log("data-graph-update");
+        let property = JSON.parse(message);
 
         if(this.topic != undefined) {
           if(property.kafka_topic != this.topic) {
@@ -97,6 +104,9 @@ export class DataGraphComponent implements OnInit {
           }
         }
 
+        console.log(this.data);
+
+        this.internalChange = true;
         this.data.push({y: property.value, x: property.timestamp});
         this.updateData.emit({y: property.value, x: property.timestamp});
         // console.log("Data-Graph", property);

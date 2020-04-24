@@ -45,7 +45,7 @@ export class DevicePanelSwitchComponent implements OnInit {
 
       this.currentDataReceiver.subscribe(message => {
         //console.log(message);
-        let jsonMessage = JSON.parse(JSON.parse(message));
+        let jsonMessage = JSON.parse(message);
         if(jsonMessage.value == 0 || jsonMessage.value == "false" || jsonMessage.value == "off") {
           this.property.value = false;
         } else if(jsonMessage.value == 1 || jsonMessage.value == "true" || jsonMessage.value == "on") {

@@ -1,11 +1,10 @@
 import {EventEmitter, Injectable} from '@angular/core';
-// import {Socket} from 'ngx-socket-io';
+import {Socket} from 'ngx-socket-io';
 import {NotifierService} from 'angular-notifier';
-import {Device, Property} from '../../model/device';
+import {Device} from '../../model/device';
 import {RestService} from './rest.service';
 import {DataHandlingService} from './data-handling.service';
 import {Issue} from '../../model/issue';
-import {Floor} from '../../model/floor';
 import {Service, ServiceProperty} from '../../model/service';
 
 @Injectable({
@@ -16,7 +15,7 @@ export class PmNotificationReceiverService {
   constructor(private dataService: DataHandlingService,
               private notifierService: NotifierService,
               private restService : RestService,
-              // private socket: Socket
+              private socket: Socket
   ) { }
 
   private _newIssueEvent: EventEmitter<Issue> = new EventEmitter<Issue>();
@@ -24,36 +23,36 @@ export class PmNotificationReceiverService {
 
   private subscribeToPMNotifications(property: ServiceProperty, device: Device) {
 
-    // let sendMessage = {
-    //   topic: property.kafka_topic,
-    //   regex: false
-    // };
-    //
-    // // subscribe to the issue topic globaly
-    // this.socket.emit('subscribe', JSON.stringify(sendMessage));
-    // this.socket.fromEvent<string>(sendMessage.topic).subscribe(message => {
-    //
-    //   let jsonMessage = JSON.parse(JSON.parse(message));
-    //
-    //   console.log('Issue message: ', jsonMessage, property);
-    //   if (jsonMessage.value && !property.value) {
-    //     // Issue detected
-    //     // device.createIssue();
-    //     property.value = jsonMessage.value;
-    //     // Issue detected
-    //     console.log('Issue detected');
-    //     this.notifierService.notify('error', 'Issue detected');
-    //     this.dataService.dataUpdate();
-    //
-    //     // Check for pm result
-    //   } else if (!jsonMessage.value && property.value) {
-    //     console.log('Issue resolved: ');
-    //     device.resolveLastIssue();
-    //     property.value = jsonMessage.value;
-    //     this.notifierService.notify('success', 'Issue resolved');
-    //     this.dataService.dataUpdate();
-    //   }
-    // });
+     let sendMessage = {
+       topic: property.kafka_topic,
+       regex: false
+     };
+
+     // subscribe to the issue topic globaly
+     this.socket.emit('subscribe', JSON.stringify(sendMessage));
+     this.socket.fromEvent<string>(sendMessage.topic).subscribe(message => {
+
+       let jsonMessage = JSON.parse(JSON.parse(message));
+
+       console.log('Issue message: ', jsonMessage, property);
+       if (jsonMessage.value && !property.value) {
+         // Issue detected
+         // device.createIssue();
+         property.value = jsonMessage.value;
+         // Issue detected
+         console.log('Issue detected');
+         this.notifierService.notify('error', 'Issue detected');
+         this.dataService.dataUpdate();
+
+         // Check for pm result
+       } else if (!jsonMessage.value && property.value) {
+         console.log('Issue resolved: ');
+         device.resolveLastIssue();
+         property.value = jsonMessage.value;
+         this.notifierService.notify('success', 'Issue resolved');
+         this.dataService.dataUpdate();
+       }
+     });
   }
 
 

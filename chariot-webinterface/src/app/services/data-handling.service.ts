@@ -474,7 +474,7 @@ export class DataHandlingService {
         oldDevice.properties.push(prop);
       }
     }
-    console.log("Update device: old: ", oldDevice, " new ", newDevice);
+   // console.log("Update device: old: ", oldDevice, " new ", newDevice);
   }
 
   mockDevices: Device[] = [];
