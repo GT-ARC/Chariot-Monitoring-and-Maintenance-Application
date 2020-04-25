@@ -237,11 +237,6 @@ export class DataHandlingService {
     }
   }
 
-  dataUpdate() {
-    // console.log("Store changed data");
-    // this.storeIssues();
-  }
-
   getFloor(): Observable<{ floors: Floor[], locations: Location[], devices: Device[], deviceGroup: DeviceGroup[]}> {
     let newObserver = of({
       floors: this.floors,

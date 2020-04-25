@@ -57,23 +57,7 @@ export class DataGraphComponent implements OnInit {
           console.log("Skip change");
           this.internalChange = false;
         } else {
-          this.lineChartLabels.push(this.getEntryLabel(Math.round(this.data[this.dataAmount - 1].x)));
-          this.lineChartData[0].data.push(Math.round(this.data[this.dataAmount - 1].y * 100) / 100);
-          // check if you have to remove old ones
-          if ( this.selectedVisibility.indexOf('Only New') != -1) {
-            if(this.lineChartLabels.length > 5) {
-              this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
-              this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
-            }
-          } else {
-            let lastVisibleTime = this.getSelectedVisibility();
-            let dataLength = this.lineChartLabels.length;
-            for (let i = this.data.length - dataLength; i < this.data.length; i++) {
-              if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
-              this.lineChartLabels.splice(0, 1);
-              this.lineChartData[0].data.splice(0, 1);
-            }
-          }
+          this.addDataPointToGraph(this.data[this.dataAmount - 1]);
         }
     }
 
@@ -81,6 +65,33 @@ export class DataGraphComponent implements OnInit {
       if(!environment.mock) {
         if(this.subscription != undefined) this.subscription.unsubscribe();
         this.receiveDataStream();
+      }
+    }
+  }
+
+  private addDataPointToGraph(dataPoint : {x: number, y: number}) {
+
+    if(dataPoint.x > 1500000000000) {
+      this.lineChartLabels.push(this.getEntryLabel(Math.round(dataPoint.x)));
+      this.lineChartData[0].data.push(Math.round(dataPoint.y * 100) / 100);
+    } else {
+      this.lineChartLabels.push(dataPoint.x);
+      this.lineChartData[0].data.push(Math.round(dataPoint.y * 100) / 100);
+    }
+
+    // check if you have to remove old ones
+    if (this.selectedVisibility.indexOf('Only New') != -1) {
+      if (this.lineChartLabels.length > 5) {
+        this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
+        this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
+      }
+    } else {
+      let lastVisibleTime = this.getSelectedVisibility();
+      let dataLength = this.lineChartLabels.length;
+      for (let i = this.data.length - dataLength; i < this.data.length; i++) {
+        if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
+        this.lineChartLabels.splice(0, 1);
+        this.lineChartData[0].data.splice(0, 1);
       }
     }
   }
@@ -110,29 +121,8 @@ export class DataGraphComponent implements OnInit {
         this.data.push({y: property.value, x: property.timestamp});
         this.updateData.emit({y: property.value, x: property.timestamp});
         // console.log("Data-Graph", property);
-        if(property.timestamp > 1500000000000) {
-          this.lineChartLabels.push(this.getEntryLabel(property.timestamp));
-          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
-        } else {
-          this.lineChartLabels.push(property.timestamp);
-          this.lineChartData[0].data.push(Math.round(property.value * 100) / 100);
-        }
 
-        // Check if you have to remove the last entry
-        if ( this.selectedVisibility.indexOf('Only New') != -1) {
-          if(this.lineChartLabels.length > 5) {
-            this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
-            this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
-          }
-        } else {
-          let lastVisibleTime = this.getSelectedVisibility();
-          let dataLength = this.lineChartLabels.length;
-          for(let i = this.data.length - dataLength; i < this.data.length; i++){
-            if(this.data[i].x > lastVisibleTime) break;
-            this.lineChartLabels.splice(0, 1);
-            this.lineChartData[0].data.splice(0, 1);
-          }
-        }
+        this.addDataPointToGraph({y: property.value, x: property.timestamp});
 
         this.dataLength.emit(this.data.length);
       });

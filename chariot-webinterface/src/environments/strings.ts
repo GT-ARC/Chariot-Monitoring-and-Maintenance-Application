@@ -1,4 +1,5 @@
 export const strings = {
+  pm_service_indicator: 'PM-Service',
   writable_lock: 'This property isn\'t writable',
   floor_sort: {
     level: 'Level',

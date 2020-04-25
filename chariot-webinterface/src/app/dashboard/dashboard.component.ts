@@ -8,8 +8,8 @@ import {ChartOptions, ChartType} from "chart.js";
 import {Color, Label, MultiDataSet, SingleDataSet} from "ng2-charts";
 import {Product} from "../../model/Product";
 import {Container} from "../../model/Container";
-import {DeviceGroup} from '../../model/deviceGroup';
 import {Metadata} from "../../model/Metadata";
+import {PmNotificationReceiverService} from "../services/pm-notification-receiver.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   devices: Device[] = [];      // Holds the fetched data of the devices
 
   issueList: Issue[] = [];
+  lastIssues: Issue[] = [];
   issueDeviceMap: Map<Issue, Device> = new Map();
 
   products: Product[] = [];
@@ -31,25 +32,29 @@ export class DashboardComponent implements OnInit {
 
   metadata: Metadata;
 
-  public static clickedDoughnutPiece: {value: number, name: string};
+  public clickedDoughnutPiece: {value: number, name: string};
 
-  public classReference = DashboardComponent;
-
-  public static onDevices: number = 0;
-  public static idleDevices: number = 0;
-  public static brokenDevices: number = 0;
-  public static fullDeviceAmount: number = 0;
+  public onDevices: number = 0;
+  public idleDevices: number = 0;
+  public brokenDevices: number = 0;
+  public fullDeviceAmount: number = 0;
   public displayDounat = false;
 
-  constructor(private dataService: DataHandlingService) {
+  constructor(
+    private dataService: DataHandlingService,
+    private pmService: PmNotificationReceiverService,
+    ) {
     // Receive updates on data change events
     dataService.getDataNotification().subscribe(next => {
       this.initDashboard();
     });
-  }
+    pmService.newIssueEvent.subscribe(
+      next => this.initDashboard()
+    );
+    pmService.issueResolvedEvent.subscribe(
+      next => this.initDashboard()
+    );
 
-  ngOnChanges(change: SimpleChange) {
-    console.log(change);
   }
 
   ngOnInit() {
@@ -60,6 +65,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initDashboard() {
+    console.log("Dashboard init");
     if(this.devices == undefined || this.devices.length == 0)
       return;
 
@@ -73,8 +79,10 @@ export class DashboardComponent implements OnInit {
     //   .sort((a, b) => b.issue_date - a.issue_date);
 
     console.log("ISSUE LIST", this.issueList);
+    this.lastIssues = this.issueList.sort((a, b) => b.issue_date - a.issue_date).slice(0, 4);
 
-    this.classReference.onDevices = this.devices.reduce((prev, curr) => {
+
+    this.onDevices = this.devices.reduce((prev, curr) => {
       if(curr.hasOwnProperty('properties')) {
         let statusProp = curr.properties.find(s => s.key == "status");
         if(statusProp && statusProp.hasOwnProperty('value'))
@@ -82,7 +90,7 @@ export class DashboardComponent implements OnInit {
       }
       return prev;
     }, 0);
-    this.classReference.idleDevices = this.devices.reduce((prev, curr) => {
+    this.idleDevices = this.devices.reduce((prev, curr) => {
       if(curr.hasOwnProperty('properties')) {
         let statusProp = curr.properties.find(s => s.key == "status");
         if(statusProp && statusProp.hasOwnProperty('value'))
@@ -90,14 +98,14 @@ export class DashboardComponent implements OnInit {
       }
       return prev;
     }, 0);
-    this.classReference.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
+    this.brokenDevices = this.devices.reduce((prev, curr) => curr.hasIssue() > 0 ? prev + 1 : prev, 0);
 
-    this.classReference.fullDeviceAmount = this.classReference.onDevices + this.classReference.idleDevices + this.classReference.brokenDevices;
+    this.fullDeviceAmount = this.onDevices + this.idleDevices + this.brokenDevices;
     // Count all devices
     this.doughnutChartData = [
-      this.classReference.onDevices, this.classReference.idleDevices, this.classReference.brokenDevices
+      this.onDevices, this.idleDevices, this.brokenDevices
     ];
-    this.classReference.clickedDoughnutPiece = {value: Math.round(this.classReference.onDevices / this.classReference.fullDeviceAmount * 1000)/10, name: "Running"};
+    this.clickedDoughnutPiece = {value: Math.round(this.onDevices / this.fullDeviceAmount * 1000)/10, name: "Running"};
     this.displayDounat = true;
   }
 
@@ -142,23 +150,23 @@ export class DashboardComponent implements OnInit {
       console.log(this.clickedDoughnutPiece);
       switch (activeElements[0]["_index"]) {
         case 0:
-          DashboardComponent.clickedDoughnutPiece =
+          this.clickedDoughnutPiece =
             {
-              value: Math.round(DashboardComponent.onDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
+              value: Math.round(this.onDevices / this.fullDeviceAmount * 1000)/10,
               name: "Running"
             };
           break;
         case 1:
-          DashboardComponent.clickedDoughnutPiece =
+          this.clickedDoughnutPiece =
             {
-              value: Math.round(DashboardComponent.idleDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
+              value: Math.round(this.idleDevices / this.fullDeviceAmount * 1000)/10,
               name: "Idle"
             };
           break;
         case 2:
-          DashboardComponent.clickedDoughnutPiece =
+          this.clickedDoughnutPiece =
             {
-              value: Math.round(DashboardComponent.brokenDevices / DashboardComponent.fullDeviceAmount * 1000)/10,
+              value: Math.round(this.brokenDevices / this.fullDeviceAmount * 1000)/10,
               name: "Defect"
             };
           break;
