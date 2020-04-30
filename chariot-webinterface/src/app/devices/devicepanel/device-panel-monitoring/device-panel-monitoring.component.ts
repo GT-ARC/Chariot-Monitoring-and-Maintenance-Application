@@ -19,8 +19,8 @@ export class DevicePanelMonitoringComponent implements OnInit {
   @Input() height: number;
   dataAmount: number = 0;
 
-  dataRangeOptions: string[] =
-    [
+  useDatesAsTimestamps: boolean = true;
+  dataRangeOptionsData: string[] = [
       'Only New',
       '1 Minute', '5 Minutes', '10 Minutes', '15 Minutes', '30 Minutes',
       '1 Hour', '2 Hours', '3 Hours', '6 Hours', '12 Hours',
@@ -31,6 +31,15 @@ export class DevicePanelMonitoringComponent implements OnInit {
     ];
   selectedVisibility: string = '1 Minute';
 
+  dataRangeOptionsValues: string[] = [
+    'Only New',
+    '10', '20', '30', '50', '80',
+    '100', '150', '200', '300', '400',
+    '500', '800', '1000',
+    '2000', '3000',
+    'All Time'
+  ];
+
   visibleData: { y: number, x: number }[] = [];
 
   private oneSecond: number = 1_000;
@@ -40,7 +49,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
   private oneWeek: number = 604_800_000;
   private oneMonth: number = 2_419_200_000;
   private oneYear: number = 29_030_400_000;
-  private dataFilterThreshold: number;
   private subscription: Subscription;
 
   constructor(private restService: RestService) {
@@ -66,6 +74,7 @@ export class DevicePanelMonitoringComponent implements OnInit {
     if (!this.name) this.name = "Device Monitoring";
     if (!this.height) this.height = 380;
 
+
     if (this.property.updateListener) {
       this.subscription = this.property.updateListener.subscribe(data => {
           // console.log(data);
@@ -75,10 +84,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
       );
     }
 
-    // for( let element of this.dataRangeOptions) {
-    //   let index = this.dataRangeOptions.indexOf(element);
-    //   console.log(index, element, this.dataRangeValues[index])
-    // }
     this.filterData(true);
   }
 
@@ -122,22 +127,34 @@ export class DevicePanelMonitoringComponent implements OnInit {
 
     // If the data received doesnt use unix time stamp dont filter for selected date
     if (this.property.data[this.property.data.length - 1].x < 1500000000000) {
-      this.visibleData = this.property.data;
+      if (this.useDatesAsTimestamps){
+        this.useDatesAsTimestamps = false;
+        this.selectedVisibility = this.dataRangeOptionsValues[3];
+      }
+
+      let length = this.property.data.length;
+      if(this.selectedVisibility == 'Only New')
+         this.visibleData = [];
+      else if(this.selectedVisibility == 'All Time')
+        this.visibleData = this.property.data;
+      else
+        this.visibleData = this.property.data.slice(length - +this.selectedVisibility, length);
       return;
     }
 
+    this.useDatesAsTimestamps = true;
 
     if (searchForData) {
       let index = 0;
       let foundAmount = 0;
       let foundVisibility = 0;
       do {
-        this.selectedVisibility = this.dataRangeOptions[index];
+        this.selectedVisibility = this.dataRangeOptionsData[index];
         let value = this.getSelectedVisibility(this.selectedVisibility);
-        this.dataFilterThreshold = value;
+
         this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value);
         if (this.visibleData.length >= 5) {
-          this.selectedVisibility = this.dataRangeOptions[index];
+          this.selectedVisibility = this.dataRangeOptionsData[index];
           this.dataAmount = this.visibleData.length;
           break;
         } else {
@@ -149,9 +166,9 @@ export class DevicePanelMonitoringComponent implements OnInit {
           }
 
           index++;
-          if (index >= this.dataRangeOptions.length) {
-            console.log("No data found take first found max: " + this.dataRangeOptions[foundVisibility]);
-            this.selectedVisibility = this.dataRangeOptions[foundVisibility];
+          if (index >= this.dataRangeOptionsData.length) {
+            console.log("No data found take first found max: " + this.dataRangeOptionsData[foundVisibility]);
+            this.selectedVisibility = this.dataRangeOptionsData[foundVisibility];
             this.dataAmount = foundAmount;
             break;
           }
@@ -160,7 +177,6 @@ export class DevicePanelMonitoringComponent implements OnInit {
     } else {
       let value = this.getSelectedVisibility(this.selectedVisibility);
       console.log("Filter with value: " + value);
-      this.dataFilterThreshold = value;
       this.visibleData = this.property.data.filter(dataPoint => dataPoint.x > value);
     }
 
@@ -168,17 +184,38 @@ export class DevicePanelMonitoringComponent implements OnInit {
   }
 
   showMoreData() {
-    let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
+    let index = 0;
+    if (!this.useDatesAsTimestamps)
+      index = this.dataRangeOptionsValues.indexOf(this.selectedVisibility);
+    else
+      index = this.dataRangeOptionsData.indexOf(this.selectedVisibility);
+
     if (index > 0) {
-      this.selectedVisibility = this.dataRangeOptions[index - 1];
+      if (!this.useDatesAsTimestamps)
+        this.selectedVisibility = this.dataRangeOptionsValues[index - 1];
+      else
+        this.selectedVisibility = this.dataRangeOptionsData[index - 1];
+
       this.filterData(false)
     }
   }
 
   showLessData() {
-    let index = this.dataRangeOptions.indexOf(this.selectedVisibility);
-    if (index < this.dataRangeOptions.length - 1) {
-      this.selectedVisibility = this.dataRangeOptions[index + 1];
+    let index = 0;
+    if (!this.useDatesAsTimestamps)
+      index = this.dataRangeOptionsValues.indexOf(this.selectedVisibility);
+    else
+      index = this.dataRangeOptionsData.indexOf(this.selectedVisibility);
+
+
+    if (this.useDatesAsTimestamps && index < this.dataRangeOptionsData.length - 1
+      || !this.useDatesAsTimestamps && index < this.dataRangeOptionsValues.length - 1) {
+
+      if (!this.useDatesAsTimestamps)
+        this.selectedVisibility = this.dataRangeOptionsValues[index + 1];
+      else
+        this.selectedVisibility = this.dataRangeOptionsData[index + 1];
+
       this.filterData(false)
     }
   }

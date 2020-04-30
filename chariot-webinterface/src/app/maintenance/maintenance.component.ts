@@ -56,10 +56,6 @@ export class MaintenanceComponent implements OnInit {
     private pmService: PmNotificationReceiverService,
     private dataService: DataHandlingService,
     private locationService: Locl) {
-    // this.dataService.getDataNotification().subscribe(next => {
-    //   // Select the routed device
-    //   this.initInterface();
-    // });
   }
 
   ngOnInit() {
@@ -74,7 +70,7 @@ export class MaintenanceComponent implements OnInit {
   }
 
   initInterface() {
-    if(this.devices == undefined || this.devices.length == 0)
+    if(this.devices == undefined || this.devices.length == 0 || this.issueList.length == 0)
       return;
 
     if (this.route.snapshot.paramMap.has('id')) {

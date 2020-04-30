@@ -284,6 +284,10 @@ export class DataHandlingService {
     localStorage.setItem("metadata", JSON.stringify(this.metadata));
   }
 
+  public storeDeviceData() {
+    localStorage.setItem("floor", JSON.stringify(this.floors));
+  }
+
   private addDeviceGroup(deviceGroup: any) {
     let newDeviceGroup = new DeviceGroup(deviceGroup.identifier,
       deviceGroup.name
@@ -641,6 +645,5 @@ export class DataHandlingService {
   getRandomDevice(): Device {
     return this.devices[Math.floor(this.devices.length * Math.random())]
   }
-
 }
 

@@ -13,16 +13,14 @@ import {environment} from "../../../environments/environment";
 })
 export class DataGraphComponent implements OnInit {
 
-  internalChange : boolean = false;
-
   @Input()   data: {
     y: number,
     x: number
   }[];
 
-  @Input() dataAmount: number;
+  @Input() useDatesAsTimestamps: boolean;
   @Input() topic: string;
-  @Input() height: number = 375;
+  @Input() height: number;
   @Input() selectedVisibility: string = "";
   @Output() dataLength = new EventEmitter<number>();
   @Output() updateData = new EventEmitter<{ x: number, y: number }>();
@@ -30,35 +28,16 @@ export class DataGraphComponent implements OnInit {
   constructor(private deviceUpdateService: DeviceUpdateService) { }
 
   ngOnInit() {
-    this.dataLength.emit(this.data.length);
-    document.getElementById("chart").setAttribute("height", this.height + "");
+    // console.log("Set Height");
+    document.getElementById("chart").setAttribute("height", this.height + "px !important");
+    // document.getElementById("chart-wrapper").setAttribute("height", this.height + "px !important");
+    // this.lineChartOptions = { ...this.lineChartOptions };
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("Changes detected in data graph: ", changes, this.data);
     if ('data' in changes) {
-      if(this.data != undefined) {
-        this.lineChartLabels = this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => {
-          if(data.x > 1500000000000)
-            return this.getEntryLabel(data.x);
-          else
-            return data.x;
-        });
-        this.lineChartData = [
-          {
-            data: this.data.slice(this.data.length - this.dataAmount, this.data.length).map(data => Math.round(data.y * 100) / 100),
-            label: 'History'
-          }
-        ];
-        this.dataLength.emit(this.data.length);
-      }
-    } else if('dataAmount' in changes && this.data && this.data.length != 0) {
-        if (this.internalChange) {
-          console.log("Skip change");
-          this.internalChange = false;
-        } else {
-          this.addDataPointToGraph(this.data[this.dataAmount - 1]);
-        }
+      this.createGraphFromData();
     }
 
     if('topic' in changes){
@@ -66,6 +45,25 @@ export class DataGraphComponent implements OnInit {
         if(this.subscription != undefined) this.subscription.unsubscribe();
         this.receiveDataStream();
       }
+    }
+  }
+
+  private createGraphFromData() {
+    if (this.data != undefined) {
+      this.lineChartLabels = this.data.map(data => {
+        if (data.x > 1500000000000)
+          return this.getEntryLabel(data.x);
+        else
+          return data.x;
+      });
+      this.lineChartData = [
+        {
+          // slice(this.data.length - this.dataAmount, this.data.length).
+          data: this.data.map(data => Math.round(data.y * 100) / 100),
+          label: 'History'
+        }
+      ];
+      this.dataLength.emit(this.data.length);
     }
   }
 
@@ -85,14 +83,23 @@ export class DataGraphComponent implements OnInit {
         this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - 5, this.lineChartLabels.length);
         this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - 5, this.lineChartData[0].data.length);
       }
+    } else if (this.selectedVisibility.indexOf('All Time') != -1) {
+      // do nothing
     } else {
       let lastVisibleTime = this.getSelectedVisibility();
-      let dataLength = this.lineChartLabels.length;
-      for (let i = this.data.length - dataLength; i < this.data.length; i++) {
-        if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
-        this.lineChartLabels.splice(0, 1);
-        this.lineChartData[0].data.splice(0, 1);
+      if (!this.useDatesAsTimestamps) {
+        this.lineChartLabels = this.lineChartLabels.slice(this.lineChartLabels.length - lastVisibleTime, this.lineChartLabels.length);
+        this.lineChartData[0].data = this.lineChartData[0].data.slice(this.lineChartData[0].data.length - lastVisibleTime, this.lineChartData[0].data.length);
       }
+      else {
+        let dataLength = this.lineChartLabels.length;
+        for (let i = this.data.length - dataLength; i < this.data.length; i++) {
+          if (!this.data[i] || this.data[i].x > lastVisibleTime) break;
+          this.lineChartLabels.splice(0, 1);
+          this.lineChartData[0].data.splice(0, 1);
+        }
+      }
+
     }
   }
 
@@ -117,7 +124,6 @@ export class DataGraphComponent implements OnInit {
 
         console.log(this.data);
 
-        this.internalChange = true;
         this.data.push({y: property.value, x: property.timestamp});
         this.updateData.emit({y: property.value, x: property.timestamp});
         // console.log("Data-Graph", property);
@@ -167,6 +173,15 @@ export class DataGraphComponent implements OnInit {
 
   private getSelectedVisibility(): number {
     let visibility = this.selectedVisibility;
+    if (!this.useDatesAsTimestamps) {
+      if(visibility == 'Only New')
+        return 5;
+      else if(visibility == 'All Time')
+        return 0;
+      else
+        return +visibility;
+    }
+
     const currentDate = Date.now();
     const indicator = visibility.slice(0, visibility.indexOf(' '));
     // console.log(indicator, currentDate, visibility);

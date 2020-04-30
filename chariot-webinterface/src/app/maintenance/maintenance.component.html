@@ -26,7 +26,7 @@
       <mat-divider></mat-divider>
 
       <div id="issue-list-wrapper" class="list">
-        <div id="no-issue-found" *ngIf="metadata && metadata.issuesSynchronised && group">
+        <div id="no-issue-found" *ngIf="metadata && metadata.issuesSynchronised && group == undefined">
           <p>No issues found</p>
         </div>
         <div *ngFor="let key of group">
@@ -114,7 +114,7 @@
               *ngIf="prop != null && prop.type != 'string'"
               [property]="prop"
               [name]="'Related property: ' + prop.name ? prop.name : prop.key"
-              [height]="375">
+              [height]="375" >
             </app-device-panel-monitoring>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {NotifierService} from 'angular-notifier';
-import {Device} from '../../model/device';
+import {Device, Property} from '../../model/device';
 import {RestService} from './rest.service';
 import {DataHandlingService} from './data-handling.service';
 import {Issue} from '../../model/issue';
@@ -54,7 +54,7 @@ export class PmNotificationReceiverService {
          // Check for pm result
        } else if (!jsonMessage.value && property.value) {
          property.value = jsonMessage.value;
-         this.resolveIssue(device, device.getLastIssue(), false);
+         this.resolveIssue(device, device.getLastIssue(), true);
        }
      });
   }
@@ -145,8 +145,10 @@ export class PmNotificationReceiverService {
   sendIssueEvent(newIssueEvent: EventEmitter<Issue>, issue: Issue) {
     this.waitForSubmit = issue;
     setTimeout(() => {
-      if(this.waitForSubmit == issue)
+      if(this.waitForSubmit == issue){
         newIssueEvent.emit(issue);
+        this.dataService.storeDeviceData();
+      }
     }, 1000);
   }
 
@@ -192,10 +194,26 @@ export class PmNotificationReceiverService {
       importance: Math.floor(Math.random() * 100),
       name: device.name,
       relatedDeviceId: device.identifier,
-      relatedTo: device.properties,
+      relatedTo: this.getRelatedProperty(property, device),
       url: property.url
     };
     return issue;
+  }
+
+  getRelatedProperty (property: ServiceProperty, device: Device) : Property[]{
+    let retProperties = [];
+    let relatedToProps: string[] = JSON.parse(JSON.stringify(property.relatedTo));
+    for (let prop of device.properties) {
+      if(relatedToProps.length == 0)
+        return retProperties;
+      for (let related of relatedToProps) {
+        if(related.indexOf(prop.key) != -1) {
+          retProperties.push(prop);
+          relatedToProps.splice(relatedToProps.indexOf(related), 1);
+        }
+      }
+    }
+    return retProperties;
   }
 
   private getMetaData() {

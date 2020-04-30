@@ -9,7 +9,7 @@
       <span id="monitoring-data-select">
         {{selectedVisibility}}:
       </span>
-      <span>
+      <span *ngIf="useDatesAsTimestamps">
         {{dataAmount}}
       </span>
       <mat-icon id="down" (click)="showMoreData()">keyboard_arrow_down</mat-icon>
@@ -19,12 +19,13 @@
     </div>
     <app-data-graph
       id="prediction-graph"
+      [ngStyle]="{'height': height - 100 + 'px'}"
       [topic]="property.topic"
       [data]="visibleData"
-      [dataAmount]="visibleData.length"
+      [height]="height - 100"
+      [useDatesAsTimestamps]="useDatesAsTimestamps"
       [selectedVisibility]="selectedVisibility"
       (dataLength)="dataAmount = $event"
-      [height]="height - 100"
       (updateData)="updateLocalData($event)">
     </app-data-graph>
   </div>
