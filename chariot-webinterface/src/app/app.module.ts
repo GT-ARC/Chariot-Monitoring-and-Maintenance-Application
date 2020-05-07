@@ -69,6 +69,7 @@ import {environment} from "../environments/environment";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { SettingsTestingComponent } from './settings/settings-testing/settings-testing.component';
 import { SettingsPageComponent } from './settings/settings-page/settings-page.component';
+import {settings} from "../environments/default_settings";
 
 @NgModule({
   declarations: [
@@ -138,7 +139,7 @@ import { SettingsPageComponent } from './settings/settings-page/settings-page.co
 })
 export class AppModule {
   constructor(private socket: Socket) {
-    if(!environment.mock)
+    if(! settings.general.find(ele => ele.name == 'Mock modus').value)
       this.socket.connect();
   }
 }

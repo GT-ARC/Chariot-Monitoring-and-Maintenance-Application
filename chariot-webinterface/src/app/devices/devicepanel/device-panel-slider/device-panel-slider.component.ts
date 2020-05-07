@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {DeviceUpdateService} from '../../../services/device-update.service';
 import {environment} from "../../../../environments/environment";
 import {strings as envString} from "../../../../environments/strings";
+import {settings} from "../../../../environments/default_settings";
 
 @Component({
   selector: 'app-device-panel-slider',
@@ -35,7 +36,7 @@ export class DevicePanelSliderComponent implements OnInit {
       this.accuracy = 0;
     }
     // console.log("Init", this.property);
-    if (!environment.mock)
+    if (! settings.general.find(ele => ele.name == 'Mock modus').value)
       this.receiveDataStream();
   }
 

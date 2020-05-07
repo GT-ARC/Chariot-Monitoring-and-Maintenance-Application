@@ -29,21 +29,21 @@ export class PredictionGraphComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.lineChartLabels = this.data.map(data =>
-      this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
+      this.monthAbrNames[new Date(data.x).getMonth()] + " " + new Date(data.x).getDay()
     ).concat(
       this.prediction.map( data =>
-        this.monthAbrNames[new Date(data.y).getMonth()] + " " + new Date(data.y).getDay()
+        this.monthAbrNames[new Date(data.x).getMonth()] + " " + new Date(data.x).getDay()
       ).slice(1, this.prediction.length)
     );
     let predictionData = new Array(this.data.length - 1).concat(this.prediction);
     this.lineChartData = [
       {
-        data: this.data.map(data => data.x),
+        data: this.data.map(data => data.y),
         lineTension: 0,
         label: 'History'
       },
       {
-        data: predictionData.map(data => data.x),
+        data: predictionData.map(data => data.y),
         lineTension: 0,
         label: 'Prediction'
       }

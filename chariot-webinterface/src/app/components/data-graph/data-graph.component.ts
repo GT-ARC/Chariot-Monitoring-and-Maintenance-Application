@@ -5,6 +5,7 @@ import {DeviceUpdateService} from '../../services/device-update.service';
 import {Observable, Subscription} from 'rxjs';
 import {takeWhile, timestamp} from 'rxjs/operators';
 import {environment} from "../../../environments/environment";
+import {settings} from "../../../environments/default_settings";
 
 @Component({
   selector: 'app-data-graph',
@@ -41,7 +42,7 @@ export class DataGraphComponent implements OnInit {
     }
 
     if('topic' in changes){
-      if(!environment.mock) {
+      if(! settings.general.find(ele => ele.name == 'Mock modus').value) {
         if(this.subscription != undefined) this.subscription.unsubscribe();
         this.receiveDataStream();
       }
@@ -250,4 +251,5 @@ export class DataGraphComponent implements OnInit {
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
     'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
   ];
+
 }

@@ -19,16 +19,18 @@ export class SettingsPageComponent implements OnInit {
   }
 
   settingsStateChanged(entry: SettingsEntry, $event: Event) {
+    console.log("Settings changed");
     let state: any = $event.target['value'];
     switch (entry.type) {
       case 'boolean':
-        entry.value = state == 'on';
+        // @ts-ignore
+        entry.value = $event.target.checked;
         break;
       default:
         entry.value = state;
     }
-    entry.callback(state);
     this.dataService.storeSettings(entry, this.name.toLowerCase());
+    entry.callback(state);
   }
 
 }

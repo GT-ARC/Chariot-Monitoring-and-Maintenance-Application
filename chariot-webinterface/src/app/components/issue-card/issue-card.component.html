@@ -8,7 +8,9 @@
   </div>
 
   <p class="issue-card-device-name">{{issue.name}}</p>
-  <p class="issue-card-type">ID: {{issue.identifier}}</p>
+  <p class="issue-card-type"
+     [ngStyle]="{maxWidth: dashboard ? '130px' : '160px' }"
+  >ID: {{issue.identifier}}</p>
 
   <div class="issue-oval"
        [ngClass]="issue.state ? 'solved' : ''">

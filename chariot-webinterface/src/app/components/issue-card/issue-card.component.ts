@@ -12,6 +12,7 @@ export class IssueCardComponent implements OnInit {
   @Input() issue: Issue;
 
   @Input() selectedIssue: Issue;
+  @Input() dashboard: boolean = false;
 
   constructor() { }
 

@@ -4,6 +4,7 @@ import { NotifierService } from 'angular-notifier';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {settings} from "../../environments/default_settings";
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class AgentUpdateService {
 
     console.log("Send message to proxy agent: ", JSON.stringify(message));
 
-    if(environment.mock){
+    if( settings.general.find(ele => ele.name == 'Mock modus').value){
       this.notifierService.notify('success', 'device: ' + message["uuid"] + ' updated')
     } else {
       this.http.post(environment.proxyAgentAddress, JSON.stringify(message), this.httpOptions)

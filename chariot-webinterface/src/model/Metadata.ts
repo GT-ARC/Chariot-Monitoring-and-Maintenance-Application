@@ -8,6 +8,8 @@ export class Metadata {
 
   private _deviceEventEmitter: EventEmitter = new EventEmitter();
 
+  private _errorInGettingData: boolean = false;
+
   prodBehindPlanData: {
     y: number,
     x: number
@@ -20,6 +22,13 @@ export class Metadata {
   constructor() {
   }
 
+  get errorInGettingData(): boolean {
+    return this._errorInGettingData;
+  }
+
+  set errorInGettingData(value: boolean) {
+    this._errorInGettingData = value;
+  }
 
   get deviceEventEmitter(): EventEmitter {
     return this._deviceEventEmitter;

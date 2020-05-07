@@ -59,10 +59,12 @@ export class Device {
   lastIssue : Issue = null;
 
   addIssue(issue : Issue) {
-    this.lastIssue = issue;
+    if(issue.state == false) {
+      this.lastIssue = issue;
+      this.lastIssueId = issue.identifier;
+      this.issueDetected = true;
+    }
     this.issues.push(issue);
-    this.lastIssueId = issue.identifier;
-    this.issueDetected = true;
   }
 
   resolveLastIssue() {

@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {NotifierService} from 'angular-notifier';
 import {environment} from "../../../../environments/environment";
 import {strings as envString} from "../../../../environments/strings";
+import {settings} from "../../../../environments/default_settings";
 
 @Component({
   selector: 'app-device-panel-switch',
@@ -35,7 +36,7 @@ export class DevicePanelSwitchComponent implements OnInit {
   ngOnInit() {
     this.cardName = this.property.name == undefined ? this.property.key : this.property.name;
 
-    if(!environment.mock)
+    if(! settings.general.find(ele => ele.name == 'Mock modus').value)
       this.receiveDataStream();
   }
 

@@ -6,6 +6,16 @@
     <span id="project_name">
       MM APP</span>
   </a>
+  <div id="info-div">
+    <div *ngIf="metaData.errorInGettingData">
+      <mat-icon id="error-symbol">{{error_icon}}</mat-icon>
+      <p id="error-text">No database connection. <br> Only local data visible.</p>
+    </div>
+    <div *ngIf="mockMode">
+      <mat-icon id="info-symbol">{{warning_icon}}</mat-icon>
+      <p id="warning-text">No database connection. <br> Only local data visible.</p>
+    </div>
+  </div>
   <div id="nav-button">
     <button mat-icon-button
             [matMenuTriggerFor]="navMenu">

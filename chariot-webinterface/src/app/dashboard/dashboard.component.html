@@ -23,6 +23,7 @@
             <div *ngFor="let issue of lastIssues">
               <app-issue-card
                 [routerLink]="'/maintenance/' + issue.identifier"
+                [dashboard]="true"
                 [issue]="issue"></app-issue-card>
             </div>
           </div>

@@ -6,10 +6,11 @@ export const settings : Settings = {
     {
       name: "Mock modus",
       tool_tip: "Switch if data is generated or pulled from the backend",
-      value: environment.mock,
+      value: false,
       type: 'boolean',
       callback: function (state: any) {
-        console.log("Mock modus changed");
+        //  this.settings.general.find(ele => ele.name == 'Mock modus').value = true;
+        location.reload();
       }
     }
   ],

@@ -4,6 +4,7 @@ import {Device, Property, PropertyBundle} from '../../../model/device';
 import {DeviceUpdateService} from '../../services/device-update.service';
 import {AgentUpdateService} from '../../services/agent-update.service';
 import {environment} from "../../../environments/environment";
+import {settings} from "../../../environments/default_settings";
 
 @Component({
   selector: 'app-devicepanel',
@@ -43,7 +44,7 @@ export class DevicepanelComponent implements OnInit {
     // Set the device status property
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
 
-    if (environment.mock)
+    if ( settings.general.find(ele => ele.name == 'Mock modus').value)
       this.startDummyDataStream(this.device);
   }
 

@@ -10,7 +10,7 @@
     <aside id="settings-list">
       <div class="list-entry" *ngFor="let site of sites"
            (click)="selectSite(site)"
-           [ngClass]="selectedSite == site.name ? 'selected' : ''">
+           [ngClass]="selectedSite.name == site.name ? 'selected' : ''">
         <div class="list-entry-icon">
           <mat-icon>{{site.icon}}</mat-icon>
         </div>

@@ -29,6 +29,36 @@ nav a {
   transform: translate(0, -50%);
 }
 
+#info-div {
+  top: 50%;
+  transform: translate(0, -50%);
+  float: left;
+  padding: 0;
+  position: relative;
+}
+
+#error-text {
+  display: inline-block;
+  margin-left: 16px;
+  color: red;
+}
+
+#error-symbol {
+  font-size: 32px;
+  color: red;
+}
+
+#warning-text {
+  display: inline-block;
+  margin-left: 16px;
+  color: darkgoldenrod;
+}
+
+#info-symbol {
+  font-size: 32px;
+  color: darkgoldenrod;;
+}
+
 #nav-button {
   position: absolute;
   top: 47%;

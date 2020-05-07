@@ -13,7 +13,6 @@ import {environment} from '../../environments/environment';
 import {MockDataService} from "./mock-data.service";
 import {Settings, SettingsEntry} from "../../model/settings";
 import { settings } from 'src/environments/default_settings';
-import {element} from "protractor";
 
 @Injectable({
   providedIn: 'root'
@@ -49,10 +48,17 @@ export class DataHandlingService {
     }
 
     try {
+      this.getLocalStoredSettings();
+      let mockmodus = this.settings.general.find(ele => ele.name == 'Mock modus').value;
+      if(mockmodus) {
+        console.log('Create new mock Data');
+        this.createData();
+        this.storeCreatedData();
+        return;
+      }
       this.getLocalStoredDevices();
       this.getLocalStoredContainer();
       this.getLocalStoredMetadata();
-      this.getLocalStoredSettings();
     } catch (e) {
       console.log('Create new mock Data', e);
       this.createData();
@@ -535,7 +541,7 @@ export class DataHandlingService {
           devIndex += 1;
         } else {
 
-          if(devIndex + 1 > this.deviceGroups.length)
+          if(devGroupIndex + 1 > this.deviceGroups.length)
             return;
 
           currLocation.addDeviceGroup(this.deviceGroups.pop());
@@ -597,36 +603,41 @@ export class DataHandlingService {
     DataHandlingService.clearStorage();
 
     this.metadata = MockDataService.createMetaData();
-    if (environment.mock){
+    this.metadata.devicesSynchronised = true;
+    this.metadata.issuesSynchronised = true;
+    this.metadata.warehouseSynchronised = true;
+    if ( settings.general.find(ele => ele.name == 'Mock modus').value){
       this.createDevices();
       this.createLocations();
       this.createFloors();
       // Do to the fact that not all devices and locations are used reduce the locations and device parameter to the actual used
       this.locations = this.floors.map(f => f.locations).reduce((prev, curr) => prev.concat(curr), []);
 
-      this.deviceGroups = this.floors.map(f =>
-        f.locations.map(l => l.deviceGroups).reduce((prev, curr) => prev.concat(curr), [])
-      ).reduce((prev, curr) => prev.concat(curr), []).filter( elem => elem instanceof DeviceGroup);
-
-      this.devices = this.floors.map(f =>
-        f.locations.map(l => (<DeviceGroup[]><unknown>l.devices.filter(elem => elem instanceof DeviceGroup)).map(value => value.devices)
-          .concat(f.locations.map(l => {
-            (<Device[]>l.devices.filter(elem => elem instanceof Device))
-              .map(d => d.issues)
-              .reduce((prev, curr) => prev.concat(curr), [])
-              .forEach(issue => this.addIssue(issue));
-            (<Device[]>l.devices.filter(elem => elem instanceof Device))
-              .forEach(d => this.deviceMap.set(d.identifier, d));
-            return (<Device[]>l.devices.filter(elem => elem instanceof Device));
-          }))
-          .reduce((prev, curr) => prev.concat(curr), [])
-        ).reduce((prev, curr) => prev.concat(curr), [])
+      this.deviceGroups = this.floors.map(f =>  f.locations.map(l => l.deviceGroups)
+        .reduce((prev, curr) => prev.concat(curr), [])
       ).reduce((prev, curr) => prev.concat(curr), []);
+
+      this.devices = [];
+      this.floors.map(f => f.locations.forEach(l => {
+          l.deviceGroups.forEach( dg =>
+            dg.devices.forEach(d => this.devices.push(d))
+          );
+          l.devices.forEach(d => this.devices.push(d))
+        })
+      );
+
+
+      // Add the devices to the device map
+      this.devices.forEach(d => this.deviceMap.set(d.identifier, d));
+
+      // Add the device issues to the issue list
+      this.devices.map(d => d.issues)
+        .reduce((prev, curr) => prev.concat(curr), [])
+        .forEach(issue => this.addIssue(issue));
+
+      this.createProcesses();
+      this.createContainers();
     }
-
-
-    this.createProcesses();
-    this.createContainers();
   }
 
   printData() {
