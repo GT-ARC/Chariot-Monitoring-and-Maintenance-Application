@@ -130,7 +130,7 @@ export class PmNotificationReceiverService {
     issue.state = true;
     device.resolveLastIssue();
     this.sendIssueEvent(this._issueResolvedEvent, issue);
-    if(notify) this.notifierService.notify('success', 'Issue resolved');
+    if(notify) this.notifierService.notify('success', 'Issue resolved ' + issue.identifier);
   }
 
   addIssue(device: Device, issue: Issue, notify : boolean = true) {

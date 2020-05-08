@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import {Device, Property} from "../../model/device";
 import * as faker from 'faker';
 import {Issue} from "../../model/issue";
-import {DeviceGroup} from "../../model/deviceGroup";
-import {Location} from "../../model/location";
-import {Floor} from "../../model/floor";
 import {IndividualProcess, ProcessProperty, Product} from "../../model/Product";
 import {Metadata} from "../../model/Metadata";
 
@@ -67,17 +64,16 @@ export class MockDataService {
 
     let dataEndTime: number = new Date().valueOf();   // Current time
     let dataValue: number = Math.random() * 100;      // Data value
-    let timeInterval: number = Math.floor(Math.random() * 10 ** 9 + 10 ** 8 + 10 ** 7);
+    let timeInterval: number = Math.floor(Math.random() * 86400000);
     let valueInterval: number = (Math.random() * 20 + 5);
     let dataAmount = Math.round(Math.random() * 30) + 10;   // The amount of data points
-
     let productsBehindPlan = MockDataService.createRandomData(dataAmount, dataEndTime, dataValue, timeInterval, valueInterval);
 
     let predictionSize = Math.round(Math.random() * 5) + 5;  // The amount of prediction time
 
     let metadata = new Metadata();
     metadata.prodBehindPlanData = productsBehindPlan.slice(0, productsBehindPlan.length - predictionSize);
-    metadata.prodBehindPlanPrediction = productsBehindPlan.slice(productsBehindPlan.length - predictionSize - 1, productsBehindPlan.length)
+    metadata.prodBehindPlanPrediction = productsBehindPlan.slice(productsBehindPlan.length - predictionSize - 1, productsBehindPlan.length);
 
     // Set the meta data value
     return metadata;
@@ -276,7 +272,11 @@ export class MockDataService {
       });
     }
     retIssues = retIssues.sort(((a, b) => a.issue_date - b.issue_date));
-    if(retIssues.length != 0) retIssues[retIssues.length - 1].state = Math.random() > 0.2;
+    // Set the last on to true with a specific probability
+    if(retIssues.length != 0 && Math.random() < 0.3) {
+      let issue = retIssues[retIssues.length - 1];
+      issue.state = false;
+    }
     return retIssues;
   }
 
@@ -350,12 +350,15 @@ export class MockDataService {
           desc: faker.random.uuid()
         }
       ],
-      null,
+      [],
     );
 
     retDevice.properties = MockDataService.createMockDeviceProperties();
 
-    retDevice.issues = MockDataService.createIssues(retDevice);
+    for (let issue of MockDataService.createIssues(retDevice)) {
+      retDevice.addIssue(issue)
+    }
+
     retDevice.issues.forEach(i => {
       let numberProperties = retDevice.properties.filter(p => p.type == "number");
       let propAmount = MockDataService.getRandValue(1, 3);
