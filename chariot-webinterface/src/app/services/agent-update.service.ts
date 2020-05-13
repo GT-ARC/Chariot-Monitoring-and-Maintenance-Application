@@ -30,7 +30,18 @@ export class AgentUpdateService {
     message["inputs"] = {
       propertyName: propertyValue
     };
+    this.sendMessageToProxy(message);
+  }
 
+  public sendJson(deviceID: string, json: string) {
+    let message = {};
+    message["command"] = "property-state-change";
+    message["uuid"] = deviceID;
+    message["json"] = json;
+    this.sendMessageToProxy(message);
+  }
+
+  private sendMessageToProxy(message) {
     console.log("Send message to proxy agent: ", JSON.stringify(message));
 
     if( settings.general.find(ele => ele.name == 'Mock modus').value){

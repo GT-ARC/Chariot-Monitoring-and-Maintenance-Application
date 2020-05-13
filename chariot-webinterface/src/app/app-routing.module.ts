@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'maintenance/:id',  component: MaintenanceComponent },
   { path: 'products-behind-plan',  component: ProductsBehindPlanComponent },
   { path: 'products-behind-plan/:id',  component: ProductsBehindPlanComponent },
-  { path: 'settings',  component: SettingsComponent }
+  { path: 'settings',  component: SettingsComponent },
+  { path: 'settings/:page',  component: SettingsComponent },
 ];
 
 @NgModule({
