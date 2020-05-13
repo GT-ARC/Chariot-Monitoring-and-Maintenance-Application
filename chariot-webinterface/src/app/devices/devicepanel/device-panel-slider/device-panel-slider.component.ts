@@ -36,7 +36,7 @@ export class DevicePanelSliderComponent implements OnInit {
       this.accuracy = 0;
     }
     // console.log("Init", this.property);
-    if (! settings.general.find(ele => ele.name == 'Mock modus').value)
+    if (! (settings.general.find(ele => ele.name == 'Mock modus') && settings.general.find(ele => ele.name == 'Mock modus').value))
       this.receiveDataStream();
   }
 

@@ -25,6 +25,8 @@ export class Device {
 
   lastIssueId: string = "";
 
+  public isMock: boolean = false;
+
   constructor(identifier: string,
               name: string,
               symbol: symbol,

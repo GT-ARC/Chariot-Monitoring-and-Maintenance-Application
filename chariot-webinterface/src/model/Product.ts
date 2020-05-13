@@ -1,4 +1,7 @@
 export class Product {
+
+  isMock: boolean = false;
+
   identifier: number;
 
   productAddInfo: string;

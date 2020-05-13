@@ -6,6 +6,7 @@ export class DeviceGroup {
   public devices : Device[];
   public name: string;
   public unfolded: boolean = Math.random() > 0.5;
+  public isMock: boolean = false;
 
   constructor(identifier: string, name: string) {
     this.identifier = identifier;

@@ -257,19 +257,22 @@ export class MockDataService {
     let retIssues: Issue[] = [];
     for (let c = 0; c < Math.random() * 4; c++) {
       let selectedDate = issueDates[Math.floor(Math.random() * issueDates.length)];
-      retIssues.push({
-        identifier: MockDataService.makeid(),
-        // state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
-        state: true,
-        description: '',
-        type: faker.commerce.productName().slice(0, 15),
-        issue_date: selectedDate + Math.floor(Math.random() * 86400000),
-        importance: Math.floor(Math.random() * 100),
-        name: device.name,
-        relatedDeviceId: device.identifier,
-        relatedTo: [],
-        url: ""
-      });
+      let retIssue = new Issue()
+
+      // state: selectedDate == Math.floor(Date.now() / 86400000) * 86400000 ? Math.random() >= 0.2 : Math.random() >= 0,
+        retIssue.identifier = MockDataService.makeid();
+        retIssue.state = true;
+        retIssue.description = '';
+        retIssue.type = faker.commerce.productName().slice(0, 15);
+        retIssue.issue_date = selectedDate + Math.floor(Math.random() * 86400000);
+        retIssue.importance = Math.floor(Math.random() * 100);
+        retIssue.name = device.name;
+        retIssue.relatedDeviceId = device.identifier;
+        retIssue.relatedTo = [];
+        retIssue.url = "";
+        retIssue.isMock = true;
+
+      retIssues.push(retIssue);
     }
     retIssues = retIssues.sort(((a, b) => a.issue_date - b.issue_date));
     // Set the last on to true with a specific probability
@@ -352,7 +355,7 @@ export class MockDataService {
       ],
       [],
     );
-
+    retDevice.isMock = true;
     retDevice.properties = MockDataService.createMockDeviceProperties();
 
     for (let issue of MockDataService.createIssues(retDevice)) {
@@ -651,7 +654,7 @@ export class MockDataService {
   static productStatus = ['Status A', 'Status B', 'Status C'];
 
   static createProductProcess() {
-    return new Product(
+    let retProduct = new Product(
       MockDataService.processIdentifier++,
       'Additonal information',
       faker.commerce.productName(),
@@ -666,6 +669,8 @@ export class MockDataService {
       MockDataService.createProductInfo(),
       (MockDataService.categorys)[Math.floor(Math.random() * MockDataService.categorys.length)]
     );
+    retProduct.isMock = true;
+    return retProduct;
   }
 
   static containerIdentifier: number = 0;

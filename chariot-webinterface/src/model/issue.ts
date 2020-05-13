@@ -1,7 +1,7 @@
 import {Device, Property} from './device';
 
 export class Issue {
-
+  isMock: boolean = false;
   identifier: string;
   state: boolean;
   type: string;

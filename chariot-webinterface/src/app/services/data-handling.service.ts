@@ -59,6 +59,7 @@ export class DataHandlingService {
       this.getLocalStoredDevices();
       this.getLocalStoredContainer();
       this.getLocalStoredMetadata();
+      this.removeMockData();
     } catch (e) {
       console.log('Create new mock Data', e);
       this.createData();
@@ -188,13 +189,16 @@ export class DataHandlingService {
             deviceGroupList.push(newDeviceGroup);
             this.deviceGroups.push(newDeviceGroup);
           }
-          loc.devices = deviceList;
-          loc.deviceGroups = deviceGroupList;
-          locList.push(loc);
-          this.locations.push(loc);
+          let newLocation = new Location( loc.identifier, loc.type, loc.name, loc.position)
+          newLocation.devices = deviceList;
+          newLocation.deviceGroups = deviceGroupList;
+          newLocation.isMock = loc.isMock;
+          locList.push(newLocation);
+          this.locations.push(newLocation);
         }
-        floor.locations = locList;
-        this.floors.push(floor);
+        let newFloor = new Floor(floor.identifier, floor.name, floor.level, locList);
+        newFloor.isMock = floor.isMock;
+        this.floors.push(newFloor);
       }
     } catch (e) {
       console.log(e);
@@ -218,6 +222,7 @@ export class DataHandlingService {
     }
     newDevice.lastIssue = device.lastIssue;
     newDevice.issueDetected = device.issueDetected;
+    newDevice.isMock = device.isMock;
     this.devices.push(newDevice);
     this.deviceMap.set(device.identifier, newDevice);
     return newDevice;
@@ -298,6 +303,7 @@ export class DataHandlingService {
     let newDeviceGroup = new DeviceGroup(deviceGroup.identifier,
       deviceGroup.name
     );
+    newDeviceGroup.isMock = deviceGroup.isMock;
     for(let device of deviceGroup.devices) {
       newDeviceGroup.addDevice(this.addDevice(device))
     }
@@ -331,17 +337,18 @@ export class DataHandlingService {
     } else {
       // Assume everything from the new floor is new if the floor is new
       this.addNewFloor(newFloor);
+      this.removeLocalStoredData(
+        [].concat(...newFloor.locations.map(f => [].concat(f.devices.map(d => d.identifier)))),
+        [].concat(...newFloor.locations.map(f => [].concat(f.deviceGroups.map(d => d.identifier)))))
+      console.log(this.floors);
       localStorage.setItem("floor", JSON.stringify(this.floors));
       return this.devices;
     }
 
     let newDevicesIDs : string[] = [];
-    let newLocationIDs : string[] = [];
+    let newDeviceGroupsIDs : string[] = [];
 
     for (let loc of newFloor.locations) {
-
-      // Search for the location and find it
-      newLocationIDs.push(loc.identifier);
 
       let foundLocation = this.locations.find(l => l.identifier == loc.identifier);
 
@@ -372,56 +379,129 @@ export class DataHandlingService {
         }
       }
 
-      // for(let newDeviceGroup of loc.devices.filter(element => element instanceof DeviceGroup)) {
-      //   if (newDeviceGroup instanceof DeviceGroup) {
-      //     let foundDeviceGroup = this.deviceGroups.find(d => d.identifier == newDeviceGroup.identifier);
-      //     if (foundDeviceGroup) {
-      //       for (let newDevice of newDeviceGroup.devices) {
-      //
-      //         foundDeviceGroup.name = newDeviceGroup.name;
-      //
-      //         // Update the device of the device group
-      //         let oldDevice = foundDeviceGroup.devices.find(d => d.identifier == newDevice.identifier);
-      //         if (oldDevice) {
-      //           this.updateDevice(oldDevice, newDevice);
-      //         } else {
-      //           this.devices.push(newDevice);
-      //           this.deviceMap.set(newDevice.identifier, newDevice);
-      //           foundDeviceGroup.addDevice(newDevice);
-      //         }
-      //       }
-      //     } else {
-      //       for (let newDevice of newDeviceGroup.devices) {
-      //         this.devices.push(newDevice);
-      //         this.deviceMap.set(newDevice.identifier, newDevice);
-      //       }
-      //       this.deviceGroups.push(newDeviceGroup);
-      //     }
-      //   }
-      // }
+      for(let newDeviceGroup of loc.devices.filter(element => element instanceof DeviceGroup)) {
+        if (newDeviceGroup instanceof DeviceGroup) {
+          let foundDeviceGroup = this.deviceGroups.find(d => d.identifier == newDeviceGroup.identifier);
+          if (foundDeviceGroup) {
+            for (let newDevice of newDeviceGroup.devices) {
+
+              foundDeviceGroup.name = newDeviceGroup.name;
+
+              // Update the device of the device group
+              let oldDevice = foundDeviceGroup.devices.find(d => d.identifier == newDevice.identifier);
+              if (oldDevice) {
+                this.updateDevice(oldDevice, newDevice);
+              } else {
+                this.devices.push(newDevice);
+                this.deviceMap.set(newDevice.identifier, newDevice);
+                foundDeviceGroup.addDevice(newDevice);
+              }
+            }
+          } else {
+            for (let newDevice of newDeviceGroup.devices) {
+              this.devices.push(newDevice);
+              this.deviceMap.set(newDevice.identifier, newDevice);
+            }
+            this.deviceGroups.push(newDeviceGroup);
+          }
+        }
+      }
     }
 
+    this.removeLocalStoredData(newDevicesIDs, newDeviceGroupsIDs);
+    console.log(this.devices);
+    localStorage.setItem("floor", JSON.stringify(this.floors));
+    return this.devices;
+  }
 
+  private removeLocalStoredData(newDevicesIDs: string[], newDeviceGroupsIDs : string[]) {
     // Remove locally stored devices not found in db
+    const toBeRemovedDevices = [];
+
     this.devices.forEach(d => {
       let deviceIndex = newDevicesIDs.indexOf(d.identifier);
       if (deviceIndex == -1) {
-        console.log("Remove not found device: " + d);
-        this.devices.splice(deviceIndex, 1);
-        this.floors.forEach(f => f.locations.forEach( l => {
-          let deviceIndex = l.devices.map(d => d.identifier).indexOf(d.identifier);
-          if (deviceIndex != -1) {
-            l.devices.splice(deviceIndex, 1);
-          }
-          if (l.devices.length == 0) {
-            f.locations.splice(f.locations.indexOf(l), 1);
-          }
-        }));
+        console.log("Remove not found device: ", d);
+        toBeRemovedDevices.push(d);
+      }
+    });
+    toBeRemovedDevices.forEach(d => {
+      this.devices.splice(this.devices.indexOf(d), 1);
+      this.deviceMap.delete(d.identifier);
+      for(let issue of d.issues) {
+        this.issueMap.delete(issue.identifier);
+        this.issues.splice(this.issues.indexOf(issue), 1)
+      }
+      this.removeDeviceOutOfLocation(d);
+    })
+
+    const toBeRemovedDeviceGroups = [];
+    // Remove locally stored device group not found in db
+    this.deviceGroups.forEach(dg => {
+      let deviceIndex = newDeviceGroupsIDs.indexOf(dg.identifier);
+      if (deviceIndex == -1) {
+        console.log("Remove not found device group: ", dg);
+        toBeRemovedDeviceGroups.push(dg);
       }
     });
 
-    localStorage.setItem("floor", JSON.stringify(this.floors));
-    return this.devices;
+    toBeRemovedDeviceGroups.forEach(dg => {
+      this.deviceGroups.splice(this.deviceGroups.indexOf(dg), 1);
+      for(let device of dg.devices) {
+        this.devices.splice(this.devices.indexOf(device), 1);
+        this.deviceMap.delete(device.identifier);
+        for(let issue of device.issues) {
+          this.issueMap.delete(issue.identifier);
+          this.issues.splice(this.issues.indexOf(issue), 1)
+        }
+      }
+      this.removeDeviceOutOfLocation(dg);
+    })
+  }
+
+  private removeDeviceOutOfLocation(element : Device | DeviceGroup) {
+    let removeElement : {floor: Floor, location: Location, removeFloor: boolean} =
+      {floor: null, location: null, removeFloor: false};
+
+    for (const f of this.floors) {
+      for (const l of f.locations) {
+        // get the location the floor is located on
+        let elementIndex = l.devices.map(d => d.identifier).indexOf(element.identifier);
+        if (elementIndex != -1) {
+          l.devices.splice(elementIndex, 1);
+        } else {
+          elementIndex = l.deviceGroups.map(d => d.identifier).indexOf(element.identifier);
+          if (elementIndex != -1) {
+            l.deviceGroups.splice(elementIndex, 1);
+          }
+        }
+
+        if (l.devices.length == 0 && l.deviceGroups.length == 0) {
+          // Delete locations out of floor if there are no devices or device groups left
+          removeElement.location = l;
+          removeElement.floor = f;
+          // f.locations.splice(f.locations.indexOf(l), 1);
+        }
+
+        if (f.locations.length == 0) {
+          // Delete floor out of floor list if there are no locations left
+          removeElement.removeFloor = true;
+          // this.floors.splice(this.floors.indexOf(f), 1);
+        }
+
+        if(elementIndex != 0)
+          break;
+      }
+      if (removeElement.location != null)
+        break;
+    }
+
+    if(removeElement.location) {
+      removeElement.floor.locations.splice(removeElement.floor.locations.indexOf(removeElement.location), 1);
+      if(removeElement.removeFloor) {
+        this.floors.splice(this.floors.indexOf(removeElement.floor), 1);
+      }
+    }
   }
 
   addNewFloor(newFloor: Floor) {
@@ -494,6 +574,7 @@ export class DataHandlingService {
       let dgi = MockDataService.deviceGroupIdentifier;
 
       let newDeviceGroup: DeviceGroup = new DeviceGroup(dgi + "", "Device Group: " + dgi);
+      newDeviceGroup.isMock = true;
       let randomDeviceAmountPerGroup = MockDataService.getRandValue(1, 3);
 
       for(let c = 0; c < randomDeviceAmountPerGroup; c++) {
@@ -527,7 +608,7 @@ export class DataHandlingService {
         Math.random() > 0.5 ? 'Room ' + i : 'Space ' + i,
         null
       );
-
+      currLocation.isMock = true;
       let randNumber = MockDataService.getRandValue(2, 3);
       for(let c = 0; c < randNumber; c++) {
         // Put individual devices and device groups into the location devices
@@ -566,6 +647,7 @@ export class DataHandlingService {
         i,
         this.locations.slice(devFloor, devFloor + randNumber),
       );
+      floor.isMock = true;
       this.floors.push(floor);
       devFloor = devFloor + randNumber;
     }
@@ -655,6 +737,34 @@ export class DataHandlingService {
 
   getRandomDevice(): Device {
     return this.devices[Math.floor(this.devices.length * Math.random())]
+  }
+
+  private removeMockData() {
+    console.log("Remove mock data")
+
+    let mockIssues = this.issues.filter(i => i.isMock);
+    mockIssues.forEach(mi => {
+      this.issues.splice(this.issues.indexOf(mi), 1);
+      this.issueMap.delete(mi.identifier);
+    });
+
+    let mockDevices = this.devices.filter(d => d.isMock);
+    mockDevices.forEach(md => {
+      this.devices.splice(this.devices.indexOf(md), 1)
+      this.deviceMap.delete(md.identifier);
+    });
+
+    let mockDeviceGroups = this.deviceGroups.filter(dg => dg.isMock);
+    mockDeviceGroups.forEach(dg => this.deviceGroups.splice(this.deviceGroups.indexOf(dg), 1));
+
+    let mockLocation = this.locations.filter(l => l.isMock);
+    mockLocation.forEach(ml => this.locations.splice(this.locations.indexOf(ml), 1));
+
+    let mockFloors = this.floors.filter(f => f.isMock);
+    mockFloors.forEach(mf => this.floors.splice(this.floors.indexOf(mf), 1));
+
+    let mockProducts = this.products.filter(p => p.isMock);
+    mockProducts.forEach(mp => this.products.splice(this.products.indexOf(mp), 1));
   }
 }
 

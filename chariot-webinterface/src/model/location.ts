@@ -11,6 +11,7 @@ export class Location {
   };
   public devices: Device [];
   public deviceGroups: DeviceGroup[];
+  public isMock: boolean = false;
 
   constructor(identifier: string, type: String, name: String, position: { lat: number; lng: number }) {
     this.identifier = identifier;

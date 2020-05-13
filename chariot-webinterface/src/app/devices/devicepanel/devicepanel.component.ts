@@ -43,6 +43,8 @@ export class DevicepanelComponent implements OnInit {
 
     // Set the device status property
     this.deviceStatus = this.device.properties.find(ele => ele.key === "status");
+    if(this.deviceStatus == undefined)
+      this.deviceStatus = new Property(Date.now(), "boolean", "status", false, false)
 
     if ( settings.general.find(ele => ele.name == 'Mock modus').value)
       this.startDummyDataStream(this.device);

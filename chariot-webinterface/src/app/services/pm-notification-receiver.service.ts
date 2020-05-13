@@ -34,7 +34,7 @@ export class PmNotificationReceiverService {
        regex: false
      };
 
-     // subscribe to the issue topic globaly
+     // subscribe to the issue topic globally
      this.socket.emit('subscribe', JSON.stringify(sendMessage));
      this.socket.fromEvent<string>(sendMessage.topic).subscribe(message => {
 
@@ -185,18 +185,17 @@ export class PmNotificationReceiverService {
 
   createIssue(property: ServiceProperty, point: { x: number; y: any }, device: Device) {
     console.log(property.key + point.x);
-    let issue: Issue = {
-      identifier: "i" + ((+property.key + Math.round(point.x)) % 2147483647),
-      state: false,
-      description: '',
-      type: '',
-      issue_date: Math.round(point.x),
-      importance: Math.floor(Math.random() * 100),
-      name: device.name,
-      relatedDeviceId: device.identifier,
-      relatedTo: this.getRelatedProperty(property, device),
-      url: property.url
-    };
+    let issue: Issue = new Issue();
+    issue.identifier = "i" + ((+property.key + Math.round(point.x)) % 2147483647);
+    issue.state = false;
+    issue.description = '';
+    issue.type = '';
+    issue.issue_date = Math.round(point.x);
+    issue.importance = Math.floor(Math.random() * 100);
+    issue.name = device.name;
+    issue.relatedDeviceId = device.identifier;
+    issue.relatedTo = this.getRelatedProperty(property, device);
+    issue.url = property.url;
     return issue;
   }
 

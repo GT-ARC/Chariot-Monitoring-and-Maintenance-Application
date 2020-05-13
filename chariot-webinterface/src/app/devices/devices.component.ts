@@ -128,6 +128,8 @@ export class DevicesComponent implements OnInit {
     if (this.devices.length == 0 || this.locations.length == 0 || this.floors.length == 0)
       return;
 
+    console.log(this.devices, this.locations, this.floors);
+
     this.resetDataStructures();
 
 
@@ -295,7 +297,8 @@ export class DevicesComponent implements OnInit {
     // }));
     this.allDevicesOn = true;
     for (let element of this.visibleDevice) {
-      if (element.properties.find(s => s.key == 'status').value == false) {
+      let status = element.properties.find(s => s.key == 'status')
+      if (status == undefined || status.value == false) {
         this.allDevicesOn = false;
         break;
       }
