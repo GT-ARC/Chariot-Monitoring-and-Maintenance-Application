@@ -27,9 +27,8 @@ export class AgentUpdateService {
     let message = {};
     message["command"] = "property-state-change";
     message["uuid"] = deviceID;
-    message["inputs"] = {
-      propertyName: propertyValue
-    };
+    message["inputs"] = {};
+    message["inputs"][propertyName] = propertyValue;
     this.sendMessageToProxy(message);
   }
 

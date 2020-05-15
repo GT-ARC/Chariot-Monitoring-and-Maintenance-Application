@@ -20,6 +20,7 @@ export class DevicePanelSliderComponent implements OnInit {
 
   @Input() property: Property;
   @Input() selectedProperty: Property;
+  @Input() topic: boolean = true;
 
   @Output() uploaded = new EventEmitter<{ property: string, state: any }>();
   public accuracy = 2;
@@ -41,7 +42,7 @@ export class DevicePanelSliderComponent implements OnInit {
   }
 
   private receiveDataStream() {
-    if (this.property.topic != '') {
+    if (this.topic && this.property.topic != '') {
       this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
       // console.log(this.currentDataReceiver);
       this.currentDataReceiver.subscribe(message => {

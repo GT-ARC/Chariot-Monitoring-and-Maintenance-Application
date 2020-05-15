@@ -29,16 +29,18 @@
        gdArea="a{{i}}">
 
     <app-device-panel-switch
-      (click)="selectedProperty = property; selectedPropertyEvent.emit({selectedProperty: property})"
+      (click)="selectProperty(property)"
       *ngSwitchCase="'boolean'"
+      [topic]="this.property != undefined"
       [property]="property"
       [selectedProperty]="selectedProperty"
       (uploaded)="pushData($event)">
     </app-device-panel-switch>
 
     <app-device-panel-slider
-      (click)="selectedProperty = property; selectedPropertyEvent.emit({selectedProperty: property})"
+      (click)="selectProperty(property)"
       *ngSwitchCase="'number'"
+      [topic]="this.property != undefined"
       [property]="property"
       [selectedProperty]="selectedProperty"
       (uploaded)="pushData($event)">

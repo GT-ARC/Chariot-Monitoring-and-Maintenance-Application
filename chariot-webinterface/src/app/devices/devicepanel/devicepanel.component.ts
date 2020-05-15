@@ -62,10 +62,13 @@ export class DevicepanelComponent implements OnInit {
   }
 
   emitDeviceProperty(property: string, state: any) {
-      this.device.properties.find(s => s.key == property).value = state;
+      let foundProp = this.device.properties.find(s => s.key == property);
+      // foundProp.value = state;
       if(property == "status") this.uploaded.emit({device: this.device, state: state});
-
-      this.proxyAgent.sendUpdate(this.device.identifier, property, state);
+      if(foundProp.type == "array")
+        this.proxyAgent.sendUpdate(this.device.identifier, property, JSON.stringify(state));
+      else
+        this.proxyAgent.sendUpdate(this.device.identifier, property, state);
   }
 
   getArrayProperties() : PropertyBundle[] {

@@ -20,6 +20,7 @@ export class DevicePanelSwitchComponent implements OnInit {
   @Input() device: Device;
   @Input() property: Property;
   @Input() selectedProperty: Property;
+  @Input() topic: boolean = true;
 
   @Output() uploaded = new EventEmitter<{property: string, state: any}>();
 
@@ -41,7 +42,7 @@ export class DevicePanelSwitchComponent implements OnInit {
   }
 
   private receiveDataStream() {
-    if(this.property.topic != '') {
+    if(this.topic && this.property.topic != '') {
       this.currentDataReceiver = this.deviceUpdateService.subscribeToTopic(this.property.topic);
 
       this.currentDataReceiver.subscribe(message => {

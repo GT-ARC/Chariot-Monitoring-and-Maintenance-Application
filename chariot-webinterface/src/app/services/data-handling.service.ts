@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Location} from '../../model/location';
-import {Device} from '../../model/device';
+import {Device, Property} from '../../model/device';
 import {Floor} from '../../model/floor';
 import {Issue} from '../../model/issue';
 import {IndividualProcess, ProcessProperty, Product} from '../../model/Product';
@@ -489,7 +489,7 @@ export class DataHandlingService {
           // this.floors.splice(this.floors.indexOf(f), 1);
         }
 
-        if(elementIndex != 0)
+        if(elementIndex != -1)
           break;
       }
       if (removeElement.location != null)
@@ -545,21 +545,32 @@ export class DataHandlingService {
     for (let prop of newDevice.properties) {
       let oldProp = oldDevice.properties.find(p => p.url == prop.url);
       if (oldProp){
-        oldProp.timestamp = prop.timestamp;
-        oldProp.topic = prop.topic;
-        oldProp.type = prop.type;
-        oldProp.name = prop.name;
-        oldProp.key = prop.key;
-        oldProp.value = prop.value;
-        oldProp.min_value = prop.min_value;
-        oldProp.max_value = prop.max_value;
-        oldProp.unit = prop.unit;
-        oldProp.writable = prop.writable;
+        if (oldProp.type == "array"){
+          for (let subProp of oldProp.value as Property[]){
+            DataHandlingService.updateProperty(subProp, (prop.value as Property[]).find(p => p.key == subProp.key))
+          }
+        } else {
+
+          DataHandlingService.updateProperty(oldProp, prop)
+        }
       } else {
         oldDevice.properties.push(prop);
       }
     }
    // console.log("Update device: old: ", oldDevice, " new ", newDevice);
+  }
+
+  private static updateProperty(oldProp, newProp) {
+    oldProp.timestamp = newProp.timestamp;
+    oldProp.topic = newProp.topic;
+    oldProp.type = newProp.type;
+    oldProp.name = newProp.name;
+    oldProp.key = newProp.key;
+    oldProp.value = newProp.value;
+    oldProp.min_value = newProp.min_value;
+    oldProp.max_value = newProp.max_value;
+    oldProp.unit = newProp.unit;
+    oldProp.writable = newProp.writable;
   }
 
   mockDevices: Device[] = [];

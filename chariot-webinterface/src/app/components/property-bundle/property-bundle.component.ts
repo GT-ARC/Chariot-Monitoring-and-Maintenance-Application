@@ -28,6 +28,7 @@ export class PropertyBundleComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log(this.property)
     // this.property = this.propertyBundle.bundledProperty;
     // this.getArea(null);
   }
@@ -39,6 +40,7 @@ export class PropertyBundleComponent implements OnInit {
       retObject[prop.key] = prop.value;
     }
 
+    console.log(this.propertyBundle);
     this.uploaded.emit({property: this.propertyBundle.bundledProperty.key, state: retObject});
   }
 
@@ -63,6 +65,13 @@ export class PropertyBundleComponent implements OnInit {
     // If the property is undefined it has to be a the properties and not a bundled property
     if(!this.property) {
       this.uploaded.emit({property: $event.property, state : $event.state});
+    }
+  }
+
+  selectProperty(property: Property) {
+    if(this.property == undefined) {
+      this.selectedProperty = property;
+      this.selectedPropertyEvent.emit({selectedProperty: property})
     }
   }
 }
