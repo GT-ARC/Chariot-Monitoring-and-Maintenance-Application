@@ -13,7 +13,7 @@
   <tr *ngFor="let ele of mapping">
     <td>
       {{ele.deviceID}}
-      <span *ngIf="ele.deviceID=='d9d3eb04-c324-4675-804b-5d451a1905b2'">(Planner)</span>
+      <span *ngIf="ele.deviceID=='d9d3eb04-c324-4675-804b-5d451a1905b2'">(PM-Agent)</span>
     </td>
     <td>{{ele.agentID}}</td>
     <td><button (click)="sendToDevice(ele.deviceID)">Send to Agent</button></td>
