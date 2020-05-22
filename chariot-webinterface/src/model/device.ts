@@ -133,8 +133,8 @@ export class PropertyBundle {
       // Make it size dependent
       let selectedAmount = 0;
       if (width < 450) selectedAmount = 1;
-      else if (width < 900) selectedAmount = rand < 0.4 ? 1 : 2;
-      else selectedAmount = rand < 0.2 ? 1 : (rand < 0.6 ? 2 : 3);
+      else if (width < 900) selectedAmount = rand < 0.3 ? 1 : 2;
+      else selectedAmount = rand < 0.1 ? 1 : (rand < 0.5 ? 2 : 3);
 
       if (selectedAmount > leftProperties)
         selectedAmount = leftProperties;

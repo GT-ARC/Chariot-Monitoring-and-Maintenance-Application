@@ -542,9 +542,13 @@ export class DataHandlingService {
     oldDevice.down_time = newDevice.down_time;
     oldDevice.description = newDevice.description;
 
+    let oldPropIDList = oldDevice.properties.map(p => p.key)
+
     for (let prop of newDevice.properties) {
-      let oldProp = oldDevice.properties.find(p => p.url == prop.url);
+      let oldProp = oldDevice.properties.find(p => p.key == prop.key);
       if (oldProp){
+        // Remove the found device from the list to remove the remaining one
+        oldPropIDList.splice(oldPropIDList.indexOf(oldProp.key), 1);
         if (oldProp.type == "array"){
           for (let subProp of oldProp.value as Property[]){
             DataHandlingService.updateProperty(subProp, (prop.value as Property[]).find(p => p.key == subProp.key))
@@ -557,6 +561,10 @@ export class DataHandlingService {
         oldDevice.properties.push(prop);
       }
     }
+
+    // Filter the properties that arent in the list anymore
+    oldDevice.properties = oldDevice.properties.filter(p => oldPropIDList.indexOf(p.key) == -1);
+
    // console.log("Update device: old: ", oldDevice, " new ", newDevice);
   }
 
