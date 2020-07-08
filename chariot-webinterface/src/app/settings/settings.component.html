@@ -1,0 +1,33 @@
+<!--<script src="../devices/devicepanel/devicepanel.component.ts"></script>-->
+<!--<script src="../devices/devicepanel/devicepanel.component.ts"></script>-->
+
+<app-sidenav-button [sideNav]="snav1"></app-sidenav-button>
+
+<mat-sidenav-container
+  fullscreen
+  (backdropClick)="backDropClicked()">
+  <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
+    <aside id="settings-list">
+      <div class="list-entry" *ngFor="let site of sites"
+           (click)="selectSite(site);"
+           [ngClass]="selectedSite.name == site.name ? 'selected' : ''">
+        <div class="list-entry-icon">
+          <mat-icon>{{site.icon}}</mat-icon>
+        </div>
+        <p class="site-name">{{site.name}}</p>
+      </div>
+    </aside>
+  </mat-sidenav>
+  <mat-sidenav-content >
+    <main id="settings-main" >
+      <app-settings-testing
+        *ngIf="selectedSite.name == 'Testing'">
+      </app-settings-testing>
+      <app-settings-page
+        [name]="selectedSite.name"
+        [settings]="selectedSite.settingsEntry"
+        *ngIf="selectedSite.name != 'Testing'">
+      </app-settings-page>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,52 @@
+<nav>
+  <a routerLink="/dashboard" id="dashboard-link"
+     [ngClass]="{selected: path === '/dashboard'}"
+     (click)="path = '/dashboard'">
+    <img src="../assets/Images/CHARIOT_Logo.png" alt="logo" id="logo_img"/>
+    <span id="project_name">
+      MM APP</span>
+  </a>
+  <div id="info-div">
+    <div *ngIf="metaData.errorInGettingData">
+      <mat-icon id="error-symbol">{{error_icon}}</mat-icon>
+      <p id="error-text">No database connection. <br> Only local data visible.</p>
+    </div>
+    <div *ngIf="mockMode">
+      <mat-icon id="info-symbol">{{warning_icon}}</mat-icon>
+      <p id="warning-text">No database connection. <br> Only local data visible.</p>
+    </div>
+  </div>
+  <div id="nav-button">
+    <button mat-icon-button
+            [matMenuTriggerFor]="navMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #navMenu="matMenu">
+      <button mat-menu-item
+              *ngFor="let site of sitesReversed"
+              (click)="path = site.route"
+              [routerLink]="site.route">
+          <span [ngClass]="{selected: path === site.route}">
+              <mat-icon>{{site.icon}}</mat-icon>
+              <span>{{site.name}}</span>
+          </span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <div id="nav-wrap">
+    <a *ngFor="let site of sitesReversed"
+       [ngClass]="{selected: path.indexOf(site.route) !== -1}"
+       (click)="path = site.route"
+       [routerLink]="site.route">
+      <mat-icon>{{site.icon}}</mat-icon>
+      <span>{{site.name}}</span>
+    </a>
+  </div>
+</nav>
+
+<div style="margin-top: 80px">
+  <router-outlet></router-outlet>
+</div>
+
+<notifier-container></notifier-container>

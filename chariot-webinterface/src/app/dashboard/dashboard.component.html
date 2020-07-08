@@ -1,0 +1,229 @@
+<div id="dashboard-wrapper">
+  <div id="device-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Devices</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+    <div class="dashboard-row-content"
+         fxLayout="row wrap"
+         fxLayoutAlign="start"
+         fxLayoutGap="16px">
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
+        <span class="title">LATEST ISSUE</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <mat-progress-spinner
+            *ngIf="metadata && !metadata.issuesSynchronised"
+            [diameter]="20"
+            [color]="'#73aefb'"
+            [mode]="'indeterminate'">
+          </mat-progress-spinner>
+          <div *ngIf="lastIssues && lastIssues.length != 0">
+            <div *ngFor="let issue of lastIssues">
+              <app-issue-card
+                [routerLink]="'/maintenance/' + issue.identifier"
+                [dashboard]="true"
+                [issue]="issue"></app-issue-card>
+            </div>
+          </div>
+          <div *ngIf="metadata && metadata.issuesSynchronised && (lastIssues == undefined || lastIssues.length == 0)">
+            No issues detected
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
+        <span class="title">DEVICES LATELY CHANGED</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <mat-progress-spinner
+            *ngIf="metadata && !metadata.devicesSynchronised"
+            [diameter]="20"
+            [color]="'#73aefb'"
+            [mode]="'indeterminate'">
+          </mat-progress-spinner>
+          <div *ngIf="devices && devices.length != 0">
+            <div *ngFor="let device of devices.slice(0, 4)">
+              <app-device-card
+                [routerLink]="'/devices/' + device.identifier"
+                [device]="device"
+                [deviceCardStyle]="'Large'"
+                [selectedDevice]="null"
+                [location]="'dashboard'"
+                (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+            </div>
+          </div>
+          <div *ngIf="metadata && metadata.devicesSynchronised && (devices == undefined || devices.length == 0)">
+            Currently no device in the database
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-card small dashboard-card-hover"
+           routerLink="/devices/"
+           fxFlex="1 0 140px">
+        <div class="dashboard-card-icon good">
+          <mat-icon>
+            done
+          </mat-icon>
+        </div>
+        <p class="dashboard-card-value">{{onDevices + idleDevices - brokenDevices}}</p>
+        <p class="dashboard-card-description">Devices working</p>
+      </div>
+      <div class="dashboard-card small dashboard-card-hover"
+           routerLink="/maintenance/"
+           fxFlex="1 0 140px">
+        <div class="dashboard-card-icon bad">
+          <mat-icon>
+            priority_high
+          </mat-icon>
+        </div>
+        <p class="dashboard-card-value">{{brokenDevices}}</p>
+        <p class="dashboard-card-description">Devices with a <br> issue</p>
+      </div>
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
+        <span class="title">DEVICES STATUS</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content" *ngIf="displayDounat">
+          <div style="display: block; max-width: 280px;">
+            <p id="doughnutValue">
+              {{clickedDoughnutPiece.value}}
+              <span id="doughnutUnit">%</span>
+              <br>
+              <span id="doughnutDesc">{{clickedDoughnutPiece.name}}</span>
+            </p>
+
+            <canvas baseChart
+                    height="80%"
+                    width="80%"
+                    [data]="doughnutChartData"
+                    [colors]="doughnutChartColor"
+                    [labels]="doughnutChartLabels"
+                    [options]="doughnutChartOptions"
+                    [chartType]="doughnutChartType">
+            </canvas>
+
+          </div>
+          <div id="doughnutChartLabel">
+            <div>
+              <div id="blue" class="circle"></div>
+              <div>Running</div>
+            </div>
+            <div>
+              <div id="yellow" class="circle"></div>
+              <div>Idle</div>
+            </div>
+            <div>
+              <div id="red" class="circle"></div>
+              <div>Defect</div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-card-content" *ngIf="!displayDounat">
+          No devices detected
+        </div>
+      </div>
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
+        <span class="title">DEVICES MOST USE THIS WEEK</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <app-device-usage-card
+            *ngFor="let i of [20, 54, 75, 6]"
+          [color]="'#2b72e6'"
+          [value]="i">
+          </app-device-usage-card>
+        </div>
+      </div>
+      <div class="dashboard-card big"
+           fxFlex="1 0 280px">
+        <span class="title">DEVICES MOST DOWN THIS WEEK</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <app-device-usage-card
+            *ngFor="let i of [57, 20, 88, 60]"
+            [color]="'#d63649'"
+            [value]="i">
+          </app-device-usage-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="processflow-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Process Flow</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+
+    <div class="dashboard-row-content">
+      <div class="dashboard-card big"
+           routerLink="/products-behind-plan">
+        <span class="title">PRODUCTS BEHIND PLAN</span>
+        <mat-icon>more_vert</mat-icon>
+        <div class="dashboard-card-content">
+          <div *ngFor="let product of products.slice(0, 5)">
+            <app-processflow-card
+              [process]="product">
+            </app-processflow-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="warehouse-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Warehouse</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+
+    <div class="dashboard-row-content">
+      <div class="warehouse-stat">
+        <div class="warehouse-stat-name">
+          PRODUCTS STORED TODAY
+        </div>
+        <div class="warehouse-stat-value">
+          84329
+        </div>
+        <div class="warehouse-stat-development">
+          <mat-icon>call_made</mat-icon>
+          +2.4%
+        </div>
+      </div>
+
+      <div class="warehouse-stat">
+        <div class="warehouse-stat-name">
+          SCHEDULED DELIVERIES TODAY
+        </div>
+        <div class="warehouse-stat-value">
+          935
+        </div>
+        <div class="warehouse-stat-development">
+          <mat-icon>call_made</mat-icon>
+          +2.4%
+        </div>
+      </div>
+      <div id="dashboard-warehouse-map">
+        <app-warehouse-map></app-warehouse-map>
+      </div>
+    </div>
+  </div>
+
+  <div id="energy-view" class="dashboard-row">
+    <div class="dashboard-row-title-wrap">
+      <p>Energy</p>
+      <mat-icon>settings</mat-icon>
+    </div>
+
+    <div class="dashboard-row-content">
+      <div id="full-power-wrapper">
+        <app-device-panel-power
+          [value]="2483">
+        </app-device-panel-power>
+      </div>
+    </div>
+  </div>
+
+</div>

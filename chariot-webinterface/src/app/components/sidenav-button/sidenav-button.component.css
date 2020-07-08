@@ -1,0 +1,12 @@
+#side-nav-button {
+  position: fixed;
+  top: 18px;
+  left: 16px;
+  background-color: transparent;
+}
+
+#icon {
+  font-size: 30px;
+}
+
+

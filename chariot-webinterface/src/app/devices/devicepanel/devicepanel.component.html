@@ -1,0 +1,76 @@
+<div id="device-panel" fxLayout="row wrap" fxLayoutAlign="flex-start">
+
+  <span id="device-panel-head"
+        fxFlex="0 1 calc(100%)">
+    <span>{{device.name}}</span>
+    <button *ngIf="device.issues != null && device.issueDetected"
+            class="issue-detected-button"
+            [routerLink]="'/maintenance/' + device.getIssueID()">
+      Issue detected
+      <mat-icon>launch</mat-icon>
+    </button>
+  </span>
+
+  <div id="device-panel-wrapper" fxFlex="0 1 900px" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="flex-start">
+
+    <app-device-panel-switch
+      (uploaded)="emitDeviceProperty($event.property, $event.state)"
+      fxFlex="1 1 calc(244px)"
+      [property]="deviceStatus">
+    </app-device-panel-switch>
+
+    <app-device-panel-power
+      fxFlex="1 1 calc(239px)"
+      [device]="device">
+    </app-device-panel-power>
+
+    <app-device-panel-idle-time
+      fxFlex="1 1 calc(244px)"
+      [device]="device">
+    </app-device-panel-idle-time>
+
+    <div *ngFor="let property of arrayProperties"
+         fxFlex="1 1 calc(100% - 16px)">
+      <app-property-bundle
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
+        (selectedPropertyEvent)="selectedProperty = $event.selectedProperty"
+        [propertyBundle]="property"
+        [selectedProperty]="selectedProperty">
+      </app-property-bundle>
+    </div>
+
+    <!--  Create the cards for the properties of the device  -->
+    <div fxFlex="1 1 calc(100% - 16px)">
+      <app-property-bundle
+        (uploaded)="emitDeviceProperty($event.property, $event.state)"
+        (selectedPropertyEvent)="selectedProperty = $event.selectedProperty"
+        [propertyBundle]="normalProperties"
+        [selectedProperty]="selectedProperty">
+      </app-property-bundle>
+    </div>
+
+
+    <app-device-panel-info
+      [device]="device"
+      fxFlex="1 1 calc(240px - 16px)">
+    </app-device-panel-info>
+
+    <app-device-panel-issue-history
+      [device]="device"
+      fxFlex="1 1 calc(264px - 16px)">
+    </app-device-panel-issue-history>
+
+    <app-device-panel-monitoring
+      *ngIf="selectedProperty != null && selectedProperty.type != 'string'"
+      [property]="selectedProperty"
+      [height]="480"
+      [name]="'Device Monitoring'"
+      fxFlex="1 1 calc(100% - 16px)">
+    </app-device-panel-monitoring>
+
+    <app-warehouse-map
+      fxFlex="1 1 calc(100% - 16px)">
+    </app-warehouse-map>
+
+  </div>
+</div>

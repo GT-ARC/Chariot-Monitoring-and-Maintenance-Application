@@ -1,0 +1,19 @@
+{
+  "name": "node-js-backend",
+  "version": "1.0.0",
+  "description": "Provides the kafka interface. Talks to frontend through socket io",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Frederic Abraham <Frederic-Marvin.Abraham@gt-arc.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/socket.io": "^2.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "kafkajs": "^1.9.3",
+    "socket.io": "^2.2.0"
+  }
+}

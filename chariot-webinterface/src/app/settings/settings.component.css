@@ -1,0 +1,57 @@
+.list-entry {
+  position: relative;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+
+.list-entry.selected {
+  background-color: #e8eefe;
+  border: 0px #2E5BFF solid;
+  border-left-width: 4px;
+}
+
+.list-entry.selected > .list-entry-icon {
+  left: 12px;
+  color: #0074e0;
+}.list-entry.selected > .service-name {
+   left: 64px;
+   color: #B0BAC9;
+ }
+
+.list-entry-icon {
+  position: absolute;
+  display: inline-block;
+  left: 16px;
+  top: 19px;
+}
+
+.list-entry-icon > mat-icon {
+  vertical-align: middle;
+  color: #B0BAC9;
+}
+
+.site-name {
+  position: relative;
+  display: inline-block;
+  left: 68px;
+  top: 3px;
+  width: 224px;
+  margin: 0;
+  color: #B0BAC9;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+}
+
+#settings-list {
+  width: 328px;
+  background-color: white;
+  height: 100%;
+  -webkit-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+  -moz-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+}
+
+#settings-main {
+  padding: 16px;
+}

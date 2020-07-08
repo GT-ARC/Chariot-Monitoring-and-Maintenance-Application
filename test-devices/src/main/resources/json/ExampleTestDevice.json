@@ -1,0 +1,53 @@
+{
+  "ObjectType": "Actuator",
+  "uuid": "",
+  "id": "example-test-device",
+  "name": "Example JIAC test Device",
+  "securitykey": "a",
+  "groupId": "b",
+  "reId": "c",
+  "ip": "0.0.0.0",
+  "manufacturer": "fabraham",
+  "location": {
+    "identifier": "aa",
+    "type": "aa",
+    "name": "aa",
+    "level": 1,
+    "position": {
+      "lat": 0.0,
+      "lng": 1.0
+    },
+    "indoorposition": {
+      "indoorlat": 1,
+      "indoorlng": 1
+    }
+  },
+  "properties": [
+    {
+      "timestamp": 2,
+      "key": "status",
+      "type": "boolean",
+      "value": true,
+      "unit": "",
+      "writable": false
+    },
+    {
+      "timestamp": 2,
+      "key": "speed",
+      "type": "Number",
+      "value": 15,
+      "unit": "r/min",
+      "writable": false
+    },
+    {
+      "timestamp": 1,
+      "key": "oneTimeSpeedReq",
+      "type": "Number",
+      "value": 25.0,
+      "unit": "r/min",
+      "min": 5,
+      "max": 40,
+      "writable": true
+    }
+  ]
+}

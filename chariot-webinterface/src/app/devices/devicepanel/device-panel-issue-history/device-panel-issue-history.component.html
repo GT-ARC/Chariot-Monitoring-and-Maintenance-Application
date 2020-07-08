@@ -1,0 +1,23 @@
+<div id="device-panel-issue-history" class="device-panel-card">
+  <p class="device-panel-title">issue history</p>
+
+  <div *ngIf="!device.issues || device.issues.length == 0" id="no-issue-info">
+    No issues for this device
+  </div>
+
+  <div *ngIf="device.issues != null && device.issues.length != 0">
+    <div class="issue"
+         *ngFor="let issue of getIssues()">
+      <div class="issue-oval"
+           [ngClass]="issue.state ? 'solved' : ''">
+        <i class="material-icons" *ngIf="!issue.state">priority_high</i>
+        <i class="material-icons" *ngIf="issue.state">done</i>
+      </div>
+      <p class="issue-status">Issue {{issue.state ? 'resolved' : 'detected'}}</p>
+      <p class="issue-date">{{getDate(issue.issue_date)}}</p>
+    </div>
+    <div class="rectangle"
+         [ngStyle]="{'height' : getHeight() }"></div>
+    <input id="issue-button" type="button" value="Go to Issues" [routerLink]="'/maintenance/' + device.getIssueID()">
+  </div>
+</div>

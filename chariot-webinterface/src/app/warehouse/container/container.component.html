@@ -1,0 +1,108 @@
+<div id="container-main">
+
+  <p id="head">
+    <span id="title">
+      Container {{container.identifier}}
+    </span>
+    <span id="status" [ngStyle]="{'background-color': statusColor}">
+      STATUS
+    </span>
+  </p>
+
+  <div id="container-cards-container"
+       gdAlignColumns="start start"
+       gdAreas="a0 a1 a2 a3 | a0 a4 a2 a3"
+       gdColumns="calc(25% - 12px) calc(25% - 12px) calc(25% - 12px) calc(25% - 12px)"
+       gdAreas.md="a0 a1 | a0 a4 | a2 a3 | a2 a3"
+       gdColumns.md="calc(50% - 12px) calc(50% - 12px)"
+       gdAreas.sm="a0 a1 | a0 a4 | a2 a3 | a2 a3"
+       gdColumns.sm="calc(50% - 12px) calc(50% - 12px)"
+       gdAreas.xs="a0 | a0 | a1 | a4 | a2 | a2 | a3 | a3"
+       gdColumns.xs="calc(100%)"
+       gdAuto="row"
+       gdGap="8px 16px">
+
+    <div gdArea="a0">
+      <div id="container-text-info"
+           class="container-cards"
+           fxLayout="column"
+           fxLayoutAlign="flex-start flex-start"
+           fxLayoutGap="20px">
+        <div class="container-info-card" fxFlex="0 0 calc(180 - 20px)">
+          <div class="card-name">{{'Storage Space' | uppercase}}</div>
+          <div class="card-content">{{container.maxProductStorage}} Products</div>
+        </div>
+        <div class="container-info-card" fxFlex="0 0 calc(180 - 20px)">
+          <div class="card-name">{{'max weight' | uppercase}}</div>
+          <div class="card-content">{{container.maxWeight}} kg</div>
+        </div>
+        <div class="container-info-card" fxFlex="0 0 calc(180 - 20px)"
+             *ngFor="let containerInfoCard of container.containerInfo">
+          <div class="card-name">{{containerInfoCard.name | uppercase}}</div>
+          <div class="card-content">{{containerInfoCard.value}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div gdArea="a1">
+      <div class="container-stat container-cards">
+        <div class="container-stat-name">
+          PRODUCTS LOADED
+        </div>
+        <div class="container-stat-value">
+          {{container.products.length}}
+        </div>
+        <div class="container-stat-total">
+          REMAINING STORAGE: {{container.maxProductStorage - container.products.length}}
+        </div>
+      </div>
+    </div>
+
+    <div gdArea="a4">
+      <div class="container-stat container-cards">
+        <div class="container-stat-name">
+          CURRENT WEIGHT
+        </div>
+        <div class="container-stat-value">
+          {{this.weight}}
+        </div>
+        <div class="container-stat-total">
+          REMAINING WEIGHT: {{container.maxWeight - this.weight}} KG
+        </div>
+      </div>
+    </div>
+
+    <div gdArea="a2">
+      <div id="printProcessFilament"
+           class="container-cards">
+        <p class="container-card-name">STORAGE SPACE</p>
+        <p id="filamentLevelValue">{{container.products.length / container.maxProductStorage * 100 | number:'1.0-0'}}<span id="filamentUnit">%</span><br><span
+          id="filamentDesc">REMAIN</span></p>
+        <div style="display: block"
+             id="filamentDisplay">
+          <canvas baseChart
+                  height="190"
+                  width="190"
+                  [data]="doughnutChartData"
+                  [colors]="doughnutChartColor"
+                  [labels]="doughnutChartLabels"
+                  [options]="barChartOptions"
+                  [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div gdArea="a3">
+      <div id="map" class="container-cards">
+        <div class="container-card-name">CONTAINER MAP</div>
+        <img id="imgMap" src="./assets/Images/warehouse.png" alt="warehouse">
+      </div>
+    </div>
+  </div>
+
+  <app-product-list
+    [products]="container.products">
+  </app-product-list>
+
+</div>

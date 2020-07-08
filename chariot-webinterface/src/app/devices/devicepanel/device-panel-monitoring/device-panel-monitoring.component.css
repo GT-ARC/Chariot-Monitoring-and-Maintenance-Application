@@ -1,0 +1,36 @@
+#device-panel-monitoring {
+  /*height: 460px;*/
+}
+
+#prediction-graph {
+  position: absolute;
+  bottom: 16px;
+  width: 95%;
+}
+
+#chart-wrapper {
+  display: block;
+  position: absolute;
+  margin: 65px auto auto 41px;
+}
+
+#monitoring-data-select {
+  width: 91px;
+  display: inline-block;
+  text-align: center;
+}
+
+#accuracy-arrows {
+  position: absolute;
+  right: 16px;
+  top: 25px;
+  color: #2b72e6;
+}
+
+#accuracy-arrows > mat-icon {
+  transform: translate(0,6px);
+}
+
+app-clickable-text {
+  display: inline-block;
+}

@@ -1,0 +1,58 @@
+.device-usage-card {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 4px;
+  height: 75px;
+  margin-bottom: 8px;
+}
+
+.name {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  color: #2E384D;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+}
+
+.progress-bar-wrapper {
+  position: absolute;
+  top: 38px;
+  left: 16px;
+  background-color: #D8D8D8;
+  width: calc(67%);
+  height: 8px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  background-color: #2b72e6;
+  width: 75%;
+  height: 100%;
+  border-radius: 17px;
+}
+
+.progress-number {
+  position: absolute;
+  top: 31px;
+  right: 16px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: right;
+}
+
+.average {
+  position: absolute;
+  bottom: 4px;
+  left: 16px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}

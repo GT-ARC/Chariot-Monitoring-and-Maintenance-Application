@@ -1,0 +1,31 @@
+ul {
+  list-style-type: none;
+}
+
+li {
+  background-color: #f3f1ef;
+}
+
+li:nth-child(2) {
+  background-color: #607d8b;
+}
+
+.list-entry {
+ position: relative;
+}
+
+.list-entry > label {
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.settings-name {
+  position: relative;
+  display: inline-block;
+  width: 900px;
+  margin: 8px;
+  color: #697078;
+  font-size: 32px;
+  font-weight: 400;
+  text-align: left;
+}

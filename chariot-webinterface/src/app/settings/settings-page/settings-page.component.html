@@ -1,0 +1,14 @@
+<h1>{{name}}</h1>
+<h2 *ngIf="settings && settings.length == 0">No Settings currently</h2>
+<ul>
+  <li class="list-entry" *ngFor="let entry of settings">
+    <p class="settings-name"
+       [matTooltip]="entry.tool_tip">{{entry.name}}</p>
+    <label class="switch-mid">
+      <input type="checkbox"
+             (change)="settingsStateChanged(entry, $event)"
+             [checked]="entry.value">
+      <span class="slider round"></span>
+    </label>
+  </li>
+</ul>

@@ -1,0 +1,3310 @@
+/usr/bin/node --inspect-brk=8056 src/app.js
+Debugger listening on ws: //127.0.0.1:8056/2c310cd4-5889-4751-be26-06c14cba625c
+Debugger attached.
+User connected:  iz4v8PTNnUVklsnrAAAA
+Subscribe to Kafka Topic: {
+    "topic": "kms.global.data.*.properties.pm-operation",
+    "regex": true
+}
+RegEx detected: /kms.global.data.*.properties.pm-operation/
+{
+    "level": "INFO",
+    "timestamp": "2019-11-26T11:55:37.420Z",
+    "logger": "kafkajs",
+    "message": "[Consumer] Starting",
+    "groupId": "glu3zd"
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.425Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Connecting",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "ssl": false,
+    "sasl": false
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.473Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request ApiVersions(key: 18, version: 2)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 0,
+    "expectResponse": true,
+    "size": 21
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.489Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response ApiVersions(key: 18, version: 2)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 0,
+    "size": 272,
+    "data": {
+        "errorCode": 0,
+        "apiVersions": [
+            {
+                "apiKey": 0,
+                "minVersion": 0,
+                "maxVersion": 6
+            },
+            {
+                "apiKey": 1,
+                "minVersion": 0,
+                "maxVersion": 8
+            },
+            {
+                "apiKey": 2,
+                "minVersion": 0,
+                "maxVersion": 3
+            },
+            {
+                "apiKey": 3,
+                "minVersion": 0,
+                "maxVersion": 6
+            },
+            {
+                "apiKey": 4,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 5,
+                "minVersion": 0,
+                "maxVersion": 0
+            },
+            {
+                "apiKey": 6,
+                "minVersion": 0,
+                "maxVersion": 4
+            },
+            {
+                "apiKey": 7,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 8,
+                "minVersion": 0,
+                "maxVersion": 4
+            },
+            {
+                "apiKey": 9,
+                "minVersion": 0,
+                "maxVersion": 4
+            },
+            {
+                "apiKey": 10,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 11,
+                "minVersion": 0,
+                "maxVersion": 3
+            },
+            {
+                "apiKey": 12,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 13,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 14,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 15,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 16,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 17,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 18,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 19,
+                "minVersion": 0,
+                "maxVersion": 3
+            },
+            {
+                "apiKey": 20,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 21,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 22,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 23,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 24,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 25,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 26,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 27,
+                "minVersion": 0,
+                "maxVersion": 0
+            },
+            {
+                "apiKey": 28,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 29,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 30,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 31,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 32,
+                "minVersion": 0,
+                "maxVersion": 2
+            },
+            {
+                "apiKey": 33,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 34,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 35,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 36,
+                "minVersion": 0,
+                "maxVersion": 0
+            },
+            {
+                "apiKey": 37,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 38,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 39,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 40,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 41,
+                "minVersion": 0,
+                "maxVersion": 1
+            },
+            {
+                "apiKey": 42,
+                "minVersion": 0,
+                "maxVersion": 1
+            }
+        ],
+        "throttleTime": 0
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.495Z",
+    "logger": "kafkajs",
+    "message": "[Broker] Verified support for SaslAuthenticate",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "supportAuthenticationProtocol": true
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.531Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 1,
+    "expectResponse": true,
+    "size": 26
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.534Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 2,
+    "expectResponse": true,
+    "size": 26
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.542Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 1,
+    "size": 2676,
+    "data": {
+        "throttleTime": 0,
+        "brokers": [
+            {
+                "nodeId": 0,
+                "host": "my-awesome-domain.blaxzter",
+                "port": 9092,
+                "rack": null
+            }
+        ],
+        "clusterId": "Rd39XnyJTS2rfzgaFXPKAg",
+        "controllerId": 0,
+        "topicMetadata": [
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.current",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.power_in",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.speed",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.status",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "__consumer_offsets",
+                "isInternal": true,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 23,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 41,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 32,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 8,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 17,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 44,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 35,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 26,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 11,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 29,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 38,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 47,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 20,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 2,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 5,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 14,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 46,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 49,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 40,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 4,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 13,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 22,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 31,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 16,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 7,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 43,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 25,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 34,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 10,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 37,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 1,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 19,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 28,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 45,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 36,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 27,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 9,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 18,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 21,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 48,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 12,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 3,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 30,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 39,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 15,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 42,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 24,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 33,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 6,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.temperature",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dd7ee7b3dba80ec6e670693",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.velocity",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.pwm",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.pm_result",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.supply_voltage",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dce8a05f6bb7588249f0d7f.properties.pm-operation",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            }
+        ]
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.546Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 3,
+    "expectResponse": true,
+    "size": 26
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.550Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 2,
+    "size": 2676,
+    "data": {
+        "throttleTime": 0,
+        "brokers": [
+            {
+                "nodeId": 0,
+                "host": "my-awesome-domain.blaxzter",
+                "port": 9092,
+                "rack": null
+            }
+        ],
+        "clusterId": "Rd39XnyJTS2rfzgaFXPKAg",
+        "controllerId": 0,
+        "topicMetadata": [
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.current",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.power_in",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.speed",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.status",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "__consumer_offsets",
+                "isInternal": true,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 23,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 41,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 32,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 8,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 17,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 44,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 35,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 26,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 11,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 29,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 38,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 47,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 20,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 2,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 5,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 14,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 46,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 49,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 40,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 4,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 13,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 22,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 31,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 16,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 7,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 43,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 25,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 34,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 10,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 37,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 1,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 19,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 28,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 45,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 36,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 27,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 9,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 18,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 21,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 48,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 12,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 3,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 30,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 39,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 15,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 42,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 24,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 33,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 6,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.temperature",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dd7ee7b3dba80ec6e670693",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.velocity",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.pwm",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.pm_result",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.supply_voltage",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dce8a05f6bb7588249f0d7f.properties.pm-operation",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            }
+        ]
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.568Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request GroupCoordinator(key: 10, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 4,
+    "expectResponse": true,
+    "size": 30
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.571Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 3,
+    "size": 2676,
+    "data": {
+        "throttleTime": 0,
+        "brokers": [
+            {
+                "nodeId": 0,
+                "host": "my-awesome-domain.blaxzter",
+                "port": 9092,
+                "rack": null
+            }
+        ],
+        "clusterId": "Rd39XnyJTS2rfzgaFXPKAg",
+        "controllerId": 0,
+        "topicMetadata": [
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.current",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.power_in",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.speed",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.status",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "__consumer_offsets",
+                "isInternal": true,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 23,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 41,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 32,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 8,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 17,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 44,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 35,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 26,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 11,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 29,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 38,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 47,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 20,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 2,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 5,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 14,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 46,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 49,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 40,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 4,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 13,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 22,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 31,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 16,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 7,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 43,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 25,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 34,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 10,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 37,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 1,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 19,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 28,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 45,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 36,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 27,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 9,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 18,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 21,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 48,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 12,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 3,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 30,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 39,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 15,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 42,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 24,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 33,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 6,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    },
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.temperature",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dd7ee7b3dba80ec6e670693",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.velocity",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.pwm",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.pm_result",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5db8111d13f98470764fe4ba.properties.supply_voltage",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            },
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dce8a05f6bb7588249f0d7f.properties.pm-operation",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            }
+        ]
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.573Z",
+    "logger": "kafkajs",
+    "message": "[Consumer] Subscription based on RegExp",
+    "groupId": "glu3zd",
+    "topicRegExp": "/kms.global.data.*.properties.pm-operation/",
+    "matchedTopics": [
+        "kms.global.data.5dce8a05f6bb7588249f0d7f.properties.pm-operation"
+    ]
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.577Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 5,
+    "expectResponse": true,
+    "size": 92
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.582Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response GroupCoordinator(key: 10, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 4,
+    "size": 43,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0,
+        "errorMessage": null,
+        "coordinator": {
+            "nodeId": 0,
+            "host": "my-awesome-domain.blaxzter",
+            "port": 9092
+        }
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.585Z",
+    "logger": "kafkajs",
+    "message": "[Cluster] Found group coordinator",
+    "nodeId": 0
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.599Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request JoinGroup(key: 11, version: 2)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 6,
+    "expectResponse": true,
+    "size": 87
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.606Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 5,
+    "size": 180,
+    "data": {
+        "throttleTime": 0,
+        "brokers": [
+            {
+                "nodeId": 0,
+                "host": "my-awesome-domain.blaxzter",
+                "port": 9092,
+                "rack": null
+            }
+        ],
+        "clusterId": "Rd39XnyJTS2rfzgaFXPKAg",
+        "controllerId": 0,
+        "topicMetadata": [
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dce8a05f6bb7588249f0d7f.properties.pm-operation",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            }
+        ]
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.609Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response JoinGroup(key: 11, version: 2)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 6,
+    "size": 190,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0,
+        "generationId": 1,
+        "groupProtocol": "RoundRobinAssigner",
+        "leaderId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+        "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+        "members": [
+            {
+                "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+                "memberMetadata": {
+                    "type": "Buffer",
+                    "data": [
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.625Z",
+    "logger": "kafkajs",
+    "message": "[ConsumerGroup] Chosen as group leader",
+    "groupId": "glu3zd",
+    "generationId": 1,
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+    "topics": []
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.629Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 7,
+    "expectResponse": true,
+    "size": 92
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.639Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Metadata(key: 3, version: 5)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 7,
+    "size": 180,
+    "data": {
+        "throttleTime": 0,
+        "brokers": [
+            {
+                "nodeId": 0,
+                "host": "my-awesome-domain.blaxzter",
+                "port": 9092,
+                "rack": null
+            }
+        ],
+        "clusterId": "Rd39XnyJTS2rfzgaFXPKAg",
+        "controllerId": 0,
+        "topicMetadata": [
+            {
+                "topicErrorCode": 0,
+                "topic": "kms.global.data.5dce8a05f6bb7588249f0d7f.properties.pm-operation",
+                "isInternal": false,
+                "partitionMetadata": [
+                    {
+                        "partitionErrorCode": 0,
+                        "partitionId": 0,
+                        "leader": 0,
+                        "replicas": [
+                            0
+                        ],
+                        "isr": [
+                            0
+                        ],
+                        "offlineReplicas": []
+                    }
+                ]
+            }
+        ]
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.642Z",
+    "logger": "kafkajs",
+    "message": "[ConsumerGroup] Group assignment",
+    "groupId": "glu3zd",
+    "generationId": 1,
+    "groupProtocol": "RoundRobinAssigner",
+    "assignment": [
+        {
+            "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+            "memberAssignment": {
+                "type": "Buffer",
+                "data": [
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        }
+    ],
+    "topics": []
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.655Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request SyncGroup(key: 14, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 8,
+    "expectResponse": true,
+    "size": 143
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.664Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response SyncGroup(key: 14, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 8,
+    "size": 24,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0,
+        "memberAssignment": {
+            "type": "Buffer",
+            "data": [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.666Z",
+    "logger": "kafkajs",
+    "message": "[ConsumerGroup] Received assignment",
+    "groupId": "glu3zd",
+    "generationId": 1,
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+    "memberAssignment": {}
+}
+{
+    "level": "INFO",
+    "timestamp": "2019-11-26T11:55:37.667Z",
+    "logger": "kafkajs",
+    "message": "[Runner] Consumer has joined the group",
+    "groupId": "glu3zd",
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+    "leaderId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25",
+    "isLeader": true,
+    "memberAssignment": {},
+    "groupProtocol": "RoundRobinAssigner",
+    "duration": 115
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:37.671Z",
+    "logger": "kafkajs",
+    "message": "[ConsumerGroup] No active topics, sleeping for 5000ms",
+    "topics": [],
+    "activeTopics": [],
+    "pausedTopics": []
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:42.691Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Heartbeat(key: 12, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 9,
+    "expectResponse": true,
+    "size": 79
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:42.694Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Heartbeat(key: 12, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 9,
+    "size": 10,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:42.696Z",
+    "logger": "kafkajs",
+    "message": "[ConsumerGroup] No active topics, sleeping for 5000ms",
+    "topics": [],
+    "activeTopics": [],
+    "pausedTopics": []
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:47.704Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Heartbeat(key: 12, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 10,
+    "expectResponse": true,
+    "size": 79
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:47.706Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Heartbeat(key: 12, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 10,
+    "size": 10,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:47.708Z",
+    "logger": "kafkajs",
+    "message": "[ConsumerGroup] No active topics, sleeping for 5000ms",
+    "topics": [],
+    "activeTopics": [],
+    "pausedTopics": []
+}
+iz4v8PTNnUVklsnrAAAA  disconected: release kafka consumer
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:51.083Z",
+    "logger": "kafkajs",
+    "message": "[Runner] stop consumer group",
+    "groupId": "glu3zd",
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25"
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:51.085Z",
+    "logger": "kafkajs",
+    "message": "[Runner] waiting for consumer to finish...",
+    "groupId": "glu3zd",
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25"
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:52.087Z",
+    "logger": "kafkajs",
+    "message": "[Runner] waiting for consumer to finish...",
+    "groupId": "glu3zd",
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25"
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:52.711Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request Heartbeat(key: 12, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 11,
+    "expectResponse": true,
+    "size": 79
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:52.716Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response Heartbeat(key: 12, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 11,
+    "size": 10,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0
+    }
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:52.717Z",
+    "logger": "kafkajs",
+    "message": "[Runner] consumer not running, exiting",
+    "groupId": "glu3zd",
+    "memberId": "kafkajs-a506c7a7-eec5-4d58-af92-e7585463ee25"
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:53.099Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Request LeaveGroup(key: 13, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 12,
+    "expectResponse": true,
+    "size": 75
+}
+{
+    "level": "DEBUG",
+    "timestamp": "2019-11-26T11:55:53.104Z",
+    "logger": "kafkajs",
+    "message": "[Connection] Response LeaveGroup(key: 13, version: 1)",
+    "broker": "my-awesome-domain.blaxzter:9092",
+    "clientId": "kafkajs",
+    "correlationId": 12,
+    "size": 10,
+    "data": {
+        "throttleTime": 0,
+        "errorCode": 0
+    }
+}
+{
+    "level": "INFO",
+    "timestamp": "2019-11-26T11:55:53.105Z",
+    "logger": "kafkajs",
+    "message": "[Consumer] Stopped",
+    "groupId": "glu3zd"
+}

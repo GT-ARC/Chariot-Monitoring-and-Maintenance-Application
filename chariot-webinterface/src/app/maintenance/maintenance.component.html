@@ -1,0 +1,142 @@
+<!--<script src="../devices/devicepanel/devicepanel.component.ts"></script>-->
+
+<app-sidenav-button [sideNav]="snav1"></app-sidenav-button>
+
+<mat-sidenav-container
+  fullscreen
+  (backdropClick)="backDropClicked()">
+  <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
+    <aside id="issue-list"
+           *ngIf="devices != undefined && devices.length != 0">
+
+      <div class="list-head">
+        <p id="sort-by">SORT BY: {{issueSortSelected.toString() | uppercase}}</p>
+        <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+          <mat-icon>sort</mat-icon>
+        </button>
+        <mat-menu #device_sort_menu="matMenu">
+          <div *ngFor="let sort_point of issueGroupings">
+            <button mat-menu-item (click)="sort(sort_point)">
+              <span [ngClass]="{selected: sort_point === issueSortSelected}">{{sort_point}}</span>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div id="issue-list-wrapper" class="list">
+        <div id="no-issue-found" *ngIf="metadata && metadata.issuesSynchronised && group == undefined">
+          <p>No issues found</p>
+        </div>
+        <div *ngFor="let key of group">
+          <p class="issue-list-grouping">
+          <span *ngIf="issueSortSelected === 'Date'">
+            {{key == today ? "HEUTE: " : ""}}{{key == yesterday ? "GESTERN: " : ""}}{{key | date:'dd.MM.yyyy' }}
+          </span>
+            <span *ngIf="issueSortSelected === 'State'">
+            {{key ? 'RESOLVED' : 'OPEN'}}
+          </span>
+            <span *ngIf="issueSortSelected === 'Importance'">
+            Wichtigkeitsstufe: {{key}}
+          </span>
+          </p>
+          <app-issue-card
+            *ngFor="let issue of groupedIssues.get(key)"
+            (click)="newSelectedIssue(issue)"
+            [selectedIssue]="selectedIssue"
+            [issue]="issue"></app-issue-card>
+        </div>
+      </div>
+    </aside>
+  </mat-sidenav>
+  <mat-sidenav-content >
+    <main id="issue-content-wrapper" fxLayout="row wrap" fxLayoutAlign="flex-start"
+          *ngIf="devices != undefined && devices.length != 0 && currentDevice != undefined">
+      <div id="issue-content-head"
+           [routerLink]="'/devices/' + this.currentDevice.identifier"
+           fxFlex="1 1 calc(100%)">
+        {{selectedIssue.name}} - Issue ID: {{selectedIssue.identifier}}
+      </div>
+      <div id="issue-card-wrapper"
+           fxFlex="1 1 calc(100%)"
+           fxLayout="row wrap"
+           fxLayoutGap="16px grid"
+           fxLayoutAlign="flex-start">
+
+        <div  fxFlex="1 1 calc(100%)">
+          <div id="info-bar" class="issue-panel-card">
+            <span class="info-bar-comp">
+              <span>
+                <span class="issue-oval"
+                      [ngClass]="{solved: selectedIssue.state}">
+                  <i class="material-icons" *ngIf="!selectedIssue.state">priority_high</i>
+                  <i class="material-icons" *ngIf="selectedIssue.state">done</i>
+                </span>
+                <span *ngIf="!selectedIssue.state">ISSUE DETECTED</span>
+                <span *ngIf="selectedIssue.state">ISSUE RESOLVED</span>
+              </span>
+            </span>
+            <span class="info-bar-comp">Description of issue</span>
+            <span class="info-bar-comp">{{ selectedIssue.issue_date | date:'dd.MM.yyyy' }}</span>
+            <span class="info-bar-comp">{{ selectedIssue.issue_date | date:'HH:mm' }}</span>
+            <span class="info-bar-comp">Priority: {{selectedIssue.importance}}</span>
+            <button *ngIf="!selectedIssue.state ? 'solved' : ''" id="info-bar-button" class="info-bar-comp">
+              Assign task
+            </button>
+          </div>
+        </div>
+
+        <app-device-panel-info
+          [device]="currentDevice"
+          fxFlex="1 1 calc(40%)"
+          fxFlex.lt-lg="1 1 calc(100%)">
+        </app-device-panel-info>
+
+        <app-device-panel-monitoring
+          *ngIf="relatedProperty != null && relatedProperty.length == 1 && relatedProperty[0].type != 'string'"
+          [property]="relatedProperty[0]"
+          [name]="'Related property: ' + relatedProperty[0].name ? relatedProperty[0].name : relatedProperty[0].key"
+          [height]="375"
+          fxFlex="1 1 calc(60%)"
+          fxFlex.lt-lg="1 1 calc(100%)">
+        </app-device-panel-monitoring>
+
+        <div *ngIf="relatedProperty != null && relatedProperty.length > 1"
+             fxFlex="1 1 calc(100%)"
+             fxLayout="row wrap"
+             fxLayoutGap="16px grid"
+             fxLayoutAlign="flex-start">
+          <div *ngFor="let prop of relatedProperty"
+               fxFlex="1 1 calc(45%)"
+               fxFlex.lt-lg="1 1 calc(100%)">
+            <app-device-panel-monitoring
+              *ngIf="prop != null && prop.type != 'string'"
+              [property]="prop"
+              [name]="'Related property: ' + prop.name ? prop.name : prop.key"
+              [height]="375" >
+            </app-device-panel-monitoring>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="no-device-selected" *ngIf="metadata && metadata.issuesSynchronised && currentDevice == undefined">
+      <p>No issue selected</p>
+    </div>
+
+    <div id="loading-screen" *ngIf="metadata && !metadata.issuesSynchronised">
+      <p>Loading: </p>
+      <mat-progress-spinner
+        [diameter]="40"
+        [color]="'#73aefb'"
+        [mode]="'indeterminate'">
+      </mat-progress-spinner>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
