@@ -1,0 +1,12 @@
+<div id="chart-wrapper"
+     [style.height.px]="height">
+  <canvas id="chart"
+          baseChart
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType">
+  </canvas>
+</div>

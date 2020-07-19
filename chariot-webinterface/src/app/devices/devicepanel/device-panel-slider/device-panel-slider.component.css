@@ -1,0 +1,58 @@
+#device-panel-slider {
+  height: 200px;
+}
+
+#accuracy-arrows {
+  position: absolute;
+  right: 16px;
+  top: 25px;
+  color: #2b72e6;
+}
+
+#accuracy-arrows > mat-icon {
+  transform: translate(0,6px);
+}
+
+app-clickable-text {
+  display: inline-block;
+}
+
+#property_value {
+  position: absolute;
+  top: 35%;
+  margin: 0;
+
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  font-size: 48px;
+  font-weight: 100;
+  color: #2E384D;
+  white-space: nowrap;
+}
+
+.unit {
+  font-size: 28px;
+}
+
+#slider-max, #slider-min {
+  position: absolute;
+  bottom: calc(40%);
+}
+
+#slider-min {
+  left: 11%;
+}
+
+#slider-max {
+  right: 11%;
+}
+
+
+mat-slider {
+  position: absolute;
+  top: 60%;
+  width: 80%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}

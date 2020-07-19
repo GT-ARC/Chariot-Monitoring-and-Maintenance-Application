@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1 #apps/v1beta2 # for versions after 1.9.0 use apps/v1
+kind: Deployment
+metadata:
+  name: chariot-mma 
+spec:
+  replicas: 2
+  #selector:
+  #  matchLabels:
+  #    app: sd-rest # .spec.selector must match, and not default to (in app/v1) .spec.template.metadata.labels
+  #minReadySeconds: 25
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: chariot-mma-web # pod label
+    spec:
+      containers:
+      - name: chariot-mma-web
+        #image: blaxzter/sd-gtarc-rest:5
+        image: gtarc/chariot-webinterface:v0demo1
+        imagePullPolicy: IfNotPresent
+        #imagePullPolicy: Always
+        ports:
+        - containerPort: 80

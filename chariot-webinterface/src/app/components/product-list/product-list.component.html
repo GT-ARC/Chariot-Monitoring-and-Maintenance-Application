@@ -1,0 +1,38 @@
+<table id="product-table-wrapper">
+  <thead>
+    <tr id="product-list-head">
+      <th *ngFor="let currTableHead of tableHead" (click)="sortBy(currTableHead.name)">
+        {{currTableHead.name}}
+        <mat-icon class="sort-arrow">{{currTableHead.sortIcon}}</mat-icon>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="productEntry" *ngIf="products.length == 0">
+      <th>WoW such Empty</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr class="productEntry" *ngFor="let product of products">
+      <th>
+        <span class="product-image-oval">
+          <img src="{{product.image}}" class="img-circle">
+        </span>
+        {{product.productName}}</th>
+      <th>{{product.identifier}}</th>
+      <th><span id="status" [ngStyle]="{'background-color': getProductStatusColor(product.status)}">{{product.status}}</span></th>
+      <th>{{product.deliveryDate | date:'dd.MM.yyyy'}}</th>
+      <th>
+        <span *ngIf="(currentTime - product.deliveryDate) > (86399999)">
+          {{math.floor((currentTime - product.deliveryDate) / (86400000)) | number:'1.0-0'}}D
+        </span>
+        {{currentTime - product.deliveryDate | date:'H' }}h
+        {{currentTime - product.deliveryDate | date:'mm' }}mm
+      </th>
+      <th>{{product.energyUsed}}</th>
+    </tr>
+  </tbody>
+</table>

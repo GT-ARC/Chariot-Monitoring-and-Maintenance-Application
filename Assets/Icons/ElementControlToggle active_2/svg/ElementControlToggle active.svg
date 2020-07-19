@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="20px" viewBox="0 0 36 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 53.1 (72631) - https://sketchapp.com -->
+    <title>62BF35FC-E88D-48E2-BBDA-B06E81D0998A</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="36" height="20" rx="10"></rect>
+        <path d="M8,0 C3.581,0 0,3.582 0,8 C0,12.418 3.581,16 8,16 C12.418,16 16,12.418 16,8 C16,3.582 12.418,0 8,0 L8,0 Z" id="path-3"></path>
+    </defs>
+    <g id="Symbols-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Element/Control/Toggle-inactive">
+            <g id="Container">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Base"></g>
+                <g id="Base/Color/Black-#3" opacity="0.400000006" mask="url(#mask-2)" fill="#8796AD">
+                    <rect id="Base/Color/Blue" x="0" y="0" width="36" height="20"></rect>
+                </g>
+            </g>
+            <g id="Circle" transform="translate(2.000000, 2.000000)">
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="Info-Icon"></g>
+                <g id="Base/Color/White" mask="url(#mask-4)" fill="#FFFFFF">
+                    <g transform="translate(-19.000000, -3.000000)" id="Base/Color/Blue">
+                        <rect x="0" y="0" width="38" height="22"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

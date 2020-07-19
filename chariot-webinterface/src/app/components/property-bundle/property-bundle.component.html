@@ -1,0 +1,55 @@
+<div id="property-bundle-head">
+  <mat-icon
+    (click)="open = !open"
+    class="sort-arrow">{{open ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
+  <div id="property-bundle-name">
+    {{ this.property ? property.name == undefined ? property.key : property.name : "Properties"}}
+  </div>
+  <button
+    *ngIf="this.property != undefined"
+    id="property-bundle-button"
+    mat-raised-button
+    color="primary"
+    (click)="send()">Send Data</button>
+</div>
+<div id="clear"></div>
+
+<div
+  *ngIf="open"
+  gdAlignColumns="start start"
+
+  gdAreas="{{currentArea}}"
+  gdColumns="calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px) calc((1/6)% - 16px)"
+
+  gdAuto="row"
+  gdGap="16px">
+
+  <div [ngSwitch]="property['type'].toLocaleLowerCase()"
+       *ngFor="let property of propertyBundle.properties; let i = index"
+       gdArea="a{{i}}">
+
+    <app-device-panel-switch
+      (click)="selectProperty(property)"
+      *ngSwitchCase="'boolean'"
+      [topic]="this.property != undefined"
+      [property]="property"
+      [selectedProperty]="selectedProperty"
+      (uploaded)="pushData($event)">
+    </app-device-panel-switch>
+
+    <app-device-panel-slider
+      (click)="selectProperty(property)"
+      *ngSwitchCase="'number'"
+      [topic]="this.property != undefined"
+      [property]="property"
+      [selectedProperty]="selectedProperty"
+      (uploaded)="pushData($event)">
+    </app-device-panel-slider>
+
+    <app-device-panel-text-field
+      *ngSwitchCase="'string'"
+      [property]="property"
+      (uploaded)="pushData($event)">
+    </app-device-panel-text-field>
+  </div>
+</div>

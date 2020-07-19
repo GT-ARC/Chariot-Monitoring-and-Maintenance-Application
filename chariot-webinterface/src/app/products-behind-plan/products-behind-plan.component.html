@@ -1,0 +1,145 @@
+<div id="products-behind-plan-main">
+
+  <div id="head">
+    <span class="back-icon" routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+    </span>
+    <span id="title">
+      Products behind plan
+    </span>
+  </div>
+
+  <div id="product-behind-plan-cards-container"
+       gdAlignColumns="start start"
+       gdAreas="a0 a1 a2 | a3 a4 a2"
+       gdColumns="calc(20% - 16px) calc(20% - 16px) calc(60% - 16px)"
+       gdAreas.sm="a0 a1 | a3 a4 | a2 a2"
+       gdColumns.sm="calc(50% - 12px) calc(50% - 12px)"
+       gdAreas.xs="a0 | a1 | a3 | a4 | a2"
+       gdColumns.xs="calc(100%)"
+       gdAuto="row"
+       gdGap="8px 8px">
+
+
+    <div gdArea="a0">
+      <div class="product-stat product-cards">
+        <div class="product-stat-icon">
+          <mat-icon>show_chart</mat-icon>
+        </div>
+        <div class="container-stat-value">
+          {{amountPBP}}
+        </div>
+        <div class="container-stat-desc">
+          Products behind total
+        </div>
+      </div>
+    </div>
+    <div gdArea="a1">
+      <div class="product-stat product-cards">
+        <div class="product-stat-icon">
+          <mat-icon>show_chart</mat-icon>
+        </div>
+        <div class="container-stat-value">
+          {{amountPBPToday}}
+        </div>
+        <div class="container-stat-desc">
+          Products behind today
+        </div>
+      </div>
+    </div>
+    <div gdArea="a3">
+      <div class="product-stat product-cards">
+        <div class="product-stat-icon">
+          <mat-icon>calendar_today</mat-icon>
+        </div>
+        <div class="container-stat-value" [ngStyle]="{'font-size': getFontSize(averagePBP)}">
+          {{getDateString(averagePBP)}}
+        </div>
+        <div class="container-stat-desc">
+          Average behind
+        </div>
+      </div>
+    </div>
+    <div gdArea="a4">
+      <div class="product-stat product-cards">
+        <div class="product-stat-icon">
+          <mat-icon>calendar_today</mat-icon>
+        </div>
+        <div class="container-stat-value" [ngStyle]="{'font-size': getFontSize(currentDate - maxPBP)}">
+          {{getDateString(currentDate - maxPBP)}}
+        </div>
+        <div class="container-stat-desc">
+          longest behind
+        </div>
+      </div>
+    </div>
+
+    <div gdArea="a2">
+      <div id="prediction-graph-wrapper" class="product-cards">
+        <p class="card-title">History and Prediction of Products behind plan</p>
+        <app-prediction-graph
+          id="prediction-graph"
+          [data]="metadata.prodBehindPlanData"
+          [prediction]="metadata.prodBehindPlanPrediction"
+          [height]="260">
+        </app-prediction-graph>
+      </div>
+    </div>
+  </div>
+
+  <div id="productFilter">
+    <div class="filter-component">
+      <div class="component-title">SEARCH</div>
+      <input id="product-search" type="text" name="product-list-search" placeholder="Name or ID"
+             (input)="filterProducts($event.target.value)">
+    </div>
+    <div class="filter-component">
+      <div class="component-title">FILTER</div>
+      <div class="filter-title">Behind plan</div>
+      <div id="slider-indicator">{{productBehindPlanDayFilter}} days</div>
+      <mat-slider
+        min="{{0}}"
+        max="{{20}}"
+        step="{{1}}"
+        value="{{productBehindPlanDayFilter}}"
+        thumbLabel="true"
+        (valueChange)="filterPBPUpdate($event)"
+        tickInterval="false">
+      </mat-slider>
+      <div class="filter-title">Product Category</div>
+      <select id="category-filter" name="category-filter" (change)="categoryFilter($event.target.value)">
+        <option value="all">All</option>
+        <option value="Category I">Category I</option>
+        <option value="Category II">Category II</option>
+        <option value="Category III">Category III</option>
+        <option value="Category IV">Category IV</option>
+      </select>
+      <div class="filter-title">Delivery</div>
+      <label>
+        <input id="filter-date" type="date" name="filter-date" dataformatas="dd.mm.yyyy">
+        <mat-icon id="filter-data-icon">date_range</mat-icon>
+      </label>
+
+      <div class="filter-title">Status</div>
+      <label class="checkbox-label">Status A
+        <input type="checkbox" name="status-a">
+        <span class="checkmark"></span>
+      </label>
+      <label class="checkbox-label">Status B
+        <input type="checkbox" name="status-b">
+        <span class="checkmark"></span>
+      </label>
+      <label class="checkbox-label">Status C
+        <input type="checkbox" name="status-c">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+  </div>
+
+  <div id="productListWrapper">
+    <app-product-list
+      [products]="visibleProducts">
+    </app-product-list>
+  </div>
+
+</div>

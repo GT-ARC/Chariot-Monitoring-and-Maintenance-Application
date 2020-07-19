@@ -1,0 +1,32 @@
+
+.device-panel-card {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 1px;
+  margin-top: 16px;
+  -webkit-box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+  -moz-box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+  box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+}
+
+
+.device-panel-title {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+
+  text-transform: uppercase;
+
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  text-align: left;
+}
+
+
+#device-panel-map {
+  height: 460px;
+}
+

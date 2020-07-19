@@ -1,0 +1,123 @@
+#device-panel {
+  position: relative;
+  padding-left: 32px;
+  padding-top: 32px;
+  padding-right: 32px;
+  margin-bottom: 100px;
+  height: calc(100vh - 80px);
+  overflow-x: hidden;
+  /*overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;*/
+}
+
+#device-panel-head {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+#device-panel-head span {
+  display: inline-block;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: left;
+}
+
+#device-panel-head button {
+  margin-left: 16px;
+  padding: 2px 16px;
+
+  border: none;
+  transform: translate(0, -20%);
+  background-color: #f2dce1;
+  color: #D63649;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+#device-panel-head button mat-icon {
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+#device-panel-head button:hover {
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.1);
+}
+
+#device-panel-head button:active {
+  background-color: #f2bec1;
+  box-shadow: 0 2px #666;
+}
+
+#device-panel-wrapper {
+  max-width: 900px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.device-panel-card-selected {
+  border: 2px solid rgb(55, 111, 255) !important;
+}
+
+.device-panel-card {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 1px;
+  -webkit-box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+  -moz-box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+  box-shadow: 9px 9px 32px -10px rgba(43,68,120,0.28);
+}
+
+.device-panel-card-selectable:hover {
+  -webkit-box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+  box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+}
+
+.device-panel-title {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+
+  text-transform: uppercase;
+
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  text-align: left;
+}
+
+
+#property-bundle-icon {
+  margin-right: 16px;
+  font-size: 42px;
+  vertical-align: middle;
+  transform: translateY(-60%);
+}
+
+#property-bundle-name {
+  display: inline-block;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-weight: 300;
+  text-align: left;
+  font-size: 28px;
+}
+
+.writable-lock {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  color: #8798AD;
+}
+

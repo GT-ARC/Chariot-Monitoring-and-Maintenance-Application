@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chariot-mma-web-lb
+spec:
+  #type: LoadBalancer
+  #type: NodePort #ClusterIP
+  ports:
+  - protocol: TCP
+    port: 9080 # service port
+    targetPort: 80 # forwarding to cont. port
+    name: http
+  selector:
+    app: chariot-mma-web

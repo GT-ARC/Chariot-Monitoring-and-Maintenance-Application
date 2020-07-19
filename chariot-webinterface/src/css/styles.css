@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+* {
+  font-family: Rubik, 'arial', sans-serif;
+
+  /*-webkit-user-select: none;*/
+  /*-moz-user-select: none;*/
+  /*-ms-user-select: none;*/
+  /*user-select: none;*/
+}
+
+html, body {
+  height: 100%;
+}
+
+.mat-icon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  position:relative;
+  width: 100%;
+  height: calc(100% - 80px);
+  margin: 0;
+  background-color: #F4F6FC;
+  /*background-color: #8d8f95;*/
+}
+
+app-sidenav-button {
+  position: absolute;
+  top: -80px;
+  left: 0px;
+  z-index: 6;
+  display: none;
+  height: 80px;
+}
+
+@media only screen and (max-width: 1578px) {
+  app-sidenav-button {
+    display: inline-block;
+  }
+}
+
+/*.mat-sidenav-container {*/
+  /*bottom: 80px !important;*/
+/*}*/
+
+.mat-menu-content {
+  background-color: white;
+  border: 1px #96b0f0 solid ;
+  margin-top: 8px;
+  border-radius: 8px !important;
+}
+
+.mat-menu-item {
+  background-color: transparent;
+  height: 36px !important;
+}
+
+.mat-menu-item mat-icon {
+  /*top: 50% !important;*/
+  transform: translate(0, -5px) !important;
+}
+
+.mat-menu-item span {
+  transform: translate(0, -2px) !important;
+  display: inline-block;
+}
+
+.mat-menu-item .selected {
+  color: #2E5BFF;
+}
+
+.mat-drawer.mat-drawer-side {
+  height: 100%;
+}
+
+.mat-drawer-inner-container {
+  overflow-y: hidden !important;
+}
+
+.mat-sidenav-container {
+  background-color: transparent !important;
+}
+
+button.mat-menu-item:hover {
+  background-color: #d4e3fa;
+  color: blue !important;
+}
+
+.mat-sidenav {
+  height: max-content;
+  overflow: hidden;
+}
+
+.list {
+  height: calc(100vh - 80px);
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  scrollbar-width: 2px;
+  -ms-overflow-style: none;
+}
+
+.list::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+.list::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}

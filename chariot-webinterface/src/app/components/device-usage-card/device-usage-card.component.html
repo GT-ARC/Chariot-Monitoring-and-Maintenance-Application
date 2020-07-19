@@ -1,0 +1,11 @@
+<div class="device-usage-card">
+  <div class="name">Device name</div>
+  <div class="progress-bar-wrapper">
+    <div class="progress-bar"
+         [ngStyle]="{'background-color': color, 'width': value + '%'}">
+
+    </div>
+  </div>
+  <div class="progress-number">{{value}} %</div>
+  <div class="average">Ø 14h 43min / day</div>
+</div>

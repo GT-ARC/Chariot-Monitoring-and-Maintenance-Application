@@ -1,0 +1,308 @@
+#products-behind-plan-main {
+  position: relative;
+  padding: 32px 61px 100px 32px;
+  height: 100%;
+}
+
+#head {
+  position: relative;
+  margin-bottom: 37px;
+}
+
+.back-icon {
+  position: absolute;
+  top: -5px;
+  left: 0px;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  color: #197fe2;
+  background-color: #deeafb;
+}
+
+.back-icon > mat-icon {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#title {
+  margin-left: 47px;
+  margin-top: 0;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: left;
+  line-height: 20px;
+}
+
+#product-behind-plan-cards-container {
+  margin-bottom: 52px;
+  margin-right: -16px;
+}
+
+.product-cards {
+  position: relative;
+  background-color: white;
+  height: 160px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.15);
+  min-width: 218px;
+}
+
+.product-stat-icon {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  color: #197fe2;
+  background-color: #deeafb;
+}
+
+.product-stat-icon > mat-icon {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container-stat-value {
+  position: absolute;
+  left: 90px;
+  bottom: 71px;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  text-align: left;
+}
+
+.container-stat-desc {
+  position: absolute;
+  left: 90px;
+  top: 87px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+
+.card-title {
+  position: relative;
+  top: 32px;
+  left: 24px;
+  margin: 0;
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  text-align: left;
+}
+
+#prediction-graph-wrapper {
+  height: 330px;
+}
+
+#prediction-graph {
+  position: absolute;
+  bottom: 16px;
+  margin-left: 16px;
+  margin-right: auto;
+  width: calc(100% - 32px);
+}
+
+#productListWrapper {
+  float: left;
+  width: calc(100% - 284px);
+}
+
+#productFilter {
+  position: relative;
+  margin-top: 54px;
+  float: right;
+  width: 268px;
+  height: 584px;
+  background-color: white;
+}
+
+.filter-component {
+  position: relative;
+  padding: 24px;
+}
+
+.filter-component:not(:first-of-type) {
+  /*margin-top: calc(50px - 16px * 2);*/
+}
+
+.component-title {
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  width: 196px;
+  text-align: left;
+}
+
+#product-search {
+  border: 1px solid #E0E7FF;
+  border-radius: 5px;
+  height: 40px;
+  background-color: white;
+  color: #8798AD;
+  padding-left: 16px;
+  margin-left: 6px;
+  margin-top: 11px;
+}
+
+.filter-title {
+  padding-top: 25px;
+  color: #2E384D;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  padding-left: 6px;
+  margin-bottom: 7px;
+}
+
+#slider-indicator {
+  position: absolute;
+  margin-top: -29px;
+  right: 30px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  width: 64.43px;
+  text-align: right;
+}
+
+.mat-slider {
+  width: 100%;
+  top: -9px;
+  margin-bottom: -27px;
+}
+
+#category-filter {
+  border: 1px solid #E0E7FF;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 16px;
+  margin-left: 6px;
+  background-color: white;
+  color: #2972E6;
+  width: calc(100% - 12px)
+}
+
+#filter-date {
+  color: #2972E6;
+  margin-left: 6px;
+  width: calc(100% - 28px);
+  font-size: 13px;
+  border: 1px solid #E0E7FF;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 16px;
+}
+
+#filter-data-icon {
+  position: absolute;
+  color: #2b72e6;
+  right: 47px;
+  margin-top: 9px;
+}
+
+.checkbox-label {
+  display: block;
+  position: relative;
+  padding-top: 2px;
+  padding-left: 28px;
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+
+  margin-left: 6px;
+  margin-bottom: 8px;
+}
+
+.checkbox-label:has(input:checked)  {
+  background-color: #2b72e6;
+  border-color: #2b72e6;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+
+  background-color: transparent;
+  border: 2px solid #959aa5;
+  border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-label:hover input ~ .checkmark {
+  background-color: #959aa5;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-label input:checked ~ .checkmark {
+  background-color: #2b72e6;
+  border-color: #2b72e6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* style the checkmark */
+.checkbox-label .checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  border-radius: 1px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 989px) {
+  #productListWrapper {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  #productFilter {
+    width: 100%;
+  }
+}

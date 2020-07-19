@@ -1,0 +1,495 @@
+#process-main {
+  position: relative;
+  padding: 32px 32px 100px;
+  background-color: #f3f6fc;
+  height: 100%;
+}
+
+#head {
+  position: relative;
+  margin-bottom: 37px;
+}
+
+#title {
+  margin-top: 0;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  color: #2E384D;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: left;
+  line-height: 20px;
+}
+
+#status {
+  display: inline-block;
+  font-family: Rubik-Bold, 'Arial', serif;
+
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: left;
+
+  background-color: #FFB833;
+
+  border-radius: 4px;
+  vertical-align: bottom;
+
+  margin-top: 0;
+  padding: 6px 21px;
+  margin-left: 21px;
+}
+
+.process-panel-card {
+  position: relative;
+  background-color: white;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 1px;
+  -webkit-box-shadow: 9px 9px 32px -10px rgba(43, 68, 120, 0.28);
+  -moz-box-shadow: 9px 9px 32px -10px rgba(43, 68, 120, 0.28);
+  box-shadow: 9px 9px 32px -10px rgba(43, 68, 120, 0.28);
+}
+
+#process-info {
+  padding-top: 32px;
+  padding-left: 32px;
+  padding-bottom: 16px;
+  height: 315px;
+  margin-bottom: 24px;
+}
+
+@media only screen and (max-width: 600px) {
+  #process-info {
+    height: auto !important;
+  }
+}
+
+.process-info-card {
+  width: 220px;
+  margin-right: 30px;
+}
+
+@media only screen and (max-width: 959px) {
+  .process-info-card {
+    margin-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 959px) {
+  .process-info-card {
+    margin-right: 10px;
+  }
+  #process-info {
+    height: 400px;
+  }
+}
+
+#process-image, #process-image > img {
+  width: 189px;
+  height: 189px;
+}
+
+.card-name {
+  color: #B0BAC9;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.13px;
+  line-height: 14px;
+  text-align: left;
+}
+
+.card-content {
+  color: #2E384D;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+
+#process-band {
+  margin-bottom: 80px;
+}
+
+.process-flow-arrow {
+  height: 112px;
+  position: relative;
+  background: white;
+  -webkit-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.07);
+  -moz-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.07);
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.07);
+  border-radius: 5px;
+  margin-bottom: 16px;
+}
+
+.process-flow-arrow:not(:first-child):after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-radius: 5px;
+  border-left: 15px solid #e9ecfc;
+  border-top: 56px solid transparent;
+  border-bottom: 56px solid transparent;
+}
+
+.process-flow-arrow:not(:last-child):before {
+  content: "";
+  position: absolute;
+  right: -15px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-radius: 5px;
+  border-left: 15px solid white;
+  border-top: 56px solid transparent;
+  border-bottom: 56px solid transparent;
+}
+
+
+.process-flow-arrow.selected {
+  background: #2972E6 !important;
+}
+
+.process-flow-arrow.selected:not(:last-child):before {
+  border-left: 15px solid #2972E6 !important;
+}
+
+#process-band-info {
+  position: absolute;
+  width: 100%;
+  left: 5px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+#process-band-info > .icon {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: min-content;
+}
+
+#process-band-info > .icon > .checkMark {
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+  color: white;
+  background-color: #33ab42;
+}
+
+#process-band-info > .icon > .checkMark > mat-icon {
+  font-size: 14px;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+#process-band-info > .icon > mat-icon {
+  color: #2b72e6;
+  position: relative;
+  left: 50%;
+  top: 27px;
+}
+
+.process-flow-arrow.selected > #process-band-info > mat-icon {
+  color: white;
+}
+
+:host .process-flow-arrow /deep/ path {
+  fill: #2b72e6;
+}
+
+:host .process-flow-arrow.selected /deep/ path {
+  fill: white;
+}
+
+.process-flow-arrow .prodprocess-name {
+  color: #2E384D;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+
+  margin: 0;
+  margin-top: 5px;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.process-flow-arrow .prodprocess-progress {
+  color: #8798AD;
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+
+  text-align: center;
+  position: relative;
+  left: 52%;
+  transform: translate(-50%, 0%);
+}
+
+.process-flow-arrow.selected .prodprocess-progress, .process-flow-arrow.selected .prodprocess-name {
+  color: white;
+}
+
+#progress-cards {
+  margin-bottom: 200px;
+}
+
+.progress-cards {
+  position: relative;
+  background-color: white;
+  height: 175px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.15);
+}
+
+#progress-bar-wrapper {
+  padding: 16px;
+  height: 86px;
+  background-color: #2972E6;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.15);
+}
+
+@media only screen and (max-width: 959px) {
+  #progress-bar-wrapper {
+    height: auto;
+    padding-top: 40px;
+  }
+
+  #progress-toggle-button {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
+
+#current-process {
+  position: relative;
+  margin: 0;
+  color: #FFFFFF;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: left;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: max-content;
+}
+
+#progress-bar {
+  height: 16px;
+  position: relative;
+  top: 35%;
+  padding: 0;
+  transform: translate(0, -50%);
+}
+
+#progress-bar /deep/ * {
+  height: 12px;
+  font-size: 11px;
+}
+
+#progress-toggle-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  height: 40px;
+  width: max-content;
+  margin-right: 35px;
+  color: #2b72e6;
+}
+
+#progress-toggle-button > mat-icon {
+  transform: translate(0, 10%);
+}
+
+#progress-toggle-button > span {
+  position: relative;
+  top: -10%;
+}
+
+#time-info {
+  background-color: #2972E6;
+}
+
+#time-info > #remaining, #time-info > #running, #time-info > #total {
+  position: absolute;
+  color: #EEF3F5;
+  top: 54px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  text-align: left;
+}
+
+@media only screen and (max-width: 1280px) {
+  #time-info {
+    height: 368px;
+  }
+
+  #time-info > #remaining, #time-info > #running, #time-info > #total {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  #remaining {
+    top: 16px !important;
+    margin: 0 !important;
+  }
+
+  #running {
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  #total {
+    top: auto !important;
+    bottom: 16px !important;
+    right: auto !important;
+  }
+}
+
+#time-info p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#time-info .value {
+  color: #EEF3F5;
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+#time-info #remaining p {
+  font-family: 'Rubik-Bold', 'arial', sans-serif;
+}
+
+#remaining {
+  margin-left: 33px;
+}
+
+#running {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#total {
+  right: 33px;
+}
+
+.progress-card-icon {
+  position: absolute;
+  left: 24px;
+  top: 16px;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  color: #33ab42;
+  background-color: #e0f3e0;
+  margin-bottom: 25px;
+}
+
+.progress-card-icon.warning {
+  color: #ffc873;
+  background-color: #fff4e2;
+}
+
+.progress-card-icon > mat-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.progress-card-value {
+  position: absolute;
+  left: 24px;
+  bottom: 40px;
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.progress-card-name {
+  position: absolute;
+  left: 24px;
+  bottom: 17px;
+  margin: 0;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+
+
+#printProcessFilament {
+  height: 368px;
+}
+
+#cardNameFilamentLevel {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  width: 361.14px;
+  text-align: left;
+}
+
+#filamentLevelValue, #noInformationFound {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  text-align: left;
+}
+
+#filamentUnit {
+  font-size: 16px;
+}
+
+#filamentDesc {
+  font-size: 16px;
+  color: #8798AD;
+}
+
+#filamentDisplay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#providerService {
+  position: absolute;
+  left: 16px;
+  bottom: 28px;
+}

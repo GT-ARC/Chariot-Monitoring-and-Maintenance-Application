@@ -1,0 +1,43 @@
+button {
+  background-color: #4c90af; /* Green */
+  border: none;
+  color: #000000;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+#agents {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#agents td, #agents th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#agents tr:nth-child(even){background-color: #f2f2f2;}
+
+#agents tr:hover {background-color: #ddd;}
+
+#agents th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #435eb0;
+  color: white;
+}
+
+textarea {
+  margin-top: 32px;
+  width: calc(100% - 16px);
+  height: 600px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
+}

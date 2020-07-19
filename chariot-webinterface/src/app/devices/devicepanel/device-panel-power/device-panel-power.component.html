@@ -1,0 +1,12 @@
+<div id="device-panel-power" class="device-panel-card">
+  <p class="device-panel-title">Power</p>
+  <ngx-gauge [type]="gaugeType"
+             [value]="device != null ? (power_state ? device.power_consumption : 0) : value"
+             [label]="gaugeLabel"
+             [size]="160"
+             [foregroundColor] = 'gaugeColor'
+             [thick]="gaugeThick"
+             [cap]="gaugeCap">
+    <ngx-gauge-label>KW</ngx-gauge-label>
+  </ngx-gauge>
+</div>

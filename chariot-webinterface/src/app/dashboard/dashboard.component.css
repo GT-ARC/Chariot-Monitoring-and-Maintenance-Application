@@ -1,0 +1,261 @@
+#dashboard-wrapper {
+  /*background-color: #f4f6fc; */
+}
+
+mat-progress-spinner {
+  left: 50%;
+  transform: translate(-50%, 0px);
+}
+
+.dashboard-row {
+  display: block;
+  margin: 32px 32px 32px 32px;
+}
+
+.dashboard-row-content {
+  position: relative;
+}
+
+.dashboard-row-title-wrap {
+  display: block;
+}
+
+.dashboard-row-title-wrap p {
+  display: inline-block;
+
+  color: #2E384D;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 1.37px;
+  text-align: left;
+}
+
+.dashboard-row-title-wrap mat-icon {
+  display: inline-block;
+  padding-left: 8px;
+  color: rgb(191, 198, 210);
+}
+
+.dashboard-card {
+  /*min-width: calc(296px - 21px * 2);*/
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid rgba(46, 91, 255, 0.08);
+  border-radius: 1px;
+}
+
+.dashboard-card > .title {
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  text-align: left;
+}
+
+.dashboard-card > mat-icon {
+  float: right;
+  color: #8798AD;
+}
+
+.dashboard-card-content {
+  margin-top: 32px;
+}
+
+.big {
+  margin-bottom: 16px;
+  height: calc(484px - 21px);
+  min-width: 280px;
+  max-width: 320px;
+  padding-left: 21px;
+  padding-right: 21px;
+  padding-top: 21px;
+}
+
+.small {
+  margin-bottom: 16px;
+  height: calc(210px);
+  max-width: 180px;
+  min-width: 140px;
+}
+
+.dashboard-card-hover:hover {
+  border: 1px solid #73aefb;
+  -webkit-box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+  box-shadow: 1px 5px 8px 1px rgba(0,0,0,0.2);
+}
+
+.dashboard-card-icon {
+  position: relative;
+  left: 16px;
+  top: 16px;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 25px;
+}
+
+.dashboard-card-icon > mat-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dashboard-card-icon.good {
+  color: #34ab42;
+  background-color: #e0f3e0;
+}
+.dashboard-card-icon.bad {
+  color: #df4f64;
+  background-color: #fae1e3;
+}
+
+.dashboard-card-value {
+  position: relative;
+  left: 16px;
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.dashboard-card-description {
+  position: relative;
+  left: 16px;
+  color: #8798AD;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+}
+
+#doughnutChartLabel {
+  position: relative;
+}
+
+#doughnutValue {
+  position: absolute;
+  top: 47%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+
+  font-family: Rubik-Light, Rubik, 'Arial', serif;
+
+  margin: 0;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 15px;
+  text-align: left;
+}
+
+#doughnutUnit {
+  font-size: 16px;
+}
+
+#doughnutDesc {
+  font-size: 16px;
+  color: #8798AD;
+}
+
+#doughnutChartLabel > div {
+  position: relative;
+  padding-left: 10px;
+  padding-top: 10px;
+  color: #2E384D;
+  text-align: left;
+}
+
+#doughnutChartLabel .circle {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 100%;
+  top: 64%;
+  transform: translate(0, -50%);
+  left: -10px;
+  width: 9px;
+  height: 9px;
+}
+
+#doughnutChartLabel #blue {
+  background-color: #2b72e6;
+}
+#doughnutChartLabel #yellow {
+  background-color: #e9ac49;
+}
+#doughnutChartLabel #red {
+  background-color: #d53a4a;
+}
+
+#productsBehindPlan {
+
+}
+
+
+.warehouse-stat {
+  position: relative;
+  height: 150px;
+  width: 267px;
+  margin-top: 16px;
+  background-color: white;
+  -webkit-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+  -moz-box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+  box-shadow: 0 10px 20px 0 rgba(46, 91, 255, 0.14);
+}
+
+.warehouse-stat > * {
+  position: absolute;
+  left: 24px;
+}
+
+.warehouse-stat-name {
+  top: 24px;
+  color: #8798AD;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.21px;
+  line-height: 16px;
+  text-align: left;
+}
+
+.warehouse-stat-value {
+  top: 46px;
+  color: #2E384D;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+  line-height: 58px;
+  text-align: left;
+}
+
+.warehouse-stat-development {
+  bottom: 24px;
+
+  color: #2DB744;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+}
+
+#dashboard-warehouse-map {
+  position: absolute;
+  left: calc(32px + 226px + 32px);
+  top: 0;
+  margin-top: -16px;
+  width: 920px;
+  height: 600px;
+}
+
+#energy-view {
+  margin-top: 180px;
+}
+
+#full-power-wrapper {
+  width: 296px;
+}

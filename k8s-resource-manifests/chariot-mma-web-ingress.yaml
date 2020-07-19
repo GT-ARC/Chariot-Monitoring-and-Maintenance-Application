@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chariot-mma-web-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/add-base-url: "true" # static content
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+spec:
+  rules:
+    - host: chariot.demo
+      http:
+        paths:
+          - path: / #/mma-web
+            backend:
+              serviceName: chariot-mma-web-lb
+              servicePort: 9080
+          - path: /* #/mma-web
+            backend:
+              serviceName: chariot-mma-web-lb
+              servicePort: 9080

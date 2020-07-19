@@ -1,0 +1,19 @@
+<div class="device-group-card"
+     [ngClass]="{
+          'selected': selected_device_group == device_group
+        }" >
+  <div class="device-card-oval">
+    <div class="device-card-indicator" *ngIf="deviceIssueState == true"></div>
+    <mat-icon class="device-card-icon">{{symbol}}</mat-icon>
+  </div>
+  <p class="device-group-name">{{device_group.name}}</p>
+  <p class="device-group-amount">Amount: {{device_group.devices.length}}</p>
+  <div class="sort-arrow">
+    <mat-icon class="sort-arrow-icon" (click)="hideDeviceGroup()">{{!visible ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</mat-icon>
+  </div>
+
+  <div class="device-group-click"
+       (click)="newDeviceGroupSelected()">
+  </div>
+
+</div>

@@ -1,0 +1,191 @@
+<app-sidenav-button [sideNav]="snav1" [sideNav2]="snav2"></app-sidenav-button>
+
+<mat-sidenav-container
+  fullscreen
+  [hasBackdrop]="window.innerWidth > 1248 && window.innerWidth < 1578"
+  (backdropClick)="backDropClicked()">
+  <mat-sidenav #snav1 [opened]="window.innerWidth > 1578">
+    <aside id="floor-list">
+      <div class="list-head">
+        <span class="search">
+          <mat-icon class="search-field-symbol">search</mat-icon>
+          <input type="text" name="device-list-search" placeholder="Search"
+                 (input)="filterFloors($event.target.value)">
+        </span>
+        <mat-icon class="map-symbol">map</mat-icon>
+        <button class="sort-symbol" [matMenuTriggerFor]="floor_sort_menu">
+          <mat-icon>sort</mat-icon>
+        </button>
+        <mat-menu #floor_sort_menu="matMenu">
+          <div *ngFor="let sort_point of floorSort">
+            <button mat-menu-item (click)="sortLocationList(sort_point)">
+              <span [ngClass]="{selected: sort_point === floorSortSelected}">{{sort_point}}</span>
+            </button>
+          </div>
+        </mat-menu>
+        <!--<mat-icon class="sort-symbol">sort</mat-icon>-->
+      </div>
+      <div id="floor-list-second-head" class="second-head">
+        <label class="checkbox-label">ALL
+          <input type="checkbox" name="sel_name"
+                 (change)="viewAllLocations($event.target.checked)"
+                 [checked]="allLocationsSelected">
+          <span class="checkmark"></span>
+          <span class="issue-indicator-counter" *ngIf="overallIssueCounter > 0">
+            {{overallIssueCounter}}
+      </span>
+        </label>
+      </div>
+      <p id="no-floor-found" *ngIf="floors && floors.length == 0">No floor found</p>
+      <div id="floor-list-wrapper" class="list"
+           *ngIf="floors.length != 0">
+        <div class="floor-entry" *ngFor="let floor of floors">
+          <div class="floor" *ngIf="visibleLocation[floor.identifier] != undefined
+           && visibleLocation[floor.identifier].length != 0">
+            <label class="checkbox-label">{{floor.name}}
+              <input type="checkbox" name="sel_name"
+                     (change)="floorSelected(floor, $event.target.checked)"
+                     [checked]="selectedFloors.indexOf(floor) >= 0">
+              <span class="checkmark"></span>
+              <span class="issue-indicator-counter" *ngIf="floorIssues[floor.identifier] > 0">
+            {{floorIssues[floor.identifier]}}
+          </span>
+            </label>
+          </div>
+          <div class="room"
+               *ngFor="let loc of visibleLocation[floor.identifier]"
+               [ngClass]="selectedLocation.indexOf(loc) >= 0 ? 'checked' : ''">
+            <label class="checkbox-label">{{loc.name}}
+              <input type="checkbox" name="sel_name"
+                     (change)="locationSelected(loc, $event.target.checked)"
+                     [checked]="selectedLocation.indexOf(loc) >= 0">
+              <span class="checkmark"></span>
+              <span class="issue-indicator-counter" *ngIf="locationIssues[loc.identifier]">
+            {{locationIssues[loc.identifier]}}
+          </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-sidenav-container (backdropClick)="backDropClicked()">
+      <mat-sidenav #snav2
+                   style="overflow-y: hidden;"
+                   [opened]="window.innerWidth > 1248"
+                   [ngClass]="window.innerWidth < 1248 ? 'sidebar2' : ''">
+        <aside id="device-list">
+          <div class="list-head">
+            <span class="search">
+              <button mat-button
+                      style="height: 0; position: absolute;"> <!-- 'absorbs' the auto-focus behavior --> </button>
+              <mat-icon class="search-field-symbol">search</mat-icon>
+              <input type="text" name="device-list-search" placeholder="Search"
+                     (input)="filterDevices($event.target.value)">
+            </span>
+
+            <button class="sort-symbol" [matMenuTriggerFor]="device_sort_menu">
+              <mat-icon>sort</mat-icon>
+            </button>
+            <mat-menu #device_sort_menu="matMenu">
+              <div *ngFor="let sort_point of deviceSort">
+                <button mat-menu-item (click)="deviceSortSelected = sort_point">
+                  <span [ngClass]="sort_point == deviceSortSelected ? 'selected' : ''">{{sort_point}}</span>
+                </button>
+              </div>
+              <mat-divider></mat-divider>
+              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style.small">
+                <span [ngClass]="deviceCardStyle == strings.device_card_style.small ? 'selected' : ''">
+                  <mat-icon>list</mat-icon>
+                  <span>Small</span>
+                </span>
+              </button>
+              <button mat-menu-item (click)="deviceCardStyle = strings.device_card_style.large">
+          <span [ngClass]="deviceCardStyle == strings.device_card_style.large ? 'selected' : ''">
+            <mat-icon>view_list</mat-icon>
+            <span>Large</span>
+          </span>
+              </button>
+            </mat-menu>
+          </div>
+
+          <div id="device-list-second-head" class="second-head">
+            <p id="device-list-second-head-loading"
+               *ngIf="metadata && !metadata.issuesSynchronised">Loading: </p>
+            <mat-progress-spinner id="device-list-second-spinner"
+              *ngIf="metadata && !metadata.issuesSynchronised"
+              class="example-margin"
+              [diameter]="20"
+              [color]="'#73aefb'"
+              [mode]="'indeterminate'">
+            </mat-progress-spinner>
+            <p id="device-list-second-head-all">ALL</p>
+            <label id="device-list-second-head-switch-small" class="switch-small">
+              <input type="checkbox"
+                     [checked]="allDevicesOn"
+                     (change)="switchAllDevices($event.target.checked)">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div id="device-list-wrapper"
+               class="list">
+            <!--  List the device groups in here   -->
+            <div class="device-group"
+                 *ngFor="let element of visibleElements"
+                 [ngSwitch]="checkType(element)">
+              <div *ngSwitchCase="'DeviceGroup'">
+                <app-device-group-card
+                  (device_group_selected)="newDeviceGroupSelected($event.device_group)"
+                  [device_group]="element"
+                  [selected_device_group]="selectedDeviceGroup">
+                </app-device-group-card>
+                <div class="device-group-devices"
+                     *ngIf="element.unfolded">
+                  <div *ngFor="let device of element.devices">
+                    <app-device-card
+                      *ngIf="visibleDevice.indexOf(device) != -1"
+                      (click)="newDeviceSelected(device)"
+                      [device]="device"
+                      [deviceCardStyle]="deviceCardStyle"
+                      [selectedDevice]="selectedDevice"
+                      [location]="'devicepanel'"
+                      (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-device-card>
+                  </div>
+                </div>
+              </div>
+              <div *ngSwitchCase="'Device'">
+                <app-device-card
+                  *ngIf="visibleDevice.indexOf(element) != -1"
+                  (click)="newDeviceSelected(element)"
+                  [device]="element"
+                  [deviceCardStyle]="deviceCardStyle"
+                  [selectedDevice]="selectedDevice"
+                  [location]="'devicepanel'"
+                  (uploaded)="changeDevicePowerState($event.device, $event.state)">
+                </app-device-card>
+              </div>
+            </div>
+            <p *ngIf="visibleElements && visibleElements.length == 0">No devices visible</p>
+          </div>
+        </aside>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-devicepanel *ngIf="selectedDevice"
+                         [device]="selectedDevice"
+                         (uploaded)="changeDevicePowerState($event.device, $event.state)"></app-devicepanel>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    <div id="loading-screen" *ngIf="metadata && !metadata.devicesSynchronised && selectedDevice == undefined">
+      <p>Loading: </p>
+      <mat-progress-spinner
+        [diameter]="40"
+        [color]="'#73aefb'"
+        [mode]="'indeterminate'">
+      </mat-progress-spinner>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

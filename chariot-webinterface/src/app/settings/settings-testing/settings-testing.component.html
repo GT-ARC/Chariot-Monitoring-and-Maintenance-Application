@@ -1,0 +1,22 @@
+<button (click)="getMapping()">
+  <mat-icon>refresh</mat-icon>
+  refresh
+</button>
+<table id="agents">
+  <thead>
+  <tr>
+    <th>Device ID</th>
+    <th>Agent ID</th>
+    <th>Send</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let ele of mapping">
+    <td>
+      {{ele.deviceID}}
+      <span *ngIf="ele.deviceID=='d9d3eb04-c324-4675-804b-5d451a1905b2'">(PM-Agent)</span>
+    </td>
+    <td>{{ele.agentID}}</td>
+    <td><button (click)="sendToDevice(ele.deviceID)">Send to Agent</button></td>
+  </tr>
+</table>
+<textarea rows="4" cols="50" [(ngModel)]="json"></textarea>

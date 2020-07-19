@@ -1,0 +1,21 @@
+<div id="device-panel-on-off-card" class="device-panel-card device-panel-card-selectable"
+     [ngClass]="selectedProperty == property ? 'device-panel-card-selected' : ''">
+  <p class="device-panel-title">{{cardName}}</p>
+  <p id="off">OFF</p>
+  <label class="switch-big">
+    <input type="checkbox"
+           (change)="emitDevicePower($event.target.checked)"
+           [checked]="property.value"
+           [attr.disabled]="!property.writable ? 'disabled': null">
+    <span class="slider round"
+          [ngStyle]="{backgroundColor: !property.writable ? 'grey' : null }"></span>
+  </label>
+  <p id="on">ON</p>
+
+  <mat-icon class="writable-lock"
+            *ngIf="!property.writable"
+            [matTooltip]="strings.writable_lock"
+            matTooltipPosition="above">
+    remove_red_eye
+  </mat-icon>
+</div>
